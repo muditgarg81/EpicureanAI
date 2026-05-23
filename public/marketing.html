@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epicurean AI - App Showcase</title>
+    <style>
+        :root {
+            --primary: #FDBA74;
+            --bg: #1A1A1A;
+            --text: #F3F4F6;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(180deg, #2D2D2D 0%, #1A1A1A 100%);
+            border-bottom: 1px solid #333;
+        }
+        h1 {
+            font-size: 3rem;
+            margin: 0 0 1rem 0;
+            color: var(--primary);
+        }
+        p.subtitle {
+            font-size: 1.2rem;
+            color: #9CA3AF;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        .feature-card {
+            background: #2D2D2D;
+            border-radius: 24px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #fff;
+        }
+        .device-frame {
+            border: 8px solid #4B5563;
+            border-radius: 36px;
+            overflow: hidden;
+            background: #000;
+            margin: 0 auto;
+            box-shadow: 0 0 0 2px #374151;
+            aspect-ratio: 390 / 844;
+            position: relative;
+        }
+        .device-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: #9CA3AF;
+            border-top: 1px solid #333;
+        }
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 99px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: opacity 0.2s;
+        }
+        .cta-button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Epicurean AI</h1>
+        <p class="subtitle">Your intelligent culinary companion. Experience personalized recipes, smart pantry tracking, and an AI voice coach right in your kitchen.</p>
+        <a href="/" class="cta-button">Open Web App</a>
+    </header>
+
+    <div class="container">
+        <div class="grid" id="grid">
+            <!-- JavaScript will inject cards here -->
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Epicurean AI. Master the World's Kitchens.</p>
+    </footer>
+
+    <script>
+        const screens = [
+            { file: '01_Onboarding_Welcome', title: 'Welcome Screen' },
+            { file: '02_Onboarding_Preferences', title: 'Dietary Preferences' },
+            { file: '03_Onboarding_Coach', title: 'AI Coach Setup' },
+            { file: '04_Onboarding_Complete', title: 'Onboarding Complete' },
+            { file: '05_Discovery_Home', title: 'Global Discovery Feed' },
+            { file: '06_AI_Recipe_Generator', title: 'AI Recipe Generator' },
+            { file: '07_Pantry_Inventory', title: 'Digital Pantry' },
+            { file: '08_Flavor_Profile', title: 'Flavor Profile' },
+            { file: '09_Pricing_Plans', title: 'Premium Subscriptions' },
+            { file: '10_Secure_Checkout', title: 'Secure Checkout' },
+            { file: '11_Payment_Success', title: 'Payment Success' },
+            { file: '12_Help_Center', title: 'Help & Support' },
+            { file: '13_Favorites', title: 'Saved Recipes' },
+            { file: '14_Reset_Password', title: 'Reset Password' },
+            { file: '15_Terms_And_Conditions', title: 'Terms & Conditions' },
+            { file: '16_Privacy_Policy', title: 'Privacy Policy' },
+            { file: '17_Refund_Policy', title: 'Refund Policy' },
+            { file: '18_Legal_Policies', title: 'Legal Policies' }
+        ];
+
+        const grid = document.getElementById('grid');
+
+        screens.forEach(screen => {
+            const card = document.createElement('div');
+            card.className = 'feature-card';
+            
+            card.innerHTML = `
+                <div class="feature-title">${screen.title}</div>
+                <div class="device-frame">
+                    <img src="./snapshots/${screen.file}.png" alt="${screen.title} Screenshot" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'390\\' height=\\'844\\' viewBox=\\'0 0 390 844\\'%3E%3Crect width=\\'100%25\\' height=\\'100%25\\' fill=\\'%231A1A1A\\'/%3E%3Ctext x=\\'50%25\\' y=\\'50%25\\' font-family=\\'sans-serif\\' font-size=\\'16\\' fill=\\'%236B7280\\' text-anchor=\\'middle\\'%3ESnapshot Generating...%3C/text%3E%3C/svg%3E';">
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+</html>
