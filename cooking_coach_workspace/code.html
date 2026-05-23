@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .step-active {
+            border-left: 4px solid #755b00;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#353025",
+                    "surface-dim": "#e2d9ca",
+                    "tertiary-container": "#ffb8b4",
+                    "primary-fixed-dim": "#f0c12c",
+                    "on-surface": "#1f1b12",
+                    "on-tertiary-container": "#ad001e",
+                    "on-surface-variant": "#4e4634",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed": "#00210c",
+                    "secondary": "#006d36",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#66dd8b",
+                    "inverse-on-surface": "#f9f0e0",
+                    "surface-container-highest": "#ebe1d2",
+                    "inverse-primary": "#f0c12c",
+                    "surface-variant": "#ebe1d2",
+                    "on-tertiary-fixed": "#410005",
+                    "primary-container": "#f4c430",
+                    "secondary-container": "#83fba5",
+                    "surface-container-high": "#f1e7d7",
+                    "background": "#fff8f1",
+                    "outline": "#807661",
+                    "on-primary-fixed": "#241a00",
+                    "on-background": "#1f1b12",
+                    "on-secondary": "#ffffff",
+                    "primary": "#755b00",
+                    "outline-variant": "#d1c5ad",
+                    "surface-bright": "#fff8f1",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#ffdf90",
+                    "surface-container": "#f6eddd",
+                    "on-tertiary-fixed-variant": "#930018",
+                    "tertiary": "#bf0023",
+                    "on-secondary-container": "#00743a",
+                    "surface-container-low": "#fcf2e3",
+                    "surface": "#fff8f1",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#755b00",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#ffdad7",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "on-primary-fixed-variant": "#584400",
+                    "secondary-fixed": "#83fba5",
+                    "on-primary-container": "#695200",
+                    "on-secondary-fixed-variant": "#005227",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "80px",
+                    "xs": "4px",
+                    "lg": "48px",
+                    "sm": "12px",
+                    "base": "8px",
+                    "container-margin": "24px",
+                    "gutter": "16px",
+                    "md": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Playfair Display"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Playfair Display"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- Top Navigation -->
+<header class="bg-surface/80 backdrop-blur-xl text-primary sticky top-0 z-50 flex justify-between items-center w-full px-container-margin h-16 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="Coach Avatar" class="w-full h-full object-cover" data-alt="A highly detailed 3D avatar of a friendly culinary coach with a warm smile, wearing a professional chef jacket. The character is set against a clean, minimalist kitchen background with soft, high-key studio lighting. The aesthetic is modern and premium, using a warm palette of saffron and cream to convey approachability and expertise in a high-end digital interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABgDQSmIeP4LNmGLsx5_Vp6O4C5Q3nqnzqWmP9FMWYQc9K56O2wDpZ69CrJOPQEf2tP3rTQyTXcAHDnjElIJQlGXO5MO2Oa8PtcD7YcRe6ZnWgV0eK8GQ6y5ZOYGXFAonCdrQAQe0Lu6QSb6ml2E0N7xHJ15GT12zdlJ7STa9BWS1Q1IXUg_gTRiEUCePxoCY6WzFWrYpq15caAKxXvXGHmxZA1nI18-nDipWquCEP-hCZbPwO3bTxgp2QY6Bqv-fZQHgqHApHoNU"/>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold leading-none">Epicurean AI</span>
+<span class="font-label-sm text-label-sm text-secondary flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Listening...
+                </span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="psychology">psychology</span>
+</button>
+</div>
+</header>
+<main class="px-container-margin pt-6 pb-32">
+<!-- Hero Recipe Card -->
+<section class="mb-md">
+<div class="relative w-full h-48 rounded-xl overflow-hidden shadow-lg mb-4">
+<img alt="Perfect Jasmine Rice" class="w-full h-full object-cover" data-alt="Close-up photograph of perfectly cooked, fluffy Jasmine rice in a rustic ceramic bowl. The lighting is warm and golden, highlighting the delicate steam rising from the grains. The setting is a minimalist, high-end kitchen with natural wood textures. The overall mood is sensory and inviting, celebrating the simple elegance of global cuisine." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG9pRST7cxLE5od5HtS6FNL0pCf7VYbeSNKEaTrsrMtWtRRqDYFif0EENsgaN4rlFnJutHiiI97i3DsmlkiW3bYU7RpR2xiTY9Q2nYSxNyzQls69KAIofyUYttprTwUg_GTghXEw7JvpTrPdJc_XTuOz4LvFkNtCgZCj7VrsD5U0QXusXkuHfi5kh-DSnlb-06q-YS8FKSAEPdhHuAdP_-TANv6fJu4SvFpcOXd_eL7oy0In5pUj-jENgI1KMp6JoTY-Towq-DAmk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-4">
+<span class="text-primary-fixed font-label-md uppercase tracking-wider mb-1">Current Task</span>
+<h1 class="text-white font-headline-lg text-headline-lg">Perfect Thai Jasmine Rice</h1>
+</div>
+</div>
+</section>
+<!-- Voice Interaction Status (Hands-Free) -->
+<section class="glass-panel rounded-xl p-4 mb-md border border-white/20 shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="absolute inset-0 bg-primary/20 rounded-full animate-ping"></div>
+<div class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center relative">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="mic" style="font-variation-settings: 'FILL' 1;">mic</span>
+</div>
+</div>
+<div>
+<p class="font-label-md text-on-surface-variant">Say "Next Step" to proceed</p>
+<p class="font-headline-md text-primary font-bold">Voice Control Active</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="volume_up">volume_up</span>
+</section>
+<!-- Active Step Display -->
+<section class="mb-md">
+<div class="bg-surface-container-low rounded-xl p-6 border-l-8 border-primary shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-primary text-on-primary px-3 py-1 rounded-full font-label-md">Step 2 of 5</span>
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-sm" data-icon="timer">timer</span>
+<span class="font-label-md">15:00 Remaining</span>
+</div>
+</div>
+<h2 class="font-headline-lg text-headline-lg-mobile text-on-surface mb-4">Rinse until the water runs crystal clear</h2>
+<p class="font-body-lg text-on-surface-variant leading-relaxed mb-6">
+                    Place 2 cups of rice in a fine-mesh strainer. Massage the grains gently under cold running water. This removes excess surface starch, ensuring the rice remains fluffy and individual.
+                </p>
+<!-- Coach's Secret Tip -->
+<div class="glass-panel border border-primary-fixed-dim/30 rounded-lg p-4 flex gap-3 bg-primary-container/10">
+<span class="material-symbols-outlined text-primary" data-icon="tips_and_updates" style="font-variation-settings: 'FILL' 1;">tips_and_updates</span>
+<div>
+<p class="font-label-md text-primary font-bold mb-1 uppercase tracking-tight">Coach's Secret</p>
+<p class="font-body-md text-on-surface italic">"The secret to perfect Jasmine rice is the rinse. If the water is cloudy, the rice will be sticky. Take the extra 2 minutes here for that restaurant-quality finish."</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Dynamic Timer Cluster -->
+<section class="grid grid-cols-2 gap-4 mb-md">
+<div class="bg-surface-container-highest p-4 rounded-xl flex flex-col items-center justify-center text-center">
+<span class="font-label-sm text-outline uppercase mb-2">Soak Timer</span>
+<span class="font-display-lg text-primary leading-none mb-1">00:00</span>
+<button class="text-primary font-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span> Start
+                </button>
+</div>
+<div class="bg-primary-container p-4 rounded-xl flex flex-col items-center justify-center text-center shadow-md">
+<span class="font-label-sm text-on-primary-container uppercase mb-2">Steam Time</span>
+<span class="font-display-lg text-on-primary-container leading-none mb-1">15:00</span>
+<div class="flex gap-2">
+<button class="bg-on-primary-container/10 p-1 rounded-full"><span class="material-symbols-outlined text-on-primary-container" data-icon="pause">pause</span></button>
+<button class="bg-on-primary-container/10 p-1 rounded-full"><span class="material-symbols-outlined text-on-primary-container" data-icon="refresh">refresh</span></button>
+</div>
+</div>
+</section>
+<!-- Up Next / Quick Navigation -->
+<section>
+<h3 class="font-label-md text-outline uppercase mb-3">Up Next</h3>
+<div class="space-y-3">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container border border-outline-variant/30 opacity-60">
+<span class="font-headline-md text-outline-variant">3</span>
+<p class="font-body-md text-on-surface-variant flex-1">Combine rice and water (1:1.25 ratio)</p>
+<span class="material-symbols-outlined text-outline-variant" data-icon="lock">lock</span>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container border border-outline-variant/30 opacity-60">
+<span class="font-headline-md text-outline-variant">4</span>
+<p class="font-body-md text-on-surface-variant flex-1">Simmer on low for 12 minutes</p>
+<span class="material-symbols-outlined text-outline-variant" data-icon="lock">lock</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 shadow-[0_-4px_12px_rgba(26,25,21,0.04)] bg-surface">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-sm text-label-sm">Explore</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-sm text-label-sm">Genie</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90 transition-all duration-150">
+<span class="material-symbols-outlined" data-icon="mic" style="font-variation-settings: 'FILL' 1;">mic</span>
+<span class="font-label-sm text-label-sm">Coach</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-label-sm text-label-sm">Pantry</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-sm text-label-sm">Kitchen</span>
+</div>
+</nav>
+</body></html>

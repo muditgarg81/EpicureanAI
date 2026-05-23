@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Modern Kitchen - Onboarding Complete</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#bf0023",
+                        "inverse-primary": "#f0c12c",
+                        "tertiary-container": "#ffb8b4",
+                        "secondary-container": "#83fba5",
+                        "on-surface-variant": "#4e4634",
+                        "secondary": "#006d36",
+                        "surface-bright": "#fff8f1",
+                        "surface-container-low": "#fcf2e3",
+                        "inverse-on-surface": "#f9f0e0",
+                        "surface-container": "#f6eddd",
+                        "inverse-surface": "#353025",
+                        "tertiary-fixed": "#ffdad7",
+                        "surface-variant": "#ebe1d2",
+                        "on-primary-fixed": "#241a00",
+                        "outline": "#807661",
+                        "on-background": "#1f1b12",
+                        "surface-container-high": "#f1e7d7",
+                        "error": "#ba1a1a",
+                        "background": "#fff8f1",
+                        "primary-container": "#f4c430",
+                        "on-tertiary-fixed-variant": "#930018",
+                        "on-secondary-container": "#00743a",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#ebe1d2",
+                        "surface-tint": "#755b00",
+                        "on-primary-fixed-variant": "#584400",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "outline-variant": "#d1c5ad",
+                        "on-secondary-fixed": "#00210c",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#83fba5",
+                        "on-primary-container": "#695200",
+                        "surface-dim": "#e2d9ca",
+                        "primary": "#755b00",
+                        "surface": "#fff8f1",
+                        "on-surface": "#1f1b12",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#ad001e",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#f0c12c",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#66dd8b",
+                        "on-secondary-fixed-variant": "#005227",
+                        "primary-fixed": "#ffdf90",
+                        "on-tertiary-fixed": "#410005"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "md": "24px",
+                        "xl": "80px",
+                        "sm": "12px",
+                        "container-margin": "24px",
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        body {
+            background-color: #FFFDF5;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased text-on-surface">
+<!-- Top Navigation Placeholder (Hidden for transactional flow) -->
+<main class="min-h-screen flex flex-col items-center justify-center px-container-margin relative overflow-hidden">
+<!-- Background Hero Element -->
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-15" data-alt="A cinematic, top-down shot of a high-end gourmet kitchen marble countertop. Scattered across the surface are fresh aromatic herbs like basil and rosemary, artisanal pasta, and vibrant red chili peppers. The lighting is soft and golden, evocative of a late afternoon in an Italian villa. The entire scene is bathed in a warm, cream-toned atmosphere that aligns with a sophisticated and minimalist epicurean brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2ouPUw3SM44EGJ2wqV_31HCGyYncp6_i8UOre1AlSM0SaTcIuwftYLc7XYNJ7gaZtiKPR2_hAQUA54Il_rJCSrEEJU8rjoI6IavZmrvRfL8V_5NxMJaA8f8wp9V1jHVHkNCgUxF2yrI4709ysPdgD1BEJSmZYYHvONPqrpaaKxPQv5AIRv1_lRn2BpE2vmv-2aZBkybStm-7gD7fXBTvEHvJtiYRKZUMVLIQI7VBY_deRTThf37aAwP7K8Rz6vpox63aXtDG4t8w"/>
+</div>
+<!-- Main Content Container -->
+<div class="relative z-10 w-full max-w-xl text-center flex flex-col items-center space-y-lg">
+<!-- Success Visual -->
+<div class="relative w-32 h-32 md:w-40 md:h-40">
+<div class="absolute inset-0 bg-primary-container rounded-full opacity-20 scale-125"></div>
+<div class="w-full h-full bg-primary-container rounded-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-6xl md:text-7xl text-on-primary-container" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+</div>
+<div class="absolute -top-2 -right-2 bg-secondary text-on-secondary p-3 rounded-full shadow-md">
+<span class="material-symbols-outlined text-2xl">check</span>
+</div>
+</div>
+<!-- Headlines -->
+<div class="space-y-sm">
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight">You're ready to cook, Chef!</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md mx-auto">
+                    Your personalized culinary journey is set up and waiting for you.
+                </p>
+</div>
+<!-- Summary Bento Card -->
+<div class="glass-panel p-md rounded-xl w-full text-left shadow-[0_12px_40px_rgba(26,25,21,0.08)] border border-surface-variant">
+<h2 class="font-label-md text-label-md text-primary uppercase tracking-widest mb-md">Your Profile Summary</h2>
+<div class="grid grid-cols-2 gap-gutter">
+<!-- Cuisine Focus -->
+<div class="bg-surface-container p-sm rounded-lg flex items-center space-x-sm">
+<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl">public</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Cuisine</p>
+<p class="font-label-md text-label-md">Italian &amp; Thai</p>
+</div>
+</div>
+<!-- Skill Level -->
+<div class="bg-surface-container p-sm rounded-lg flex items-center space-x-sm">
+<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl">skillet</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Level</p>
+<p class="font-label-md text-label-md">Intermediate</p>
+</div>
+</div>
+<!-- AI Coach -->
+<div class="bg-surface-container p-sm rounded-lg flex items-center space-x-sm col-span-2">
+<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl">psychology</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Active Features</p>
+<p class="font-label-md text-label-md">AI Smart Adjustments Enabled</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Call to Action -->
+<div class="w-full flex flex-col space-y-md">
+<button class="w-full bg-primary-container text-on-primary-container font-label-md text-label-md py-4 rounded-full shadow-lg hover:opacity-90 active:scale-[0.98] transition-all duration-200">
+                    Go to Discovery
+                </button>
+<button class="w-full bg-transparent text-primary font-label-md text-label-md py-4 rounded-full border border-primary hover:bg-primary/5 active:scale-[0.98] transition-all duration-200">
+                    View My Pantry
+                </button>
+</div>
+</div>
+<!-- Decorative Floating Elements -->
+<div class="absolute top-20 left-10 opacity-20 hidden md:block">
+<span class="material-symbols-outlined text-6xl text-primary">eco</span>
+</div>
+<div class="absolute bottom-20 right-10 opacity-20 hidden md:block">
+<span class="material-symbols-outlined text-6xl text-primary">nutrition</span>
+</div>
+</main>
+<!-- Navigation suppression check: This is a focused transactional confirmation page, 
+         so BottomNavBar and TopAppBar from the JSON are suppressed as per mandate. -->
+</body></html>

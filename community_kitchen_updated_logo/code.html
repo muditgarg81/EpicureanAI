@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Epicurean AI - Community Kitchen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(.33); }
+            80%, 100% { opacity: 0; }
+        }
+        @keyframes pulse-dot {
+            0% { transform: scale(.8); }
+            50% { transform: scale(1); }
+            100% { transform: scale(.8); }
+        }
+        .live-indicator {
+            position: relative;
+        }
+        .live-indicator::before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #ba1a1a;
+            border-radius: 50%;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: pulse-dot 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -.4s infinite;
+        }
+        .live-indicator::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: #ba1a1a;
+            border-radius: 50%;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#353025",
+                      "surface-dim": "#e2d9ca",
+                      "tertiary-container": "#ffb8b4",
+                      "primary-fixed-dim": "#f0c12c",
+                      "on-surface": "#1f1b12",
+                      "on-tertiary-container": "#ad001e",
+                      "on-surface-variant": "#4e4634",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#00210c",
+                      "secondary": "#006d36",
+                      "on-error-container": "#93000a",
+                      "secondary-fixed-dim": "#66dd8b",
+                      "inverse-on-surface": "#f9f0e0",
+                      "surface-container-highest": "#ebe1d2",
+                      "inverse-primary": "#f0c12c",
+                      "surface-variant": "#ebe1d2",
+                      "on-tertiary-fixed": "#410005",
+                      "primary-container": "#f4c430",
+                      "secondary-container": "#83fba5",
+                      "surface-container-high": "#f1e7d7",
+                      "background": "#fff8f1",
+                      "outline": "#807661",
+                      "on-primary-fixed": "#241a00",
+                      "on-background": "#1f1b12",
+                      "on-secondary": "#ffffff",
+                      "primary": "#755b00",
+                      "outline-variant": "#d1c5ad",
+                      "surface-bright": "#fff8f1",
+                      "error-container": "#ffdad6",
+                      "primary-fixed": "#ffdf90",
+                      "surface-container": "#f6eddd",
+                      "on-tertiary-fixed-variant": "#930018",
+                      "tertiary": "#bf0023",
+                      "on-secondary-container": "#00743a",
+                      "surface-container-low": "#fcf2e3",
+                      "surface": "#fff8f1",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#755b00",
+                      "error": "#ba1a1a",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed": "#ffdad7",
+                      "tertiary-fixed-dim": "#ffb3af",
+                      "on-primary-fixed-variant": "#584400",
+                      "secondary-fixed": "#83fba5",
+                      "on-primary-container": "#695200",
+                      "on-secondary-fixed-variant": "#005227",
+                      "on-error": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "80px",
+                      "xs": "4px",
+                      "lg": "48px",
+                      "sm": "12px",
+                      "base": "8px",
+                      "container-margin": "24px",
+                      "gutter": "16px",
+                      "md": "24px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Playfair Display"],
+                      "headline-lg": ["Playfair Display"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "display-lg": ["Playfair Display"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "headline-md": ["Playfair Display"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden">
+<header class="bg-surface/80 backdrop-blur-xl text-primary sticky top-0 z-50 flex justify-between items-center w-full px-container-margin h-16 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg overflow-hidden">
+<img alt="Epicurean AI Logo" class="w-full h-full object-cover shadow-sm ring-1 ring-primary/10" src="https://lh3.googleusercontent.com/aida/ADBb0ujn_83LAew_GKyQkCJB7Wn0k838Cee1BZKTw13xxfMJP2xH2JjmhVObESYlSSJ-aLuN-cTqhm8juWIC8bmG-Jhi5TUBMCje8AeIKPpj9J2j5WIc4MUT1DUpG1LDXQtWWkdS8wW4ASKv_nAwjK39JeTM8Bnn6dciQeZNgZ-4sWxymEO4h03UeEoU74yR-7Y9Wuq5LKlqmTbYxTPo3L1nrgutbzuTNGGLf3DR37Hb3N58OvTetXeLsd9e-GWDEPK-QLAQWnKIhnko"/>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Epicurean AI</h1>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary" data-icon="psychology">psychology</span>
+</button>
+</header>
+<main class="pb-32 px-container-margin">
+<section class="mt-8 mb-10">
+<h2 class="font-headline-lg text-headline-lg mb-2">Community Kitchen</h2>
+<p class="font-body-md text-on-surface-variant max-w-md">Discover recipes modified by global intelligence and mastered by the community.</p>
+</section>
+<!-- Refined Cook-Along Banner -->
+<section class="mb-12">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md">Global Cook-Along</h3>
+<div class="flex items-center gap-2 px-4 py-1.5 bg-error-container rounded-full">
+<span class="live-indicator ml-3"></span>
+<span class="font-label-md text-on-error-container">Live</span>
+</div>
+</div>
+<div class="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-xl group border border-outline-variant/30">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" data-alt="A cinematic, overhead view of a group of diverse chefs and home cooks in a sun-drenched, professional kitchen preparing a vibrant Mediterranean feast together. The scene is bathed in golden afternoon light, emphasizing the textures of fresh herbs, grilled meats, and artisanal breads. The overall atmosphere is warm, collaborative, and sophisticated, reflecting a modern global aesthetic with a clean, high-end digital feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCim_fWvuDQ4LU964w7NTkSTItgS6yEWNMi0lUhAT-aCnMMYPp7lBnoaLWm0kAADTbuKmSv1Oa7-p7QvC_sG5zkVzRWueml48p8h74c6DRa4aKe30skCx6bZGTgnxih3WMLFGWOXlDNq2KiLegzIL8xbBtKVnR77z8kUUfsi_8a6fnXgAfIVUu0aGdQh59dsWC3GLRP7Trq0ImPEvYdT9DF6yLOr53j4-AzrcSQa1yMtt0Tk2briZMDoh4B5BWxahtnuOPInSRnJJ8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/90 via-on-surface/20 to-transparent flex flex-col justify-end p-8">
+<h4 class="font-headline-md text-white mb-2">The Saffron Route Challenge</h4>
+<p class="font-body-md text-white/90 mb-6 max-w-[85%]">Adapt traditional Persian stews with AI-suggested local ingredients.</p>
+<div class="flex items-center gap-6">
+<button class="bg-primary text-on-primary px-8 py-3 rounded-full font-label-md shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all active:scale-95">
+                        Join 1,240 Cooks
+                    </button>
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-white bg-slate-300 overflow-hidden ring-2 ring-black/10">
+<img data-alt="Portrait of a smiling woman with a warm expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNQjxa7biLuB_Nd9gkjuvuDyOdM6pFnD4byJnwxxImNYS4zftgm_LXsLvRz9x1uESubSYKht1fZmRyhDh8Vtrwcn_Z9hX8XDeME3G3kf8u3Yy5Rs7h5oApURUhuqpeqehKUvK2JYd69WRxLnJYqqFb7eZu_xx-EFc6iQWIm6ClOPVd6bLEY4rXBqpryTyA_tCvZ3-1mtjXmAwxMdJ6q_oj97kh5qSonJiNKs0cv_-STFqspGhc4I4aHGF7l_YrusHTeIbNoWHgEc8"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-slate-400 overflow-hidden ring-2 ring-black/10">
+<img data-alt="Portrait of a man with a friendly demeanor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCguIws5Qp_uD6b9NfbBcNS7HQpXUbhjI9LTLup7uDBzjuuzevmrTvcDmbf04y4NzhAodeYA7181DjFr1CW6vGYMwkuEvJ35lXnF4uLVEutHIYRfo6FUJZJ3kFFqIeolg-69tMp2KoLyLy2eXEcmyPUZ18gdm8LXUqxKKBKDVLZfezOsQKHsnWeOZ-NUk-XB5sNTr7RwHpJKEmOqJ_-ir7ie2uK-xj1H1SWt7ipQQ2IztBWSTnUaNIlzQzD-gAmJctuN9k_WbSpRns"/>
+</div>
+<div class="flex w-10 h-10 rounded-full border-2 border-white bg-primary-container items-center justify-center font-label-sm text-[11px] ring-2 ring-black/10">
+                            +2k
+                        </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Content Sections -->
+<section>
+<div class="flex items-center gap-2 mb-8 overflow-x-auto pb-4 no-scrollbar">
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md whitespace-nowrap shadow-sm">Latest Successes</button>
+<button class="bg-surface-container text-on-surface-variant px-6 py-2.5 rounded-full font-label-md whitespace-nowrap border border-outline-variant hover:bg-surface-variant/30 transition-colors">Trending AI Tweaks</button>
+<button class="bg-surface-container text-on-surface-variant px-6 py-2.5 rounded-full font-label-md whitespace-nowrap border border-outline-variant hover:bg-surface-variant/30 transition-colors">My Kitchen</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Refined Social Card: Maya Chen -->
+<article class="bg-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden border border-outline-variant/20">
+<div class="relative group">
+<img class="w-full h-[300px] object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A vibrant, close-up shot of a gourmet salad..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdhOD--xonyQTqJ8Y72WxNYAn4cK5NkS9eYOu_6xgcG0l97jsPfPoPEKnvYDlak9PYnNvQ7eoEv6IMcxawlbL96aZe-rIgyJmNd8GYGQf-jL2yN0n4O5PSP-Ag-VApmHzOCjmJ2QhBCB19QpzRxNcYeLjUqj0dQ7q_EWCOXeaFmtB_CSfH8LbND_72PcCz7Vd4M2Gchx77rraimlzSYU0mG6ANwUF7vT8BC2ojQQ-DOS2Q7_jTsW4DhdXfkHJX2ajqq3uH1xHD-lk"/>
+<div class="absolute top-5 left-5 glass-card px-4 py-2 rounded-full flex items-center gap-2 shadow-lg border border-white/50">
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-sm text-primary tracking-tight">AI Adjusted: Low-Glycemic</span>
+</div>
+</div>
+<div class="p-7">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-12 h-12 rounded-full overflow-hidden ring-2 ring-primary/10">
+<img data-alt="Portrait of a young professional woman." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsLojj8j9nVdl_VFc8sM_lbNWpQpPpnLP4RSlBVXP_67BJBs64DYv5uQCxEpSz3AijQEERzVAEsy7pUYB_-2adSNLdvUBJ32xhUCGBTNNOw1C-WcOhSuxTtfsCBO8fZpd_ygZh3brF2S202lFBjZFRLl_2uBiEN6r7QjVT3ABVQ-IX2j2EPfRtC-QFxS5pAivP8-tbvuFLTzSbhAnphdOwvJ1DU_d23kuCmN5Zt7-801SAwlWwl0Haw4y8EKIRawqEsCidgNr95CA"/>
+</div>
+<div>
+<h5 class="font-label-md text-base">Maya Chen</h5>
+<p class="text-[12px] text-on-surface-variant font-label-sm opacity-70">Beijing • 2h ago</p>
+</div>
+</div>
+<h4 class="font-headline-md mb-3">Winter Harvest Salad</h4>
+<p class="font-body-md text-on-surface-variant line-clamp-3 mb-8 italic leading-relaxed text-opacity-90">"The AI suggested swapping honey for pomegranate reduction. The tartness is incredible! 🥘✨"</p>
+<div class="flex items-center justify-between pt-6 border-t border-surface-container-highest">
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container transition-all active:scale-95 group">
+<span class="material-symbols-outlined text-[20px] group-hover:fill-current">favorite</span>
+<span class="font-label-md">342</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+<span class="font-label-md">18</span>
+</button>
+</div>
+<div class="flex gap-1 bg-surface-container-low px-3 py-1.5 rounded-full">
+<span class="text-base">🔥</span>
+<span class="text-base">👏</span>
+<span class="text-base">👨‍🍳</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Refined Social Card: Julian Rossi -->
+<article class="bg-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden border border-outline-variant/20">
+<div class="relative group">
+<img class="w-full h-[300px] object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A beautifully plated dish of creamy pasta..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtRNv_YkNU9_r3ESondMyDV917Y5rZrlV4goREKICzcZdmRrrD7kvZbhA3VXY-Ft9q7zIehaprqLDZIKI7tg6s2nDQVhFeEhGJlESjT3Lg2DwIznm1OIUi0JIieh_ecMpcnsOkODOwm5kDpHBjrF2b6nCZ88_nkzVwSJzRG519ARn5JUhXt9Bo_DpMX94A45x53jNREig2iTltfGRib2FE7-_oUTaJFlxhwdW1RfnpMVViDez-LGU3XB74447L7TQwJ5P2tkYcu_o"/>
+<div class="absolute top-5 left-5 glass-card px-4 py-2 rounded-full flex items-center gap-2 shadow-lg border border-white/50">
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-sm text-primary tracking-tight">AI Adjusted: Plant-Based</span>
+</div>
+</div>
+<div class="p-7">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-12 h-12 rounded-full overflow-hidden ring-2 ring-primary/10">
+<img data-alt="Portrait of a smiling man." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWCydN2lgRA4a1idcx-_8fkfsIWG2FBVVwsBWBvbfYnbov1fWJi4c3XCW-8lc_bvNSqyn9vM3Gh3D5vJmMZVOQvYG7SkQsjAYM9Cdo3-ULvzI7OFpZxU9Tga3GEmyuwGqqe_vbEfYoeDSrj0JBg8hIXO8ZWFPUJBxcA1JFoyEOaQJKQ94ieAtWYfxUqjIb9fZ5w_too1VtlngfTRNrIj2oI8teJMKOEVbBqz3zdGwaH5NL-PRnBujCzkog44Rfgxi2NfC3ZADANII"/>
+</div>
+<div>
+<h5 class="font-label-md text-base">Julian Rossi</h5>
+<p class="text-[12px] text-on-surface-variant font-label-sm opacity-70">Rome • 4h ago</p>
+</div>
+</div>
+<h4 class="font-headline-md mb-3">Truffle Carbonara 2.0</h4>
+<p class="font-body-md text-on-surface-variant line-clamp-3 mb-8 italic leading-relaxed text-opacity-90">"Mushroom-based 'guanciale' was a gamble, but the texture is spot on. AI nailed the smoke factor! 🍄🤌"</p>
+<div class="flex items-center justify-between pt-6 border-t border-surface-container-highest">
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container transition-all active:scale-95 group">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-md">891</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+<span class="font-label-md">45</span>
+</button>
+</div>
+<div class="flex gap-1 bg-surface-container-low px-3 py-1.5 rounded-full">
+<span class="text-base">🌿</span>
+<span class="text-base">💖</span>
+<span class="text-base">💯</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+</section>
+</main>
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 shadow-[0_-8px_25px_rgba(26,25,21,0.08)] bg-surface/95 backdrop-blur-lg border-t border-outline-variant/30">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-sm text-label-sm mt-1">Explore</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-sm text-label-sm mt-1">Genie</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+<span class="font-label-sm text-label-sm mt-1">Coach</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-label-sm text-label-sm mt-1">Pantry</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-5 py-1.5 transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-sm text-label-sm mt-1">Kitchen</span>
+</button>
+</nav>
+<button class="fixed right-6 bottom-28 w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-xl flex items-center justify-center z-40 active:scale-90 transition-all hover:bg-primary-container hover:text-on-primary-container">
+<span class="material-symbols-outlined text-[28px]" data-icon="add">add</span>
+</button>
+</body></html>

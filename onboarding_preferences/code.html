@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#bf0023",
+                        "inverse-primary": "#f0c12c",
+                        "tertiary-container": "#ffb8b4",
+                        "secondary-container": "#83fba5",
+                        "on-surface-variant": "#4e4634",
+                        "secondary": "#006d36",
+                        "surface-bright": "#fff8f1",
+                        "surface-container-low": "#fcf2e3",
+                        "inverse-on-surface": "#f9f0e0",
+                        "surface-container": "#f6eddd",
+                        "inverse-surface": "#353025",
+                        "tertiary-fixed": "#ffdad7",
+                        "surface-variant": "#ebe1d2",
+                        "on-primary-fixed": "#241a00",
+                        "outline": "#807661",
+                        "on-background": "#1f1b12",
+                        "surface-container-high": "#f1e7d7",
+                        "error": "#ba1a1a",
+                        "background": "#fff8f1",
+                        "primary-container": "#f4c430",
+                        "on-tertiary-fixed-variant": "#930018",
+                        "on-secondary-container": "#00743a",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#ebe1d2",
+                        "surface-tint": "#755b00",
+                        "on-primary-fixed-variant": "#584400",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "outline-variant": "#d1c5ad",
+                        "on-secondary-fixed": "#00210c",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#83fba5",
+                        "on-primary-container": "#695200",
+                        "surface-dim": "#e2d9ca",
+                        "primary": "#755b00",
+                        "surface": "#fff8f1",
+                        "on-surface": "#1f1b12",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#ad001e",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#f0c12c",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#66dd8b",
+                        "on-secondary-fixed-variant": "#005227",
+                        "primary-fixed": "#ffdf90",
+                        "on-tertiary-fixed": "#410005"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "md": "24px",
+                        "xl": "80px",
+                        "sm": "12px",
+                        "container-margin": "24px",
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 253, 245, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
+<!-- Top Navigation Header (Manual Control for Onboarding) -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl h-16 flex items-center justify-between px-container-margin max-w-7xl mx-auto shadow-sm">
+<button class="w-10 h-10 flex items-center justify-center rounded-full active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="flex-1 px-8">
+<div class="h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full w-1/2 bg-primary-container transition-all duration-500"></div>
+</div>
+</div>
+<div class="font-label-md text-label-md text-primary uppercase tracking-widest">Step 2/4</div>
+</header>
+<main class="flex-grow pt-24 pb-32 px-container-margin max-w-3xl mx-auto w-full">
+<!-- Hero Title Section -->
+<section class="mb-12">
+<h1 class="font-headline-lg text-headline-lg text-primary mb-4">Tell us what moves you.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Select your favorite world cuisines and any dietary preferences to personalize your Modern Kitchen experience.</p>
+</section>
+<!-- Cuisine Selection - Bento Style Grid -->
+<section class="mb-xl">
+<h2 class="font-label-md text-label-md text-outline uppercase tracking-widest mb-gutter">Global Cuisines</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-gutter">
+<!-- Italian -->
+<div class="relative group cursor-pointer overflow-hidden rounded-xl aspect-[4/5] shadow-sm active:scale-95 transition-transform">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A cinematic close-up of handmade pasta being tossed in a rich tomato sauce with fresh basil leaves. The lighting is warm and golden, capturing the steam and vibrant colors of the Mediterranean ingredients. The style is premium food photography with a shallow depth of field, set against a soft cream background that aligns with a high-end culinary app aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIkMABJr0SN-pJX_hIVxZ2GQC1Fqqq0UbYCJogpyiAvkuK84B3vnAEZ14IxSGrHs0euEZu_vMv4U894W8TH7-G9gmH3pNDMRXmguNnzvrlUXgAdCoenXHf9r8c1MsSNY2Uqznb4ALmXY-CA5hBjd4wz_b5nbQYNQ2UlrxRdygfNZKSzXXLtS7GBVNxQsO1THpvp0apLqXA9KBjldmvSlO_i7g5c4Bkoc0emuv6zVXpHWPZCXlQtd4_L9uIr60JYpTp8Fyl4IsbogA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-center">
+<span class="font-headline-md text-headline-md text-white">Italian</span>
+<div class="w-6 h-6 rounded-full border-2 border-white/50 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm" data-icon="check" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+</div>
+</div>
+<!-- Japanese -->
+<div class="relative group cursor-pointer overflow-hidden rounded-xl aspect-[4/5] shadow-sm active:scale-95 transition-transform">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An elegant arrangement of fresh nigiri sushi on a dark slate platter, highlighting the precise craftsmanship of Japanese cuisine. The scene is illuminated by soft, cool-toned light that emphasizes the texture of the fish and the brightness of the rice. The overall mood is minimalist and sophisticated, reflecting a modern global aesthetic with clean lines and premium culinary presentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsrB7k_MZX30crMUbiyjXTV2L0E-Rlt3o0ZD4mNbKsTeyhbQnzr3PjAiquvgu6jQU9Sf-lkhNrFzWIhjzCA_ssDCf1cc0SlWBvnwKNOHe8ji7KKCm--ZdI56LJB52eqfNgbPwTCJJhReuQcMG-TGw4So3ifeGASJqmCiSx8KR38OGnOB9T1YmTkZTKl-EZOjOycGcJg94IyfwCR515m2VhKOjLP51ZjsRWcxmag9PnDMpvUcGu-0Rq_Es2aMW2rN8FUx1kpQcucaQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-center">
+<span class="font-headline-md text-headline-md text-white">Japanese</span>
+<div class="w-6 h-6 rounded-full border-2 border-white/50"></div>
+</div>
+</div>
+<!-- Mexican -->
+<div class="relative group cursor-pointer overflow-hidden rounded-xl aspect-[4/5] shadow-sm active:scale-95 transition-transform">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Vibrant and authentic street tacos topped with cilantro, diced onions, and a squeeze of fresh lime. The lighting is bright and sunny, evoking the festive atmosphere of a Mexican market. The colors are bold, with deep greens and bright reds popping against the warm corn tortillas, creating a sensory-rich visual experience in a high-quality digital layout." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-O3HwTdzaOWrz2Rko4HQ9UOXkGyhiKNkA3WrGLSU3WulmyuAG2Ox1juZB__LR_Vlgi_4EBNjC0HSTmgnnFGusETAclRQUYeORQd-k81gGK8CdSHMUnypmvUcyyy5lU7DJV70WGon_yL6jsrIoDTzZWOd3cgHEioZXzdspEpDGcLuygxTNof5fBb08OM0FRZfQwEAKzU03pqic1B_BQlNswPKY0af0AEGsrT3S_AZ2uF79F4UXItLGpqgeniffWSgCo632H67TzOI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-center">
+<span class="font-headline-md text-headline-md text-white">Mexican</span>
+<div class="w-6 h-6 rounded-full border-2 border-white/50"></div>
+</div>
+</div>
+<!-- Indian -->
+<div class="relative group cursor-pointer overflow-hidden rounded-xl aspect-[4/5] shadow-sm active:scale-95 transition-transform">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A warm, inviting scene of aromatic Indian butter chicken served in a traditional copper bowl with a side of charred naan. The lighting is soft and moody, emphasizing the rich, spicy orange tones of the curry. The visual style is premium and epicurean, capturing the sensory richness of an Indian feast with a clean, modern digital finish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBylmLzicLjx-3eP3bVNqasEOMPWmhRDSVlJZN3voIsTqmuJVY_BJ79MeXyLPLYJ8Y7iO8nItTYmj_SeCWhZAAZnGRbFfHLrnquHkVK1Vo9QD_dFNPfAfdPpatlhLerItFf5A159CFUYfEAWOmv9mHPf6ms1U8sEQDt251aZf8359rgHC1vxUHCZaxvphQ114KQGevL2lbjnstgZHIUFmvgLoebXrUwUi2QIzfWLeQxHjj3p74_9fB7H-gL1UOB-oueOfDRPWUUNwg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-center">
+<span class="font-headline-md text-headline-md text-white">Indian</span>
+<div class="w-6 h-6 rounded-full border-2 border-white/50"></div>
+</div>
+</div>
+<!-- Mediterranean -->
+<div class="relative group cursor-pointer overflow-hidden rounded-xl aspect-[4/5] shadow-sm active:scale-95 transition-transform">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A fresh Mediterranean mezze platter featuring hummus, olives, feta cheese, and grilled pita bread. The scene is bright and airy with high-key natural light, suggesting a seaside lunch. The color palette is composed of natural earthy tones and vibrant greens, presented with a sophisticated minimalist layout that celebrates healthy, diverse global food." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL-1Npixgx0E_Cm5FhuXY8H4W__Z2LdcPcb4GltMnBFEfb6SI_mVEnYqfSQxbjoSH4Z9yL9egGxuu4ft1QhhyQg1ZemIIMP-D4PQqMg-r2baCWf2QoYegbfx3LXQV_-h2TY4NnznYumsWNwVvLqHDnz0g2gWGa7FPa6B-n92isThF8QvkHTGspRP2zxRsKP9WpmJGhfRt6quFe7ioLlh9uzHSiFzWVQCHxj6uOWF_8e6bBeCIifBlchcNy4x0DYmXmy3KontlXK6U"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-center">
+<span class="font-headline-md text-headline-md text-white">Greek</span>
+<div class="w-6 h-6 rounded-full border-2 border-white/50"></div>
+</div>
+</div>
+<!-- Thai -->
+<div class="relative group cursor-pointer overflow-hidden rounded-xl aspect-[4/5] shadow-sm active:scale-95 transition-transform">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A steaming bowl of authentic Pad Thai with shrimp, peanuts, and fresh lime wedges, presented on a dark ceramic dish. The lighting is focused and warm, highlighting the intricate textures of the noodles and garnishes. The aesthetic is clean and modern, highlighting the vibrant colors and sophisticated spice profile of Thai cuisine in a professional food app context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYcpM4ITJI8fcblv1L7Np6h4hIB_6cJ3BnGCqzFL9o-GGB1VGM5lZ53ypbZoUsG2gElTNnJbUFIa8kVAJCm8Q7Z0YObtmDyCe4RTKGfcxFZ6g6cPFv4IjEwKdDK4Z26cxtNtq_WiXoVn_X0mr9YA4xyqrY1G4xKRYXt_TXKEXibTWxHOJwbaC-P4yRhT0qMbr6WRsirJ_ZduKI3C2-0uhAaVPkjKAiV9D9IUtdAG2k3ktdmzvJSFzqHIxxoG2_WNLyDbX_ulXR0gk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-center">
+<span class="font-headline-md text-headline-md text-white">Thai</span>
+<div class="w-6 h-6 rounded-full border-2 border-white/50"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Dietary Restrictions Section -->
+<section class="mb-gutter">
+<h2 class="font-label-md text-label-md text-outline uppercase tracking-widest mb-gutter">Dietary Preferences</h2>
+<div class="flex flex-wrap gap-3">
+<!-- Chip Components -->
+<div class="px-6 py-3 rounded-full border-2 border-primary-container bg-primary-container/10 text-on-primary-container flex items-center gap-2 cursor-pointer transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="eco" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span class="font-label-md text-label-md">Vegan</span>
+</div>
+<div class="px-6 py-3 rounded-full border-2 border-outline-variant hover:border-primary transition-colors flex items-center gap-2 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="egg_alt">egg_alt</span>
+<span class="font-label-md text-label-md">Vegetarian</span>
+</div>
+<div class="px-6 py-3 rounded-full border-2 border-outline-variant hover:border-primary transition-colors flex items-center gap-2 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="wheat_free">crop_free</span>
+<span class="font-label-md text-label-md">Gluten-Free</span>
+</div>
+<div class="px-6 py-3 rounded-full border-2 border-outline-variant hover:border-primary transition-colors flex items-center gap-2 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="set_meal">set_meal</span>
+<span class="font-label-md text-label-md">Pescatarian</span>
+</div>
+<div class="px-6 py-3 rounded-full border-2 border-outline-variant hover:border-primary transition-colors flex items-center gap-2 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="nutrition">nutrition</span>
+<span class="font-label-md text-label-md">Keto</span>
+</div>
+<div class="px-6 py-3 rounded-full border-2 border-outline-variant hover:border-primary transition-colors flex items-center gap-2 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="no_milk">no_drinks</span>
+<span class="font-label-md text-label-md">Dairy-Free</span>
+</div>
+</div>
+</section>
+<!-- Glassmorphism AI Tip -->
+<section class="mt-lg">
+<div class="glass-panel p-6 rounded-2xl border border-white/20 shadow-sm flex gap-4 items-start">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary mb-1">AI Recommendation</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Based on your selection of <span class="font-bold text-on-surface">Italian</span> and <span class="font-bold text-on-surface">Vegan</span>, we'll prioritize seasonal vegetable pasta and dairy-free risotto recipes in your feed.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Action Bar -->
+<footer class="fixed bottom-0 left-0 w-full bg-surface/90 backdrop-blur-xl px-container-margin py-6 border-t border-outline-variant/10 z-50">
+<div class="max-w-3xl mx-auto flex items-center justify-between">
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">
+                Skip for now
+            </button>
+<button class="bg-primary-container hover:opacity-90 active:scale-95 transition-all text-on-primary-container px-10 py-4 rounded-full font-label-md text-label-md shadow-lg shadow-primary/20 flex items-center gap-2">
+                Continue
+                <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</footer>
+</body></html>

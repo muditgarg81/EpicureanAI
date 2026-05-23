@@ -1,0 +1,51 @@
+{
+  "project_name": "Epicurean AI",
+  "version": "1.2.0",
+  "description": "A premium, multicultural culinary platform featuring an AI Cooking Coach, intelligent recipe generation, and global flavor discovery.",
+  "design_system": {
+    "name": "Modern Global Kitchen",
+    "theme": {
+      "primary_color": "#f4c430",
+      "surface_color": "#fff8f1",
+      "on_surface_color": "#131313",
+      "typography": "Playfair Display",
+      "style": "High-fidelity glassmorphism with backdrop-blur-xl"
+    }
+  },
+  "core_screens": [
+    {
+      "id": "SCREEN_26",
+      "title": "Discovery Home",
+      "role": "Primary user dashboard for browsing cuisines and starting AI recipe generation."
+    },
+    {
+      "id": "SCREEN_18",
+      "title": "AI Recipe Generator",
+      "role": "Input interface for ingredients and dietary preferences to generate unique recipes."
+    },
+    {
+      "id": "SCREEN_22",
+      "title": "AI Voice Coach",
+      "role": "Hands-free cooking assistant with voice-guided steps and real-time Q&A."
+    },
+    {
+      "id": "SCREEN_60",
+      "title": "Digital Pantry",
+      "role": "Inventory management and flavor profile tracking."
+    },
+    {
+      "id": "SCREEN_29",
+      "title": "Language Selection",
+      "role": "Multilingual support for 29+ global languages."
+    }
+  ],
+  "monetization": {
+    "currency": "Indian Rupees (₹)",
+    "plans": ["Gourmet Explorer (Free)", "Global Chef (Pro)", "Family Kitchen"]
+  },
+  "technical_stack": "Tailwind CSS, HTML5, Responsive Mobile Design",
+  "brand_assets": {
+    "primary_logo": "{{DATA:IMAGE:IMAGE_9}}",
+    "logo_description": "3D Glassmorphism Chef's Hat"
+  }
+}

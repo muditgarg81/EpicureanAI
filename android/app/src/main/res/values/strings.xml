@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Epicurean AI</string>
+    <string name="title_activity_main">Epicurean AI</string>
+    <string name="package_name">epicurean.kitchen.app</string>
+    <string name="custom_url_scheme">epicurean.kitchen.app</string>
+</resources>

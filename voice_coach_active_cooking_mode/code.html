@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Voice Coach - Epicurean AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#ffb8b4",
+                        "inverse-surface": "#353025",
+                        "inverse-on-surface": "#f9f0e0",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#410005",
+                        "on-surface-variant": "#4e4634",
+                        "secondary-container": "#83fba5",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "background": "#fff8f1",
+                        "on-tertiary-fixed-variant": "#930018",
+                        "tertiary": "#bf0023",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#755b00",
+                        "on-background": "#1f1b12",
+                        "error-container": "#ffdad6",
+                        "surface": "#fff8f1",
+                        "on-secondary-fixed-variant": "#005227",
+                        "outline-variant": "#d1c5ad",
+                        "surface-container-high": "#f1e7d7",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#584400",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "surface-container-low": "#fcf2e3",
+                        "primary-fixed-dim": "#f0c12c",
+                        "on-error-container": "#93000a",
+                        "primary": "#755b00",
+                        "primary-container": "#f4c430",
+                        "primary-fixed": "#ffdf90",
+                        "on-secondary-fixed": "#00210c",
+                        "on-secondary-container": "#00743a",
+                        "on-surface": "#1f1b12",
+                        "on-primary-container": "#695200",
+                        "outline": "#807661",
+                        "on-primary-fixed": "#241a00",
+                        "secondary": "#006d36",
+                        "secondary-fixed": "#83fba5",
+                        "surface-container": "#f6eddd",
+                        "surface-bright": "#fff8f1",
+                        "surface-dim": "#e2d9ca",
+                        "on-tertiary-container": "#ad001e",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#f0c12c",
+                        "surface-container-highest": "#ebe1d2",
+                        "secondary-fixed-dim": "#66dd8b",
+                        "tertiary-fixed": "#ffdad7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "lg": "48px",
+                        "gutter": "16px",
+                        "container-margin": "24px",
+                        "xl": "80px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .orb-glow {
+            box-shadow: 0 0 40px rgba(244, 196, 48, 0.4);
+        }
+        .waveform-bar {
+            animation: pulse-height 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse-height {
+            0%, 100% { height: 12px; }
+            50% { height: 32px; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col selection:bg-primary-fixed-dim">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface/80 backdrop-blur-md shadow-sm">
+<button class="w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 ease-in-out active:scale-95 hover:bg-surface-variant/50">
+<span class="material-symbols-outlined text-primary">close</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary font-semibold">Voice Coach</h1>
+<button class="w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 ease-in-out active:scale-95 hover:bg-surface-variant/50">
+<span class="material-symbols-outlined text-primary">settings</span>
+</button>
+</header>
+<main class="flex-grow pt-24 pb-32 px-container-margin max-w-lg mx-auto w-full flex flex-col items-center gap-8">
+<!-- Voice Activity Header -->
+<section class="w-full flex flex-col items-center justify-center gap-4">
+<div class="relative flex items-center justify-center">
+<div class="absolute w-24 h-24 bg-primary-container rounded-full blur-2xl opacity-40 animate-pulse"></div>
+<div class="relative w-16 h-16 bg-gradient-to-tr from-primary to-primary-container rounded-full flex items-center justify-center orb-glow shadow-lg">
+<div class="flex items-end gap-1 h-8">
+<div class="waveform-bar w-1 bg-on-primary-container rounded-full" style="animation-delay: 0s"></div>
+<div class="waveform-bar w-1 bg-on-primary-container rounded-full" style="animation-delay: 0.2s"></div>
+<div class="waveform-bar w-1 bg-on-primary-container rounded-full" style="animation-delay: 0.4s"></div>
+<div class="waveform-bar w-1 bg-on-primary-container rounded-full" style="animation-delay: 0.1s"></div>
+<div class="waveform-bar w-1 bg-on-primary-container rounded-full" style="animation-delay: 0.3s"></div>
+</div>
+</div>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant tracking-wider">Listening for <span class="text-primary font-bold">"Next Step"</span>...</p>
+</section>
+<!-- Current Step Card & Timer Layout -->
+<div class="w-full relative">
+<!-- Step Card -->
+<div class="bg-surface shadow-[0_12px_24px_-10px_rgba(26,25,21,0.08)] rounded-[32px] p-8 border border-outline-variant/20 flex flex-col items-center text-center gap-6 min-h-[380px] justify-center relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-primary-container"></div>
+<span class="bg-primary-container/20 text-on-primary-container px-4 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-widest">Instruction</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface leading-snug">
+                    Step 3: Gently fold the saffron-infused rice into the vegetable medley.
+                </h2>
+<!-- Timer Overlay (Contextual) -->
+<div class="mt-4 flex flex-col items-center gap-3">
+<div class="relative w-32 h-32 flex items-center justify-center">
+<svg class="absolute inset-0 w-full h-full -rotate-90">
+<circle class="text-outline-variant/20" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-primary" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364" stroke-dashoffset="120" stroke-width="4"></circle>
+</svg>
+<div class="text-center">
+<span class="block font-headline-md text-headline-md text-primary">05:00</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase">Simmer</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Floating Ingredient View (Glassmorphism) -->
+<div class="absolute -right-4 -bottom-6 glass-panel border border-white/50 shadow-xl rounded-2xl p-5 w-48 z-10 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-primary">Next Items</span>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">shopping_basket</span>
+</div>
+<ul class="space-y-2">
+<li class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+<span class="text-label-sm font-label-sm">Saffron Rice</span>
+</li>
+<li class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+<span class="text-label-sm font-label-sm">Veg Medley</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Recipe Visual Reference -->
+<div class="w-full mt-4">
+<div class="rounded-2xl overflow-hidden shadow-sm h-40 relative">
+<img alt="Saffron Rice Dish" class="w-full h-full object-cover" data-alt="A macro overhead shot of a vibrant, golden saffron rice dish being gently mixed with colorful sautéed vegetables in a large ceramic pan. The steam is rising softly, captured in warm, natural morning light. The kitchen environment is modern and minimalist with cream-colored surfaces and premium textures. High-end food photography style with rich colors and deep textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1Lcb4RqSqFXPv-eKiLr_Gy8aCxdZyr-BVO7jpBjpm1VeTYlMrKxDToIEuFaQNlvzsp7QV9kjODrFCjArz_vUt5zWSvkBaFpbWpneksQqbGng7-C-l6xPUHyDKJh9Ihp4tx4SHQkkfRyJLmz_olTKU-C4mFo-Vo1xo56ziRYLdUb48ivZoSUOlsoh0gYh9L4X5TMfZ8P8ztLW0tZBmFQTYp01DLEVo-JE7hWtCC4RbvSbuPQf4b72s2jpWUa69A48hy9XKty28Fs8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+<p class="text-white font-label-md text-label-md">Visual Reference: Folding Texture</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Hands-Free Navigation / Controls -->
+<footer class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-surface/95 dark:bg-on-surface/95 backdrop-blur-lg pb-safe pt-4 px-gutter h-24">
+<button class="flex flex-col items-center justify-center gap-1 transition-transform duration-200 active:scale-90 text-on-surface-variant group">
+<div class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center group-hover:bg-surface-variant">
+<span class="material-symbols-outlined">arrow_back</span>
+</div>
+<span class="font-label-sm text-label-sm">Back</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 transition-transform duration-200 active:scale-90 text-on-primary-container">
+<div class="w-16 h-16 rounded-full bg-primary-container shadow-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px]" data-weight="fill">pause</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold">Pause AI</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 transition-transform duration-200 active:scale-90 text-on-surface-variant group">
+<div class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center group-hover:bg-surface-variant">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+<span class="font-label-sm text-label-sm">Next</span>
+</button>
+</footer>
+</body></html>

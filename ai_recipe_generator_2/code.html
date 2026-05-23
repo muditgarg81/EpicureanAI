@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Modern Kitchen | AI Recipe Generator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#bf0023",
+                        "inverse-primary": "#f0c12c",
+                        "tertiary-container": "#ffb8b4",
+                        "secondary-container": "#83fba5",
+                        "on-surface-variant": "#4e4634",
+                        "secondary": "#006d36",
+                        "surface-bright": "#fff8f1",
+                        "surface-container-low": "#fcf2e3",
+                        "inverse-on-surface": "#f9f0e0",
+                        "surface-container": "#f6eddd",
+                        "inverse-surface": "#353025",
+                        "tertiary-fixed": "#ffdad7",
+                        "surface-variant": "#ebe1d2",
+                        "on-primary-fixed": "#241a00",
+                        "outline": "#807661",
+                        "on-background": "#1f1b12",
+                        "surface-container-high": "#f1e7d7",
+                        "error": "#ba1a1a",
+                        "background": "#fff8f1",
+                        "primary-container": "#f4c430",
+                        "on-tertiary-fixed-variant": "#930018",
+                        "on-secondary-container": "#00743a",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#ebe1d2",
+                        "surface-tint": "#755b00",
+                        "on-primary-fixed-variant": "#584400",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "outline-variant": "#d1c5ad",
+                        "on-secondary-fixed": "#00210c",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#83fba5",
+                        "on-primary-container": "#695200",
+                        "surface-dim": "#e2d9ca",
+                        "primary": "#755b00",
+                        "surface": "#fff8f1",
+                        "on-surface": "#1f1b12",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#ad001e",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#f0c12c",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#66dd8b",
+                        "on-secondary-fixed-variant": "#005227",
+                        "primary-fixed": "#ffdf90",
+                        "on-tertiary-fixed": "#410005"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "md": "24px",
+                        "xl": "80px",
+                        "sm": "12px",
+                        "container-margin": "24px",
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .generate-glow:hover {
+            box-shadow: 0 0 20px rgba(244, 196, 48, 0.4);
+        }
+        body {
+            background-color: #fff8f1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface mb-24 md:mb-0 pt-16">
+<!-- TopAppBar Component -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-xl shadow-sm dark:shadow-none">
+<div class="flex items-center justify-between px-container-margin w-full max-w-7xl mx-auto h-16">
+<button class="text-primary dark:text-primary-fixed active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed tracking-tight">Modern Kitchen</h1>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlLjcHK4E-WLfSWknGlifwFF6yVtu761uPKR0coILmfGqjxG63ZLSlHZIc5rjfhCEQ7eQuMCrnfVQLM4A8jkSF2rtOAgYsl8E1J7SIo0YiDEZq4H8ONaLwraDKo7-nUCxLQbmYxXH1LiTRvm76b6zlSRrk0F5HsgqS8JCHw7ci6gj9Jr45CP3TDAi67bxEVFaR5_hQEtHQvpb6zC0_9l-_FELxI3zogMfMCgxsa0GPxHEfcbOhbJ-rZTVr8FvpS9AB7qhXfIY4JUU"/>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-container-margin py-lg grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-xl">
+<!-- Left Column: Pantry & Preferences -->
+<section class="lg:col-span-5 space-y-lg">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-sm">Virtual Pantry</h2>
+<p class="font-body-md text-on-surface-variant mb-md">Toggle the ingredients you currently have in your kitchen.</p>
+<!-- Pantry Bento Grid -->
+<div class="grid grid-cols-3 gap-sm">
+<!-- Ingredient Card Active -->
+<button class="flex flex-col items-center justify-center p-md bg-secondary-container rounded-xl transition-transform active:scale-95 text-on-secondary-container">
+<span class="material-symbols-outlined mb-xs" data-icon="egg">egg</span>
+<span class="font-label-sm text-label-sm">Eggs</span>
+</button>
+<!-- Ingredient Card Inactive -->
+<button class="flex flex-col items-center justify-center p-md bg-surface-container rounded-xl transition-transform active:scale-95 text-on-surface-variant hover:bg-surface-container-high">
+<span class="material-symbols-outlined mb-xs" data-icon="water_drop">water_drop</span>
+<span class="font-label-sm text-label-sm">Milk</span>
+</button>
+<button class="flex flex-col items-center justify-center p-md bg-secondary-container rounded-xl transition-transform active:scale-95 text-on-secondary-container">
+<span class="material-symbols-outlined mb-xs" data-icon="grass">grass</span>
+<span class="font-label-sm text-label-sm">Spinach</span>
+</button>
+<button class="flex flex-col items-center justify-center p-md bg-secondary-container rounded-xl transition-transform active:scale-95 text-on-secondary-container">
+<span class="material-symbols-outlined mb-xs" data-icon="nutrition">nutrition</span>
+<span class="font-label-sm text-label-sm">Chicken</span>
+</button>
+<button class="flex flex-col items-center justify-center p-md bg-surface-container rounded-xl transition-transform active:scale-95 text-on-surface-variant hover:bg-surface-container-high">
+<span class="material-symbols-outlined mb-xs" data-icon="bakery_dining">bakery_dining</span>
+<span class="font-label-sm text-label-sm">Flour</span>
+</button>
+<button class="flex flex-col items-center justify-center p-md border-2 border-dashed border-outline-variant rounded-xl text-outline active:scale-95">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span class="font-label-sm text-label-sm">More</span>
+</button>
+</div>
+</div>
+<!-- Dietary Preference Chips -->
+<div>
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase mb-sm">Dietary Preferences</h3>
+<div class="flex flex-wrap gap-xs">
+<button class="px-md py-sm bg-primary text-on-primary rounded-full font-label-md text-label-md shadow-sm transition-all active:scale-95">Vegan</button>
+<button class="px-md py-sm bg-surface-container-highest text-on-surface-variant rounded-full font-label-md text-label-md hover:bg-surface-variant transition-all active:scale-95">Gluten-Free</button>
+<button class="px-md py-sm bg-surface-container-highest text-on-surface-variant rounded-full font-label-md text-label-md hover:bg-surface-variant transition-all active:scale-95">Keto</button>
+<button class="px-md py-sm bg-surface-container-highest text-on-surface-variant rounded-full font-label-md text-label-md hover:bg-surface-variant transition-all active:scale-95">Nut-Free</button>
+</div>
+</div>
+</section>
+<!-- Right Column: AI Prompt & Generation -->
+<section class="lg:col-span-7 flex flex-col justify-between">
+<div class="relative group rounded-xl overflow-hidden mb-lg aspect-[16/9] lg:aspect-auto lg:h-80 shadow-lg">
+<img class="w-full h-full object-cover" data-alt="A high-angle professional food photograph showcasing a vibrant, organized modern kitchen countertop. Fresh, colorful vegetables like bell peppers, leafy greens, and ripe tomatoes are arranged artistically around a sleek, high-tech digital tablet showing a glowing interface. The lighting is bright and airy with warm morning sunbeams, creating a sophisticated and inspiring atmosphere. The aesthetic is minimal and clean, with a focus on high-quality textures and rich culinary colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzcBmSEw5clnpn81eZDZwn95UmNQRpPoyqupJ7DaxLI46Amqw37FL9iEjx6MuU8PlGmrdOaG_2EsONS26n5gUiuTKFzLwbLsL5IA-f1rUYecEl6lvwkaKhfoTuv1xkP55GjOqmcdvmKHwnH0wobOGCPXgUwuzcO6YioDwxDYTfWE2DLXbMV6vxi4YBXu-0DQutuwHGSLYmo49Sl92t-nEVjbUXY5iyFd6Y11dihl4LvaH3ejJ9EEsyQt7jPWAiDmKttqGKBuumVNA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-end p-lg">
+<div class="mt-auto">
+<span class="font-label-sm text-label-sm text-white/80 bg-white/20 backdrop-blur-md px-sm py-xs rounded-full inline-block mb-xs">AI POWERED</span>
+<h2 class="font-headline-lg text-white">Unlock Culinary Potential</h2>
+</div>
+</div>
+</div>
+<div class="space-y-md">
+<div class="glass-panel p-lg rounded-xl border border-surface-container-highest">
+<label class="block font-label-md text-label-md text-primary mb-xs" for="craving">What are you craving?</label>
+<textarea class="w-full bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary text-body-lg font-body-lg placeholder:text-outline-variant resize-none" id="craving" placeholder="e.g. A spicy Mediterranean dinner with minimal cleanup..." rows="4"></textarea>
+</div>
+<button class="generate-glow w-full py-md bg-primary-container text-on-primary-container rounded-xl font-headline-md text-headline-md flex items-center justify-center gap-sm transition-all duration-300 active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+                    Generate Recipe
+                </button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar Component -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface dark:bg-surface-dim shadow-[0_-4px_12px_rgba(26,25,21,0.04)] dark:shadow-none rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-sm text-label-sm">Explore</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed-variant rounded-full px-4 py-1 active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-label-sm text-label-sm">AI Coach</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="font-label-sm text-label-sm">Recipes</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+<span class="font-label-sm text-label-sm">Saved</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+<span class="font-label-sm text-label-sm">Menu</span>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CulinaAI | Midnight Discovery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ffb4ab",
+                    "tertiary": "#e8e5e5",
+                    "on-secondary-fixed": "#1c1b1b",
+                    "tertiary-fixed-dim": "#c8c6c5",
+                    "surface": "#131313",
+                    "primary-fixed-dim": "#f0c12c",
+                    "on-error": "#690005",
+                    "primary": "#ffe3a1",
+                    "surface-container-highest": "#353534",
+                    "secondary": "#c8c6c5",
+                    "primary-container": "#f4c430",
+                    "on-surface-variant": "#d1c5ad",
+                    "surface-container-low": "#1c1b1b",
+                    "tertiary-container": "#cbc9c9",
+                    "on-tertiary-fixed-variant": "#474746",
+                    "surface-bright": "#393939",
+                    "on-background": "#e5e2e1",
+                    "tertiary-fixed": "#e4e2e1",
+                    "secondary-container": "#474746",
+                    "on-tertiary": "#303030",
+                    "on-primary-fixed-variant": "#584400",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-secondary-container": "#b7b5b4",
+                    "on-primary": "#3d2e00",
+                    "on-secondary-fixed-variant": "#474746",
+                    "surface-dim": "#131313",
+                    "secondary-fixed": "#e5e2e1",
+                    "surface-variant": "#353534",
+                    "inverse-on-surface": "#313030",
+                    "on-error-container": "#ffdad6",
+                    "surface-container": "#201f1f",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "surface-tint": "#f0c12c",
+                    "inverse-primary": "#755b00",
+                    "on-secondary": "#313030",
+                    "on-primary-fixed": "#241a00",
+                    "background": "#131313",
+                    "inverse-surface": "#e5e2e1",
+                    "on-surface": "#e5e2e1",
+                    "on-tertiary-container": "#555454",
+                    "on-primary-container": "#695200",
+                    "primary-fixed": "#ffdf90",
+                    "surface-container-high": "#2a2a2a",
+                    "outline-variant": "#4e4634",
+                    "outline": "#9a907a",
+                    "error-container": "#93000a",
+                    "secondary-fixed-dim": "#c8c6c5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "margin-desktop": "64px",
+                    "margin-mobile": "20px",
+                    "container-max": "1200px",
+                    "margin-tablet": "32px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Work Sans"],
+                    "body-md": ["Work Sans"],
+                    "headline-xl": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "label-sm": ["Work Sans"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "headline-md": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24">
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-background/80 backdrop-blur-lg shadow-sm dark:shadow-none h-16 flex justify-between items-center px-container-margin">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant/30">
+<img alt="User Profile Portrait" class="w-full h-full object-cover" data-alt="A professional and sophisticated portrait of a culinary expert in a dark, atmospheric studio. The lighting is low-key with warm, golden highlights hitting the side of their face, creating a dramatic and high-end aesthetic. The background is a deep, out-of-focus midnight charcoal color, maintaining the nocturnal minimalism of the CulinaAI brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBso4e86RjBv-iWEtbcemfDsleuQ2cMAq7Xh0FFxzb7xcyNEPq2qxxwyMBWR0Xh0wOC1HwVeoi4xd1I_I3UgGL-zUL6T_wE40vaOozVMyomqrjDlmi38MP1jm22rBLDObdkKIY7PHN7WQSAJrPKgkGS066UH2ZILTVIvIwLuvx4XrTVveUJKCOvoQQI9O4d-3Bjs_pkr3vp2cGzWCfQ4yjM74N0bXHPr68Gj_x2GH3L2QD1xEtXtTB9HIXSd9rVt0iB44UZDD2kenw"/>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-background">CulinaAI</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed hover:bg-surface-variant/50 transition-colors p-2 rounded-full active:scale-95 duration-200">
+                auto_awesome
+            </button>
+</div>
+</header>
+<main class="pt-24 px-base md:px-margin-desktop max-w-container-max mx-auto">
+<section class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-2 block">Curation No. 042</span>
+<h1 class="font-headline-xl text-headline-xl text-on-background">Midnight Gastronomy</h1>
+</div>
+<div class="flex gap-2">
+<span class="bg-surface-container-high text-primary font-label-sm text-label-sm px-3 py-1 rounded-full border border-primary/20">Seasonal</span>
+<span class="bg-surface-container-high text-primary font-label-sm text-label-sm px-3 py-1 rounded-full border border-primary/20">Technical</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-8 group relative overflow-hidden rounded-xl bg-surface-container-low border border-outline-variant/20 shadow-lg">
+<div class="aspect-[16/9] w-full relative">
+<img class="w-full h-full object-cover grayscale-[20%] group-hover:scale-105 transition-transform duration-700" data-alt="A high-contrast, professional food photograph of a seared wagyu beef steak resting on a dark ceramic plate. The scene is illuminated by a single warm spotlight, creating a dramatic nocturnal mood with deep shadows and vibrant saffron-gold highlights on the glistening juices. The background is a textured charcoal stone, reflecting a high-end, sophisticated kitchen environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjVD58D2ZK7tnt1T0ZKgvI85T0_3o5TB86Ov8-mnNJx0NaFgHWkdADLx8exEyAPaInmxSTDTSYaSYtzZ7yK4lvZ6ZX_ZX8R0SxY_RphW7F2WpYntkjhbhAR_KRbhm9sqms8vXg4oBX-4rRPJJty30s0Yi9abqdwNV-83765RkkobTGVhCvN23HeKrzbFEPz2EXTCVpTCndwc1AnIsO7R0i8bkdYbTynD0Mu4XvILF0vfzKQ2owyj-sKGC_kxi_k0ce2jF_aZ6zX2w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full">
+<div class="flex items-center gap-2 mb-3">
+<span class="bg-primary-container text-on-primary-container px-3 py-0.5 rounded-full font-label-sm text-label-sm">Masterclass</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">45 min • Advanced</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">Charcoal Smoked Venison with Saffron Emulsion</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl">A masterclass in technical precision, exploring the delicate balance between deep smoke and aromatic luxury.</p>
+</div>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<div class="flex-1 p-6 rounded-xl bg-surface-container-high border border-outline-variant/30 flex flex-col justify-center backdrop-blur-md relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-8xl">psychology</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary mb-2">AI GENIE SUGGESTION</span>
+<h3 class="font-headline-md text-headline-md text-on-background mb-4">Pairing for Tonight</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Based on your recent interest in Nordic techniques, try the Smoked Juniper Reduction.</p>
+<button class="bg-primary text-on-primary py-3 rounded-lg font-label-sm text-label-sm uppercase tracking-wider hover:opacity-90 transition-opacity active:scale-95 duration-200">Explore Insight</button>
+</div>
+<div class="h-48 rounded-xl overflow-hidden border border-outline-variant/20 relative">
+<img class="w-full h-full object-cover" data-alt="Close-up of a sophisticated dark cocktail with a glowing orange peel garnish. The glass is crystal and reflects thin needles of golden light against a pitch-black background. The mood is nocturnal minimalism, emphasizing the sharp contrast between the deep dark liquid and the vibrant citrus accent." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgE7jgCUwtxxriZFShRW6YXTGkLfiay3H6xOtDktU1rSusF8p9NU_qNtVFkHQa3GxIe8fCJ1X58DJqhUKURzMCB75L_Ji5YJ4uvLRyFx6UuV3DtYKBW5BCkJIj9KBV6L9hHr4BuA8e05oxOEbmzmzsFSEUMjA8Pf7hs0l1pe_mudwW7C-9bBO5l4gyjf4ts_PYbZ5_V7MoVSJ_EPKQsvhfzR5NDu-akRmHeR8PTp2acCZSUhnmG243QuIrRharLp3fUr_3nU-h3Zo"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+<span class="font-headline-md text-headline-md text-white">Midnight Pairings</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="mb-20">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-lg text-headline-lg text-on-background">Technical Artisanship</h2>
+<a class="font-label-sm text-label-sm text-primary hover:underline transition-all" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="group">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 border border-outline-variant/20 relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Artisanal dark chocolate ganache tart topped with edible gold leaf, presented on a matte black slate. The lighting is moody and directional, highlighting the smooth texture of the chocolate and the brilliant reflective quality of the gold. High-end culinary studio aesthetic with deep navy shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCQR2ZHFna6Jhg-VTWtAT0aQ9fWk8q1EbsedsULs0D7Bb1Cyq-untwoaHwv00khdWS3YA0arOH3QfrM1XBsC_RpuQQO5RC4Tvb-LUFFkFtvmk2QhRSmVdSMcE4TBPgi2Lq5Mmzjo6_Kv8rrJ_CgOy_f8NCCjpKE0W-ACiw4i7u5cVu-_c9gqj_p89oqVV9CQ-je-iHd4X1JC7n34_XX03L3TRA5upX4XRjaWqYyfqaSHB6tud3Yx-HqeQMvHLRIcaqA0nMNSGy_qw"/>
+<div class="absolute top-3 right-3 bg-background/60 backdrop-blur-md p-1.5 rounded-full">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-outline mb-1 block">Patisserie</span>
+<h4 class="font-headline-md text-headline-md text-on-background group-hover:text-primary transition-colors">Obsidian Ganache</h4>
+</div>
+<div class="group">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 border border-outline-variant/20 relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Handmade squid ink pasta twirled elegantly in a dark bowl, dusted with vibrant yellow bottarga. The high contrast between the jet-black pasta and the saffron-hued powder creates a striking visual. Soft, warm ambient lighting mimics a candlelit kitchen atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZmjJH897Ro1ZX25VgbXlTIkuD_wve2xuVMh9M4-lQ1kuY2Lh7rg3LNRQHESgWwAwm2rIyX5nbvreq1aCJEWT91JvtoiSbApGKdWpL5uukNSnisjuURXPLareYUZsmblLHV_UC6l6eJ-cQadq5wB-un2bwyqHFW4aZqUeoVhOyHjhyo3M2dZJp6xomUcDrKqiA9E0GKbTaHBhP1W5Q4j_hjRZcgZ3UpZmRQsJg5TWjggmjkHdZVSf4wLJD8J9GuIfIyYjRvr55w-k"/>
+<div class="absolute top-3 right-3 bg-background/60 backdrop-blur-md p-1.5 rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">favorite</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-outline mb-1 block">Pasta Art</span>
+<h4 class="font-headline-md text-headline-md text-on-background group-hover:text-primary transition-colors">Nocturnal Tagliatelle</h4>
+</div>
+<div class="group">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 border border-outline-variant/20 relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A spherical clear cocktail ice cube infused with a single dark purple orchid, melting slowly in a glass of amber liquid. The background is a dark, sophisticated bar lounge with subtle saffron glows in the distance. The focus is razor-sharp on the crystalline details of the ice." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3fi9Fc83v7I6gtBoWQcFIOdMb8T13Gqc6ReMUpk1YiMEJvf7vb1vYqEauftsR0NrT3IscqGjriUiNYZkCW6Hc3piOfGLxSRipuUrt4NBRqM6ILVhpNeDta3IwXmUUGBHlTRCE8PwXUVgRJDL-raiaB-Uli2mDbnIvONZoeA8G6kD20rIBIpaW5_Bd95MUZDU75Q_70-Z4lvyoTJBw57KQUi5iNpuc6x1E0yHXtzP6oFaK5CzcRXo_-h6TS5v5F0qxz64xRlLTGM4"/>
+<div class="absolute top-3 right-3 bg-background/60 backdrop-blur-md p-1.5 rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">favorite</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-outline mb-1 block">Mixology</span>
+<h4 class="font-headline-md text-headline-md text-on-background group-hover:text-primary transition-colors">Shadow &amp; Flora</h4>
+</div>
+<div class="group">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 border border-outline-variant/20 relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Slow-cooked duck leg with a crispy dark skin, resting on a bed of bright orange squash puree. The vibrant contrast between the dark meat and the glowing saffron-colored sauce is the focal point. The composition is clean and minimalist, set against a charcoal background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCstqovPO3DoHFwVMkBWgONLu7XpTMQeBSgx274fQv4X6XWwb0bebyA8WsJKR1r0E7V1c4pnC2jo19_7wZIJuWZTAIu7OTxcM3PEr4uNB5EljXZOYbdGjfXQoPaMgGjRKgKxx88KmJ7g41zvbyW5GjKTSe9U7QBgRNWZfUxEfeJAIgbiWNg042zL3dKoRsYb8cne1lqY5qraUDiqZA3GeoSCavD18XCLRiuuyRaWCYxoedrHlFoG13rDz6jwgQt1jIffs7JVpDENuU"/>
+<div class="absolute top-3 right-3 bg-background/60 backdrop-blur-md p-1.5 rounded-full">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-outline mb-1 block">Entrée</span>
+<h4 class="font-headline-md text-headline-md text-on-background group-hover:text-primary transition-colors">Amber Hearth Duck</h4>
+</div>
+</div>
+</section>
+<section class="mb-24 p-8 rounded-xl bg-gradient-to-br from-surface-container-high to-background border border-primary/10 relative overflow-hidden">
+<div class="relative z-10 flex flex-col md:flex-row items-center gap-12">
+<div class="flex-1">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-4">Precision in the Dark</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-lg">Master the art of temperature control and plating aesthetics under the guidance of our AI culinary coach. Designed for the nocturnal kitchen.</p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-on-primary px-8 py-3 rounded-lg font-label-sm text-label-sm uppercase tracking-wider hover:bg-primary/90 transition-all active:scale-95">Begin Session</button>
+<button class="border border-primary text-primary px-8 py-3 rounded-lg font-label-sm text-label-sm uppercase tracking-wider hover:bg-primary/10 transition-all active:scale-95">Browse Techniques</button>
+</div>
+</div>
+<div class="w-full md:w-1/3 aspect-square rounded-full border-[12px] border-surface-container-highest overflow-hidden relative shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="A top-down view of a professional chef's hands meticulously placing a micro-herb garnish onto a sophisticated dish using silver tweezers. The scene is lit with a dramatic, focused beam of light, while the rest of the stainless steel kitchen remains in deep, cool shadows. Professional, precise, and evocative." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnbMdiW_LqWUxILfnd-uu9q8izlKXTNFWVODE4vHoIfutqDl527poayJx2Q3iiGB2Xo3dv-gTEJejvCGg1KsS_I4dGZWkmMcgG6T0k77g_C7zl5GYCqKn0k_yDFI8YXDVgD5InYMF5U8bcF45BD6cvL3mvKnLK2g8jQAbbz2j6zCLllLC4b5G6P-ekfFHcodgW_oPSsu5kowVwnGaGSrhJAwuOHmCTjWz00hyONs1OCrXeA46Idwgt0D8PC2cbTxzrZ78S3irw6xU"/>
+</div>
+</div>
+<div class="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/5 blur-[120px] rounded-full"></div>
+</section>
+</main>
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/90 dark:bg-background/90 backdrop-blur-xl shadow-lg flex justify-around items-center px-base py-3 h-20 shadow-[0_-4px_12px_rgba(26,25,21,0.04)]">
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-on-primary-fixed-variant text-on-primary-container dark:text-primary-fixed rounded-full px-4 py-1.5 transition-all active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-sm text-label-sm">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant opacity-70 hover:text-primary dark:hover:text-primary-fixed transition-all active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-label-sm text-label-sm">Genie</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant opacity-70 hover:text-primary dark:hover:text-primary-fixed transition-all active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+<span class="font-label-sm text-label-sm">Coach</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant opacity-70 hover:text-primary dark:hover:text-primary-fixed transition-all active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-sm text-label-sm">Pantry</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant opacity-70 hover:text-primary dark:hover:text-primary-fixed transition-all active:scale-90 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+<span class="font-label-sm text-label-sm">Kitchen</span>
+</a>
+</nav>
+</body></html>

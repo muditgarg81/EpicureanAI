@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Global Kitchen - Discover a World of Flavor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#ffb8b4",
+                        "inverse-surface": "#353025",
+                        "inverse-on-surface": "#f9f0e0",
+                        "on-surface-variant": "#4e4634",
+                        "on-tertiary-fixed": "#410005",
+                        "secondary-container": "#83fba5",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "background": "#fff8f1",
+                        "on-tertiary-fixed-variant": "#930018",
+                        "tertiary": "#bf0023",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#755b00",
+                        "on-background": "#1f1b12",
+                        "error-container": "#ffdad6",
+                        "surface": "#fff8f1",
+                        "on-secondary-fixed-variant": "#005227",
+                        "on-primary-fixed-variant": "#584400",
+                        "outline-variant": "#d1c5ad",
+                        "surface-variant": "#ebe1d2",
+                        "surface-container-high": "#f1e7d7",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#fcf2e3",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "primary": "#755b00",
+                        "primary-container": "#f4c430",
+                        "primary-fixed-dim": "#f0c12c",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#00210c",
+                        "on-secondary-container": "#00743a",
+                        "primary-fixed": "#ffdf90",
+                        "outline": "#807661",
+                        "on-primary-fixed": "#241a00",
+                        "on-surface": "#1f1b12",
+                        "on-primary-container": "#695200",
+                        "surface-container": "#f6eddd",
+                        "surface-bright": "#fff8f1",
+                        "secondary": "#006d36",
+                        "secondary-fixed": "#83fba5",
+                        "surface-dim": "#e2d9ca",
+                        "inverse-primary": "#f0c12c",
+                        "on-tertiary-container": "#ad001e",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#ebe1d2",
+                        "secondary-fixed-dim": "#66dd8b",
+                        "tertiary-fixed": "#ffdad7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "base": "8px",
+                        "container-margin": "24px",
+                        "xs": "4px",
+                        "lg": "48px",
+                        "gutter": "16px",
+                        "xl": "80px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 253, 245, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .app-frame-shadow {
+            box-shadow: 0 40px 100px -20px rgba(26, 25, 21, 0.15);
+        }
+        body {
+            background-color: #fff8f1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body-md text-on-surface selection:bg-primary-container selection:text-on-primary-container min-h-screen overflow-hidden">
+<main class="relative w-full h-screen flex flex-col md:flex-row items-center justify-center p-md lg:p-xl bg-background">
+<!-- Background Accents -->
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-30">
+<div class="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] rounded-full bg-primary-fixed blur-[120px]"></div>
+<div class="absolute top-1/2 -left-1/4 w-[500px] h-[500px] rounded-full bg-secondary-fixed blur-[100px]"></div>
+</div>
+<!-- Marketing Content -->
+<div class="z-10 w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left space-y-md mb-lg md:mb-0">
+<div class="inline-flex items-center px-4 py-2 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md uppercase tracking-wider mb-base">
+                Global Kitchen App
+            </div>
+<h1 class="font-display-lg text-display-lg md:text-[64px] text-on-surface leading-tight">
+                Discover a World <br/> of <span class="text-primary italic">Flavor</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                Explore thousands of curated recipes from every corner of the globe. From street food favorites to gourmet classics.
+            </p>
+<div class="flex flex-wrap gap-gutter pt-base justify-center md:justify-start">
+<div class="flex items-center gap-xs px-sm py-xs bg-surface-container rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="public">public</span>
+<span class="font-label-md text-label-md text-on-surface">190+ Countries</span>
+</div>
+<div class="flex items-center gap-xs px-sm py-xs bg-surface-container rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-md text-label-md text-on-surface">AI Powered Chef</span>
+</div>
+</div>
+</div>
+<!-- App Preview Container -->
+<div class="z-10 w-full md:w-1/2 flex justify-center items-center relative">
+<!-- Floating Cuisine Pills -->
+<div class="absolute -left-base md:-left-lg top-1/4 glass-panel border border-white/20 p-sm rounded-xl app-frame-shadow z-20 flex items-center gap-base">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up macro photography of authentic spicy Sichuan peppercorn dish with vibrant chili oil and fresh green onions. The lighting is dramatic and focused, highlighting the textures of the spices against a dark, rustic ceramic plate, reflecting a sophisticated global culinary aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANI_D2XLrMJv8uXeQoB6mZGUZOyCesfN0A2ndpDFYuAIdxnG39WRxyVEgfvnvGbV6ATW2pMDCnxuLbaSa66ISOsc0ktKs8rOuetz2vLMLwUXjj00PuHzQiKJOJvXmClYra0avIkCKJqqgM3dn9F4mIiABzFmtL77BjT_avm2ysZhsDk9rzsMolLmo7UmgxXuQ5zSFN6fFQIwdPEYz7CltnM90WqexcXBigl4xzbsdP9kHsKPvsk5Cpc5LzA3xY9oIQipLydZ2w77o"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Sichuan, China</span>
+</div>
+<div class="absolute -right-base md:-right-md bottom-1/4 glass-panel border border-white/20 p-sm rounded-xl app-frame-shadow z-20 flex items-center gap-base">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A bright and airy overhead shot of a vibrant Mediterranean salad bowl with fresh feta cheese, kalamata olives, and colorful cherry tomatoes. The scene is bathed in natural, warm golden hour sunlight that emphasizes the freshness and high-quality ingredients, set against a clean cream-colored background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYxGXmIW7TeLx6s_PpkiN2CICvji0462RNd0e_9HqujqjMiEU7CBHo23U3QnfdaQZ2YuMLA3-l_wTmCqqfNeB9Z3s3E5Q-1If3raZXLS6x8yQfaDlUh4oQSqN5d-jUw3oqjjJRByhdjK4pgcTajstUR0_GXfVnX7et3OIgWt5FXHwxkrMqa5jbY8_L4dpPMkFjx16LGSPmpSX4BR-bm7s-oNw0xxrbjIAi531FMLXAM6eZg9vO1RQhmlpfEcYaR26NN4C4sD80crk"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Tuscany, Italy</span>
+</div>
+<!-- Device Frame -->
+<div class="relative w-[320px] h-[640px] bg-inverse-surface rounded-[48px] p-3 border-[6px] border-outline-variant app-frame-shadow overflow-hidden">
+<!-- Inner Screen Content (Preview of SCREEN_32) -->
+<div class="w-full h-full bg-surface rounded-[38px] overflow-hidden flex flex-col relative">
+<!-- Screen App Bar -->
+<div class="flex justify-between items-center px-container-margin py-base bg-surface">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="menu">menu</span>
+<span class="font-headline-md text-headline-md text-primary">Global Kitchen</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a woman with a warm, welcoming smile. The lighting is soft and flattering, creating a high-end editorial feel. The background is a minimalist, neutral cream tone that aligns with the premium app aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX3TcW9VmRIMkST3t5je4C5GhH_0iB0ZJlK7481hsvdhsp7juTEsPI5gYacdA3wkOvp4i9d7FzYo4Nc8ardIXbWmuHtkc_5XkCr0kc-W4xUS9as9IJGP497ERqD1x9jEfqHYzHO5fUwXAZzbO6N5Z-hyshJm-uWVmcq1eCuwetEBI3t26UxKbzOywngvj03SjvP7CaW4A2GX8KKnsi6CNadGf8Nt7IN3FLEbLJbXjXhWoQN0R_dcQ2BET1prNrpzJzL2bAxItJh8Y"/>
+</div>
+</div>
+<!-- Screen Scrollable Content -->
+<div class="flex-1 overflow-y-auto px-container-margin space-y-md pt-base">
+<!-- Hero Card -->
+<div class="relative aspect-[4/3] rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A stunning, high-angle shot of a traditional Moroccan tagine on a rustic table. The scene is rich with textures, from the earthenware pot to the scattering of fresh cilantro and golden couscous. Warm, directional light creates long shadows and highlights the steam rising, conveying an epicurean and inviting atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDgfRyDP70VrwEZu-5ft3eZTfNQuc1bbDRLqXQlE3A6MZDQM94UNla5Osx7sw0PspikaA-W06ibLYZr2ODgk_N8xUukm2jTZnQUaOI7cIEuRplnUau1FcbAt0PGOMec8o659x_BssuXwJgImQcRFvAcokzvD_a88O3k5YnCC1O5cGuXh25miaGWhHKm63YqUPedpZrsCQ5xObBxwZwqISVQBSX4hJukgLe-o0Qm-s9IreJBcZocovzJldGx_gBfLV5cWS4vXfdo1Q"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-md">
+<span class="font-label-sm text-label-sm text-on-primary-fixed uppercase tracking-widest">Featured Dish</span>
+<h3 class="font-headline-md text-headline-md text-white">Lamb Tagine</h3>
+</div>
+</div>
+<!-- Regions Horizontal Scroll -->
+<div>
+<div class="flex justify-between items-center mb-base">
+<h4 class="font-label-md text-label-md text-on-surface">Explore Regions</h4>
+<span class="text-primary text-[12px] font-bold">See All</span>
+</div>
+<div class="flex gap-gutter overflow-x-hidden">
+<div class="flex-shrink-0 w-24 space-y-xs">
+<div class="aspect-square rounded-lg bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Vibrant Indian street food scene with golden samosas and colorful chutneys. The lighting is warm and evocative of an outdoor marketplace, with rich saturated colors and a shallow depth of field that emphasizes the sensory richness of the cuisine." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDocWLZ1yn1BzRKX6oO4KWEAZxmQIXzPqrlSy6r7DIF2mN24RWUkiG51BmgeO4WPnHiBp48xTU25SXZhUEyvB-bGDjMt7KrCk9hRsVDUojsOOV_ew9mCICwZdqH0a36Uaq5Bp3-ymSoBPFB82JNha-18VwI2fDZ4nHk06fSiS0HAFKVc2kCNYfqxW7yFbIVmaXbrEuitv6shOqk6zYhPwd90N82YQQuOwzNMcVJL90-O5WJCSMdHuXznB-LIkB4KVfvHbuIinAUU_s"/>
+</div>
+<p class="font-label-sm text-label-sm text-center text-on-surface">India</p>
+</div>
+<div class="flex-shrink-0 w-24 space-y-xs">
+<div class="aspect-square rounded-lg bg-surface-container-high overflow-hidden border-2 border-primary">
+<img class="w-full h-full object-cover" data-alt="Elegantly plated Japanese sushi platter on a slate plate. The composition is minimalist and precise, featuring fresh sashimi and delicate garnishes. The lighting is cool and clean, reflecting a high-end, sophisticated digital environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBueAVAdwk-2fAow7l4GTaLBs6P5xDn1Zh6EegQ04ghA0UwEoIJJ3WDxRXzA_RQuErTy-3EKfCRwOshyK7PGrMJIaw0ZtOACH8N21tj63UpayVEAZoBKw12Mt2O81WqEjtRVYY0_istMLY_Lk3vbgpRNXcd_3dEWdXA2EgMKhqAioSYmi5u7sXjniHaP8zdc412_QgcG7RhxrgiSzq_Mbv-T7xt4bkM2jcikU6leXwINU_Qrb4vWANh000I_cSEx7g5oBRl3SI65ZQ"/>
+</div>
+<p class="font-label-sm text-label-sm text-center text-primary font-bold">Japan</p>
+</div>
+<div class="flex-shrink-0 w-24 space-y-xs opacity-50">
+<div class="aspect-square rounded-lg bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Gourmet Mexican street tacos with fresh salsa and lime on a dark stone surface. The visual style is high-contrast and dramatic, celebrating the vibrant diversity of world cuisines through high-quality food photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVG6sqskY-zfvgqD69JMnnpaaS_-W7948fCaZFukIncPY_CFJldeNjjIE-4uq8dXQWsPe2RVJ3Ybpn_FOLBkA3xFeBpJL8dF1iyGWEUDnY_xg5s7cqQrZv1VNrSOwKyoEqaaB8hwYdz4WYByRajF6Fidt6NTpokcv3pQCjKPWcABsMe8CXjYvnI1lV9VAUKfXjwLOxhfepCLOPrOOVvNp_GrCfiI9YR5eaMbhA6-Pd4p9ZXr9ApQz-3cB6e_f7A-J-ty8H3pw-Hmk"/>
+</div>
+<p class="font-label-sm text-label-sm text-center text-on-surface">Mexico</p>
+</div>
+</div>
+</div>
+<!-- Bento Grid Preview -->
+<div class="grid grid-cols-2 gap-gutter pb-xl">
+<div class="space-y-xs">
+<div class="aspect-square rounded-xl bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Classic French onion soup in a traditional lion-head bowl with melted Gruyère cheese crust. The atmosphere is cozy and sophisticated, with warm incandescent lighting creating a sensory and effortless exploration experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVkvoO2ZAdVcvelTGy_ot1RbQyJN7_huaQCefINLkFTwLAvX5EWpRkrBtTEjE-KXv3QLxu1DxLw2fdW6NxfRx5E2KCD_v1CrqN5Ob-EK8KOUOv8Zu9Wyz76Q7Daedbu5r_NncHgk1M5wC15P1p355YOcWTQNC0_hgAsyf_s5W0lRiX-sAxJnP3_MpxjWeIdqrPsHcHY4SlhZ5zFZiGtYMsmdfI471nRVn2M0AZIU8y-ose4HzvTQ4vUjl7dYTboyiv8W-sse_1eCI"/>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant">Parisian Bistro</p>
+</div>
+<div class="space-y-xs">
+<div class="aspect-square rounded-xl bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A slice of authentic Italian pizza with bubbling mozzarella and fresh basil leaves. The lighting is high-key and bright, evoking the sensory richness of a Mediterranean sun-drenched terrace, layered with a premium minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZAmetnhqvY77ZZ6map_jC-mqIrtp97Hhb3jQIKUqTDv3CN_UW76ZQWGFPYbAtQOFrjuz6K7I7f_oR298klbAnZd3Puh3OtNKihM-M_gJnTIy8iIvQfr10-tPPQqvyGcr2dC-AXv1AkoGv5-S9a_uLLK_UXo37hA3oeHIsW_0zcydTfXk5SC8OmPd4sDwVyf04eml9vh-GW468C4tA7oX31N1PwBCYsPxfIXB138uHQhFS8JZHlxENs4QwPKLuJj6T1WT7y1RiHEQ"/>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant">Naples Heritage</p>
+</div>
+</div>
+</div>
+<!-- Screen Bottom Nav -->
+<div class="fixed-bottom w-full absolute bottom-0 left-0 bg-surface/90 backdrop-blur-md flex justify-around items-center px-4 pb-6 pt-2 border-t border-outline-variant/10">
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90">
+<span class="material-symbols-outlined text-[20px]" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="font-label-sm text-[10px]">Discover</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined text-[20px]" data-icon="outdoor_grill">outdoor_grill</span>
+<span class="font-label-sm text-[10px]">Kitchen</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined text-[20px]" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-sm text-[10px]">AI Chef</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined text-[20px]" data-icon="bookmark">bookmark</span>
+<span class="font-label-sm text-[10px]">Saved</span>
+</div>
+</div>
+<!-- Glass AI Overlay Preview -->
+<div class="absolute bottom-20 left-4 right-4 glass-panel border border-white/40 p-md rounded-2xl shadow-xl">
+<div class="flex items-start gap-md">
+<div class="bg-primary-fixed p-base rounded-full">
+<span class="material-symbols-outlined text-primary" data-icon="tips_and_updates">tips_and_updates</span>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-primary-fixed-dim uppercase tracking-wider mb-xs">AI Suggestion</p>
+<p class="font-body-md text-body-md text-on-surface leading-tight">Try substituting cumin with smoked paprika for a bolder flavor profile.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- App Store Footer Info -->
+<footer class="fixed bottom-md left-0 w-full px-xl z-20 hidden md:block">
+<div class="max-w-7xl mx-auto flex justify-between items-end">
+<div class="flex items-center gap-gutter">
+<div class="w-12 h-12 bg-on-background rounded-xl flex items-center justify-center"><img alt="Epicurean AI Logo" class="w-full h-full object-contain rounded-lg p-1" src="https://lh3.googleusercontent.com/aida/ADBb0ujn_83LAew_GKyQkCJB7Wn0k838Cee1BZKTw13xxfMJP2xH2JjmhVObESYlSSJ-aLuN-cTqhm8juWIC8bmG-Jhi5TUBMCje8AeIKPpj9J2j5WIc4MUT1DUpG1LDXQtWWkdS8wW4ASKv_nAwjK39JeTM8Bnn6dciQeZNgZ-4sWxymEO4h03UeEoU74yR-7Y9Wuq5LKlqmTbYxTPo3L1nrgutbzuTNGGLf3DR37Hb3N58OvTetXeLsd9e-GWDEPK-QLAQWnKIhnko"/></div>
+<div>
+<h5 class="font-label-md text-label-md text-on-surface">Global Kitchen</h5>
+<p class="font-label-sm text-label-sm text-on-surface-variant">The Epicurean Standard</p>
+</div>
+</div>
+<div class="flex gap-gutter">
+<div class="bg-inverse-surface text-inverse-on-surface px-md py-base rounded-lg font-label-md flex items-center gap-base">
+<span class="material-symbols-outlined" data-icon="apple">File</span>
+                    App Store
+                </div>
+<div class="bg-inverse-surface text-inverse-on-surface px-md py-base rounded-lg font-label-md flex items-center gap-base">
+<span class="material-symbols-outlined" data-icon="google_play">play_apps</span>
+                    Google Play
+                </div>
+</div>
+</div>
+</footer>
+</body></html>

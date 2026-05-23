@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface-variant": "#4e4634",
+                    "on-primary-fixed-variant": "#584400",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fff8f1",
+                    "on-error-container": "#93000a",
+                    "secondary-container": "#83fba5",
+                    "error-container": "#ffdad6",
+                    "secondary": "#006d36",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#f0c12c",
+                    "surface-container-high": "#f1e7d7",
+                    "primary-fixed": "#ffdf90",
+                    "surface-container-highest": "#ebe1d2",
+                    "surface-container-low": "#fcf2e3",
+                    "on-secondary-fixed-variant": "#005227",
+                    "surface-container": "#f6eddd",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#695200",
+                    "on-error": "#ffffff",
+                    "on-background": "#1f1b12",
+                    "tertiary-fixed": "#ffdad7",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fff8f1",
+                    "on-secondary-container": "#00743a",
+                    "tertiary": "#bf0023",
+                    "inverse-on-surface": "#f9f0e0",
+                    "outline-variant": "#d1c5ad",
+                    "on-tertiary-container": "#ad001e",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#1f1b12",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "surface-dim": "#e2d9ca",
+                    "secondary-fixed-dim": "#66dd8b",
+                    "secondary-fixed": "#83fba5",
+                    "surface-variant": "#ebe1d2",
+                    "on-tertiary-fixed": "#410005",
+                    "primary-fixed-dim": "#f0c12c",
+                    "tertiary-container": "#ffb8b4",
+                    "inverse-surface": "#353025",
+                    "primary": "#755b00",
+                    "on-primary-fixed": "#241a00",
+                    "primary-container": "#f4c430",
+                    "on-secondary-fixed": "#00210c",
+                    "surface-tint": "#755b00",
+                    "on-tertiary-fixed-variant": "#930018",
+                    "outline": "#807661",
+                    "background": "#fff8f1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "lg": "48px",
+                    "sm": "12px",
+                    "md": "24px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "xl": "80px",
+                    "container-margin": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Playfair Display"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "label-sm": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl flex justify-between items-center w-full px-container-margin h-16 shadow-sm">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:bg-primary-container/10 transition-colors p-2 rounded-full" data-icon="menu">menu</button>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">Epicurean AI</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="material-symbols-outlined text-primary hover:bg-primary-container/10 transition-colors p-2 rounded-full" data-icon="search">search</button>
+<button class="material-symbols-outlined text-primary hover:bg-primary-container/10 transition-colors p-2 rounded-full" data-icon="account_circle">account_circle</button>
+</div>
+</header>
+<main class="pt-20 px-container-margin max-w-[1280px] mx-auto">
+<!-- Welcome Hero Section (Asymmetric Layout) -->
+<section class="mb-lg grid grid-cols-1 md:grid-cols-12 gap-md items-center">
+<div class="md:col-span-7">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-xs block">Personalized For You</span>
+<h2 class="font-display-lg text-display-lg text-on-surface mb-md">Discover your next <span class="text-primary italic">culinary masterpiece.</span></h2>
+<div class="flex gap-sm">
+<button class="bg-primary-container text-on-primary-container px-md py-sm rounded-full font-label-md hover:opacity-80 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                        AI Recommended
+                    </button>
+<button class="border border-outline text-on-surface px-md py-sm rounded-full font-label-md hover:bg-surface-variant transition-all">
+                        Preferences
+                    </button>
+</div>
+</div>
+<div class="md:col-span-5 h-[300px] md:h-[400px] rounded-xl overflow-hidden shadow-lg relative group">
+<img alt="Fresh Ingredients" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A high-end, editorial food photograph of vibrant fresh ingredients—vibrant red chili peppers, bright green basil leaves, and artisanal olive oil—arranged artistically on a minimalist cream-colored marble surface. The lighting is bright and natural, casting soft shadows that emphasize the organic textures. The overall mood is sophisticated, clean, and inspiring, reflecting a premium culinary aesthetic with a warm, epicurean color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdkmThlPYcAQ_x6do6ZJ9sJuaEcLUEsgAmozy_dfJjNcZfNif1qJsA8eDHmpwoWuXGwh8xFzmy3qJhRb5LFSW3wpnrc2ZA_4F-aJsxt7bclL49APFsC8qm59OERtD1fDgsCi_ZZNhmIFXqfk4mbJtGKCjbXXT-h82xQ717sQoQls_mjdkI3jzs0TVdNc9EGR3oQ7yqORzd9ECa8Dcv-KKXRoMNbMviytG78Iq2ZA7cTBomS1UIsJ8e-3vZ3pg9an3f7XKFgxuIN40"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-md left-md">
+<p class="font-label-sm text-label-sm text-white/80">Trending Theme</p>
+<h3 class="font-headline-md text-headline-md text-white">The Umami Revolution</h3>
+</div>
+</div>
+</section>
+<!-- Categories Horizontal Scroll -->
+<section class="mb-lg overflow-hidden -mx-container-margin px-container-margin">
+<div class="flex justify-between items-end mb-md">
+<h3 class="font-headline-md text-headline-md">World Cuisines</h3>
+<a class="text-primary font-label-md hover:underline" href="#">Explore All</a>
+</div>
+<div class="flex gap-md overflow-x-auto no-scrollbar pb-xs">
+<!-- Japanese -->
+<div class="flex-shrink-0 w-24 text-center group cursor-pointer">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-xs shadow-md border-2 border-transparent group-hover:border-primary transition-all">
+<img class="w-full h-full object-cover" data-alt="Close-up macro shot of artisanal sushi rolls with vibrant orange roe and fresh green garnishes on a dark slate plate. The aesthetic is clean and minimalist, highlighting the precision of Japanese culinary arts. The lighting is soft and focused, creating a high-end restaurant atmosphere with rich colors and delicate textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJxG8L1CsLyc-48INJQDLSt-cacwmReMDH_HkQim-_EEARGh9FlaZGm-puT9plNNMnBx5khx9b091C5dKLaRf9tweo0jFuolBPWqL6EUT29qbxLZEvjZHNaxQhNGr44osHGblkwvo_W0zKXCpWDbxRX8QyZW4_mQQQlGJ7JRNLqMs7Eudg8P2ZWocx9DVhHLuTUbA1M38JzAuKlLQlOmFuWOpSyaD3sHIazJNZkccah99F8iLTTd2mW159fYtSjWjiDaULLhPaQAo"/>
+</div>
+<p class="font-label-md text-label-md group-hover:text-primary">Japanese</p>
+</div>
+<!-- Mexican -->
+<div class="flex-shrink-0 w-24 text-center group cursor-pointer">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-xs shadow-md border-2 border-transparent group-hover:border-primary transition-all">
+<img class="w-full h-full object-cover" data-alt="Vibrant Mexican street tacos with bright green cilantro, diced onions, and rich red salsa on a warm corn tortilla. The setting is a festive, sun-drenched outdoor kitchen with warm saffron and chili red tones. The image captures the authentic, energetic spirit of Mexican cuisine with high-contrast colors and natural daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJuGtOBkybI2IHNiywUd7y6cD10ifJcw48GlPeuhgIDaeOt-tc0CYhaxXHqJW7Tcvq6RNVmeoYLiHqHFh3suZkWyf0Ky7E2D7H28EeNZzYK7V2mbdVIeXVMsESGZ4CgDhDI7rCty1Xz5C9NYVhPAw9-EkesfkEVPAU3NTBcKixv3KkFCeocekjez9DNS1RDSLGuVl8GlWP7lHDLN6_TCUAgGDg3N_HrGj59tYC30RF-TjzkY-mcjAwtsErRXSh5tLRo4mRErcGqKU"/>
+</div>
+<p class="font-label-md text-label-md group-hover:text-primary">Mexican</p>
+</div>
+<!-- Italian -->
+<div class="flex-shrink-0 w-24 text-center group cursor-pointer">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-xs shadow-md border-2 border-transparent group-hover:border-primary transition-all">
+<img class="w-full h-full object-cover" data-alt="A rustic yet elegant plate of handmade pasta with bright green pesto and roasted pine nuts. The scene is set in a sunlit Italian courtyard with soft, warm lighting that highlights the textures of the stone table and the vibrant herbs. The mood is relaxed, sophisticated, and deeply connected to traditional culinary roots." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAs4jJwDNGi25SUibe11fR-1FhY4SeCAQ6ZKi7WqCLBUq2MZDdgJgzccD5ewnkEotffSYgwMFMNEy6ckG7dB-bErpQUa93dvgtyBK75Ta528Ye3jzA3jML0mpdyU9MvTkVW97NZYdlK7Px87POF42J6uz-xOm5viLuwIppm7LcjnGlE3LNnnT9JsrcMvsC_-F_e8HUu6a6Mod93Fy-GYQnigKWjEbugUXFmyb-PJXh6MZQZq8BEou24VSuk8OR-LlDtSxh2JVgJ7SM"/>
+</div>
+<p class="font-label-md text-label-md group-hover:text-primary">Italian</p>
+</div>
+<!-- Indian -->
+<div class="flex-shrink-0 w-24 text-center group cursor-pointer">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-xs shadow-md border-2 border-transparent group-hover:border-primary transition-all">
+<img class="w-full h-full object-cover" data-alt="A colorful Indian thali featuring various small copper bowls filled with vibrant curries, turmeric-yellow rice, and charred naan. The lighting is warm and golden, evoking the sensory richness of a spice market. The composition is artistic and premium, emphasizing the diversity of flavors and colors inherent in Indian cuisine." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhQZowyfd20Vpe9x2xTLhABVmcmZ4S5utaa8DaKy9y7qiprP6pqkQ8FWvK6ZTKb4-X963FfhpzmllDTpaQdOR762IqXJnwF_eRrWkbkxSjU-4vUkM9E7tna0jzVFQWhlK0SmmYvtqRc4dJdyfkXJxG02nbvATgh3erag1K6MAHvXWEJwAzcAAtWKRXGdN5eXaG_kQYAbhQL0w5p28xPMzHPt8Ih2NYJ2Knp70SSwYEGBoWUFyrxJrM5iZow0qVFGuv53DCPp1Whfk"/>
+</div>
+<p class="font-label-md text-label-md group-hover:text-primary">Indian</p>
+</div>
+<!-- Mediterranean -->
+<div class="flex-shrink-0 w-24 text-center group cursor-pointer">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-xs shadow-md border-2 border-transparent group-hover:border-primary transition-all">
+<img class="w-full h-full object-cover" data-alt="A fresh Mediterranean salad with bright red tomatoes, crisp green cucumbers, and creamy white feta cheese on a simple ceramic plate. The backdrop is a whitewashed terrace overlooking a deep blue sea, bathed in the bright, clear light of a Mediterranean afternoon. The aesthetic is healthy, airy, and premium." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGizmHf8u_-Ru_KiXmh48R67hUfanicvFS9z9IV-Ga9-rVHc0S9zV5FICknJ9LfKspbVYB8G8EFJf6NILYnozrC_mURlZIOtK1lRzg4lxqepgHI88-2VmXM6-qolVFNg72qSpYzNT3VuVIusTkgncVlm0TJpJ7vk36hPzOwAxfvsqmz6awpxwR2yqNB5os3VKhwKxXigwnFAxcp2InSBvmzwMN6BsJSXqFR1AIrZRRqziPTXKBnlru08N0GxEcwN1PXwlYXPlHzDM"/>
+</div>
+<p class="font-label-md text-label-md group-hover:text-primary">Mediterranean</p>
+</div>
+</div>
+</section>
+<!-- For You Bento Grid -->
+<section class="mb-lg">
+<h3 class="font-headline-md text-headline-md mb-md">Personalized For You</h3>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md md:h-[600px]">
+<!-- Main Featured Card (Crispy Avocado Tacos) -->
+<div class="md:col-span-2 md:row-span-2 group relative overflow-hidden rounded-xl shadow-md cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A stunning, close-up shot of Crispy Avocado Tacos garnished with vibrant purple cabbage slaw and a drizzle of creamy lime crema. The lighting is soft and golden, highlighting the crispy texture of the avocado. The setting is a minimalist modern kitchen with warm wooden accents and a clean cream background, creating a high-end, epicurean feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBC0IAybR_0Py9HOjq9HzGbfk-wgQ1Q1s9wmEqNCxZmebaz3ch_9WVNcB6Uqa5_98TSjHKT_48dwoDvqd4bzdNW_wTcihOUoahNnD1ZNprYhUmho-Z1-2eW3qp2zWf5iCNlp5Z3l9x9TZDI16svDY-cG9fprZC_iT6XP5Kkm_2GuTvPrus72Fj3jI7QoFRgIzmGRUyisqCm2HDeA6NTNIO4s2JEEgG5xkz8XBULRLk3llxo_Hs_icmwNCZm0h34m4vXrZFcwcGn0R4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md w-full">
+<div class="flex items-center gap-2 mb-xs">
+<span class="bg-secondary/20 text-secondary-fixed font-label-sm px-2 py-0.5 rounded backdrop-blur-md">Vegetarian</span>
+<span class="text-white/80 font-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="schedule">schedule</span> 25 mins
+                            </span>
+</div>
+<h4 class="font-headline-lg text-headline-lg text-white mb-xs">Crispy Avocado Tacos</h4>
+<div class="flex justify-between items-center">
+<p class="text-white/70 font-body-md line-clamp-1">With charred corn and lime-crema</p>
+<button class="material-symbols-outlined text-white" data-icon="bookmark">bookmark</button>
+</div>
+</div>
+</div>
+<!-- Second Card (Ethiopian Misir Wot) -->
+<div class="md:col-span-2 group relative overflow-hidden rounded-xl shadow-md cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Authentic Ethiopian Misir Wot spicy red lentil stew served on a large piece of sourdough injera bread. The dish is rich in deep red and earthy brown tones, photographed from a top-down angle on a dark, textured wood surface. The lighting is warm and dramatic, highlighting the rich spices and the porous texture of the injera." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlvNzg-cHCMIYTnfnsrrWxdbnDj6UEztaz7ekVdWn031cwmomJj83Y51mX1mkFC26NG87XOmSTv-9qHxgHm5vJzvbZ1cz_jJ-NOK30IxEg3aoJK2XMG_YZnzMeSwZ2-w2b9t0FtpTEZ93tJQ0xmisB3pOZa0p2x9BYDmylOej23O8v-4T7otzvaXS_uMf39rhc6x1joTBa7a5im7uGeDKIDyrnsPNqZ5y5fxGHIPXrz7cXI9Www1UjwTTQUPpt3yfhKmkrIo8AoAI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md w-full">
+<div class="flex items-center gap-2 mb-xs">
+<span class="bg-tertiary/20 text-tertiary-fixed-dim font-label-sm px-2 py-0.5 rounded backdrop-blur-md">Vegan</span>
+<span class="text-white/80 font-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="schedule">schedule</span> 45 mins
+                            </span>
+</div>
+<h4 class="font-headline-md text-headline-md text-white">Ethiopian Misir Wot</h4>
+<p class="text-white/70 font-body-md">Spicy red lentil stew with handmade injera</p>
+</div>
+</div>
+<!-- Third Card (Small - Japanese Ramen) -->
+<div class="group relative overflow-hidden rounded-xl shadow-md cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A steaming bowl of traditional Tonkotsu ramen with a perfectly soft-boiled egg, dark green seaweed, and tender pork slices. The lighting is cool and clean, emphasizing the glossy surface of the broth. The background is a minimalist, modern dining space with soft grey and white tones, creating a contemporary global aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX2lXKJ51GGSXy7yQWAUd-Cr2NMHkRgv3G8beKL8cytSm-6wOsZNoEdZtwtVxXB38A3pkx4ITqGdp-xrkVToHfN5COwr3sw7-TzQ65_JPwi70yDFWksb6eyj-7bAGhSKiXU0SC44EF-6bd7afSXg5bdhtwSaN79MPYVu9nYkM5LEpOGPO2zchrLfB5YQauMs7wvDutxjHjJUteLwdZx9ACnExGIGXZQXgzDms8Qe1w5ib3iHvLM9fj_BHDY1bEQM95vhfra5e5H0k"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-sm">
+<h4 class="font-label-md text-label-md text-white">Shoyu Ramen</h4>
+<p class="text-white/70 text-[10px]">15 min prep</p>
+</div>
+</div>
+<!-- Fourth Card (Small - Italian Burrata) -->
+<div class="group relative overflow-hidden rounded-xl shadow-md cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A creamy white Burrata cheese ball served with vibrant red heirloon tomatoes and fresh basil leaves, drizzled with dark balsamic glaze. The plate is white porcelain, set against a bright, sunny outdoor background. The lighting is high-key and fresh, celebrating the simple beauty of high-quality ingredients in a premium digital style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV2Hy5l_61N_SRLwkVg5ERfoY-SdowgsdiaeWDnX2TmpungnlLK4L9o_AlNDb5599GYFsu4x5elKot9F9NhGCi6D2elPDHiL_vWiD_Zo42-9T4DIe_CDkO8qNe1yKF6vG9G9emtM0MhRbLQ6LK1eKxSqZ0hX3scGvOcJihb7pyQOXNr0_ULXFhyLYw2DPQAqPPtwkAm8E1tkg-lKz7tbPga19jemIbf08X4CMabCRuYhQN9ctcFdmvrxNI0YGBU8oB9vB-Uath_Rw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-sm">
+<h4 class="font-label-md text-label-md text-white">Heirloom Burrata</h4>
+<p class="text-white/70 text-[10px]">5 min prep</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Trending Now (Horizontal Scroll) -->
+<section class="mb-xl overflow-hidden -mx-container-margin px-container-margin">
+<h3 class="font-headline-md text-headline-md mb-md">Trending Now</h3>
+<div class="flex gap-md overflow-x-auto no-scrollbar">
+<!-- Trending Card 1 -->
+<div class="flex-shrink-0 w-[280px] bg-surface-container-low rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="h-40 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up of a vibrant green Matcha latte with delicate latte art, set on a minimalist wooden table. The scene is bright and airy with a calm, peaceful mood. The colors are dominated by fresh greens and warm neutrals, reflecting a modern global health-conscious aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCox-NC07xujSb0bvRENc2TdnXj6GY_rIqRn-NvQhfetqaa7GHqpLP0DH1lhwEgckRgGZdoGAaxkUi3lpfYcxP4wkstyQNL-TTm5wrtebbQXQs2iJen083hOcgXxiG3ZJdILYlfY3JQy-2uVVEydRRmR2pw1xfx53fUltTCCYU0sX0C7tVumMTH1AHcOpa22XwPGtApoQST5FYhiDRdGPT5w3XX9DHffjNw5qDUv6_NUgKmAAWoSiIlHAaiDPx0j9OzyR1gw1VV4cE"/>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h4 class="font-label-md text-label-md">Iced Ceremonial Matcha</h4>
+<span class="text-secondary font-bold text-[12px]">NEW</span>
+</div>
+<p class="text-on-surface-variant text-label-sm mb-sm line-clamp-2">The ultimate antioxidant boost for your morning routine.</p>
+<div class="flex items-center gap-4 text-outline font-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="local_fire_department">local_fire_department</span> 120 cal</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span> 4.9</span>
+</div>
+</div>
+</div>
+<!-- Trending Card 2 -->
+<div class="flex-shrink-0 w-[280px] bg-surface-container-low rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="h-40 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A gourmet wood-fired pizza with fresh buffalo mozzarella, bright red cherry tomatoes, and a dusting of green basil. The crust is perfectly charred, showing artisanal quality. The photo uses warm, inviting lighting typical of a high-end Italian trattoria, set in a clean, sophisticated digital interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9sVniVbkoPN6EPnYcedJCNj6-srYjdU2lQgBA0rWXd5CmtnR99cjZ349XI2YnE2Njm2vqhn8YsBRUDOnNk6KgN6go_3FQ7IZY0dTgxRP8Q8aTFzhK3Gi4OB7XuyxzR8a6FpXwA9gH45MNebCt9P3nOLlz1Nvbb7C_OcNHdAVdsg9UVb6zTQP6UFtijR2AINeAahvKfGXaNrENwP2U-OjcyvTVtVZmQ0HkkU2UipkC-a6EjhVOaWgkz1D62oLtENvAHgaTjEsSmn4"/>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h4 class="font-label-md text-label-md">Sourdough Margherita</h4>
+<span class="text-primary font-bold text-[12px] uppercase">Hot</span>
+</div>
+<p class="text-on-surface-variant text-label-sm mb-sm line-clamp-2">48-hour fermented crust for maximum flavor profile.</p>
+<div class="flex items-center gap-4 text-outline font-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="local_fire_department">local_fire_department</span> 450 cal</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span> 4.8</span>
+</div>
+</div>
+</div>
+<!-- Trending Card 3 -->
+<div class="flex-shrink-0 w-[280px] bg-surface-container-low rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="h-40 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A modern bowl of colorful grain salad with purple cabbage, orange carrots, green edamame, and a bright yellow ginger-turmeric dressing. The lighting is crisp and bright, emphasizing the fresh, plant-based nature of the dish. The style is minimalist and high-end, focusing on nutritional vibrancy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-5JMtkVya-J9nMCqRkzdQNqqSketa_786Ig3JsbvMCtlFSUOYM4vGEIxWQcTx2VUjEucbwZKybCCmCwl0dGsUButPRUl7XVfgAY_6wbjCNvZkU_sVbsvrtatp96_4UBQYa1qMZQz6exUfmxwCcuOfY7JBLA3Qj9Mrzq99Wwikcg4vXFyAo3RlKpd3AQNiloirXx8cYZgz3P35zbDqGBRVLeLVMIbly6fYfPh4naubfNQ_b5WcI_t5RRZFwWjo_5pShieaL7tZdCI"/>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-xs">
+<h4 class="font-label-md text-label-md">Rainbow Quinoa Bowl</h4>
+<span class="text-secondary font-bold text-[12px] uppercase">Eco</span>
+</div>
+<p class="text-on-surface-variant text-label-sm mb-sm line-clamp-2">Zero-waste meal prep that keeps you energized all day.</p>
+<div class="flex items-center gap-4 text-outline font-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="local_fire_department">local_fire_department</span> 380 cal</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span> 5.0</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Assistant Floating Glass Card -->
+<div class="glass-panel p-md rounded-2xl shadow-xl border border-white/20 mb-xl flex flex-col md:flex-row items-center gap-md">
+<div class="bg-primary-container/30 p-md rounded-full">
+<span class="material-symbols-outlined text-primary text-[40px]" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="flex-grow text-center md:text-left">
+<h4 class="font-headline-md text-headline-md text-primary mb-xs">AI Chef is ready</h4>
+<p class="text-on-surface-variant font-body-md">"I see you have leftover spinach and chickpeas. Would you like a 15-minute Mediterranean braise recipe?"</p>
+</div>
+<button class="bg-primary text-on-primary px-lg py-sm rounded-full font-label-md shadow-lg hover:scale-105 transition-transform">
+                Let's Cook
+            </button>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-surface/90 backdrop-blur-2xl rounded-t-xl z-50 shadow-[0_-8px_24px_rgba(26,25,21,0.06)]">
+<!-- Discover (Active) -->
+<a class="flex flex-col items-center justify-center text-primary bg-primary-container/20 rounded-xl px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="explore" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-sm text-label-sm">Discover</span>
+</a>
+<!-- Kitchen -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant/50 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="font-label-sm text-label-sm">Kitchen</span>
+</a>
+<!-- AI Chef -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant/50 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-sm text-label-sm">AI Chef</span>
+</a>
+<!-- Saved -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant/50 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+<span class="font-label-sm text-label-sm">Saved</span>
+</a>
+</nav>
+<!-- Contextual FAB (Only for Discovery/Home) -->
+<button class="fixed bottom-24 right-md bg-primary-container text-on-primary-container w-14 h-14 rounded-2xl shadow-xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined text-[32px]" data-icon="add">add</span>
+</button>
+</body></html>

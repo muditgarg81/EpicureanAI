@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Epicurean AI - Multicultural Cooking &amp; AI Coach</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#f0c12c",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-highest": "#ebe1d2",
+                    "on-primary-container": "#695200",
+                    "surface": "#fff8f1",
+                    "on-tertiary-container": "#ad001e",
+                    "on-secondary-container": "#00743a",
+                    "surface-container": "#f6eddd",
+                    "secondary": "#006d36",
+                    "inverse-surface": "#353025",
+                    "primary-fixed": "#ffdf90",
+                    "on-tertiary-fixed": "#410005",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#005227",
+                    "secondary-container": "#83fba5",
+                    "inverse-on-surface": "#f9f0e0",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#f0c12c",
+                    "on-background": "#1f1b12",
+                    "surface-container-low": "#fcf2e3",
+                    "on-secondary-fixed": "#00210c",
+                    "background": "#fff8f1",
+                    "surface-bright": "#fff8f1",
+                    "secondary-fixed": "#83fba5",
+                    "surface-variant": "#ebe1d2",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#4e4634",
+                    "tertiary": "#bf0023",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#f1e7d7",
+                    "secondary-fixed-dim": "#66dd8b",
+                    "surface-tint": "#755b00",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "primary": "#755b00",
+                    "on-primary-fixed": "#241a00",
+                    "on-surface": "#1f1b12",
+                    "on-primary-fixed-variant": "#584400",
+                    "tertiary-fixed": "#ffdad7",
+                    "outline": "#807661",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#d1c5ad",
+                    "primary-container": "#f4c430",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#e2d9ca",
+                    "tertiary-container": "#ffb8b4",
+                    "on-tertiary-fixed-variant": "#930018"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin": "24px",
+                    "base": "8px",
+                    "xl": "80px",
+                    "sm": "12px",
+                    "lg": "48px",
+                    "gutter": "16px",
+                    "xs": "4px",
+                    "md": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Playfair Display"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "body-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md">
+<!-- Top Navigation Anchor (Manual Implementation based on JSON Shell) -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm">
+<div class="flex items-center justify-between px-container-margin py-base max-w-7xl mx-auto w-full">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" style="font-size: 28px;">restaurant</span>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">Epicurean AI</h1>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-lg py-xs rounded-full hover:opacity-80 transition-opacity active:scale-95 duration-200">
+                GET
+            </button>
+</div>
+</header>
+<main class="pt-xl pb-xl">
+<!-- App Header Section -->
+<section class="px-container-margin pt-lg pb-md max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row items-center md:items-start gap-lg">
+<!-- App Icon -->
+<div class="w-32 h-32 md:w-40 md:h-40 rounded-3xl overflow-hidden shadow-xl flex-shrink-0 bg-white">
+<img alt="Epicurean AI App Icon" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ujn_83LAew_GKyQkCJB7Wn0k838Cee1BZKTw13xxfMJP2xH2JjmhVObESYlSSJ-aLuN-cTqhm8juWIC8bmG-Jhi5TUBMCje8AeIKPpj9J2j5WIc4MUT1DUpG1LDXQtWWkdS8wW4ASKv_nAwjK39JeTM8Bnn6dciQeZNgZ-4sWxymEO4h03UeEoU74yR-7Y9Wuq5LKlqmTbYxTPo3L1nrgutbzuTNGGLf3DR37Hb3N58OvTetXeLsd9e-GWDEPK-QLAQWnKIhnko"/>
+</div>
+<!-- Title & Subtitle -->
+<div class="text-center md:text-left">
+<h2 class="font-display-lg text-display-lg text-on-surface mb-xs">Epicurean AI</h2>
+<p class="font-headline-md text-headline-md text-on-surface-variant mb-md">Multicultural Cooking &amp; AI Coach</p>
+<div class="flex flex-wrap justify-center md:justify-start gap-sm">
+<button class="bg-primary text-on-primary font-label-md text-label-md px-lg py-sm rounded-full shadow-lg hover:opacity-90 transition-opacity">GET</button>
+<button class="border border-primary text-primary font-label-md text-label-md px-lg py-sm rounded-full hover:bg-primary/5 transition-colors">SHARE</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Row -->
+<section class="border-y border-outline-variant/30 py-md mb-lg overflow-x-auto hide-scrollbar">
+<div class="max-w-7xl mx-auto px-container-margin flex justify-between md:justify-around items-center min-w-[600px]">
+<div class="text-center">
+<div class="flex items-center justify-center gap-xs text-on-surface-variant font-label-md">
+<span class="text-headline-md font-headline-md text-on-surface">4.8</span>
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">72K RATINGS</p>
+</div>
+<div class="w-px h-8 bg-outline-variant/30"></div>
+<div class="text-center">
+<div class="text-headline-md font-headline-md text-on-surface">#1</div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">FOOD &amp; DRINK</p>
+</div>
+<div class="w-px h-8 bg-outline-variant/30"></div>
+<div class="text-center">
+<div class="text-headline-md font-headline-md text-on-surface">4+</div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">AGE</p>
+</div>
+<div class="w-px h-8 bg-outline-variant/30"></div>
+<div class="text-center">
+<span class="material-symbols-outlined text-on-surface text-headline-md">translate</span>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">32 LANGUAGES</p>
+</div>
+</div>
+</section>
+<!-- Screenshots Gallery -->
+<section class="mb-xl">
+<div class="flex overflow-x-auto gap-gutter px-container-margin hide-scrollbar snap-x pb-base">
+<div class="snap-start flex-shrink-0 w-64 md:w-80 aspect-[9/19.5] rounded-xl overflow-hidden shadow-lg border border-outline-variant/20">
+<img alt="Marketing Screen 1" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAasFAMzMZ792SdX1tfR1rLtmfNfrdMxZa6byvqTBsGYEaIyH94X7yGj2yfBXeaM-cloLKlsw_iTEO4R2TcNRYczdlw9xl1q7_UTDW4KzKQjJgw0p0BEHghn5PYxMcZO4QSWFvqdrpVnv5s3DrADVM8xniLU-4GW7nQl0zlbFGbOdLeDRFAwR5Va5_aWE_WXDgbQoQvOixMr9YeORffGxEvKvx93kG1E4cdoyB4Fo9pczUGa8305uZL65c8WaNwbyiXh0ejxY5Xe7k"/>
+</div>
+<div class="snap-start flex-shrink-0 w-64 md:w-80 aspect-[9/19.5] rounded-xl overflow-hidden shadow-lg border border-outline-variant/20">
+<img alt="Marketing Screen 2" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQt2ACSMvKsARLLmJXXk5LAZMGbp_mvDRCXlvabUrLRgoeuydIq8wSCa1FSEeERjCEN380OMKUYokYtr8k_WdZ3UC-NWejuPX3em4jIsnlGuWjQTOPEvIq3ZHBGU2cfxRz43GMlkk0H5vtf8uqFwKnyuYwRhq_IGMZk0-egsk8qS5oEECbmYbROwOaz6SuRKLgPIW8AzURS_topC1bFy1GafNj5E0tbt-Fn1bOHAm3-O-JcKXbzGLNKb451AjCqXu3iWapBe1O6HY"/>
+</div>
+<div class="snap-start flex-shrink-0 w-64 md:w-80 aspect-[9/19.5] rounded-xl overflow-hidden shadow-lg border border-outline-variant/20">
+<img alt="Marketing Screen 3" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxXFG0HivjnRUkuaNP5rV0k8zyYj5k0wEjSWJNu0GvxX6WjX7ofJ_A_XdXcuqHJA9eEZJn4Yqzj2tubZJdB4vAyxchz1Wgj28M_W0salICyVk3JzERRBa0iMr_-KccjDBagsQhOIqG_yvaTV9qLB7wUGTOMu392a-uxXrq1Ny5HZQvzR9OHtTbuhkaRrkGnGhv3ch70jzwNZSmZp8ru2The0iJw4bWe4C-FRKhy5w13_yWPXKKjH9Vky8xJHYWRdZqYZbQaddf1ds"/>
+</div>
+<div class="snap-start flex-shrink-0 w-64 md:w-80 aspect-[9/19.5] rounded-xl overflow-hidden shadow-lg border border-outline-variant/20">
+<img alt="Marketing Screen 4" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkciHMn09Ab4flTjlNjtjtClmGwqRWiVnFQI2xfOaqsb5Ig9qkzhIwsCKelFPP22i48PQG4PfMtppGmoQRAw8DfoRYdONXhiHAGTBUxZ-xHlTNnZjwjHmjj-dhnl8PKEer-2Rp_NY2VNm0HQtV1uAtQ4-t-Fz6t5HHTPjuT1mH-XFUshdCPfkwas2JdCzEOK_v8D6vuKO4Ciuhmrxa5WoN6QMM6bs61DQUUWAjCqNtAwPPR4Hyw38PajUUhu7JHcUlofUakL4zH-0"/>
+</div>
+</div>
+</section>
+<!-- Description & What's New Bento Layout -->
+<section class="max-w-7xl mx-auto px-container-margin grid grid-cols-1 md:grid-cols-3 gap-gutter mb-xl">
+<!-- Description -->
+<div class="md:col-span-2 bg-surface-container-low rounded-xl p-lg">
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-md">Description</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                    Master the world's cuisines with your personal AI Chef. From real-time voice guidance to intelligent meal planning, Epicurean AI turns every meal into a global journey. Explore thousands of authentic recipes, swap ingredients with smart suggestions, and learn professional techniques through an interactive, glassmorphic interface designed for the modern kitchen.
+                </p>
+<button class="mt-lg text-primary font-label-md flex items-center gap-xs">
+                    Read more <span class="material-symbols-outlined">expand_more</span>
+</button>
+</div>
+<!-- What's New -->
+<div class="bg-surface-container-high rounded-xl p-lg border border-outline-variant/20">
+<div class="flex justify-between items-start mb-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">What's New</h3>
+<span class="font-label-sm text-outline">Version 1.2.0</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-gutter">
+                    Enhanced AI Voice Coach with lower latency and 500+ new regional recipes from the Souks of Marrakesh.
+                </p>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Bug fixes and performance improvements for smoother recipe scrolling.
+                </p>
+</div>
+</section>
+<!-- Ratings & Reviews -->
+<section class="max-w-7xl mx-auto px-container-margin mb-xl">
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Ratings &amp; Reviews</h3>
+<div class="flex items-center gap-xs mt-xs">
+<span class="text-display-lg font-display-lg text-on-surface">4.8</span>
+<span class="text-on-surface-variant font-body-md self-end pb-2">out of 5</span>
+</div>
+</div>
+<button class="text-primary font-label-md">See All</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Highlighted Review -->
+<div class="glass-panel rounded-xl p-lg shadow-sm">
+<div class="flex justify-between mb-sm">
+<div class="flex gap-[2px]">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-label-sm text-outline">2d ago</span>
+</div>
+<h4 class="font-label-md text-on-surface mb-xs">Incredible AI Assistant</h4>
+<p class="font-body-md text-on-surface-variant">
+                        "Finally, an app that actually helps me cook, not just browse recipes. The voice coach is a game changer! It feels like having a professional chef standing right next to me."
+                    </p>
+<p class="mt-md font-label-sm text-outline">GourmetExplorer88</p>
+</div>
+<!-- Featured Image Card -->
+<div class="relative rounded-xl overflow-hidden group h-full min-h-[200px]">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A premium, high-key photograph of a modern minimalist kitchen setting. A sleek digital tablet is mounted on a stylish wooden stand, displaying a vibrant recipe of Moroccan tagine with steam rising elegantly from a real pot nearby. The lighting is soft and natural, emphasizing textures of marble, wood, and fresh herbs in the foreground. The overall aesthetic is clean, sophisticated, and evokes a high-end culinary experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA43b4So4oPadwor3eoF05qYLbi_jtUFxAED5VeFqmmt1qts2PCGyWOVJ6uCA48sR1KSLonbJ61vhwRG9xza2LtVvz_2oaFyoNWihxJD4BEceLhr4DCXMJI-c4WbItPumCCJKa8Y3miGLeR6mg33IoUFyRLIylYSHYl-7kFBwH964exuIOI1KfB0Cl4jr9W7i_IiQwQ5zlvSgmxbF3R7Qe3XkmwPrxEzZ9IUflpf4S7l4wTvfWGcZpYI6GsKhNxtnBU55BnTtJYiTM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-lg">
+<p class="text-white font-headline-md">Join 1M+ home chefs</p>
+<p class="text-white/80 font-body-md">Share your creations with the community.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Information Table -->
+<section class="max-w-7xl mx-auto px-container-margin mb-xl">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-lg">Information</h3>
+<div class="divide-y divide-outline-variant/20 border-t border-outline-variant/20">
+<div class="flex justify-between py-md">
+<span class="text-outline font-label-md">Developer</span>
+<span class="text-on-surface font-body-md">Epicurean AI Labs</span>
+</div>
+<div class="flex justify-between py-md">
+<span class="text-outline font-label-md">Size</span>
+<span class="text-on-surface font-body-md">142.5 MB</span>
+</div>
+<div class="flex justify-between py-md">
+<span class="text-outline font-label-md">Category</span>
+<span class="text-on-surface font-body-md">Food &amp; Drink</span>
+</div>
+<div class="flex justify-between py-md">
+<span class="text-outline font-label-md">Compatibility</span>
+<span class="text-on-surface font-body-md text-right">Requires iOS 15.0 or later.<br/>Compatible with iPhone, iPad.</span>
+</div>
+<div class="flex justify-between py-md">
+<span class="text-outline font-label-md">Languages</span>
+<span class="text-on-surface font-body-md">English, Arabic, Spanish +29 more</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Component from JSON -->
+<footer class="w-full rounded-t-xl bg-surface-container-high dark:bg-surface-container mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-container-margin py-lg gap-gutter w-full max-w-7xl mx-auto">
+<div class="flex flex-col gap-xs items-center md:items-start">
+<h2 class="font-headline-md text-headline-md text-primary">Epicurean AI</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md text-center md:text-left">
+                    © 2024 Epicurean AI. Celebrating the vibrant diversity of world cuisines.
+                </p>
+</div>
+<div class="flex flex-wrap justify-center gap-gutter">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors underline" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors underline" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors underline" href="#">Developer Website</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors underline" href="#">Support</a>
+</div>
+</div>
+</footer>
+</body></html>

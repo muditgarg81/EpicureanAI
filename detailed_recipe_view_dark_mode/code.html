@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CulinaAI - Midnight Saffron Risotto</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Work+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            font-family: 'Work Sans', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error": "#ffb4ab",
+                      "tertiary": "#e8e5e5",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "tertiary-fixed-dim": "#c8c6c5",
+                      "surface": "#131313",
+                      "primary-fixed-dim": "#f0c12c",
+                      "on-error": "#690005",
+                      "primary": "#ffe3a1",
+                      "surface-container-highest": "#353534",
+                      "secondary": "#c8c6c5",
+                      "primary-container": "#f4c430",
+                      "on-surface-variant": "#d1c5ad",
+                      "surface-container-low": "#1c1b1b",
+                      "tertiary-container": "#cbc9c9",
+                      "on-tertiary-fixed-variant": "#474746",
+                      "surface-bright": "#393939",
+                      "on-background": "#e5e2e1",
+                      "tertiary-fixed": "#e4e2e1",
+                      "secondary-container": "#474746",
+                      "on-tertiary": "#303030",
+                      "on-primary-fixed-variant": "#584400",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-secondary-container": "#b7b5b4",
+                      "on-primary": "#3d2e00",
+                      "on-secondary-fixed-variant": "#474746",
+                      "surface-dim": "#131313",
+                      "secondary-fixed": "#e5e2e1",
+                      "surface-variant": "#353534",
+                      "inverse-on-surface": "#313030",
+                      "on-error-container": "#ffdad6",
+                      "surface-container": "#201f1f",
+                      "on-tertiary-fixed": "#1b1c1c",
+                      "surface-tint": "#f0c12c",
+                      "inverse-primary": "#755b00",
+                      "on-secondary": "#313030",
+                      "on-primary-fixed": "#241a00",
+                      "background": "#131313",
+                      "inverse-surface": "#e5e2e1",
+                      "on-surface": "#e5e2e1",
+                      "on-tertiary-container": "#555454",
+                      "on-primary-container": "#695200",
+                      "primary-fixed": "#ffdf90",
+                      "surface-container-high": "#2a2a2a",
+                      "outline-variant": "#4e4634",
+                      "outline": "#9a907a",
+                      "error-container": "#93000a",
+                      "secondary-fixed-dim": "#c8c6c5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-desktop": "64px",
+                      "margin-mobile": "20px",
+                      "container-max": "1200px",
+                      "margin-tablet": "32px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Work Sans"],
+                      "body-md": ["Work Sans"],
+                      "headline-xl": ["Playfair Display"],
+                      "headline-lg": ["Playfair Display"],
+                      "label-sm": ["Work Sans"],
+                      "headline-lg-mobile": ["Playfair Display"],
+                      "headline-md": ["Playfair Display"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-background/80 backdrop-blur-lg shadow-sm flex justify-between items-center px-6 h-16">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface hover:bg-surface-variant/50 p-2 rounded-full transition-colors active:scale-95 duration-200" data-icon="arrow_back">arrow_back</button>
+<span class="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-background">CulinaAI</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed p-2 hover:bg-surface-variant/50 rounded-full transition-colors active:scale-95 duration-200" data-icon="auto_awesome">auto_awesome</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdE1b1qu4-HqWSMKC4U-UhcqFdeWVMEy3Q0DITZLEa-IW_50X2uyl7ZnojHz5Vykpad9WkS565pS1imsj2xWobxuaSGh3DlzTlcsZCfISI2MrfCFLvrN-q9cHwMNRAL_5ALN2pWuKSZtKUjbRx_IC8t4TRoLk1dg0B9LbFaYq_Wnh90m7DdxOynDT-tEUkQxA9IfRMmMb3WyF3W1UHwFZELOTAkg57wIjrLQfmSLreqXdChOkbvro9iZpJaLUdeeaNkium0Gm4pbE"/>
+</div>
+</div>
+</header>
+<main class="pt-16 pb-24 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<!-- Hero Section -->
+<section class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<div class="lg:col-span-8">
+<div class="relative aspect-[16/9] rounded-xl overflow-hidden shadow-2xl group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A professional culinary photograph of a golden saffron risotto served in a deep charcoal ceramic bowl. The lighting is low-key and dramatic, reminiscent of a late-night fine dining studio, with warm golden highlights reflecting off the creamy texture of the rice. Garnished with delicate microgreens and a few strands of raw saffron, the dish sits on a dark slate surface with a soft-focus background of a candlelit kitchen." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIX6qRJ9RoAgWihAHiZ2BAJ-9THl3Gqi26XbUxBwwQbwcLbrQuix34PPaA-AeN01SoV7vbAve-Wxx9zRanOTfOp52gDOnKAapLBAHp8KZnTAUJ-wj5U--CqayLJ357AFe4bw89ImlpEsoOfXA0x-Pe9bE4Y6wbdLXvizW04PH4LJgj-rEgqQvGhd5FIsvSS0YKn8cc_SemEO92M8TPP65uT1uvScXNrfgnh1Xl2nULNka-JcuFq_kGKMNBrM56vu82lCebnHBENpE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-6">
+<div class="flex gap-2 mb-3">
+<span class="px-3 py-1 bg-surface-container-high/80 backdrop-blur-md border border-outline-variant rounded-full text-primary font-label-sm text-label-sm">MIDNIGHT SPECIAL</span>
+<span class="px-3 py-1 bg-surface-container-high/80 backdrop-blur-md border border-outline-variant rounded-full text-primary font-label-sm text-label-sm">VEGETARIAN</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-white mb-2 leading-tight">Midnight Saffron &amp; <br/>Toasted Pine Nut Risotto</h1>
+<p class="font-body-md text-on-surface-variant max-w-xl">A sophisticated, slow-stirred classic optimized for focus and deep flavor profiles, perfect for quiet late-night sessions.</p>
+</div>
+</div>
+</div>
+<!-- Bento Info Column -->
+<div class="lg:col-span-4 flex flex-col gap-4">
+<div class="bg-surface-container-high p-6 rounded-xl border border-outline-variant flex flex-col justify-center items-center text-center">
+<span class="material-symbols-outlined text-primary-container text-4xl mb-2" data-icon="timer">timer</span>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Total Time</span>
+<span class="font-headline-md text-headline-md text-on-surface">45 Minutes</span>
+</div>
+<div class="bg-surface-container-high p-6 rounded-xl border border-outline-variant flex flex-col justify-center items-center text-center">
+<span class="material-symbols-outlined text-primary-container text-4xl mb-2" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">Difficulty</span>
+<span class="font-headline-md text-headline-md text-on-surface">Intermediate</span>
+</div>
+<div class="bg-primary-container p-6 rounded-xl border border-primary-container flex flex-col justify-center items-center text-center group cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-on-primary-container text-4xl mb-2" data-icon="play_circle">play_circle</span>
+<span class="font-label-sm text-label-sm text-on-primary-container uppercase tracking-widest font-bold">Guided Mode</span>
+<span class="font-headline-md text-headline-md text-on-primary-container">Start Cooking</span>
+</div>
+</div>
+</section>
+<!-- Main Content Grid -->
+<section class="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Ingredients List -->
+<div class="lg:col-span-4">
+<div class="sticky top-24">
+<h3 class="font-headline-md text-headline-md mb-6 border-b border-outline-variant pb-2">Ingredients</h3>
+<ul class="space-y-4">
+<li class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 border-2 border-primary-container rounded flex items-center justify-center transition-colors group-hover:bg-primary-container/20">
+<span class="material-symbols-outlined text-primary-container text-sm opacity-0 group-hover:opacity-100" data-icon="check">check</span>
+</div>
+<span class="font-body-md text-on-surface">Arborio Rice</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">350g</span>
+</li>
+<li class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 border-2 border-primary-container rounded flex items-center justify-center transition-colors group-hover:bg-primary-container/20">
+<span class="material-symbols-outlined text-primary-container text-sm opacity-0 group-hover:opacity-100" data-icon="check">check</span>
+</div>
+<span class="font-body-md text-on-surface">Saffron Strands</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">0.5g</span>
+</li>
+<li class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 border-2 border-primary-container rounded flex items-center justify-center transition-colors group-hover:bg-primary-container/20">
+<span class="material-symbols-outlined text-primary-container text-sm opacity-0 group-hover:opacity-100" data-icon="check">check</span>
+</div>
+<span class="font-body-md text-on-surface">Vegetable Broth</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">1.2L</span>
+</li>
+<li class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 border-2 border-primary-container rounded flex items-center justify-center transition-colors group-hover:bg-primary-container/20">
+<span class="material-symbols-outlined text-primary-container text-sm opacity-0 group-hover:opacity-100" data-icon="check">check</span>
+</div>
+<span class="font-body-md text-on-surface">Pine Nuts</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">50g</span>
+</li>
+<li class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 border-2 border-primary-container rounded flex items-center justify-center transition-colors group-hover:bg-primary-container/20">
+<span class="material-symbols-outlined text-primary-container text-sm opacity-0 group-hover:opacity-100" data-icon="check">check</span>
+</div>
+<span class="font-body-md text-on-surface">Parmigiano Reggiano</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">80g</span>
+</li>
+<li class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 border-2 border-primary-container rounded flex items-center justify-center transition-colors group-hover:bg-primary-container/20">
+<span class="material-symbols-outlined text-primary-container text-sm opacity-0 group-hover:opacity-100" data-icon="check">check</span>
+</div>
+<span class="font-body-md text-on-surface">Shallots</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">2 medium</span>
+</li>
+</ul>
+<div class="mt-8 p-4 bg-surface-container-low border border-outline-variant rounded-xl">
+<div class="flex items-center gap-2 text-primary-container mb-2">
+<span class="material-symbols-outlined" data-icon="lightbulb">lightbulb</span>
+<span class="font-label-sm text-label-sm font-bold uppercase">Pro Tip</span>
+</div>
+<p class="font-body-md text-on-surface-variant text-sm">Toast your pine nuts in a dry pan until golden. This enhances the oils and creates a sharp contrast with the creamy risotto.</p>
+</div>
+</div>
+</div>
+<!-- Instructions Column -->
+<div class="lg:col-span-8">
+<h3 class="font-headline-md text-headline-md mb-6 border-b border-outline-variant pb-2">Preparation</h3>
+<div class="space-y-12">
+<!-- Step 1 -->
+<div class="flex gap-6">
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold font-headline-md">1</div>
+</div>
+<div class="space-y-4">
+<h4 class="font-headline-md text-on-surface">The Infusion</h4>
+<p class="font-body-lg text-on-surface-variant">Warm the vegetable broth in a small pot. Take a ladle of warm broth and soak the saffron strands in it. Let it sit for at least 10 minutes to release the deep golden hue and aromatic compounds.</p>
+<div class="rounded-xl overflow-hidden h-48 w-full">
+<img class="w-full h-full object-cover" data-alt="A macro shot of a single wooden ladle filled with warm broth and vibrant red saffron strands. The liquid is turning a beautiful translucent orange. The background is a dark, moody kitchen environment with soft bokeh from distant warm lights, emphasizing the rich color and luxury of the spice." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnX6TcPhGlagdevEfTyhuOcrKdBGKSVBzUlXg-JRKwNMAHQEf0KqwJY_AgwGy7BZPVn21V_dZf_c8LsHypUKNizkRbXDSAh2PJfg66XQdYO57SbG5gLx--FKtxZAru91ZLxEGG1kb_Ewca78aGP3MC3J_yb5kitafVWgMCMf_csBLHfwPdugc42jBGKZpbdBUQhF3EhAyEJKVRWNw0hdQ4YLlinX_51Xrx2gst-1yWalrP_Zgz7anHHd73sa3BvQB6e3EU4133SQQ"/>
+</div>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex gap-6">
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full border-2 border-outline-variant text-outline-variant flex items-center justify-center font-bold font-headline-md">2</div>
+</div>
+<div class="space-y-4">
+<h4 class="font-headline-md text-on-surface">The Foundation</h4>
+<p class="font-body-lg text-on-surface-variant">Sauté finely diced shallots in butter and a touch of olive oil over medium-low heat until translucent. Do not brown them. Add the Arborio rice and toast for 2 minutes until the edges are transparent.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex gap-6">
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full border-2 border-outline-variant text-outline-variant flex items-center justify-center font-bold font-headline-md">3</div>
+</div>
+<div class="space-y-4">
+<h4 class="font-headline-md text-on-surface">The Ritual</h4>
+<p class="font-body-lg text-on-surface-variant">Add the saffron infusion first. Then, ladle by ladle, add the warm broth. Stir constantly—this mechanical action releases the starch, creating the signature creaminess. Wait for the liquid to be absorbed before adding more.</p>
+<div class="p-6 glass-panel rounded-xl border-l-4 border-l-primary-container">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary-container" data-icon="psychology">psychology</span>
+<span class="font-label-sm text-label-sm font-bold text-primary-container uppercase">Kitchen Wisdom</span>
+</div>
+<p class="font-body-md italic text-on-surface italic">"The secret to risotto is the stir. Never rush the rice; let the starch develop its own velvet texture."</p>
+</div>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="flex gap-6">
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full border-2 border-outline-variant text-outline-variant flex items-center justify-center font-bold font-headline-md">4</div>
+</div>
+<div class="space-y-4">
+<h4 class="font-headline-md text-on-surface">The Mantecatura</h4>
+<p class="font-body-lg text-on-surface-variant">Once the rice is al dente, remove from heat. Vigorously stir in cold butter cubes and freshly grated Parmigiano. Cover and let rest for 2 minutes. Fold in toasted pine nuts just before serving.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Suggested Pairings -->
+<section class="mt-20">
+<h3 class="font-headline-md text-headline-md mb-8">Midnight Pairings</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 relative">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A tall glass of crisp, cold white wine standing on a dark marble countertop. Condensation beads on the glass, catching the dim golden light of a late-night studio setting. A few scattered grape leaves and a cork sit nearby, evoking a sense of refined, quiet evening relaxation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO2lw5HxYV7HCX3RKYN01tOwDuNZ7SGEvkBIZ-0M_LWR5tSwu6OxO-1rjEtzuDqcM9oA2YF_ZYgn74SYAz8H1C8VQ4V4q_kBHKGNPszKOZbt0vusmy-VvPZpRmeOSe4lA2eNrft13COb3AFjp8BqIAmyM2CqI7EivXZgvJ653XVty4eKGY9v4wNZDWMIHxSk-_jYVZPUhK44mKa9cOrSGU7CaxmqlydXfA0AHgm2vOgCaUzGQJDb4ZA2RlR_yFf8TU1SzU9lf8ShI"/>
+<div class="absolute inset-0 bg-background/20 group-hover:bg-transparent transition-colors"></div>
+</div>
+<h5 class="font-headline-md text-on-surface">Chardonnay</h5>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Crisp &amp; Oaky</p>
+</div>
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 relative">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A fresh green salad with shaved fennel and citrus segments served on a minimalist black plate. The lighting is focused and dramatic, highlighting the vibrant greens and the glisten of a light vinaigrette. The composition is clean and artistic, fitting the nocturnal minimalism aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx4aLJ2ujP5wTD6Bc3zeSRhK4usunSmS8h6tZur-Bd7S8OoqcvkMlMkHNf_Yv0DUL0Nz5lTxqR8epQUCiLTKPy1hHaiu9qd6xTb8CnA3xZd_oHLSANs0LkzKB_OMsU6VAT0M3IUjxvLgbwyQkMRjvjkoYKLTv4eWk6A1ho03gTRc9PRSTB6tk6UgIMJUeydbDC9IM2jjTzNu0uI9SoTbYp0VWoOr6tjr4kiFmTE3qcvN4zipsCai6Ibal7KDgt5-srEcF3MWEMXMk"/>
+<div class="absolute inset-0 bg-background/20 group-hover:bg-transparent transition-colors"></div>
+</div>
+<h5 class="font-headline-md text-on-surface">Fennel Slaw</h5>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Bright &amp; Peppery</p>
+</div>
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 relative">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A decadent dark chocolate tart with a sprinkle of sea salt, presented on a dark slate board. One slice is neatly cut away, showing the smooth, dense texture. The mood is intimate and sophisticated, lit by a soft, warm glow that emphasizes the richness of the chocolate against the dark background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKLVKZ_oURDH4XYvTQ_TgjzC7r4tUo0K4tLrcYm_eSNzeuvSS3t4E50QEtmbo_0u7A8HEuyp-Yr7Uzs9pja1159Q4Pmm2xJ9WOQGhHQ9j1BSQVS409tzjteEAd4i10UuP4JN9jo7bcYo31YAe1WvUi2BVYB7AN7oL4EKaGz_Le5Nc-UwssRGVVzf4NBS3jSnVwpHvXYeN1bmGROWv5ufTv1YX750op6vCXLMl5KFOWEYJ4OlCyX0eogkIzmnB84HqMG95zSuZ_468"/>
+<div class="absolute inset-0 bg-background/20 group-hover:bg-transparent transition-colors"></div>
+</div>
+<h5 class="font-headline-md text-on-surface">Dark Truffle</h5>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Rich &amp; Decadent</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/90 dark:bg-background/90 backdrop-blur-xl shadow-lg flex justify-around items-center px-base py-3 h-20">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant opacity-70 hover:text-primary transition-all active:scale-90 duration-300">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-sm text-label-sm mt-1">Explore</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant opacity-70 hover:text-primary transition-all active:scale-90 duration-300">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-label-sm text-label-sm mt-1">Genie</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant opacity-70 hover:text-primary transition-all active:scale-90 duration-300">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+<span class="font-label-sm text-label-sm mt-1">Coach</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant opacity-70 hover:text-primary transition-all active:scale-90 duration-300">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-sm text-label-sm mt-1">Pantry</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-container dark:bg-on-primary-fixed-variant text-on-primary-container dark:text-primary-fixed rounded-full px-4 py-1.5 active:scale-90 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="restaurant" data-weight="fill" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+<span class="font-label-sm text-label-sm">Kitchen</span>
+</button>
+</nav>
+</body></html>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1045838452818",
+    "project_id": "gen-lang-client-0698171669",
+    "storage_bucket": "gen-lang-client-0698171669.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045838452818:android:4be04a0af03b736e9e278b",
+        "android_client_info": {
+          "package_name": "epicurean.kitchen.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1045838452818-81vqu5nqiejtfho7q8bcn2upmbqoh3pq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGO0fimZ1LGERGRBmtfJrPYUYCqQ-AxyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1045838452818-81vqu5nqiejtfho7q8bcn2upmbqoh3pq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

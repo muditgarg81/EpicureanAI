@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Epicurean AI - Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#bf0023",
+                    "secondary": "#006d36",
+                    "on-surface": "#1f1b12",
+                    "on-background": "#1f1b12",
+                    "primary-fixed": "#ffdf90",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#755b00",
+                    "surface-container": "#f6eddd",
+                    "primary-container": "#f4c430",
+                    "tertiary-container": "#ffb8b4",
+                    "on-primary-fixed": "#241a00",
+                    "inverse-surface": "#353025",
+                    "on-surface-variant": "#4e4634",
+                    "background": "#fff8f1",
+                    "secondary-fixed-dim": "#66dd8b",
+                    "on-tertiary-fixed-variant": "#930018",
+                    "on-tertiary-fixed": "#410005",
+                    "tertiary-fixed": "#ffdad7",
+                    "surface-container-high": "#f1e7d7",
+                    "outline-variant": "#d1c5ad",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#ebe1d2",
+                    "on-primary-fixed-variant": "#584400",
+                    "inverse-primary": "#f0c12c",
+                    "outline": "#807661",
+                    "error": "#ba1a1a",
+                    "on-tertiary-container": "#ad001e",
+                    "surface-container-low": "#fcf2e3",
+                    "on-secondary-fixed": "#00210c",
+                    "surface": "#fff8f1",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#83fba5",
+                    "on-secondary-fixed-variant": "#005227",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#f9f0e0",
+                    "primary": "#755b00",
+                    "surface-variant": "#ebe1d2",
+                    "surface-bright": "#fff8f1",
+                    "surface-dim": "#e2d9ca",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#f0c12c",
+                    "on-primary-container": "#695200",
+                    "on-error-container": "#93000a",
+                    "on-secondary-container": "#00743a",
+                    "secondary-fixed": "#83fba5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "md": "24px",
+                    "lg": "48px",
+                    "xs": "4px",
+                    "container-margin": "24px",
+                    "xl": "80px",
+                    "base": "8px",
+                    "sm": "12px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "headline-md": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-40 bg-surface/80 backdrop-blur-xl">
+<div class="flex justify-between items-center px-container-margin py-base w-full max-w-7xl mx-auto">
+<button class="hover:opacity-80 transition-opacity Active: scale-95 duration-150">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">menu</span>
+</button>
+<h1 class="font-display-lg text-display-lg text-primary dark:text-primary-fixed-dim tracking-tight">Epicurean AI</h1>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container transition-transform hover:scale-105 cursor-pointer">
+<img alt="Profile" data-alt="A professional and elegant portrait of a gourmet food enthusiast in a high-end kitchen setting. The lighting is warm and cinematic, reflecting a premium lifestyle brand. The image is captured with a shallow depth of field, focusing on the sophisticated expression of the person, set against a backdrop of minimalist, modern culinary tools and a soft cream-colored wall." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_fOfvUptU506d0c4QJ3_q2H0mNBX7lyd8zgURRxZTyOJKqbXzl3GTqtO2PZOAZPGbRM_n_D95PQEHs6LxqVTC6hbw5GcPvyNDJqM8b7zWpfMEM7UhXwwzryFpXG-vxy0NutsGvTm24JF2FmSOele58SB0DSnd5wCC3VD8QDRNZodaMU5U4JeLUiKdW75qoWrvKQUoj6WsQus8Ef78GZWo4vg30aDh5PuszT7wqx5Y8nRn7mza-72iByBg_CHgpqZhJxv0J8XKbSI"/>
+</div>
+</div>
+</header>
+<div class="flex max-w-7xl mx-auto min-h-screen">
+<!-- NavigationDrawer (Hidden on mobile, showing desktop view logic) -->
+<aside class="hidden md:flex flex-col h-full p-md w-80 bg-surface-container-low dark:bg-surface-dim sticky top-20 rounded-r-xl self-start">
+<div class="flex items-center gap-4 mb-lg px-2">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Gourmet Explorer</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Premium Member • Since 2023</p>
+</div>
+</div>
+<nav class="space-y-2">
+<a class="flex items-center gap-4 p-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">kitchen</span> My Pantry
+                </a>
+<a class="flex items-center gap-4 p-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">tune</span> Dietary Prefs
+                </a>
+<a class="flex items-center gap-4 p-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">public</span> Global Cuisines
+                </a>
+<a class="flex items-center gap-4 p-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">history</span> Cooking History
+                </a>
+<a class="flex items-center gap-4 p-3 text-on-surface-variant hover:bg-surface-container-highest transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">payments</span> Subscription
+                </a>
+<a class="flex items-center gap-4 p-3 text-primary font-bold bg-primary-container/30 rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span> Settings
+                </a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-container-margin py-lg max-w-4xl">
+<section class="mb-xl">
+<div class="flex items-center justify-between mb-lg">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-xs">Profile Settings</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your culinary profile and application preferences.</p>
+</div>
+</div>
+<!-- Bento-style Settings Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- User Account Card -->
+<div class="md:col-span-2 p-lg bg-surface-container-low rounded-xl shadow-[0_4px_12px_rgba(26,25,21,0.04)] border border-outline-variant/10">
+<div class="flex items-center gap-lg">
+<div class="relative group">
+<img class="w-24 h-24 rounded-2xl object-cover ring-4 ring-primary-container/20" data-alt="A close-up of a high-resolution professional profile picture featuring a smiling individual with a clean-cut aesthetic. The background is a soft-focus minimalist interior with natural morning light streaming in through a large window, creating a serene and premium atmosphere consistent with a luxury culinary application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHGTibGKKxu6bkqYLIGZ7sOx5amgLJQ9GKeB0G9WKC1sMHqhkZpDSFdxqr545sSZmVGU3i3DkFWcs-pwM3TK1okVzDMvyOHeukI0jCnkya5S5MIMb9jpjSqg69s6e48sJfo9XlZnD0gwZZsamoQ1oAnRQwP_WlhloUl0hk52yIVgAgjSTDoU3jRfXOxjqMWjXROdilBH2pBhqE_baT3xeO2e3ywmeLwuAUHsA5Gs3s7v7x4OPRHDY-EzP4-r69Eg8R1ve_VmZUXNE"/>
+<div class="absolute inset-0 bg-on-surface/40 flex items-center justify-center rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined text-surface">photo_camera</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md text-on-surface">Gourmet Explorer</h3>
+<p class="text-on-surface-variant mb-base">explorer@epicurean-ai.com</p>
+<button class="px-md py-xs bg-primary text-on-primary rounded-full font-label-md hover:opacity-90 transition-opacity">Edit Profile</button>
+</div>
+</div>
+</div>
+<!-- Preferences Section -->
+<div class="md:col-span-2 mt-md">
+<h3 class="font-label-md text-label-md text-primary uppercase tracking-widest mb-md">Preferences</h3>
+<div class="space-y-base">
+<!-- App Language Row (THE REQUESTED UPDATE) -->
+<a class="group flex items-center justify-between p-md bg-surface-container-lowest hover:bg-surface-container transition-all duration-300 rounded-xl border border-outline-variant/10" href="#">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-secondary-container/20 text-on-secondary-container">
+<span class="material-symbols-outlined">language</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">App Language</p>
+<p class="text-label-sm text-on-surface-variant">Change the primary interface language</p>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<span class="font-body-md text-primary font-semibold">English (US)</span>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</a>
+<!-- Notifications Row -->
+<div class="flex items-center justify-between p-md bg-surface-container-lowest rounded-xl border border-outline-variant/10">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-tertiary-container/20 text-on-tertiary-container">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Notifications</p>
+<p class="text-label-sm text-on-surface-variant">Recipe alerts and AI coaching updates</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Appearance Row -->
+<div class="flex items-center justify-between p-md bg-surface-container-lowest rounded-xl border border-outline-variant/10">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-primary-container/20 text-on-primary-container">
+<span class="material-symbols-outlined">dark_mode</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Appearance</p>
+<p class="text-label-sm text-on-surface-variant">Switch between Light and Dark mode</p>
+</div>
+</div>
+<div class="flex p-1 bg-surface-container rounded-full">
+<button class="px-4 py-1 rounded-full bg-white shadow-sm text-label-sm font-semibold">Light</button>
+<button class="px-4 py-1 rounded-full text-label-sm text-on-surface-variant">Dark</button>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Cooking Assistant Glass Card -->
+<div class="md:col-span-2 mt-md relative overflow-hidden rounded-3xl group">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A stunning, atmospheric kitchen scene with soft morning sunlight catching the steam rising from a gourmet dish. A digital interface, represented by glowing holographic light particles, hovers elegantly over the food, suggesting an advanced AI culinary assistant. The overall color palette is dominated by warm saffron and deep emerald greens, creating a sophisticated and appetizing visual." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9ZRFqsu32uD1zrc3hpOHX8yrF9iFwBke3SESINTcX3HG8IlzSQs9JY2BI7N_1abzmzEB1VN-Mh0toy7iJ1JUyl87z6pswcKn0VuMmw8W4CMDexpwUSfNeCQrFU5x3mYSbm1vEgfH4YFxmHiL0lJ7FG62MACA4-G_fd1GDAzZnr4VLlUxu-FTFC8sVZz0Kc5n4f4rkLHnYMKVqVDJscqflVGSJr3bA0QalwWcidhsBt6YXtKt-VnZ0JDvXolpcy6h2nL9Eb0R7CbA"/>
+</div>
+<div class="relative z-10 glass-panel p-lg m-md rounded-2xl border border-white/20 shadow-2xl">
+<div class="flex items-start justify-between">
+<div>
+<span class="inline-flex items-center gap-xs px-base py-1 bg-primary text-on-primary rounded-full text-[10px] uppercase font-bold tracking-tighter mb-base">AI Feature</span>
+<h4 class="font-headline-md text-headline-md text-on-surface">Tailored Coaching Experience</h4>
+<p class="text-body-md text-on-surface-variant mt-xs max-w-md">Our AI adapts its culinary vocabulary and technique complexity based on your selected language and region.</p>
+</div>
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">psychology_alt</span>
+</div>
+<button class="mt-lg px-md py-sm bg-on-surface text-surface rounded-lg font-label-md hover:bg-primary transition-colors">Configure AI Coach</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- BottomNavBar (Visible on mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-surface/90 backdrop-blur-lg border-t border-outline-variant/20 shadow-[0_-4px_12px_rgba(26,25,21,0.04)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary transition-opacity Active: scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-sm text-label-sm">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary transition-opacity Active: scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">psychology_alt</span>
+<span class="font-label-sm text-label-sm">AI Coach</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary transition-opacity Active: scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">restaurant_menu</span>
+<span class="font-label-sm text-label-sm">Recipes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary transition-opacity Active: scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="font-label-sm text-label-sm">Saved</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-full px-4 py-1 Active: scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+</nav>
+</body></html>

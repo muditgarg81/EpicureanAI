@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Epicurean AI - Flavor Profile &amp; Pantry</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#353025",
+                      "surface-dim": "#e2d9ca",
+                      "tertiary-container": "#ffb8b4",
+                      "primary-fixed-dim": "#f0c12c",
+                      "on-surface": "#1f1b12",
+                      "on-tertiary-container": "#ad001e",
+                      "on-surface-variant": "#4e4634",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#00210c",
+                      "secondary": "#006d36", // Emerald-like
+                      "on-error-container": "#93000a",
+                      "secondary-fixed-dim": "#66dd8b",
+                      "inverse-on-surface": "#f9f0e0",
+                      "surface-container-highest": "#ebe1d2",
+                      "inverse-primary": "#f0c12c",
+                      "surface-variant": "#ebe1d2",
+                      "on-tertiary-fixed": "#410005",
+                      "primary-container": "#f4c430",
+                      "secondary-container": "#83fba5",
+                      "surface-container-high": "#f1e7d7",
+                      "background": "#fff8f1",
+                      "outline": "#807661",
+                      "on-primary-fixed": "#241a00",
+                      "on-background": "#1f1b12",
+                      "on-secondary": "#ffffff",
+                      "primary": "#755b00",
+                      "outline-variant": "#d1c5ad",
+                      "surface-bright": "#fff8f1",
+                      "error-container": "#ffdad6",
+                      "primary-fixed": "#ffdf90",
+                      "surface-container": "#f6eddd",
+                      "on-tertiary-fixed-variant": "#930018",
+                      "tertiary": "#bf0023", // Chili Red-like
+                      "on-secondary-container": "#00743a",
+                      "surface-container-low": "#fcf2e3",
+                      "surface": "#fff8f1",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#755b00",
+                      "error": "#ba1a1a",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed": "#ffdad7",
+                      "tertiary-fixed-dim": "#ffb3af",
+                      "on-primary-fixed-variant": "#584400",
+                      "secondary-fixed": "#83fba5",
+                      "on-primary-container": "#695200",
+                      "on-secondary-fixed-variant": "#005227",
+                      "on-error": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "80px",
+                      "xs": "4px",
+                      "lg": "48px",
+                      "sm": "12px",
+                      "base": "8px",
+                      "container-margin": "24px",
+                      "gutter": "16px",
+                      "md": "24px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Playfair Display"],
+                      "headline-lg": ["Playfair Display"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "display-lg": ["Playfair Display"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "headline-md": ["Playfair Display"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .pulse-marker {
+            animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(.7); opacity: 1; }
+            80%, 100% { transform: scale(1.3); opacity: 0; }
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="bg-surface/80 backdrop-blur-xl docked full-width top-0 sticky flex justify-between items-center w-full px-container-margin h-16 z-50 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-primary/20">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFeGBST6hPyGyQPZq37DP3lJAdyaMiBO4sV1OCyJVMaJL8OI3sJkDIxet_q2QaHAfbKgHvJ3CA5mmpez3XVJNCfSjyw8IN1gn-qtN7CfJcnvsW8K355hjMo4GJJCAxSII_YlZlqkNfTVPwfplj3zQqu77xTDXwnIQZ6ekEdwDJ9XT40Vh1mBBdv39iT9T5ID_zOhbuG-Cr01VUDktb0Nf9Hc-WS-GuQGh8sAOFz4CQT1eFCa_DevmGwoP2-e7hv13qLgS4Lb9Seqg"/>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-primary">Epicurean AI</span>
+</div>
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined text-3xl" data-icon="psychology">psychology</span>
+</button>
+</header>
+<main class="max-w-[1280px] mx-auto px-container-margin py-base">
+<!-- Header Section -->
+<section class="mb-lg mt-8">
+<h1 class="font-display-lg text-display-lg text-on-background mb-base">Your Culinary Identity</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Refining your palate through intelligent pantry management and global flavor exploration.</p>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Culinary Map: Mastery (Bento Large) -->
+<div class="md:col-span-8 rounded-xl overflow-hidden relative group min-h-[440px] shadow-[0_12px_40px_rgba(26,25,21,0.08)] bg-surface-container">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOhPA1fdgarsdQY-1Rv5hjrSVjPDnPMOhWb4BbdHxWrzGmUx2GHhC6ovVR_CEON1k88lBfqJnnFDOZVMrzzqQt101uHTp6abh9P7E0Pg1wGvTi07o7lusFxtA2KJDlr0arTXCwvh-mbh6G1DWQz99Ir_tfFnWDhgK9yFbYQiDoZa9WUPpMNtTf58TiUKN8aoHZdSRn9fitYKY0229OKHrnqZvMus3e8cwymn8w2Don202S0m5d5nIf4wnWCNgG9Eqs2GAsbcCPYBI"/>
+<!-- Interactive Markers -->
+<div class="absolute top-[35%] left-[45%] w-4 h-4 bg-primary rounded-full pulse-marker"></div>
+<div class="absolute top-[35%] left-[45%] w-2 h-2 bg-primary rounded-full z-10"></div>
+<div class="absolute top-[40%] left-[80%] w-4 h-4 bg-primary/40 rounded-full pulse-marker"></div>
+<div class="absolute top-[40%] left-[80%] w-2 h-2 bg-primary/60 rounded-full z-10"></div>
+<div class="absolute top-[65%] left-[25%] w-4 h-4 bg-primary/20 rounded-full pulse-marker"></div>
+<div class="absolute top-[65%] left-[25%] w-2 h-2 bg-primary/40 rounded-full z-10"></div>
+</div>
+<div class="relative z-10 p-md h-full flex flex-col">
+<div class="flex justify-between items-start mb-auto">
+<div>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest bg-primary-container px-3 py-1 rounded-full">Global Mastery</span>
+<h2 class="font-headline-lg text-headline-lg mt-sm text-on-surface">Culinary Map</h2>
+</div>
+<div class="flex gap-2 items-center bg-surface/40 backdrop-blur-sm px-3 py-1 rounded-full border border-white/20">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Live Insights</span>
+</div>
+</div>
+<div class="mt-lg">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-sm">
+<button class="glass-card p-sm rounded-lg border border-white/40 text-left transition-all hover:translate-y-[-2px] hover:border-primary/40 active:scale-95">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Mediterranean</p>
+<p class="font-headline-md text-headline-md text-primary">84%</p>
+</button>
+<button class="glass-card p-sm rounded-lg border border-white/40 text-left transition-all hover:translate-y-[-2px] hover:border-primary/40 active:scale-95">
+<p class="font-label-sm text-label-sm text-on-surface-variant">East Asian</p>
+<p class="font-headline-md text-headline-md text-primary">62%</p>
+</button>
+<button class="glass-card p-sm rounded-lg border border-white/40 text-left transition-all hover:translate-y-[-2px] hover:border-primary/40 active:scale-95">
+<p class="font-label-sm text-label-sm text-on-surface-variant">South Asian</p>
+<p class="font-headline-md text-headline-md text-primary">41%</p>
+</button>
+<button class="glass-card p-sm rounded-lg border border-white/40 text-left transition-all hover:translate-y-[-2px] hover:border-primary/40 active:scale-95">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Latin American</p>
+<p class="font-headline-md text-headline-md text-primary">15%</p>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Flavor Radar Profile (Bento Medium) -->
+<div class="md:col-span-4 rounded-xl glass-card border border-surface-container-highest p-md shadow-[0_12px_40px_rgba(26,25,21,0.04)] flex flex-col justify-center items-center text-center">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-lg">Flavor Profile</h3>
+<div class="relative w-full aspect-square max-w-[240px] flex items-center justify-center">
+<svg class="w-full h-full" viewbox="0 0 100 100">
+<circle class="text-outline-variant/30" cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-width="0.5"></circle>
+<circle class="text-outline-variant/30" cx="50" cy="50" fill="none" r="30" stroke="currentColor" stroke-width="0.5"></circle>
+<circle class="text-outline-variant/30" cx="50" cy="50" fill="none" r="15" stroke="currentColor" stroke-width="0.5"></circle>
+<polygon class="text-primary/20" fill="currentColor" points="50,10 85,35 75,85 25,85 15,35"></polygon>
+<polygon class="text-primary" fill="none" points="50,10 85,35 75,85 25,85 15,35" stroke="currentColor" stroke-width="1.5"></polygon>
+</svg>
+<span class="absolute top-0 font-label-sm text-label-sm text-on-surface-variant">Umami</span>
+<span class="absolute right-0 top-1/3 translate-x-1/2 font-label-sm text-label-sm text-on-surface-variant">Sour</span>
+<span class="absolute bottom-0 right-4 font-label-sm text-label-sm text-on-surface-variant">Salt</span>
+<span class="absolute bottom-0 left-4 font-label-sm text-label-sm text-on-surface-variant">Bitter</span>
+<span class="absolute left-0 top-1/3 -translate-x-1/2 font-label-sm text-label-sm text-on-surface-variant">Sweet</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-lg">Your profile leans towards <span class="text-primary font-bold">Complex Savory</span> with high umami sensitivity.</p>
+</div>
+<!-- Pantry Management (Bento Large Row) -->
+<div class="md:col-span-12 mt-base">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-md gap-gutter">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Digital Pantry</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Intelligent inventory of your culinary essentials.</p>
+</div>
+<div class="w-full md:w-auto flex flex-col sm:flex-row gap-sm items-stretch sm:items-center">
+<div class="relative flex-grow min-w-[280px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-full border-none bg-surface-container-high text-on-surface placeholder:text-on-surface-variant/60 focus:ring-2 focus:ring-primary/20 font-body-md text-body-md" placeholder="Search ingredients..." type="text"/>
+</div>
+<div class="flex gap-sm">
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-surface-container-high text-on-surface-variant px-md py-sm rounded-full font-label-md text-label-md hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+                                Filter
+                            </button>
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-primary text-on-primary px-md py-sm rounded-full font-label-md text-label-md hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                                Scan
+                            </button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Category: Spices -->
+<div class="bg-surface-container-low rounded-xl p-md">
+<div class="flex items-center gap-3 mb-md">
+<span class="material-symbols-outlined text-tertiary" data-icon="temp_preferences_custom">temp_preferences_custom</span>
+<h4 class="font-headline-md text-headline-md text-on-surface">Spices</h4>
+</div>
+<ul class="space-y-sm">
+<li class="flex justify-between items-center bg-surface-bright p-sm rounded-lg border border-transparent hover:border-tertiary/20 transition-colors">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Smoked Paprika</span>
+<span class="font-label-sm text-label-sm text-tertiary font-bold uppercase tracking-wider">Low • 15g left</span>
+</div>
+<div class="w-16 h-2 bg-outline-variant/30 rounded-full overflow-hidden">
+<div class="bg-tertiary w-1/4 h-full"></div>
+</div>
+</li>
+<li class="flex justify-between items-center bg-surface-bright p-sm rounded-lg border border-transparent hover:border-secondary/20 transition-colors">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Cumin Seeds</span>
+<span class="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider">Optimal • 45g left</span>
+</div>
+<div class="w-16 h-2 bg-outline-variant/30 rounded-full overflow-hidden">
+<div class="bg-secondary w-3/4 h-full"></div>
+</div>
+</li>
+<li class="flex justify-between items-center bg-surface-bright p-sm rounded-lg border border-transparent hover:border-secondary/20 transition-colors">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Turmeric</span>
+<span class="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wider">Stocked • 80g left</span>
+</div>
+<div class="w-16 h-2 bg-outline-variant/30 rounded-full overflow-hidden">
+<div class="bg-secondary w-full h-full"></div>
+</div>
+</li>
+</ul>
+</div>
+<!-- Category: Grains -->
+<div class="bg-surface-container-low rounded-xl p-md">
+<div class="flex items-center gap-3 mb-md">
+<span class="material-symbols-outlined text-primary" data-icon="grain">grain</span>
+<h4 class="font-headline-md text-headline-md text-on-surface">Grains</h4>
+</div>
+<ul class="space-y-sm">
+<li class="flex justify-between items-center bg-surface-bright p-sm rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Basmati Rice</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2.4kg left</span>
+</div>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" data-weight="fill">check_circle</span>
+</li>
+<li class="flex justify-between items-center bg-surface-bright p-sm rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Quinoa</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">400g left</span>
+</div>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" data-weight="fill">check_circle</span>
+</li>
+<li class="flex justify-between items-center bg-surface-bright p-sm rounded-lg border-2 border-tertiary/10">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Arborio Rice</span>
+<span class="font-label-sm text-label-sm text-tertiary font-bold uppercase">Out of Stock</span>
+</div>
+<button class="bg-tertiary text-on-tertiary px-3 py-1 rounded-full font-label-sm text-label-sm hover:opacity-90 active:scale-95 transition-all">Restock</button>
+</li>
+</ul>
+</div>
+<!-- Category: Fresh -->
+<div class="bg-surface-container-low rounded-xl p-md">
+<div class="flex items-center gap-3 mb-md">
+<span class="material-symbols-outlined text-secondary" data-icon="eco">eco</span>
+<h4 class="font-headline-md text-headline-md text-on-surface">Fresh</h4>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<div class="bg-surface-bright p-sm rounded-lg flex flex-col items-center text-center border-2 border-tertiary/10">
+<img alt="Carrots" class="w-12 h-12 rounded-full object-cover mb-2 ring-2 ring-tertiary/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm6t2OMQUnTpEDjE-8ZwGu1yr8cc-vaEuFpbt92HdW2a0Vogj3KgLSUI89D-_0pDHeYzWXPyZuHnwmv0N3VQNEYvUABzoDJRx8OMgmnoBnoqTwy0Z4KeI21B_MraW-i_qxvQ-vEAQAZhNdLyBdu1SsOWw-Y_9tN6sQW94msVLnr4mdXW-EQieX1FFedI7wcSYxSuRs1xG57SCWqFjbixMMjolQtD161xL-EODu3l9tpLItdXG4brSiZnAyUkE6z1Co42Gl0Y0g_V8"/>
+<span class="font-label-sm text-label-sm text-on-surface">Carrots</span>
+<span class="text-[10px] text-tertiary font-bold uppercase tracking-tight">Expires: 2d</span>
+</div>
+<div class="bg-surface-bright p-sm rounded-lg flex flex-col items-center text-center">
+<img alt="Basil" class="w-12 h-12 rounded-full object-cover mb-2 ring-2 ring-secondary/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8nKcestfrjUvk2TgrQBMe4fZz30iYNcvNnfmPu_PgQOwBlyT4p_jhROpRpRxNOTndno8NA_TYFZGWKuFEpCouKrmY320Qb-vUFGJXG4cXKrI7IP5YaB0spOvqwdUG2qQKKZoFSaUZGcqkVv1g-JZxmmqaPedx3U_oM9uQJ5AONehkuyGmgMH_EhRWXZLsTQowhHlt1lZBPeLRaB90tYRbu5BW_NletaU9swXqVqAlQ48WisVX8RE58ILx0_eE6yXoQaEthEyE7SY"/>
+<span class="font-label-sm text-label-sm text-on-surface">Fresh Basil</span>
+<span class="text-[10px] text-secondary font-bold uppercase tracking-tight">Fresh</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Insight Card (Glassmorphism Overlay Style) -->
+<div class="md:col-span-12 mt-md">
+<div class="glass-card rounded-xl p-lg relative overflow-hidden border border-white/60 flex flex-col md:flex-row items-center gap-lg shadow-lg">
+<div class="absolute top-0 right-0 p-md opacity-10">
+<span class="material-symbols-outlined text-9xl" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="flex-1 z-10">
+<div class="flex items-center gap-2 mb-sm">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-md text-label-md text-primary uppercase tracking-widest">AI Suggestion</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-base">Expand Your Palate</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-md max-w-xl">Based on your mastered <span class="font-bold text-on-surface">Mediterranean</span> skills and your current pantry items (Paprika, Basil, Grains), the Genie suggests exploring <span class="font-bold text-on-surface">North African Tagines</span> next.</p>
+<div class="flex gap-sm">
+<button class="bg-primary text-on-primary px-lg py-sm rounded-full font-label-md text-label-md hover:opacity-90 transition-opacity">View Recommended Recipes</button>
+<button class="bg-transparent border border-outline text-on-surface-variant px-lg py-sm rounded-full font-label-md text-label-md hover:bg-surface-container transition-colors">Dismiss</button>
+</div>
+</div>
+<div class="w-full md:w-1/3 aspect-[4/3] rounded-xl overflow-hidden z-10">
+<img alt="Tagine dish" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoiAva7He7yrnrUshvDdpfTVdWLb82WsqIstPF5i333JyNofZ_HHWlAEZ6r4szhrc9q_1xUxJ2epcI9svf7rG-V9hlHzGYB-aMQKkK0MT94f-P9fDtSLyr3fA7I5kC4Bf7Y5uCOG6aKKgQHU5CKRpWKHdZyQPuBej3PCh0WBPpTWFr0iEUUzBAJpq5re-4QvQBeeCwnLK6tbggo9plcFm7v3okpxBKfdxYdGm616K6YABpYkTPdu_EsnnuHUCfGRVTzaK8EmaMsQk"/>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 shadow-[0_-4px_12px_rgba(26,25,21,0.04)] bg-surface rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-sm text-label-sm">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-sm text-label-sm">Genie</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-sm text-label-sm">Plan</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90 transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="map" data-weight="fill">map</span>
+<span class="font-label-sm text-label-sm">Pantry</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-sm text-label-sm">Kitchen</span>
+</a>
+</nav>
+<!-- Contextual Floating Action Button -->
+<div class="fixed bottom-24 right-container-margin z-50 md:hidden">
+<button class="w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="barcode_scanner">barcode_scanner</span>
+</button>
+</div>
+</body></html>

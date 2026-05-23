@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#bf0023",
+                    "inverse-primary": "#f0c12c",
+                    "tertiary-container": "#ffb8b4",
+                    "secondary-container": "#83fba5",
+                    "on-surface-variant": "#4e4634",
+                    "secondary": "#006d36",
+                    "surface-bright": "#fff8f1",
+                    "surface-container-low": "#fcf2e3",
+                    "inverse-on-surface": "#f9f0e0",
+                    "surface-container": "#f6eddd",
+                    "inverse-surface": "#353025",
+                    "tertiary-fixed": "#ffdad7",
+                    "surface-variant": "#ebe1d2",
+                    "on-primary-fixed": "#241a00",
+                    "outline": "#807661",
+                    "on-background": "#1f1b12",
+                    "surface-container-high": "#f1e7d7",
+                    "error": "#ba1a1a",
+                    "background": "#fff8f1",
+                    "primary-container": "#f4c430",
+                    "on-tertiary-fixed-variant": "#930018",
+                    "on-secondary-container": "#00743a",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#ebe1d2",
+                    "surface-tint": "#755b00",
+                    "on-primary-fixed-variant": "#584400",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "outline-variant": "#d1c5ad",
+                    "on-secondary-fixed": "#00210c",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#83fba5",
+                    "on-primary-container": "#695200",
+                    "surface-dim": "#e2d9ca",
+                    "primary": "#755b00",
+                    "surface": "#fff8f1",
+                    "on-surface": "#1f1b12",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#ad001e",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#f0c12c",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#66dd8b",
+                    "on-secondary-fixed-variant": "#005227",
+                    "primary-fixed": "#ffdf90",
+                    "on-tertiary-fixed": "#410005"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "md": "24px",
+                    "xl": "80px",
+                    "sm": "12px",
+                    "container-margin": "24px",
+                    "xs": "4px",
+                    "gutter": "16px",
+                    "lg": "48px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Playfair Display"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "display-lg": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scrim-bottom {
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-xl shadow-sm dark:shadow-none">
+<div class="flex items-center justify-between px-container-margin w-full max-w-7xl mx-auto h-16">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed tracking-tight">Modern Kitchen</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User profile avatar" data-alt="A professional portrait of a woman in a warm-lit kitchen setting. She is wearing a soft cream-colored linen shirt, looking directly at the camera with a friendly expression. The background is softly blurred, showing hints of modern kitchenware and warm, golden lighting that fits a high-end minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfHg5MygV2-1AJOJpx32AcHSuC4ffV9kEZxgViZzRTQYpTgvqgnw2fTtfqP853wA0LpixnOQSK6GcYH2eHfswV5dK4a0o-prYq-tsu1lzXa0PYkHyLU4JQczUpsDQY3dGlE5Iprtk5p2mk2efkH1AZ2o7WnSjzygj-hxSv5ND1l7VmYtCE0WOndC_Fj-MCZl_En7kgrDkbJvj5KH275EMxhguxT1PTEuepDTNsDicVumVXi2cJC02Yi03xvOwiBUbDZhVtfONTw1s"/>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-24 px-container-margin max-w-7xl mx-auto space-y-xl">
+<!-- Hero Welcome Section -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-7 space-y-sm">
+<h2 class="font-display-lg text-display-lg text-on-background">Kitchen Hub</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">Welcome back, Chef Sarah. Your household's culinary world is organized and ready for the next masterpiece.</p>
+</div>
+<div class="md:col-span-5 relative h-64 rounded-xl overflow-hidden shadow-lg">
+<img alt="Kitchen Interior" class="w-full h-full object-cover" data-alt="A sun-drenched, high-end minimalist kitchen featuring a large marble island and light oak cabinetry. Soft morning light filters through sheer curtains, illuminating clean surfaces and a small pot of fresh herbs. The aesthetic is premium and airy, using a palette of creams, warm whites, and natural wood tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6tJt1oEvZ7-5BMLlq-279AfKA-yTTX8Jc2QcFmPEE2wl-OAggPtw1aByU4onQPX85qIqUBvyaHX4BS9ux_oNOFGOXtNNhMQ0TZoQ70buuD9cs3CZ0DK3s2GXmhodfFnqC7grbSOT2I4HJqAE8fICS7ynONM1-70hUudOxvlxDV2KUSwgwTMK8WOmPnXSAzBdtVTGnalNOCI11aorvUOr2K-LSTnFdNaRI2uLbQlQ49TqC8oIftMlfKwwEnhkPkq86m2EK0Ilojjs"/>
+<div class="absolute inset-0 bg-primary/10 flex items-center justify-center backdrop-blur-[2px]">
+<div class="glass-panel p-4 rounded-xl shadow-sm border border-white/20">
+<p class="font-label-md text-label-md text-primary">Dinner Tonight</p>
+<p class="font-headline-md text-headline-md">Saffron Risotto</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Layout for Management -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Family Members Card -->
+<div class="md:col-span-2 bg-surface-container rounded-xl p-md shadow-sm">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-md text-headline-md">Family Members</h3>
+<button class="bg-primary-container text-on-primary-container font-label-md text-label-md px-4 py-2 rounded-full active:scale-95 transition-transform">
+                        Invite Member
+                    </button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+<!-- Member 1: Chef -->
+<div class="flex items-center gap-4 p-4 bg-surface rounded-lg shadow-sm border border-outline-variant/30">
+<div class="relative">
+<img alt="Sarah Avatar" class="w-12 h-12 rounded-full object-cover" data-alt="A portrait of a woman with a warm smile, captured in high-key lighting. The style is clean and professional, with a soft cream background that aligns with the kitchen's warm, minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6XcH7HDfNaG3ArkId61egAGX6nLRQOfnRmVHGdAvYZs48nr8x4T1oISbHv0fCndwbzm3PG9AvwkGHsLRKEAJBPbe3TplMzrjPm56uo0H4SXNw3qCL3PxkF7mg3FdvweE1pyoSsBiSKyvouKR8eTYbP9XrnwZ35GVcNoIfRBvx6bNZi5D8xotuNIPqYkCNus3MAaHoVObeit8G3couoRNwScyiXJAsOzL8-TX31xoyn6DNk3WoGErtk1PZ_s8P5wzBQaQOUElUXFE"/>
+<div class="absolute -bottom-1 -right-1 bg-primary text-on-primary rounded-full p-0.5">
+<span class="material-symbols-outlined text-[16px]" data-icon="restaurant">restaurant</span>
+</div>
+</div>
+<div>
+<p class="font-label-md text-label-md">Sarah Jenkins</p>
+<p class="text-secondary font-label-sm text-label-sm">Chef</p>
+</div>
+</div>
+<!-- Member 2: Contributor -->
+<div class="flex items-center gap-4 p-4 bg-surface rounded-lg shadow-sm border border-outline-variant/30">
+<div class="relative">
+<img alt="Marcus Avatar" class="w-12 h-12 rounded-full object-cover" data-alt="A portrait of a middle-aged man with a friendly, relaxed expression. He is photographed in a well-lit indoor environment with soft, warm tones. The image has a clean, airy quality consistent with a premium lifestyle app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEKfM41Z3TBl27jKwUQhCZ_RsVTWeC43mQB9ttXg7riCELVZnJuGESuK1nOVswT1QrFNxF_raQgy98d5u4tWxZfwZJ0OSf-gU3152h7n5IRGTa90IIaE8nIQUmWznDMSzcZ8szcXPve5bmPkSVubzPIBMRgj_UiNFZdpMPvDuSrW_hWSdMaWKIvZ7UQaSTkXjfOIQ8Gf2dIjVwI74QENxBILD7oDA97cT215ZtxYFMmHnA8w8iwnr9g0A6kXsNkDEVDf_cM37zdz4"/>
+<div class="absolute -bottom-1 -right-1 bg-secondary text-on-secondary rounded-full p-0.5">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span>
+</div>
+</div>
+<div>
+<p class="font-label-md text-label-md">Marcus Jenkins</p>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Contributor</p>
+</div>
+</div>
+<!-- Member 3: Contributor -->
+<div class="flex items-center gap-4 p-4 bg-surface rounded-lg shadow-sm border border-outline-variant/30">
+<div class="relative">
+<img alt="Leo Avatar" class="w-12 h-12 rounded-full object-cover" data-alt="A close-up portrait of a young man with a modern haircut and a pleasant expression. The lighting is bright and soft, highlighting natural textures. The color palette is neutral and sophisticated, fitting a high-end digital interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmMWUI1fa-WPF3Xfd4SzN97fd0ePph8KOLY9-O8-zzhe9cDhb3Br6xeWTyITXlJ4kJAnppLD5RIHnIRL67r0TYnyexQawrBgYgJHEWqEbbCcDeS47cwc9nuaG3fI8GcMLovCFL2_yDiLhmv8llrUtFXsVzFhMVwGj-OGRqEzXKVBNLBVqgLHenVL_WF8lGIIbiM1b6BlQcLeL0ltQj6gWtfTCKWBT4X2_PxWQFNlVsMZxNbv6rPsXrxHRfKiq2Wy095npe7wRQ9hY"/>
+<div class="absolute -bottom-1 -right-1 bg-secondary text-on-secondary rounded-full p-0.5">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span>
+</div>
+</div>
+<div>
+<p class="font-label-md text-label-md">Leo Jenkins</p>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Contributor</p>
+</div>
+</div>
+<button class="border-2 border-dashed border-outline-variant rounded-lg flex items-center justify-center gap-2 text-on-surface-variant hover:bg-surface-variant/20 transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span class="font-label-md text-label-md">Add Child Account</span>
+</button>
+</div>
+</div>
+<!-- Dietary Restrictions Card -->
+<div class="bg-surface-container rounded-xl p-md shadow-sm flex flex-col">
+<div class="flex items-center gap-3 mb-md">
+<span class="material-symbols-outlined text-tertiary" data-icon="warning">warning</span>
+<h3 class="font-headline-md text-headline-md">Shared Health</h3>
+</div>
+<div class="flex-grow space-y-sm">
+<div class="p-3 bg-tertiary-fixed rounded-lg flex justify-between items-center">
+<div>
+<p class="font-label-md text-label-md text-on-tertiary-fixed">Peanut Allergy</p>
+<p class="text-[10px] uppercase tracking-wider text-on-tertiary-fixed-variant">Critical Severity</p>
+</div>
+<span class="material-symbols-outlined text-tertiary" data-icon="block" style="font-variation-settings: 'FILL' 1;">block</span>
+</div>
+<div class="p-3 bg-secondary-container rounded-lg flex justify-between items-center">
+<div>
+<p class="font-label-md text-label-md text-on-secondary-container">Gluten-Free</p>
+<p class="text-[10px] uppercase tracking-wider text-on-secondary-fixed-variant">Preference</p>
+</div>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="p-3 bg-surface rounded-lg border border-outline-variant/30 flex justify-between items-center">
+<div>
+<p class="font-label-md text-label-md">Low Sodium</p>
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant">Ongoing</p>
+</div>
+</div>
+</div>
+<button class="mt-md w-full border border-primary text-primary font-label-md text-label-md py-2 rounded-full hover:bg-primary/5 transition-colors">
+                    Manage Restrictions
+                </button>
+</div>
+</section>
+<!-- Must-Buy Grocery List Section -->
+<section class="bg-surface-container-low rounded-2xl p-md md:p-lg border border-surface-variant shadow-lg relative overflow-hidden">
+<div class="absolute top-0 right-0 p-8 opacity-10">
+<span class="material-symbols-outlined text-[120px]" data-icon="shopping_basket">shopping_basket</span>
+</div>
+<div class="relative z-10">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-lg gap-md">
+<div class="space-y-xs">
+<h3 class="font-headline-lg text-headline-lg">Must-Buy Grocery List</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Essential items needed for the upcoming week's meal plan.</p>
+</div>
+<div class="flex gap-2">
+<button class="bg-surface p-2 rounded-lg shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="sync">sync</span>
+</button>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md active:scale-95 transition-transform flex items-center gap-2 shadow-md">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+                            Add Item
+                        </button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Item 1 -->
+<div class="bg-surface p-4 rounded-xl flex items-center justify-between shadow-sm border border-outline-variant/20 group hover:border-primary transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="egg">egg</span>
+</div>
+<div>
+<p class="font-label-md text-label-md">Farm Eggs</p>
+<p class="text-on-surface-variant text-label-sm font-label-sm">2 Dozen • Essential</p>
+</div>
+</div>
+<input class="w-6 h-6 rounded border-outline-variant text-secondary focus:ring-secondary cursor-pointer" type="checkbox"/>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface p-4 rounded-xl flex items-center justify-between shadow-sm border border-outline-variant/20 group hover:border-primary transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="water_drop">water_drop</span>
+</div>
+<div>
+<p class="font-label-md text-label-md">Organic Milk</p>
+<p class="text-on-surface-variant text-label-sm font-label-sm">2 Liters • Whole</p>
+</div>
+</div>
+<input class="w-6 h-6 rounded border-outline-variant text-secondary focus:ring-secondary cursor-pointer" type="checkbox"/>
+</div>
+<!-- Item 3 -->
+<div class="bg-surface p-4 rounded-xl flex items-center justify-between shadow-sm border border-outline-variant/20 group hover:border-primary transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="eco">eco</span>
+</div>
+<div>
+<p class="font-label-md text-label-md">Fresh Spinach</p>
+<p class="text-on-surface-variant text-label-sm font-label-sm">300g • Salad prep</p>
+</div>
+</div>
+<input class="w-6 h-6 rounded border-outline-variant text-secondary focus:ring-secondary cursor-pointer" type="checkbox"/>
+</div>
+<!-- Item 4 -->
+<div class="bg-surface p-4 rounded-xl flex items-center justify-between shadow-sm border border-outline-variant/20 group hover:border-primary transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="bakery_dining">bakery_dining</span>
+</div>
+<div>
+<p class="font-label-md text-label-md">Sourdough Loaf</p>
+<p class="text-on-surface-variant text-label-sm font-label-sm">1 Large • Breakfast</p>
+</div>
+</div>
+<input class="w-6 h-6 rounded border-outline-variant text-secondary focus:ring-secondary cursor-pointer" type="checkbox"/>
+</div>
+<!-- Item 5 -->
+<div class="bg-surface p-4 rounded-xl flex items-center justify-between shadow-sm border border-outline-variant/20 group hover:border-primary transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="nutrition">nutrition</span>
+</div>
+<div>
+<p class="font-label-md text-label-md">Avocados</p>
+<p class="text-on-surface-variant text-label-sm font-label-sm">4 units • Ripe</p>
+</div>
+</div>
+<input class="w-6 h-6 rounded border-outline-variant text-secondary focus:ring-secondary cursor-pointer" type="checkbox"/>
+</div>
+<!-- Item 6 (Glass Interaction Hint) -->
+<div class="glass-panel p-4 rounded-xl flex items-center justify-between shadow-md border border-white/40 ring-1 ring-primary/20">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="psychology">psychology</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-primary">AI Suggested</p>
+<p class="text-on-surface-variant text-label-sm font-label-sm">Olive Oil • Running Low</p>
+</div>
+</div>
+<button class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-label-sm font-label-sm active:scale-95 transition-transform">
+                            Add
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface dark:bg-surface-dim rounded-t-xl shadow-[0_-4px_12px_rgba(26,25,21,0.04)] dark:shadow-none">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-sm text-label-sm mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-label-sm text-label-sm mt-1">AI Coach</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="font-label-sm text-label-sm mt-1">Recipes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+<span class="font-label-sm text-label-sm mt-1">Saved</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed-variant rounded-full px-4 py-1 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+<span class="font-label-sm text-label-sm mt-1">Menu</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#353025",
+                      "surface-dim": "#e2d9ca",
+                      "tertiary-container": "#ffb8b4",
+                      "primary-fixed-dim": "#f0c12c",
+                      "on-surface": "#1f1b12",
+                      "on-tertiary-container": "#ad001e",
+                      "on-surface-variant": "#4e4634",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#00210c",
+                      "secondary": "#006d36",
+                      "on-error-container": "#93000a",
+                      "secondary-fixed-dim": "#66dd8b",
+                      "inverse-on-surface": "#f9f0e0",
+                      "surface-container-highest": "#ebe1d2",
+                      "inverse-primary": "#f0c12c",
+                      "surface-variant": "#ebe1d2",
+                      "on-tertiary-fixed": "#410005",
+                      "primary-container": "#f4c430",
+                      "secondary-container": "#83fba5",
+                      "surface-container-high": "#f1e7d7",
+                      "background": "#fff8f1",
+                      "outline": "#807661",
+                      "on-primary-fixed": "#241a00",
+                      "on-background": "#1f1b12",
+                      "on-secondary": "#ffffff",
+                      "primary": "#755b00",
+                      "outline-variant": "#d1c5ad",
+                      "surface-bright": "#fff8f1",
+                      "error-container": "#ffdad6",
+                      "primary-fixed": "#ffdf90",
+                      "surface-container": "#f6eddd",
+                      "on-tertiary-fixed-variant": "#930018",
+                      "tertiary": "#bf0023",
+                      "on-secondary-container": "#00743a",
+                      "surface-container-low": "#fcf2e3",
+                      "surface": "#fff8f1",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#755b00",
+                      "error": "#ba1a1a",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed": "#ffdad7",
+                      "tertiary-fixed-dim": "#ffb3af",
+                      "on-primary-fixed-variant": "#584400",
+                      "secondary-fixed": "#83fba5",
+                      "on-primary-container": "#695200",
+                      "on-secondary-fixed-variant": "#005227",
+                      "on-error": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "80px",
+                      "xs": "4px",
+                      "lg": "48px",
+                      "sm": "12px",
+                      "base": "8px",
+                      "container-margin": "24px",
+                      "gutter": "16px",
+                      "md": "24px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Playfair Display"],
+                      "headline-lg": ["Playfair Display"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "display-lg": ["Playfair Display"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "headline-md": ["Playfair Display"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen font-body-md">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-xl docked full-width top-0 sticky flex justify-between items-center w-full px-container-margin h-16 z-50 shadow-sm dark:shadow-none">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-primary/20">
+<img alt="Avatar" class="w-full h-full object-cover" data-alt="A professional close-up of a diverse chef or AI avatar with a clean, high-end culinary aesthetic. The lighting is soft and warm, highlighting a sophisticated and approachable personality. The background is a soft-focus modern kitchen in cream and saffron tones, maintaining the premium global branding." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlCDtzJRoZuuESAmHIFWRDIEzZFCMK2ar1gsOxhA1xphWsQwGhrAz_J9cZyy7WT1qDZluLw6FIlp8xO7fKQkXJJer5Y493tTwcCCMmKEoAJN3N_ONd_fBDROF_I4cMNiNCmmxCtUvxEMNV8SwAgyIBhWXCRQZFW6uHUl6aboXSaOn9XOMuekc5zXZrE8nq4gIPE3hkbBSKliyJXOIrtF_mEg-dfxl5lujRSY65Z-MJyJM6Lrp_CouJTQMbiW9nbZHZS2SmlWHx_E0"/>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Epicurean AI</h1>
+</div>
+<button class="text-on-surface-variant dark:text-outline-variant hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[28px]" data-icon="psychology">psychology</span>
+</button>
+</header>
+<main class="pb-24">
+<!-- Daily Flavor Trip Hero -->
+<section class="relative w-full h-[420px] overflow-hidden group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A vibrant, high-angle shot of a traditional Moroccan tagine surrounded by colorful small plates of olives, couscous, and fresh herbs. The scene is set on a rustic wooden table with sunlight streaming in, creating long, soft shadows. The color palette is rich with chili reds, saffron yellows, and emerald greens, evoking a premium and authentic global dining experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_3nLp8TXVK1DUEb5uiYUtDvWfODe3ycfAURT7C9l1EQuE0XRJWonfBO-DowVZXlEKKRGs8qISR23ePxfFc_paXqB0lWUr3SIi1GC6jtdTlStL26sAGReJGkHhi5f0pb0zUooy9WlnNgPufouMBEmlNvPmFqG6uBPv6D70yvDXKIS7224FZOKizyOuoyeQOHHtLMnKKW310BLZySHBbunmNYmnaHz5IjZUb4kJexCvp5JbvXK4xE8A-Ql6E_ujpE0GDrqniG7VDwA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 w-full p-container-margin">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary text-on-primary font-label-sm text-label-sm mb-3">
+<span class="material-symbols-outlined text-sm" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                    Daily Flavor Trip
+                </div>
+<h2 class="font-display-lg text-display-lg text-white mb-2">The Souks of Marrakesh</h2>
+<p class="font-body-md text-body-md text-white/90 max-w-[80%]">Discover the aromatic secrets of Lamb Tagine with dried apricots and toasted almonds.</p>
+<button class="mt-6 px-6 py-3 bg-primary-container text-on-primary-container rounded-full font-label-md text-label-md flex items-center gap-2 hover:opacity-90 transition-opacity">
+                    Start Journey
+                    <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Horizontal Categories -->
+<section class="pt-8">
+<div class="px-container-margin flex justify-between items-end mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Explore Regions</h3>
+<a class="text-primary font-label-md text-label-md" href="#">View All</a>
+</div>
+<div class="flex overflow-x-auto gap-4 px-container-margin pb-4 no-scrollbar">
+<!-- Street Food -->
+<div class="flex-shrink-0 w-40">
+<div class="h-40 rounded-xl overflow-hidden mb-2 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A close-up of steaming hot Bangkok street food, specifically Pad Thai being tossed in a wok. The lighting is dramatic and moody, with steam catching the golden hour light. The colors are vibrant, featuring orange noodles, bright green onions, and red chili flakes, presented in a minimalist and high-end digital aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfbpPDLYRgo1Dr50jqq9eoH13kcxs5qLwXbDPfDZ6lojHU6j9BEe2pjXZDZOCu41sgEv2q2I1aktW1q8DVlLnuoCC_lum64dyT0uQzUZLKHpeTPO7sYK7Li9VzI8IcoHVV6KEK9dNz5NXAvFtN0Zv5v6e-ZZqVU3XpPnafJUMhq1hmX1zMyAjXHfFVeJX8UlYX1LoIXvgR8IoPCMt1vI6RHHZqIdUHeQJMW1gSxOk6cIDU9SNp4xV3AMYsqk7TJW8TU5GtAsPn7sc"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Street Food</span>
+</div>
+<!-- Family Traditions -->
+<div class="flex-shrink-0 w-40">
+<div class="h-40 rounded-xl overflow-hidden mb-2 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="An overhead view of a large Italian family style dinner table covered in fresh pasta, rustic bread, and bowls of colorful sauces. The atmosphere is warm and communal, with a soft cream-colored background and emerald green herbal accents. The lighting is bright and airy, suggesting a celebratory afternoon meal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAupY61QacE_23C4WeWdfzUtlYqo6uPRsv4FdfoirgjoveLnOVe_klDrfJEtJL9iZxMBjqFR0Z13vSGEXayYESnfgxDHk4dLieOS29YkozJaIBGvx5aunnNuX863ODBCU2wX7ydKot64_mEUsd27e1sxWtLBQT4NbsSIqEcWazLHHIjx0UDwSTnyoy-0rIcSZCbYIBJZzo1xOgn2mCxjSyXO1xBVqRuDqbvj5DM5aTvicdQAG3171FFmwURTlEzK3u0jCI6Xin38LM"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Family Traditions</span>
+</div>
+<!-- Coastal Cuisines -->
+<div class="flex-shrink-0 w-40">
+<div class="h-40 rounded-xl overflow-hidden mb-2 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A fresh and vibrant seafood platter featuring grilled prawns and citrus fruits, set against a bright, sun-drenched Mediterranean backdrop. The scene is minimal and clean, with a focus on high-quality ingredients and a color palette of turquoise, lemon yellow, and coral." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUr4xQWofJGb8xRY8BkNcNDcrZe61RqR1g7yyeXMlWELG-UoAZHsUsHGFgbYcvQXrVdfVgqDkZs7CKJQtldDu8E1EteqaiPpK08Ai2XOoKmDmaebqY3Q09wXmY_u1X5UiaJdtR5VYnGihMcdrSn90XtXfXC7GIAReBmnUHogXOPuofAPp4uEknf4Dy1lYOvuWIytYogp-PMK8QQUlLueltGXj5AJuLFbQGcr7_7-v_jMp8Evx-uQV9UGuQFLq_vsOjOiP9ESc-LDE"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Coastal Cuisines</span>
+</div>
+</div>
+</section>
+<!-- AI Curated Recommendations (Bento Grid) -->
+<section class="px-container-margin pt-8">
+<div class="mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Curated For You</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Intelligent matches based on your flavor profile.</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Large Feature Card -->
+<div class="col-span-2 relative h-64 rounded-xl overflow-hidden shadow-sm group">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A gourmet salad bowl with roasted sweet potatoes, kale, pomegranate seeds, and a tahini drizzle. The styling is modern and minimalist, set on a cream background. The lighting is clean and professional, emphasizing the freshness of the ingredients and the sophisticated color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE8awWWVoFkDcWnLEQYWLn0FDZnd2JxG7bOS11nwE_65nCQUAUZRlhngmztP5Hvkx1Hk4vGDiw-QA-ok4KBgKABO1BeZ_gveeZsQpFyNCEJ05-oBsuft1XMBU-lrOf2nGkNbtGLetbPi5sQDT0rM88TbJsb82grmFMM-fTfvUtqaZQhlj5G7Yqr-bhO7FSHrfllarc8Djjaxq1DcmdYmqUXR_h0imaw2p3YyzyVqr6jLHcbHrc37j53NSc2dIcPTEiT6fsNFb9eB8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/70 to-transparent"></div>
+<div class="absolute top-4 right-4">
+<div class="glass-panel px-3 py-1 rounded-full flex items-center gap-2 border border-white/20">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-label-sm text-label-sm text-on-surface">98% Match</span>
+</div>
+</div>
+<div class="absolute bottom-4 left-4">
+<h4 class="font-headline-md text-headline-md text-white mb-1">Antioxidant Mezze Bowl</h4>
+<div class="flex gap-2">
+<span class="px-2 py-0.5 rounded bg-secondary-container/30 text-white font-label-sm text-label-sm backdrop-blur-md">Vegan</span>
+<span class="px-2 py-0.5 rounded bg-tertiary-container/30 text-white font-label-sm text-label-sm backdrop-blur-md">15 min</span>
+</div>
+</div>
+</div>
+<!-- Small Grid Card 1 -->
+<div class="relative h-48 rounded-xl overflow-hidden shadow-sm group">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A close-up of a vibrant poke bowl with fresh tuna, avocado, and radish. The image is bright and airy, with a focus on clean lines and vivid colors like salmon pink and emerald green. The style is sophisticated and foodie-oriented." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBIZweSewfHSTscKiYkmQrsVgGzrYOTditP74b9dqyLyHx4KxNnOi9NkR0VRcAszvKRSKXP2_pwpAqL0R-QyNzmI91y43uQi_nJh0bUELHM7sTZcnRFoUGuHmJCzb2C2fQOf48dSB_uuj7apDfUiWwcM7PEp3OVbidqnf3i2Xhnrzg6FtMVuOmG2CY_voV4OFVB29ekE9owteF66eWoZyegut5vyhO9DLLcQ4Py3s137lGT8eWXtjM3Fy1M1lQgNJtqdblUTzPS7A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/70 to-transparent"></div>
+<div class="absolute bottom-3 left-3">
+<h4 class="font-label-md text-label-md text-white">Kyoto Fusion Bowl</h4>
+</div>
+</div>
+<!-- Small Grid Card 2 -->
+<div class="relative h-48 rounded-xl overflow-hidden shadow-sm group">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A hearty bowl of red lentil soup garnished with cream and fresh coriander. The aesthetic is warm and comforting, using earthy tones and soft, diffused lighting. The image captures the rich textures of the spices and legumes in a high-end digital style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3GWPTOwdQCckUk91suOZ0hAWsM0QQ7u2j-9x5R5PBLeF1hpfYx-S4xoC432o5ohUcJAPdvpaqjlX-rTakznBCHeAO9QJT8rBuA8eGsYpSns5WCefTNnACFW5X8M6K5d2_VzydRpphrad5uHzhKyCDpbJ5DYlmb3t9OPBg3Ulijukeb7AqqTmyNDctvXZVJgdlCyHX_x0UBPecczVW_UUzwMXOouOP4AGlDGsPNLicuAC2pkPrW_qT_WEsg0JVGPhgWAbbBHB-Va8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/70 to-transparent"></div>
+<div class="absolute bottom-3 left-3">
+<h4 class="font-label-md text-label-md text-white">Spiced Dal Nirvan</h4>
+</div>
+</div>
+</div>
+</section>
+<!-- Spice-Inspired Accent Banner -->
+<section class="mt-8 px-container-margin">
+<div class="bg-tertiary text-on-tertiary rounded-2xl p-6 relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md mb-2">The Chili Roadmap</h3>
+<p class="font-body-md text-body-md opacity-90 mb-4">Master the 7 levels of global heat with our interactive spice guide.</p>
+<button class="bg-white text-tertiary px-5 py-2.5 rounded-full font-label-md text-label-md hover:scale-105 transition-transform">Explore Heat Map</button>
+</div>
+<div class="absolute -right-10 -bottom-10 opacity-20 transform rotate-12">
+<span class="material-symbols-outlined text-[120px]" data-icon="local_fire_department">local_fire_department</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-surface dark:bg-inverse-surface shadow-[0_-4px_12px_rgba(26,25,21,0.04)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed rounded-full px-4 py-1 scale-90 transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="explore" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-sm text-label-sm">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-sm text-label-sm">Genie</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+<span class="font-label-sm text-label-sm">Coach</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-label-sm text-label-sm">Pantry</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-sm text-label-sm">Kitchen</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Modern Kitchen Inventory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md antialiased mb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-xl shadow-sm dark:shadow-none h-16">
+<div class="flex items-center justify-between px-container-margin w-full max-w-7xl mx-auto h-full">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-transform duration-200 text-primary dark:text-primary-fixed">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed tracking-tight">Modern Kitchen</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant dark:text-outline-variant hover:opacity-80 transition-opacity font-label-md text-label-md" href="#">Explore</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:opacity-80 transition-opacity font-label-md text-label-md" href="#">AI Coach</a>
+<a class="text-primary dark:text-primary-fixed font-bold hover:opacity-80 transition-opacity font-label-md text-label-md" href="#">Recipes</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:opacity-80 transition-opacity font-label-md text-label-md" href="#">Saved</a>
+</nav>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional studio portrait of a culinary chef in a clean white coat, smiling warmly. The lighting is soft and high-key, matching a bright kitchen aesthetic. The background is a blurred high-end kitchen with stainless steel accents and warm wooden shelving, creating a sophisticated and epicurean atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd5m83H22SATDqTsTC3k9YMBx-Fn2wDdUuCbskNv9QzJVagWpBL7fEfqN9UaUpUsoLm68RHfWTft1u8FOrr6bNl3_qSPJ8px3Yl5gBA3IUZ51cmhOKKSiK3aXNBQvzqSE_pnYZEUi-8ymzXrrYOnC615fBaxog84d71DYfIGhWlq-ofmR0BCaz0SOkFUnhi7YvRRvMYIW2wm7BNBT0MAP3LEMQ3ra-HpysydelGXjwsSFAebxLcM3NzdpEr0ANHMpD5_iuSSe-FMQ"/>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-24 px-container-margin max-w-7xl mx-auto space-y-xl">
+<!-- Inventory Header & Summary -->
+<section class="flex flex-col md:flex-row justify-between items-end gap-md">
+<div class="space-y-2">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Pantry Inventory</h2>
+<p class="text-on-surface-variant font-body-md">Keep track of your ingredients and get smart recipe suggestions based on what's expiring.</p>
+</div>
+<div class="flex gap-gutter">
+<div class="bg-surface-container-low px-md py-sm rounded-xl border border-outline-variant/30 text-center">
+<p class="text-label-sm font-label-sm text-on-surface-variant">TOTAL ITEMS</p>
+<p class="text-headline-md font-headline-md text-primary">142</p>
+</div>
+<div class="bg-error-container px-md py-sm rounded-xl border border-error/20 text-center">
+<p class="text-label-sm font-label-sm text-on-tertiary-container">EXPIRING SOON</p>
+<p class="text-headline-md font-headline-md text-tertiary">5</p>
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout for Categories -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Expiring Alerts (Glassmorphism Section) -->
+<section class="md:col-span-12 lg:col-span-4 space-y-gutter">
+<div class="bg-surface-container p-md rounded-xl shadow-sm border border-outline-variant/20">
+<div class="flex items-center gap-2 mb-md">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">warning</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Expiring Soon</h3>
+</div>
+<div class="space-y-sm">
+<!-- Expiring Item 1 -->
+<div class="flex items-center justify-between p-sm bg-surface-bright rounded-lg shadow-sm border-l-4 border-tertiary">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant">egg</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Greek Yogurt</p>
+<p class="text-label-sm font-label-sm text-tertiary">Expires in 2 days</p>
+</div>
+</div>
+<button class="bg-primary-container text-on-primary-container px-3 py-1.5 rounded-full font-label-sm text-label-sm active:scale-95 transition-transform flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+                                Use Now
+                            </button>
+</div>
+<!-- Expiring Item 2 -->
+<div class="flex items-center justify-between p-sm bg-surface-bright rounded-lg shadow-sm border-l-4 border-tertiary">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant">eco</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Baby Spinach</p>
+<p class="text-label-sm font-label-sm text-tertiary">Expires today</p>
+</div>
+</div>
+<button class="bg-primary-container text-on-primary-container px-3 py-1.5 rounded-full font-label-sm text-label-sm active:scale-95 transition-transform flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+                                Use Now
+                            </button>
+</div>
+</div>
+<div class="mt-md pt-md border-t border-outline-variant/30">
+<div class="bg-white/40 backdrop-blur-xl p-md rounded-xl border border-white/50 space-y-sm">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[20px]">lightbulb</span>
+<p class="font-label-md text-label-md">Smart Suggestion</p>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant italic leading-relaxed">"You have Spinach, Yogurt, and Salmon expiring. How about a Creamy Spinach-Crusted Salmon for dinner?"</p>
+<button class="w-full py-2 bg-secondary text-on-secondary rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">View Recipe Plan</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Inventory Grid -->
+<section class="md:col-span-12 lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Spices Category -->
+<div class="bg-surface-container-high p-md rounded-xl shadow-sm flex flex-col">
+<div class="flex justify-between items-center mb-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">auto_fix_high</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Spices</h3>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">24 items</span>
+</div>
+<div class="space-y-2 flex-grow">
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">grain</span>
+</div>
+<span class="font-body-md text-body-md">Smoked Paprika</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-on-surface-variant">75%</span>
+<button class="opacity-0 group-hover:opacity-100 p-1 text-primary transition-opacity"><span class="material-symbols-outlined text-[20px]">add_circle</span></button>
+</div>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">grain</span>
+</div>
+<span class="font-body-md text-body-md">Turmeric Root</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-tertiary">Low</span>
+<button class="opacity-0 group-hover:opacity-100 p-1 text-primary transition-opacity"><span class="material-symbols-outlined text-[20px]">shopping_cart</span></button>
+</div>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">grain</span>
+</div>
+<span class="font-body-md text-body-md">Star Anise</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Full</span>
+<button class="opacity-0 group-hover:opacity-100 p-1 text-primary transition-opacity"><span class="material-symbols-outlined text-[20px]">add_circle</span></button>
+</div>
+</div>
+</div>
+<button class="mt-md w-full py-2 border border-primary/20 rounded-lg text-primary font-label-md text-label-md hover:bg-primary/5 transition-colors">Expand Category</button>
+</div>
+<!-- Proteins Category -->
+<div class="bg-surface-container-high p-md rounded-xl shadow-sm flex flex-col">
+<div class="flex justify-between items-center mb-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">set_meal</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Proteins</h3>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">8 items</span>
+</div>
+<div class="space-y-2 flex-grow">
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">restaurant</span>
+</div>
+<span class="font-body-md text-body-md">Atlantic Salmon</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-tertiary">Expiring</span>
+<button class="bg-primary/10 p-1 rounded-md text-primary hover:bg-primary/20 transition-colors"><span class="material-symbols-outlined text-[20px]">psychology</span></button>
+</div>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">restaurant</span>
+</div>
+<span class="font-body-md text-body-md">Tempeh</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-on-surface-variant">2 Units</span>
+<button class="opacity-0 group-hover:opacity-100 p-1 text-primary transition-opacity"><span class="material-symbols-outlined text-[20px]">add_circle</span></button>
+</div>
+</div>
+</div>
+<button class="mt-md w-full py-2 border border-primary/20 rounded-lg text-primary font-label-md text-label-md hover:bg-primary/5 transition-colors">Expand Category</button>
+</div>
+<!-- Grains Category -->
+<div class="bg-surface-container-high p-md rounded-xl shadow-sm flex flex-col">
+<div class="flex justify-between items-center mb-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">bakery_dining</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Grains</h3>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">12 items</span>
+</div>
+<div class="space-y-2 flex-grow">
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">grass</span>
+</div>
+<span class="font-body-md text-body-md">Quinoa (White)</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">1.2 kg</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">grass</span>
+</div>
+<span class="font-body-md text-body-md">Basmati Rice</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">500 g</span>
+</div>
+</div>
+<button class="mt-md w-full py-2 border border-primary/20 rounded-lg text-primary font-label-md text-label-md hover:bg-primary/5 transition-colors">Expand Category</button>
+</div>
+<!-- Produce Category -->
+<div class="bg-surface-container-high p-md rounded-xl shadow-sm flex flex-col">
+<div class="flex justify-between items-center mb-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">nutrition</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Produce</h3>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">15 items</span>
+</div>
+<div class="space-y-2 flex-grow">
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">spa</span>
+</div>
+<span class="font-body-md text-body-md">Baby Spinach</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-tertiary">Expires today</span>
+<button class="bg-primary/10 p-1 rounded-md text-primary hover:bg-primary/20 transition-colors"><span class="material-symbols-outlined text-[20px]">psychology</span></button>
+</div>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">spa</span>
+</div>
+<span class="font-body-md text-body-md">Heirloom Carrots</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">6 items</span>
+</div>
+</div>
+<button class="mt-md w-full py-2 border border-primary/20 rounded-lg text-primary font-label-md text-label-md hover:bg-primary/5 transition-colors">Expand Category</button>
+</div>
+</section>
+</div>
+<!-- Featured Ingredient Card (Asymmetric Layout) -->
+<section class="grid grid-cols-1 md:grid-cols-2 bg-surface shadow-lg rounded-2xl overflow-hidden min-h-[400px]">
+<div class="relative h-64 md:h-full">
+<img alt="Spice Market" class="absolute inset-0 w-full h-full object-cover" data-alt="A macro close-up of vibrant Moroccan spices in a traditional market. Deep reds, golden yellows, and earthy browns are arranged in artistic cones. The lighting is natural and warm, highlighting the grainy texture of the ground spices and creating a sense of authentic culinary heritage and richness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_Ci2_wDV_Qzzfkqo7B4v-0mNNq5BNjH6JqCkieVKUWm6AZvhn9DUNIaBzN5wSicF49hk2q14_hkHYKb8FZ_ochq0PoX7lon9xR9OIdcDmL9nH9DxHRHg6O6O0ynJ3qIyh7l3quTDOBMN2gfbo8D890ixygsGPC7ltZ0oUlzS0554uJ2KMU58oZ7y8wX6ejJk8YwPdikCj3-Qc9QFN0Ia0oZfpRTurVuroyLjQQicTzx-t2150DXH-layI4hOne7T5Nxh6vPFefn8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-md">
+<p class="text-white font-headline-md text-headline-md">Discover New Flavors</p>
+</div>
+</div>
+<div class="p-xl flex flex-col justify-center space-y-md">
+<span class="text-secondary font-label-md text-label-md uppercase tracking-widest">In-Season Now</span>
+<h3 class="font-display-lg text-display-lg text-on-surface">Moroccan Saffron</h3>
+<p class="text-on-surface-variant font-body-lg text-body-lg">Elevate your next meal with the world's most precious spice. Our AI Coach can suggest 15+ authentic recipes featuring Saffron and your current pantry items.</p>
+<div class="flex gap-gutter">
+<button class="bg-primary-container text-on-primary-container px-lg py-sm rounded-full font-label-md text-label-md hover:opacity-90 transition-opacity">Add to Pantry</button>
+<button class="bg-transparent border border-outline px-lg py-sm rounded-full font-label-md text-label-md hover:bg-surface-variant/20 transition-colors">Learn More</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface dark:bg-surface-dim shadow-[0_-4px_12px_rgba(26,25,21,0.04)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-sm text-label-sm mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-label-sm text-label-sm mt-1">AI Coach</span>
+</a>
+<div class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed-variant rounded-full px-4 py-1 active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+<span class="font-label-sm text-label-sm mt-1">Recipes</span>
+</div>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="font-label-sm text-label-sm mt-1">Saved</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">menu</span>
+<span class="font-label-sm text-label-sm mt-1">Menu</span>
+</a>
+</nav>
+<!-- FAB for adding items (Contextual to Inventory) -->
+<button class="fixed bottom-24 md:bottom-12 right-6 md:right-12 w-16 h-16 rounded-2xl bg-primary text-on-primary shadow-lg flex items-center justify-center active:scale-95 transition-transform duration-200 z-40">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+</body></html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Epicurean AI - Recipe Generator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#353025",
+                        "surface-dim": "#e2d9ca",
+                        "tertiary-container": "#ffb8b4",
+                        "primary-fixed-dim": "#f0c12c",
+                        "on-surface": "#1f1b12",
+                        "on-tertiary-container": "#ad001e",
+                        "on-surface-variant": "#4e4634",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#00210c",
+                        "secondary": "#006d36",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#66dd8b",
+                        "inverse-on-surface": "#f9f0e0",
+                        "surface-container-highest": "#ebe1d2",
+                        "inverse-primary": "#f0c12c",
+                        "surface-variant": "#ebe1d2",
+                        "on-tertiary-fixed": "#410005",
+                        "primary-container": "#f4c430",
+                        "secondary-container": "#83fba5",
+                        "surface-container-high": "#f1e7d7",
+                        "background": "#fff8f1",
+                        "outline": "#807661",
+                        "on-primary-fixed": "#241a00",
+                        "on-background": "#1f1b12",
+                        "on-secondary": "#ffffff",
+                        "primary": "#755b00",
+                        "outline-variant": "#d1c5ad",
+                        "surface-bright": "#fff8f1",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#ffdf90",
+                        "surface-container": "#f6eddd",
+                        "on-tertiary-fixed-variant": "#930018",
+                        "tertiary": "#bf0023",
+                        "on-secondary-container": "#00743a",
+                        "surface-container-low": "#fcf2e3",
+                        "surface": "#fff8f1",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#755b00",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdad7",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "on-primary-fixed-variant": "#584400",
+                        "secondary-fixed": "#83fba5",
+                        "on-primary-container": "#695200",
+                        "on-secondary-fixed-variant": "#005227",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "80px",
+                        "xs": "4px",
+                        "lg": "48px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "container-margin": "24px",
+                        "gutter": "16px",
+                        "md": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Playfair Display"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar Navigation Shell -->
+<header class="bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-xl flex justify-between items-center w-full px-container-margin h-16 z-50 docked full-width top-0 sticky shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center border-2 border-primary overflow-hidden">
+<img alt="AI Coach status indicator" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a sophisticated digital avatar with warm skin tones and a friendly expression. The background is a soft-focus minimalist kitchen with warm natural lighting and cream tones. The lighting is bright and modern, creating a high-end AI coaching aesthetic that feels approachable and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQBr4FzvrR9UIqcPwOCh2ViPFmuTbimuZhbxuIT_xABVHM-9lba5tVWLx-LSAu7651IUoMZd7WA_riChGa1Io31pFSYIMlbKm3YsCOJz7o2Iy7c7B8cUP15QpiSpQqH8r8CfB06w2jA64n2nd2N_ABad1x30lDgcDr7IgMytubsim668tuHwPivPWhx3WNYLIodmH1lJQjGIwte9SK4VImOOiXapr3R5XDyu3mhzyY21Ouxln7m-s6zF_uus4D1GUaa1RqOlQ_VRs"/>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Epicurean AI</span>
+</div>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity" data-icon="psychology">psychology</button>
+</header>
+<main class="min-h-screen pb-32">
+<!-- Hero Section -->
+<section class="px-container-margin py-md">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile mb-2">Recipe Generator</h1>
+<p class="font-body-md text-on-surface-variant max-w-md">Let our AI Genie craft a unique culinary journey based on your available ingredients.</p>
+</section>
+<!-- Interactive Bento Workspace -->
+<div class="px-container-margin grid grid-cols-4 gap-gutter">
+<!-- Cuisine Selector (Asymmetric Card) -->
+<div class="col-span-4 bg-surface-container rounded-xl p-md shadow-[0_-4px_12px_rgba(26,25,21,0.04)]">
+<h3 class="font-label-md text-label-md uppercase mb-sm text-outline">Select Cuisine Style</h3>
+<div class="flex gap-sm overflow-x-auto pb-2 scrollbar-hide">
+<button class="bg-primary-container text-on-primary-container px-4 py-2 rounded-full font-label-md flex-shrink-0 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="restaurant">restaurant</span>
+                        Thai
+                    </button>
+<button class="bg-surface-container-high text-on-surface-variant px-4 py-2 rounded-full font-label-md flex-shrink-0 flex items-center gap-2 hover:bg-outline-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="local_pizza">local_pizza</span>
+                        Mexican
+                    </button>
+<button class="bg-surface-container-high text-on-surface-variant px-4 py-2 rounded-full font-label-md flex-shrink-0 flex items-center gap-2 hover:bg-outline-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="ramen_dining">ramen_dining</span>
+                        Ethiopian
+                    </button>
+<button class="bg-surface-container-high text-on-surface-variant px-4 py-2 rounded-full font-label-md flex-shrink-0 flex items-center gap-2 hover:bg-outline-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="skillet">skillet</span>
+                        Italian
+                    </button>
+</div>
+</div>
+<!-- Current Pantry List (Tall Bento) -->
+<div class="col-span-4 md:col-span-2 bg-surface-container-low border border-outline-variant/30 rounded-xl p-md">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-label-md text-label-md text-on-surface">Current Pantry</h3>
+<button class="text-primary font-label-sm">+ Add Ingredient</button>
+</div>
+<div class="space-y-3">
+<label class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm group cursor-pointer">
+<span class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md">Fresh Lemongrass</span>
+</span>
+<input checked="" class="hidden" type="checkbox"/>
+</label>
+<label class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm group cursor-pointer">
+<span class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md">Coconut Milk</span>
+</span>
+<input checked="" class="hidden" type="checkbox"/>
+</label>
+<label class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm group cursor-pointer">
+<span class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md">Bird's Eye Chili</span>
+</span>
+<input checked="" class="hidden" type="checkbox"/>
+</label>
+<label class="flex items-center justify-between p-3 bg-white/50 rounded-lg border border-dashed border-outline-variant group cursor-pointer opacity-60">
+<span class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+<span class="font-body-md">Chicken Breast</span>
+</span>
+<input class="hidden" type="checkbox"/>
+</label>
+</div>
+</div>
+<!-- Action Button & Status -->
+<div class="col-span-4 md:col-span-2 flex flex-col gap-gutter">
+<div class="h-48 rounded-xl overflow-hidden relative group">
+<img alt="Cuisine Inspiration" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A top-down, high-quality photograph of vibrant, colorful ingredients for a Thai Tom Yum soup arranged on a rustic wooden table. The lighting is soft and directional, highlighting the textures of fresh ginger, red chilies, lemongrass, and lime leaves. The overall aesthetic is premium and organic, with a focus on rich natural colors like deep emerald green and chili red." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfYw_crt2PJvQrTG490SBernuCBm1KNba3ELkYVrx2vVV-7zbxTqZ7yXdz7fTf1PZWElCJzHLjvI7jh1OrYm7TfZGH2T0NBRWeLx4tzWmSxfQZcoIzIWMo8lD0ogy1WNXwVPjn47EH5CxvLW9J_LDtOouctkLqh5TzwpjdQ5DwY-s583-ALOarBqalZ2b6iwZ_QfHfwsOVyynWh3Ubw4r7H-HRKzGUhrLboMkrLmG5lPE9MyYaIitiSwt1Xno10BxNPPU6zGYEn0Q"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<p class="font-label-sm text-surface-bright/80">Current Inspiration</p>
+<h4 class="font-headline-md">Bangkok Night Market</h4>
+</div>
+</div>
+<!-- Generate Recipe Button -->
+<button class="w-full h-16 bg-primary text-on-primary rounded-full font-label-md flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-all relative overflow-hidden">
+<!-- Glassmorphic Animation Layer -->
+<div class="absolute inset-0 bg-white/20 glass-effect backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                    Generate AI Recipe
+                </button>
+</div>
+<!-- AI Result Card (Summary Card) -->
+<div class="col-span-4 mt-gutter">
+<div class="glass-effect rounded-2xl border border-white/50 shadow-xl overflow-hidden">
+<div class="p-md bg-primary-container/10 border-b border-primary-container/20 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="magic_button">magic_button</span>
+<div>
+<h2 class="font-headline-md text-on-surface">Aromatic Lemongrass Infusion</h2>
+<p class="font-label-sm text-outline">Created by Genie • 2 servings</p>
+</div>
+</div>
+<span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full font-label-sm">94% Match</span>
+</div>
+<div class="p-md grid md:grid-cols-2 gap-md">
+<div>
+<h3 class="font-label-md text-on-surface mb-2">Summary</h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+                                A delicate balance of spicy, sour, and creamy notes. This recipe utilizes your fresh lemongrass and coconut milk to create a broth that is both comforting and electrifying.
+                            </p>
+<div class="mt-md flex gap-gutter">
+<div class="text-center">
+<p class="font-label-sm text-outline">Prep</p>
+<p class="font-label-md">15 min</p>
+</div>
+<div class="text-center">
+<p class="font-label-sm text-outline">Cook</p>
+<p class="font-label-md">20 min</p>
+</div>
+<div class="text-center">
+<p class="font-label-sm text-outline">Cal</p>
+<p class="font-label-md">320 kcal</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl p-md">
+<h3 class="font-label-md text-on-surface mb-3">Key Steps</h3>
+<ul class="space-y-2">
+<li class="flex gap-3 text-body-md">
+<span class="font-bold text-primary">01</span>
+                                    Bruise lemongrass to release oils.
+                                </li>
+<li class="flex gap-3 text-body-md">
+<span class="font-bold text-primary">02</span>
+                                    Simmer in coconut milk with chilis.
+                                </li>
+<li class="flex gap-3 text-body-md">
+<span class="font-bold text-primary">03</span>
+                                    Finish with fresh lime and herbs.
+                                </li>
+</ul>
+<button class="mt-md w-full bg-surface-bright border border-primary text-primary py-2 rounded-lg font-label-md hover:bg-primary hover:text-on-primary transition-all">
+                                View Full Recipe
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 shadow-[0_-4px_12px_rgba(26,25,21,0.04)] bg-surface dark:bg-inverse-surface rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-sm text-label-sm">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed rounded-full px-4 py-1 active:scale-90 transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-sm text-label-sm">Genie</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+<span class="font-label-sm text-label-sm">Coach</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-label-sm text-label-sm">Pantry</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-sm text-label-sm">Kitchen</span>
+</a>
+</nav>
+</body></html>

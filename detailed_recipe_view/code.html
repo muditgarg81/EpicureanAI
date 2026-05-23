@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Modern Kitchen - Recipe Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#bf0023",
+                        "inverse-primary": "#f0c12c",
+                        "tertiary-container": "#ffb8b4",
+                        "secondary-container": "#83fba5",
+                        "on-surface-variant": "#4e4634",
+                        "secondary": "#006d36",
+                        "surface-bright": "#fff8f1",
+                        "surface-container-low": "#fcf2e3",
+                        "inverse-on-surface": "#f9f0e0",
+                        "surface-container": "#f6eddd",
+                        "inverse-surface": "#353025",
+                        "tertiary-fixed": "#ffdad7",
+                        "surface-variant": "#ebe1d2",
+                        "on-primary-fixed": "#241a00",
+                        "outline": "#807661",
+                        "on-background": "#1f1b12",
+                        "surface-container-high": "#f1e7d7",
+                        "error": "#ba1a1a",
+                        "background": "#fff8f1",
+                        "primary-container": "#f4c430",
+                        "on-tertiary-fixed-variant": "#930018",
+                        "on-secondary-container": "#00743a",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#ebe1d2",
+                        "surface-tint": "#755b00",
+                        "on-primary-fixed-variant": "#584400",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "outline-variant": "#d1c5ad",
+                        "on-secondary-fixed": "#00210c",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#83fba5",
+                        "on-primary-container": "#695200",
+                        "surface-dim": "#e2d9ca",
+                        "primary": "#755b00",
+                        "surface": "#fff8f1",
+                        "on-surface": "#1f1b12",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#ad001e",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#f0c12c",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#66dd8b",
+                        "on-secondary-fixed-variant": "#005227",
+                        "primary-fixed": "#ffdf90",
+                        "on-tertiary-fixed": "#410005"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "md": "24px",
+                        "xl": "80px",
+                        "sm": "12px",
+                        "container-margin": "24px",
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-24">
+<!-- Top AppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-xl shadow-sm dark:shadow-none">
+<div class="flex items-center justify-between px-container-margin w-full max-w-7xl mx-auto h-16">
+<button class="active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed tracking-tight">Modern Kitchen</h1>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant hover:opacity-80 cursor-pointer" data-icon="favorite">favorite</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:opacity-80 cursor-pointer" data-icon="share">share</span>
+</div>
+</div>
+</header>
+<main class="pt-16">
+<!-- Hero Section -->
+<section class="relative h-[442px] md:h-[530px] w-full overflow-hidden">
+<img alt="Gourmet Dish" class="w-full h-full object-cover" data-alt="A professional high-angle food photography shot of a vibrant, gourmet Mediterranean lamb dish garnished with fresh emerald herbs and crimson pomegranate seeds. The lighting is bright and warm, emphasizing the rich textures and premium quality of the ingredients against a clean, minimalist ceramic plate. The overall aesthetic is sophisticated and epicurean, perfectly aligned with a high-end modern kitchen brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfcdOfTXBz2izWCp3V2LiwRpRjJpapqTFXKE-Rx6m4mZq7mVc9vWS98oxuC7oMq22gXmY8g7Bq-oHo4zLiPPg1zKsubZ6UQRm5xYxdFGAcyFmEBbHebGmQ-q1HkG8_hbumaIgn7PrhG-IVEAPsjKm5C5OdPvDBunSnSbh5YElEfb33LF5VV8trRaxlYwPU45bLLUUceust4fEF4RI2eBxH6MRB7djOaqwKxnmeCs4XsJkUddFI0Dm1TP6uR7OFqMct6PVIIG3wARk"/>
+<!-- Glassmorphism Stats Card -->
+<div class="absolute bottom-6 left-container-margin right-container-margin md:left-1/2 md:-translate-x-1/2 md:max-w-4xl w-auto">
+<div class="glass-panel p-6 rounded-xl shadow-lg flex flex-wrap items-center justify-between gap-4">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Saffron Infused</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Moroccan Spiced Lamb Roast</h2>
+</div>
+<div class="flex items-center gap-6 border-l border-outline-variant/30 pl-6">
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-primary mb-1" data-icon="schedule">schedule</span>
+<span class="font-label-md text-label-md">45 min</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-primary mb-1" data-icon="local_fire_department">local_fire_department</span>
+<span class="font-label-md text-label-md">640 cal</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-primary mb-1" data-icon="star">star</span>
+<span class="font-label-md text-label-md">Medium</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Content Layout -->
+<div class="max-w-7xl mx-auto px-container-margin mt-12">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-xl">
+<!-- Left Column: Ingredients -->
+<aside class="md:col-span-4 lg:col-span-3">
+<div class="sticky top-24">
+<h3 class="font-headline-md text-headline-md mb-6 flex items-center gap-2">
+                            Ingredients
+                            <span class="font-body-md text-body-md text-on-surface-variant font-normal">(4 Servings)</span>
+</h3>
+<div class="space-y-4">
+<label class="flex items-start gap-4 p-3 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer group">
+<input class="mt-1 w-5 h-5 rounded border-outline text-secondary focus:ring-secondary transition-all" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">800g Grass-fed lamb shoulder</span>
+</label>
+<label class="flex items-start gap-4 p-3 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer group">
+<input class="mt-1 w-5 h-5 rounded border-outline text-secondary focus:ring-secondary transition-all" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">2 tbsp Saffron-infused oil</span>
+</label>
+<label class="flex items-start gap-4 p-3 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer group">
+<input class="mt-1 w-5 h-5 rounded border-outline text-secondary focus:ring-secondary transition-all" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">3 cloves Garlic, crushed</span>
+</label>
+<label class="flex items-start gap-4 p-3 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer group">
+<input class="mt-1 w-5 h-5 rounded border-outline text-secondary focus:ring-secondary transition-all" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">1 tsp Chili Red flakes</span>
+</label>
+<label class="flex items-start gap-4 p-3 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer group">
+<input class="mt-1 w-5 h-5 rounded border-outline text-secondary focus:ring-secondary transition-all" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">1/2 cup Fresh pomegranate arils</span>
+</label>
+<label class="flex items-start gap-4 p-3 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer group">
+<input class="mt-1 w-5 h-5 rounded border-outline text-secondary focus:ring-secondary transition-all" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">1 cup Greek yogurt, full fat</span>
+</label>
+</div>
+<div class="mt-8 p-6 bg-secondary-container/20 rounded-xl border border-secondary/10">
+<h4 class="font-label-md text-label-md text-secondary mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="auto_awesome">auto_awesome</span>
+                                AI DIET TIP
+                            </h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Substitute lamb with chickpeas for a high-protein vegan alternative that pairs perfectly with the saffron marinade.</p>
+</div>
+</div>
+</aside>
+<!-- Right Column: Instructions -->
+<section class="md:col-span-8 lg:col-span-9">
+<h3 class="font-headline-md text-headline-md mb-8">Instructions</h3>
+<div class="space-y-12">
+<div class="flex gap-8 group">
+<span class="font-display-lg text-display-lg text-primary/20 group-hover:text-primary transition-colors leading-none">01</span>
+<div class="pt-2">
+<h4 class="font-headline-md text-headline-md mb-3">Marinate the Lamb</h4>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Combine the saffron-infused oil, crushed garlic, and chili flakes in a small ceramic bowl. Rub the mixture thoroughly into the lamb shoulder, ensuring even coverage. Let it rest at room temperature for 20 minutes to allow the spices to penetrate the grain.</p>
+</div>
+</div>
+<div class="flex gap-8 group">
+<span class="font-display-lg text-display-lg text-primary/20 group-hover:text-primary transition-colors leading-none">02</span>
+<div class="pt-2">
+<h4 class="font-headline-md text-headline-md mb-3">Searing Process</h4>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Preheat a heavy-based cast iron skillet over high heat. Sear the lamb on all sides until a deep, caramelized golden-brown crust forms. This Maillard reaction is critical for unlocking the epicurean depth of the Moroccan spices.</p>
+<div class="mt-6 rounded-xl overflow-hidden shadow-sm">
+<img alt="Cooking Technique" class="w-full h-64 object-cover" data-alt="A close-up action shot of a chef's hand searing meat in a steaming cast iron skillet. The lighting is cinematic with high contrast, catching the golden caramelization of the meat and the fine mist of oil. The background is a clean, modern professional kitchen with warm ambient lighting and minimalist stainless steel surfaces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9LCtMm8vD9XqtZIPrxI7OS8L5OXzicbvqbnwf6wQu36MVGpB2OwaqivXOKKq9Uetx0j7bYyI8haijv0f_o9dqxdjB18GtSKM9qWPY_Dvc1DEoPAwVWfaZPQc6mymb_t97LdiQCgplZf6MtaoMZwBVbj1YuwFQhHNC46Cyy49KpeIsBmLqDbcra4T6mmj5G6ZzjRZ3_7G5PARtlxz1ELJNB-CDombHg2lbVVpTI0v0cxer6rcvueuL77B14TpLR6K1vMStSYDaHBw"/>
+</div>
+</div>
+</div>
+<div class="flex gap-8 group">
+<span class="font-display-lg text-display-lg text-primary/20 group-hover:text-primary transition-colors leading-none">03</span>
+<div class="pt-2">
+<h4 class="font-headline-md text-headline-md mb-3">The Slow Roast</h4>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Transfer the skillet to a preheated oven at 180°C (350°F). Roast for 25 minutes for medium-rare. The internal temperature should reach a precise 55°C. Use the AI Coach timer for real-time tracking based on your oven's specific calibration.</p>
+</div>
+</div>
+<div class="flex gap-8 group">
+<span class="font-display-lg text-display-lg text-primary/20 group-hover:text-primary transition-colors leading-none">04</span>
+<div class="pt-2">
+<h4 class="font-headline-md text-headline-md mb-3">Resting &amp; Garnish</h4>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Allow the meat to rest for 10 minutes under loose foil. Slice against the grain and finish with a generous dollop of Greek yogurt, a shower of fresh pomegranate arils, and a final drizzle of premium olive oil.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- AI Coach Floating Action Button -->
+<div class="fixed bottom-24 right-8 z-[60]">
+<button class="flex items-center gap-3 bg-primary text-on-primary px-6 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-label-md text-label-md">Start Cooking with AI Coach</span>
+</button>
+</div>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface dark:bg-surface-dim shadow-[0_-4px_12px_rgba(26,25,21,0.04)] dark:shadow-none rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-transform duration-150 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-sm text-label-sm">Explore</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-transform duration-150 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-label-sm text-label-sm">AI Coach</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed-variant rounded-full px-4 py-1 active:scale-90 transition-transform duration-150 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="font-label-sm text-label-sm">Recipes</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-transform duration-150 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+<span class="font-label-sm text-label-sm">Saved</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed active:scale-90 transition-transform duration-150 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+<span class="font-label-sm text-label-sm">Menu</span>
+</div>
+</nav>
+</body></html>

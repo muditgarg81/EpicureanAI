@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface-variant": "#4e4634",
+                    "on-primary-fixed-variant": "#584400",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fff8f1",
+                    "on-error-container": "#93000a",
+                    "secondary-container": "#83fba5",
+                    "error-container": "#ffdad6",
+                    "secondary": "#006d36",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#f0c12c",
+                    "surface-container-high": "#f1e7d7",
+                    "primary-fixed": "#ffdf90",
+                    "surface-container-highest": "#ebe1d2",
+                    "surface-container-low": "#fcf2e3",
+                    "on-secondary-fixed-variant": "#005227",
+                    "surface-container": "#f6eddd",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#695200",
+                    "on-error": "#ffffff",
+                    "on-background": "#1f1b12",
+                    "tertiary-fixed": "#ffdad7",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fff8f1",
+                    "on-secondary-container": "#00743a",
+                    "tertiary": "#bf0023",
+                    "inverse-on-surface": "#f9f0e0",
+                    "outline-variant": "#d1c5ad",
+                    "on-tertiary-container": "#ad001e",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#1f1b12",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "surface-dim": "#e2d9ca",
+                    "secondary-fixed-dim": "#66dd8b",
+                    "secondary-fixed": "#83fba5",
+                    "surface-variant": "#ebe1d2",
+                    "on-tertiary-fixed": "#410005",
+                    "primary-fixed-dim": "#f0c12c",
+                    "tertiary-container": "#ffb8b4",
+                    "inverse-surface": "#353025",
+                    "primary": "#755b00",
+                    "on-primary-fixed": "#241a00",
+                    "primary-container": "#f4c430",
+                    "on-secondary-fixed": "#00210c",
+                    "surface-tint": "#755b00",
+                    "on-tertiary-fixed-variant": "#930018",
+                    "outline": "#807661",
+                    "background": "#fff8f1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "lg": "48px",
+                    "sm": "12px",
+                    "md": "24px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "xl": "80px",
+                    "container-margin": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Playfair Display"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "label-sm": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .text-shadow-sm {
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="bg-surface/90 backdrop-blur-xl dark:bg-inverse-surface/90 shadow-sm sticky top-0 z-50 flex justify-between items-center w-full px-container-margin h-16">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer" data-icon="menu">menu</span>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">Epicurean AI</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl cursor-pointer" data-icon="account_circle">account_circle</span>
+</div>
+</header>
+<main class="max-w-[1280px] mx-auto px-container-margin pt-base">
+<!-- Hero Section: Mastery Level -->
+<section class="py-md md:py-lg">
+<div class="relative overflow-hidden rounded-xl aspect-[16/9] md:aspect-[21/9] flex items-end p-md md:p-lg bg-surface-container">
+<img alt="Global Culinary Exploration" class="absolute inset-0 w-full h-full object-cover" data-alt="A cinematic, overhead wide shot of a professional kitchen workstation. Scattered around are vibrant international spices like star anise, red chili flakes, and fresh turmeric root. High-key, warm morning light creates soft shadows on a cream-colored marble surface. The atmosphere is sophisticated and inspiring, reflecting a high-end culinary mastery aesthetic with a focus on natural, premium textures and a rich global palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTICue4aKZDfxew3l-P1QNvcLKHK585L9nmZ9R-GI2J_D7YFxx1DZ25yWotayE4Jo6Y15WUGKXkxoSrooMW5EuU8FRblUGpL4WXjhyBo7u7dE8fJh4C84B4vKxQw-0LjVN594HRZP_HnQnBfjutv0AhwLRrkE1fpRWPHHXBo65FiR16WYg7A3GpeQngWTeVuRHhXZojdFZvemtb11zbs3B22xpHMkDa-NN1eB-4Muy6X5T2xXAYeztXxfPvZhSQrQbMMlBUpMcxqM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="relative z-10">
+<span class="inline-block px-3 py-1 mb-2 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm uppercase tracking-widest">Mastery Level</span>
+<h2 class="font-display-lg text-display-lg text-white text-shadow-sm">Apprentice Global Chef</h2>
+<p class="font-body-lg text-body-lg text-white/90 mt-2 max-w-md">You've explored 14 regions and mastered 32 authentic techniques. Your journey to culinary excellence continues.</p>
+</div>
+</div>
+</section>
+<!-- Bento Grid: Progress & Map -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-md pb-xl">
+<!-- Global Map Visualization (Large) -->
+<div class="md:col-span-8 bg-surface-container rounded-xl p-md shadow-[0_12px_24px_rgba(26,25,21,0.04)] overflow-hidden">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">Global Footprint</h3>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full bg-secondary-container/30 text-on-secondary-container font-label-sm text-label-sm">14 Regions Explored</span>
+</div>
+</div>
+<div class="relative w-full aspect-video bg-surface-container-high rounded-lg overflow-hidden border border-outline-variant">
+<!-- Placeholder for Map Visualization -->
+<img alt="Global Map" class="w-full h-full object-cover opacity-50 grayscale" data-alt="A stylized, minimalist world map rendered in soft cream and charcoal tones. The continents are subtle outlines on a warm paper-texture background. Several glowing points of light in saffron and emerald colors mark culinary milestones across Mexico, Japan, Italy, and India. The aesthetic is clean and premium, evoking a sense of high-end travel and sophisticated global exploration." data-location="World Map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBekNxW21q2AY2_YKNxYfbDcHfFowJyDyO-RbKntuT8t7zUNFP3Wr3P7INC13ms_x4xO-u0Tt-4i6lAhfBFEMyupiB-9nhih_jFJ-nL9WSGi9XHxcqkGJZZH2F-_R7XXfMTEduQmb-W-aeTo00IGHgKyW_VUiVbSOSPQgRD2xcp_XCzNb8JyeEvbl8v1s8307OuOr-sH6meoytB5wiPAl9o5s31Evhyw_ty3AC7HEzThPLwwjXig7CWmH3Sczo_8uSqx8FdIL2Oq54"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="glass-panel p-md rounded-xl text-center border border-white/40">
+<span class="material-symbols-outlined text-primary text-4xl block mb-2" data-icon="public">public</span>
+<p class="font-label-md text-label-md text-on-surface">Interactive Map Active</p>
+<p class="text-[10px] uppercase tracking-tighter text-outline mt-1">Tap markers to view regional dishes</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Regional Circular Indicators -->
+<div class="md:col-span-4 grid grid-cols-2 gap-md">
+<div class="bg-surface-container rounded-xl p-md flex flex-col items-center justify-center text-center shadow-sm">
+<div class="relative w-20 h-20 flex items-center justify-center mb-3">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-outline-variant" cx="40" cy="40" fill="transparent" r="36" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-primary" cx="40" cy="40" fill="transparent" r="36" stroke="currentColor" stroke-dasharray="226.2" stroke-dashoffset="45.2" stroke-width="6"></circle>
+</svg>
+<span class="absolute font-label-md text-label-md">80%</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Mexican</span>
+</div>
+<div class="bg-surface-container rounded-xl p-md flex flex-col items-center justify-center text-center shadow-sm">
+<div class="relative w-20 h-20 flex items-center justify-center mb-3">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-outline-variant" cx="40" cy="40" fill="transparent" r="36" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-secondary" cx="40" cy="40" fill="transparent" r="36" stroke="currentColor" stroke-dasharray="226.2" stroke-dashoffset="135.7" stroke-width="6"></circle>
+</svg>
+<span class="absolute font-label-md text-label-md">40%</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Japanese</span>
+</div>
+<div class="bg-surface-container rounded-xl p-md flex flex-col items-center justify-center text-center shadow-sm">
+<div class="relative w-20 h-20 flex items-center justify-center mb-3">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-outline-variant" cx="40" cy="40" fill="transparent" r="36" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-tertiary" cx="40" cy="40" fill="transparent" r="36" stroke="currentColor" stroke-dasharray="226.2" stroke-dashoffset="180.9" stroke-width="6"></circle>
+</svg>
+<span class="absolute font-label-md text-label-md">20%</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Thai</span>
+</div>
+<div class="bg-surface-container rounded-xl p-md flex flex-col items-center justify-center text-center shadow-sm">
+<div class="relative w-20 h-20 flex items-center justify-center mb-3">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-outline-variant" cx="40" cy="40" fill="transparent" r="36" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-on-secondary-container" cx="40" cy="40" fill="transparent" r="36" stroke="currentColor" stroke-dasharray="226.2" stroke-dashoffset="22.6" stroke-width="6"></circle>
+</svg>
+<span class="absolute font-label-md text-label-md">90%</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Italian</span>
+</div>
+</div>
+</section>
+<!-- Badges Earned Section -->
+<section class="pb-xl">
+<div class="flex items-end justify-between mb-md">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Badges Earned</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Your culinary milestones and titles.</p>
+</div>
+<button class="font-label-md text-label-md text-primary flex items-center gap-1 hover:opacity-80 transition-opacity">
+                    View Gallery <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="flex overflow-x-auto gap-md pb-4 no-scrollbar">
+<!-- Badge 1 -->
+<div class="flex-shrink-0 w-40 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full bg-primary-container/20 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="restaurant" data-weight="fill" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface">Taco Titan</h4>
+<p class="text-[10px] text-outline mt-1 uppercase">Mastered 10+ Salsas</p>
+</div>
+<!-- Badge 2 -->
+<div class="flex-shrink-0 w-40 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full bg-secondary-container/20 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-4xl text-secondary" data-icon="set_meal" data-weight="fill" style="font-variation-settings: 'FILL' 1;">set_meal</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface">Sushi Sensei</h4>
+<p class="text-[10px] text-outline mt-1 uppercase">Nigiri Perfection</p>
+</div>
+<!-- Badge 3 -->
+<div class="flex-shrink-0 w-40 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full bg-tertiary-container/20 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-4xl text-tertiary" data-icon="local_fire_department" data-weight="fill" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface">Wok Warrior</h4>
+<p class="text-[10px] text-outline mt-1 uppercase">High-Heat Master</p>
+</div>
+<!-- Badge 4 -->
+<div class="flex-shrink-0 w-40 bg-surface-container-low rounded-xl p-md border border-outline-variant/30 flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full bg-on-secondary-container/10 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-4xl text-on-secondary-container" data-icon="bakery_dining" data-weight="fill" style="font-variation-settings: 'FILL' 1;">bakery_dining</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface">Dough Doctor</h4>
+<p class="text-[10px] text-outline mt-1 uppercase">Sourdough Specialist</p>
+</div>
+</div>
+</section>
+<!-- Skills Section -->
+<section class="pb-xl">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-md">Culinary Skills</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Skill Item -->
+<div class="glass-panel rounded-xl p-md flex items-start gap-4 border border-outline-variant/20 shadow-sm">
+<div class="bg-primary-container/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="skillet">skillet</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-label-md text-label-md text-on-surface">Knife Skills</h4>
+<span class="font-label-sm text-label-sm text-primary">Level 8</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 82%"></div>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-2">Precision julienne and chiffonade.</p>
+</div>
+</div>
+<!-- Skill Item -->
+<div class="glass-panel rounded-xl p-md flex items-start gap-4 border border-outline-variant/20 shadow-sm">
+<div class="bg-secondary-container/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="science">science</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-label-md text-label-md text-on-surface">Fermentation</h4>
+<span class="font-label-sm text-label-sm text-secondary">Level 5</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary" style="width: 55%"></div>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-2">Active sourdough and kimchi batches.</p>
+</div>
+</div>
+<!-- Skill Item -->
+<div class="glass-panel rounded-xl p-md flex items-start gap-4 border border-outline-variant/20 shadow-sm">
+<div class="bg-tertiary-container/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-tertiary" data-icon="blender">blender</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-label-md text-label-md text-on-surface">Sauce Mastery</h4>
+<span class="font-label-sm text-label-sm text-tertiary">Level 9</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary" style="width: 90%"></div>
+</div>
+<p class="font-label-sm text-label-sm text-outline mt-2">Perfecting the five French mothers.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA: Next Challenge -->
+<section class="mb-lg">
+<div class="bg-inverse-surface rounded-xl p-md md:p-lg flex flex-col md:flex-row items-center justify-between gap-md">
+<div class="text-center md:text-left">
+<h3 class="font-headline-md text-headline-md text-inverse-on-surface">Ready for your next challenge?</h3>
+<p class="font-body-md text-body-md text-outline-variant">Unlock the 'Moroccan Spice Merchant' title by mastering three tagine recipes.</p>
+</div>
+<button class="bg-primary text-on-primary px-lg h-12 rounded-full font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all">
+                    Start Challenge
+                </button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-surface/90 backdrop-blur-2xl dark:bg-inverse-surface/90 shadow-[0_-8px_24px_rgba(26,25,21,0.06)] rounded-t-xl z-50">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-4 py-1 hover:bg-surface-variant/50 transition-colors rounded-xl">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-sm text-label-sm">Discover</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-4 py-1 hover:bg-surface-variant/50 transition-colors rounded-xl">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="font-label-sm text-label-sm">Kitchen</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-4 py-1 hover:bg-surface-variant/50 transition-colors rounded-xl">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-sm text-label-sm">AI Chef</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim bg-primary-container/20 rounded-xl px-4 py-1">
+<span class="material-symbols-outlined" data-icon="account_circle" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</div>
+</nav>
+</body></html>

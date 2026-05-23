@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#ad001e",
+                        "on-secondary-fixed-variant": "#005227",
+                        "on-primary-fixed-variant": "#584400",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#66dd8b",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "surface-container-low": "#fcf2e3",
+                        "inverse-on-surface": "#f9f0e0",
+                        "on-secondary-container": "#00743a",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffdad7",
+                        "inverse-surface": "#353025",
+                        "surface-variant": "#ebe1d2",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#f1e7d7",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#83fba5",
+                        "inverse-primary": "#f0c12c",
+                        "on-secondary-fixed": "#00210c",
+                        "on-tertiary-fixed-variant": "#930018",
+                        "background": "#fff8f1",
+                        "primary": "#755b00",
+                        "surface-container-highest": "#ebe1d2",
+                        "on-primary-fixed": "#241a00",
+                        "on-tertiary-fixed": "#410005",
+                        "secondary-container": "#83fba5",
+                        "outline-variant": "#d1c5ad",
+                        "on-background": "#1f1b12",
+                        "secondary": "#006d36",
+                        "tertiary": "#bf0023",
+                        "surface-tint": "#755b00",
+                        "surface": "#fff8f1",
+                        "surface-container": "#f6eddd",
+                        "surface-bright": "#fff8f1",
+                        "on-error": "#ffffff",
+                        "outline": "#807661",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#695200",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#f4c430",
+                        "on-surface-variant": "#4e4634",
+                        "tertiary-container": "#ffb8b4",
+                        "primary-fixed": "#ffdf90",
+                        "surface-dim": "#e2d9ca",
+                        "primary-fixed-dim": "#f0c12c",
+                        "on-surface": "#1f1b12"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "container-margin": "24px",
+                        "md": "24px",
+                        "xs": "4px",
+                        "xl": "80px",
+                        "lg": "48px",
+                        "base": "8px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Playfair Display"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md">
+<!-- TopAppBar -->
+<header class="bg-surface/80 backdrop-blur-xl docked full-width top-0 sticky flex justify-between items-center w-full px-container-margin h-16 z-50 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-primary/20">
+<img alt="Avatar" class="w-full h-full object-cover" data-alt="A professional close-up of a diverse chef or AI avatar with a clean, high-end culinary aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlCDtzJRoZuuESAmHIFWRDIEzZFCMK2ar1gsOxhA1xphWsQwGhrAz_J9cZyy7WT1qDZluLw6FIlp8xO7fKQkXJJer5Y493tTwcCCMmKEoAJN3N_ONd_fBDROF_I4cMNiNCmmxCtUvxEMNV8SwAgyIBhWXCRQZFW6uHUl6aboXSaOn9XOMuekc5zXZrE8nq4gIPE3hkbBSKliyJXOIrtF_mEg-dfxl5lujRSY65Z-MJyJM6Lrp_CouJTQMbiW9nbZHZS2SmlWHx_E0"/>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Epicurean AI</h1>
+</div>
+<button class="text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[28px]" data-icon="psychology">psychology</span>
+</button>
+</header>
+<main class="pb-24">
+<!-- Daily Flavor Trip Hero -->
+<section class="relative w-full h-[540px] overflow-hidden group">
+<img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="A vibrant, high-angle shot of a traditional Moroccan tagine surrounded by colorful small plates of olives, couscous, and fresh herbs." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_3nLp8TXVK1DUEb5uiYUtDvWfODe3ycfAURT7C9l1EQuE0XRJWonfBO-DowVZXlEKKRGs8qISR23ePxfFc_paXqB0lWUr3SIi1GC6jtdTlStL26sAGReJGkHhi5f0pb0zUooy9WlnNgPufouMBEmlNvPmFqG6uBPv6D70yvDXKIS7224FZOKizyOuoyeQOHHtLMnKKW310BLZySHBbunmNYmnaHz5IjZUb4kJexCvp5JbvXK4xE8A-Ql6E_ujpE0GDrqniG7VDwA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+<div class="absolute bottom-0 left-0 w-full p-container-margin pb-12">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md mb-4 shadow-lg">
+<span class="material-symbols-outlined text-base animate-pulse" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                    Daily Flavor Trip
+                </div>
+<h2 class="font-display-lg text-display-lg text-white mb-3 leading-none">The Souks of Marrakesh</h2>
+<p class="font-body-lg text-body-lg text-white/95 max-w-[90%] mb-8 leading-snug">Discover the aromatic secrets of Lamb Tagine with dried apricots and toasted almonds.</p>
+<button class="w-full py-4 bg-primary-container text-on-primary-container rounded-full font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary hover:text-on-primary transition-all duration-300 shadow-xl active:scale-95">
+<span class="text-lg">Start Journey</span>
+<span class="material-symbols-outlined text-xl" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Horizontal Categories -->
+<section class="pt-8">
+<div class="px-container-margin flex justify-between items-end mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface">Explore Regions</h3>
+<a class="text-primary font-label-md text-label-md" href="#">View All</a>
+</div>
+<div class="flex overflow-x-auto gap-4 px-container-margin pb-4 no-scrollbar">
+<!-- Street Food -->
+<div class="flex-shrink-0 w-40">
+<div class="h-40 rounded-2xl overflow-hidden mb-2 shadow-md">
+<img class="w-full h-full object-cover" data-alt="A close-up of steaming hot Bangkok street food." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfbpPDLYRgo1Dr50jqq9eoH13kcxs5qLwXbDPfDZ6lojHU6j9BEe2pjXZDZOCu41sgEv2q2I1aktW1q8DVlLnuoCC_lum64dyT0uQzUZLKHpeTPO7sYK7Li9VzI8IcoHVV6KEK9dNz5NXAvFtN0Zv5v6e-ZZqVU3XpPnafJUMhq1hmX1zMyAjXHfFVeJX8UlYX1LoIXvgR8IoPCMt1vI6RHHZqIdUHeQJMW1gSxOk6cIDU9SNp4xV3AMYsqk7TJW8TU5GtAsPn7sc"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface px-1">Street Food</span>
+</div>
+<!-- Family Traditions -->
+<div class="flex-shrink-0 w-40">
+<div class="h-40 rounded-2xl overflow-hidden mb-2 shadow-md">
+<img class="w-full h-full object-cover" data-alt="An overhead view of a large Italian family style dinner table." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAupY61QacE_23C4WeWdfzUtlYqo6uPRsv4FdfoirgjoveLnOVe_klDrfJEtJL9iZxMBjqFR0Z13vSGEXayYESnfgxDHk4dLieOS29YkozJaIBGvx5aunnNuX863ODBCU2wX7ydKot64_mEUsd27e1sxWtLBQT4NbsSIqEcWazLHHIjx0UDwSTnyoy-0rIcSZCbYIBJZzo1xOgn2mCxjSyXO1xBVqRuDqbvj5DM5aTvicdQAG3171FFmwURTlEzK3u0jCI6Xin38LM"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface px-1">Family Traditions</span>
+</div>
+<!-- Coastal Cuisines -->
+<div class="flex-shrink-0 w-40">
+<div class="h-40 rounded-2xl overflow-hidden mb-2 shadow-md">
+<img class="w-full h-full object-cover" data-alt="A fresh and vibrant seafood platter featuring grilled prawns." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUr4xQWofJGb8xRY8BkNcNDcrZe61RqR1g7yyeXMlWELG-UoAZHsUsHGFgbYcvQXrVdfVgqDkZs7CKJQtldDu8E1EteqaiPpK08Ai2XOoKmDmaebqY3Q09wXmY_u1X5UiaJdtR5VYnGihMcdrSn90XtXfXC7GIAReBmnUHogXOPuofAPp4uEknf4Dy1lYOvuWIytYogp-PMK8QQUlLueltGXj5AJuLFbQGcr7_7-v_jMp8Evx-uQV9UGuQFLq_vsOjOiP9ESc-LDE"/>
+</div>
+<span class="font-label-md text-label-md text-on-surface px-1">Coastal Cuisines</span>
+</div>
+</div>
+</section>
+<!-- AI Curated Recommendations (Bento Grid) -->
+<section class="px-container-margin pt-8">
+<div class="mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Curated For You</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Intelligent matches based on your flavor profile.</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Large Feature Card -->
+<div class="col-span-2 relative h-64 rounded-2xl overflow-hidden shadow-lg group">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A gourmet salad bowl with roasted sweet potatoes and kale." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE8awWWVoFkDcWnLEQYWLn0FDZnd2JxG7bOS11nwE_65nCQUAUZRlhngmztP5Hvkx1Hk4vGDiw-QA-ok4KBgKABO1BeZ_gveeZsQpFyNCEJ05-oBsuft1XMBU-lrOf2nGkNbtGLetbPi5sQDT0rM88TbJsb82grmFMM-fTfvUtqaZQhlj5G7Yqr-bhO7FSHrfllarc8Djjaxq1DcmdYmqUXR_h0imaw2p3YyzyVqr6jLHcbHrc37j53NSc2dIcPTEiT6fsNFb9eB8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<!-- Prominent Match Percentage -->
+<div class="absolute top-4 right-4">
+<div class="bg-primary-container text-on-primary-container px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg border border-primary/20 backdrop-blur-sm">
+<span class="material-symbols-outlined text-primary text-base" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-label-md text-label-md font-bold">98% Match</span>
+</div>
+</div>
+<div class="absolute bottom-4 left-4 right-4">
+<h4 class="font-headline-md text-headline-md text-white mb-2">Antioxidant Mezze Bowl</h4>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full bg-secondary-container/90 text-on-secondary-container font-label-sm text-label-sm backdrop-blur-md">Vegan</span>
+<span class="px-3 py-1 rounded-full bg-tertiary-container/90 text-on-tertiary-container font-label-sm text-label-sm backdrop-blur-md">15 min</span>
+</div>
+</div>
+</div>
+<!-- Small Grid Card 1 -->
+<div class="relative h-56 rounded-2xl overflow-hidden shadow-md group">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A close-up of a vibrant poke bowl." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBIZweSewfHSTscKiYkmQrsVgGzrYOTditP74b9dqyLyHx4KxNnOi9NkR0VRcAszvKRSKXP2_pwpAqL0R-QyNzmI91y43uQi_nJh0bUELHM7sTZcnRFoUGuHmJCzb2C2fQOf48dSB_uuj7apDfUiWwcM7PEp3OVbidqnf3i2Xhnrzg6FtMVuOmG2CY_voV4OFVB29ekE9owteF66eWoZyegut5vyhO9DLLcQ4Py3s137lGT8eWXtjM3Fy1M1lQgNJtqdblUTzPS7A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+<div class="absolute top-2 right-2">
+<div class="bg-primary-container/90 px-2 py-0.5 rounded-full text-[10px] font-bold text-on-primary-container border border-white/20">92%</div>
+</div>
+<div class="absolute bottom-3 left-3">
+<h4 class="font-label-md text-label-md text-white font-bold">Kyoto Fusion Bowl</h4>
+</div>
+</div>
+<!-- Small Grid Card 2 -->
+<div class="relative h-56 rounded-2xl overflow-hidden shadow-md group">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A hearty bowl of red lentil soup." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3GWPTOwdQCckUk91suOZ0hAWsM0QQ7u2j-9x5R5PBLeF1hpfYx-S4xoC432o5ohUcJAPdvpaqjlX-rTakznBCHeAO9QJT8rBuA8eGsYpSns5WCefTNnACFW5X8M6K5d2_VzydRpphrad5uHzhKyCDpbJ5DYlmb3t9OPBg3Ulijukeb7AqqTmyNDctvXZVJgdlCyHX_x0UBPecczVW_UUzwMXOouOP4AGlDGsPNLicuAC2pkPrW_qT_WEsg0JVGPhgWAbbBHB-Va8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+<div class="absolute top-2 right-2">
+<div class="bg-primary-container/90 px-2 py-0.5 rounded-full text-[10px] font-bold text-on-primary-container border border-white/20">85%</div>
+</div>
+<div class="absolute bottom-3 left-3">
+<h4 class="font-label-md text-label-md text-white font-bold">Spiced Dal Nirvan</h4>
+</div>
+</div>
+</div>
+</section>
+<!-- Spice-Inspired Accent Banner -->
+<section class="mt-8 px-container-margin">
+<div class="bg-tertiary text-on-tertiary rounded-2xl p-8 relative overflow-hidden shadow-xl">
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md mb-2">The Chili Roadmap</h3>
+<p class="font-body-md text-body-md opacity-90 mb-6 max-w-[80%]">Master the 7 levels of global heat with our interactive spice guide.</p>
+<button class="bg-white text-tertiary px-6 py-2.5 rounded-full font-label-md text-label-md font-bold hover:scale-105 transition-transform shadow-md">Explore Heat Map</button>
+</div>
+<div class="absolute -right-6 -bottom-6 opacity-30 transform rotate-12">
+<span class="material-symbols-outlined text-[140px]" data-icon="local_fire_department" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-surface shadow-[0_-4px_12px_rgba(26,25,21,0.06)] rounded-t-3xl border-t border-outline-variant/30">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1.5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="explore" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-sm text-label-sm font-bold">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-sm text-label-sm">Plan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-sm text-label-sm">Genie</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-label-sm text-label-sm">Pantry</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-sm text-label-sm">Kitchen</span>
+</a>
+</nav>
+</body></html>

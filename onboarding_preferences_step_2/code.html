@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Global Kitchen - Culinary Preferences</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#e2d9ca",
+                        "inverse-primary": "#f0c12c",
+                        "on-tertiary-container": "#ad001e",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#ebe1d2",
+                        "secondary-fixed-dim": "#66dd8b",
+                        "tertiary-fixed": "#ffdad7",
+                        "primary": "#755b00",
+                        "primary-container": "#f4c430",
+                        "primary-fixed-dim": "#f0c12c",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#00210c",
+                        "on-secondary-container": "#00743a",
+                        "primary-fixed": "#ffdf90",
+                        "outline": "#807661",
+                        "on-primary-fixed": "#241a00",
+                        "on-surface": "#1f1b12",
+                        "on-primary-container": "#695200",
+                        "surface-container": "#f6eddd",
+                        "surface-bright": "#fff8f1",
+                        "secondary": "#006d36",
+                        "secondary-fixed": "#83fba5",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#755b00",
+                        "on-background": "#1f1b12",
+                        "error-container": "#ffdad6",
+                        "surface": "#fff8f1",
+                        "on-secondary-fixed-variant": "#005227",
+                        "on-primary-fixed-variant": "#584400",
+                        "outline-variant": "#d1c5ad",
+                        "surface-variant": "#ebe1d2",
+                        "surface-container-high": "#f1e7d7",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#fcf2e3",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#ffb8b4",
+                        "inverse-surface": "#353025",
+                        "inverse-on-surface": "#f9f0e0",
+                        "on-surface-variant": "#4e4634",
+                        "on-tertiary-fixed": "#410005",
+                        "secondary-container": "#83fba5",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "background": "#fff8f1",
+                        "on-tertiary-fixed-variant": "#930018",
+                        "tertiary": "#bf0023"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "80px",
+                        "sm": "12px",
+                        "md": "24px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "lg": "48px",
+                        "gutter": "16px",
+                        "container-margin": "24px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 253, 245, 0.8);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-body-md">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-inverse-surface flex justify-between items-center w-full px-container-margin py-base max-w-7xl mx-auto sticky top-0 z-50">
+<div class="flex items-center gap-md">
+<button class="text-primary dark:text-primary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors Active: scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-primary dark:text-inverse-primary">Global Kitchen</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors">Skip</button>
+</div>
+</header>
+<main class="flex-grow max-w-3xl mx-auto w-full px-container-margin py-lg">
+<!-- Progress Indicator -->
+<div class="mb-lg">
+<div class="flex justify-between items-end mb-base">
+<span class="font-label-md text-label-md text-primary">Step 2 of 3</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Taste Profile</span>
+</div>
+<div class="w-full bg-surface-container h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-2/3 transition-all duration-500"></div>
+</div>
+</div>
+<section class="mb-xl">
+<h2 class="font-headline-lg text-headline-lg mb-base">Tailor your kitchen.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Select your favorite cuisines to help our AI Chef suggest the perfect recipes for your palate.</p>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter mb-xl">
+<!-- Japanese Card -->
+<div class="group relative aspect-[3/4] rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(26,25,21,0.04)] cursor-pointer hover:shadow-lg transition-all border-2 border-transparent hover:border-primary-container">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up, high-end photograph of fresh Nigiri sushi displayed on a minimalist black slate. The lighting is soft and natural, emphasizing the vibrant colors of the raw salmon and tuna against the pristine white rice. The overall aesthetic is clean and sophisticated, aligning with a premium Global Kitchen theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvdb2laQCCGU5jxelBfFj0oGCsnyEsPJkv-EkFOYiRkRzQ8HvipzcHsJEIKmQF_fos3aQgTlpSrBT-xRI_qRFCTGzyn994vrcmjF9vGwn9_Yw_fsUKj6CIyUtxaQ0b8gGgasnR1EgBdbxNVpDqPpBVIh3CmnQg9EWjNj4TcQeAurUhTiVS5XUMKnoovfqXS0LqL633AQ3YIVE8ZkSfNiDJTcJx2N3OWKL9hDTB-S1GInf5ssMCg9z128tr-zX7-YLxvO1viHRkxJ8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-md left-md right-md">
+<p class="font-headline-md text-white">Japanese</p>
+</div>
+<div class="absolute top-sm right-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary-container" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Mexican Card -->
+<div class="group relative aspect-[3/4] rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(26,25,21,0.04)] cursor-pointer hover:shadow-lg transition-all border-2 border-primary-container ring-2 ring-primary-container/20">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Gourmet street tacos with vibrant lime, cilantro, and radish garnish on a warm, hand-pressed corn tortilla. The scene is captured with warm, inviting sunlight in a modern rustic kitchen setting. Rich textures and deep reds and greens dominate the palette, evoking a high-end epicurean experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7Z9qDAte4pBZqxTQZDp2an6jAkVJY-16Nac-TroCJphunZxn20lQpSZE_uDMpzfgaUaAF_IdizBeykfM0FdnZyH81h-4ctC0U1QaHSexvejKiacltl24Un81TLPw0PL6FgEM0CqVJUF_HQcAJcXRlyNiho4AmCqythuo3UBPgqSJPAhVNaSA5syktO9l2sJvGRuq-yPoQtJEfhPDzLoUHvkKK7GEKvapXKOR3GP4U7Nn73Jpe4xPv9aXD2RFYyiiFlcaOLNzIC1Q"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-md left-md right-md">
+<p class="font-headline-md text-white">Mexican</p>
+</div>
+<div class="absolute top-sm right-sm">
+<span class="material-symbols-outlined text-primary-container" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Ethiopian Card -->
+<div class="group relative aspect-[3/4] rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(26,25,21,0.04)] cursor-pointer hover:shadow-lg transition-all border-2 border-transparent hover:border-primary-container">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An authentic Ethiopian platter featuring Injera bread and colorful piles of spiced lentils and stews. The lighting is dramatic and warm, highlighting the rich textures and deep earthy tones of the spices. This epicurean shot uses a high-key focus to showcase the diversity of global flavors in a minimalist digital environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcOOxQz6bVRHVc-MquTLRNueMMICIAKPUcDwS5T3yp7a3h6jkbds2UoqhZU7POQV2gGVyt3TZ0BXUgBP-WfwHQEuX5P46T5yTxA87UvBu2jUOdH9R4M2Bi-UBgJA48gLnzmBwso26rjsqcIyoTFYuhe3V05finOkvfQraq0To3JzlyAuG0_PEjRGTt-bgh6I0AWTjPZNEFKhO11-TsHeuMGcNGAJgkOqPHeLfQQ7KH-kDDkj9JTPkox652EuSW42aQd1fqIctE1JI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-md left-md right-md">
+<p class="font-headline-md text-white">Ethiopian</p>
+</div>
+<div class="absolute top-sm right-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary-container" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Italian Card -->
+<div class="group relative aspect-[3/4] rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(26,25,21,0.04)] cursor-pointer hover:shadow-lg transition-all border-2 border-transparent hover:border-primary-container">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Hand-rolled fresh pasta tagliatelle being dusted with flour in a bright, sun-drenched Italian studio. The scene uses a clean, cream background with saffron and emerald accents. The photography is crisp and airy, emphasizing the artisanal nature of Italian cuisine in a high-end digital interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsqvsi_Mnzrzm_4xzxs0OYzwjtOF-3CBlxZYCRNIWc1qp5_aX-5obF8JD18cidiA6WdXa677iraS9kMCh1ncE-RWRrJBkavmV5mv9ITQwPaUh_qwzcBdkh67GenTiZ98UDbJ3KHAUt5Sb1DWuMIuJMM7oQufyv1JYh50DOZDiLsbv-JnJG2vhgEx-_HgAUVJRPv-CXvQ0t-Ad3v37dBJkgDz6zwxSHYxe4P_WmGem2tkXMXvx3Il8JEccx4zSwGv7uBt9y7okhYOA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-md left-md right-md">
+<p class="font-headline-md text-white">Italian</p>
+</div>
+<div class="absolute top-sm right-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary-container" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+</div>
+</section>
+<section class="mb-lg">
+<h3 class="font-headline-md text-headline-md mb-md">Dietary Restrictions</h3>
+<div class="flex flex-wrap gap-sm">
+<!-- Vegan Chip -->
+<button class="flex items-center gap-xs px-md py-sm rounded-full border border-secondary text-secondary font-label-md text-label-md hover:bg-secondary-container transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="eco">eco</span>
+                    Vegan
+                </button>
+<!-- Gluten-Free Chip (Selected State) -->
+<button class="flex items-center gap-xs px-md py-sm rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md shadow-sm transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="check">check</span>
+                    Gluten-Free
+                </button>
+<!-- Nut Allergy Chip -->
+<button class="flex items-center gap-xs px-md py-sm rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="warning">warning</span>
+                    Nut Allergy
+                </button>
+<!-- Keto Chip -->
+<button class="flex items-center gap-xs px-md py-sm rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="fitness_center">fitness_center</span>
+                    Keto
+                </button>
+</div>
+</section>
+<!-- Glassmorphism AI Tip Card -->
+<div class="glass-panel mt-xl p-md rounded-xl border border-white/40 shadow-sm flex items-start gap-md">
+<div class="p-base bg-primary-container rounded-lg">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-primary-container mb-xs">AI Tip</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Selecting "Mexican" and "Vegan" will help me prioritize plant-based taco and mole recipes in your feed.</p>
+</div>
+</div>
+</main>
+<!-- Footer Action -->
+<footer class="sticky bottom-0 w-full bg-surface/80 backdrop-blur-xl py-md px-container-margin z-50">
+<div class="max-w-3xl mx-auto">
+<button class="w-full bg-primary-container text-on-primary-container h-[56px] rounded-full font-label-md text-label-md hover:bg-primary-container/90 transition-all shadow-md Active:scale-95 duration-150 flex items-center justify-center gap-sm">
+                Continue
+                <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</footer>
+</body></html>

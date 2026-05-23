@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Global Kitchen - Welcome</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#e2d9ca",
+                    "inverse-primary": "#f0c12c",
+                    "on-tertiary-container": "#ad001e",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#ebe1d2",
+                    "secondary-fixed-dim": "#66dd8b",
+                    "tertiary-fixed": "#ffdad7",
+                    "primary": "#755b00",
+                    "primary-container": "#f4c430",
+                    "primary-fixed-dim": "#f0c12c",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#00210c",
+                    "on-secondary-container": "#00743a",
+                    "primary-fixed": "#ffdf90",
+                    "outline": "#807661",
+                    "on-primary-fixed": "#241a00",
+                    "on-surface": "#1f1b12",
+                    "on-primary-container": "#695200",
+                    "surface-container": "#f6eddd",
+                    "surface-bright": "#fff8f1",
+                    "secondary": "#006d36",
+                    "secondary-fixed": "#83fba5",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#755b00",
+                    "on-background": "#1f1b12",
+                    "error-container": "#ffdad6",
+                    "surface": "#fff8f1",
+                    "on-secondary-fixed-variant": "#005227",
+                    "on-primary-fixed-variant": "#584400",
+                    "outline-variant": "#d1c5ad",
+                    "surface-variant": "#ebe1d2",
+                    "surface-container-high": "#f1e7d7",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#fcf2e3",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#ffb8b4",
+                    "inverse-surface": "#353025",
+                    "inverse-on-surface": "#f9f0e0",
+                    "on-surface-variant": "#4e4634",
+                    "on-tertiary-fixed": "#410005",
+                    "secondary-container": "#83fba5",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "background": "#fff8f1",
+                    "on-tertiary-fixed-variant": "#930018",
+                    "tertiary": "#bf0023"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "80px",
+                    "sm": "12px",
+                    "md": "24px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "lg": "48px",
+                    "gutter": "16px",
+                    "container-margin": "24px"
+            },
+            "fontFamily": {
+                    "label-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-md": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "body-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 253, 245, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .text-shadow-elegant {
+            text-shadow: 0 2px 4px rgba(26, 25, 21, 0.1);
+        }
+        .full-bleed-hero {
+            height: 100vh;
+            height: 100svh;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-hidden">
+<!-- TopAppBar Navigation Shell (Suppressed for Onboarding as per instructions) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-margin py-base max-w-7xl mx-auto bg-transparent">
+<div class="font-headline-md text-primary dark:text-inverse-primary text-shadow-elegant">Global Kitchen</div>
+<button class="text-on-surface-variant font-label-md text-label-md px-4 py-2 hover:text-primary transition-colors">Skip</button>
+</header>
+<main class="relative w-full full-bleed-hero flex flex-col justify-end">
+<!-- Hero Background Image -->
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A top-down, high-resolution photograph of an array of vibrant global spices in terracotta bowls. Turmeric, chili flakes, and cumin create a rich, sensory explosion of warm saffron and deep red tones against a minimalist cream-colored marble surface. The lighting is bright and natural, reflecting a premium and sophisticated epicurean aesthetic. The composition is clean with generous whitespace, embodying a modern global digital design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADBc-Ohzvsr1ICu8V85ErtJNKlTjs5XQP-qSSMvyOyT2F5nGkq3Tmbdw63ctC4BkMdgVhJV6vGR0MLlWFe2eXu_cKN_TA1M0LMuSF057rFFgXaBcnS_3ZDk24-QCJk5alWFB8kQpRiXhbwcpUnv-tpZgsI4YqLJQo-0yBoTChFRjC73WHTEXE4gXq4aFTCPCpTL1FwUcV7oRKY_T4EXJv4JviKj2upd0Hoq7CsgKUjqKgYqpkKEyvtCcruPgHlXTXiJabz_gF5NNU"/>
+<!-- Subtle gradient overlay for text legibility -->
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-90"></div>
+</div>
+<!-- Content Canvas -->
+<section class="relative z-10 px-container-margin pb-xl md:pb-lg max-w-2xl">
+<!-- Glassmorphism Container for Value Prop -->
+<div class="glass-panel p-md md:p-lg rounded-xl shadow-[0_12px_40px_rgba(26,25,21,0.06)] border border-surface-variant/20">
+<div class="flex items-center gap-xs mb-md text-primary">
+<span class="material-symbols-outlined" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Intelligent Gastronomy</span>
+</div>
+<h1 class="font-display-lg text-display-lg md:text-display-lg text-on-surface mb-md leading-[1.1]">
+                    Master the World's Kitchens
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-lg max-w-md">
+                    Your AI-powered culinary companion that translates global flavors into your home kitchen.
+                </p>
+<div class="flex flex-col gap-base">
+<!-- Primary CTA -->
+<button class="w-full md:w-fit px-xl py-md bg-primary-container text-on-primary-container font-label-md text-label-md rounded-full shadow-lg hover:shadow-xl active:scale-95 transition-all duration-150 flex justify-center items-center gap-base">
+                        Get Started
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Secondary CTA -->
+<button class="w-full md:w-fit px-xl py-md border border-primary text-primary font-label-md text-label-md rounded-full hover:bg-primary/5 transition-colors">
+                        Explore Features
+                    </button>
+</div>
+</div>
+</section>
+<!-- Visual Accents (Global Spice Circles) -->
+<div class="hidden lg:block absolute top-1/2 right-12 -translate-y-1/2 space-y-gutter">
+<div class="w-24 h-24 rounded-full border-4 border-surface-container-highest shadow-xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up of vibrant green basil leaves and fresh pestle, emphasizing the emerald green color palette. The lighting is soft and high-key, maintaining the premium minimalist culinary aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlQ0ofUWzfLJjApVSyHt4ZAGHDkcqA9zrZUnXoUJa_kHAUSHqq-PEcdnJAgNlitIui7LLKfhmrevN59YX0NOiWCKPdI9ynf_IXowShQ8EYVVOW3LyjItvx2O8T1MS3bdRI8fYvQ3yPtZPZue3uPQK2uGhQsJFFzSWdvNggVCMtP5R6dNav3GREcVUHXDyKEa9vPU3CjGs7M5OwGNdweSoxt9EVgburh5UaYxUhmEvPD2SlhUkKK-o5A-zk21XRUjyNw0aJZN73eJg"/>
+</div>
+<div class="w-32 h-32 rounded-full border-4 border-surface-container-highest shadow-xl overflow-hidden translate-x-8">
+<img class="w-full h-full object-cover" data-alt="Macro photography of red chili peppers and dried spices, showcasing deep chili red tones. The image is bright and crisp, highlighting texture and freshness in a professional digital culinary style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj4u26LOcV8FATm5rd3t52a7cy10ffdxcaj4b2wAHEq1ngvflp4hwzLHVhqgRnPKDNdPVmcoipKCSnIlEOJQ7SrerWxveXF9Ts24S9wVsu4zYQWy27tOStX3Hj4qkvetVD2VHnC5fYOcRUfSAwIg0BAA6lYa-T5slRtQN6p-jJhed5eCNoTOxtJ7HMhbraoDtNZ_jrCYJBFChMLpvW8ulzXNHgF54VOlDJ5BFyvtfMkYuAMJLDYQdWHi3qUPmZ0fZfQ_QPJ9AgLfU"/>
+</div>
+<div class="w-24 h-24 rounded-full border-4 border-surface-container-highest shadow-xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Artistic arrangement of yellow saffron threads on a clean white surface. High-contrast, minimalist photography focused on the warm saffron yellow palette, lit with soft afternoon sun." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg3EfR6sLKDL6ouzNj5bjtuB9UMTyWK2bucIhUyV-I8slDIUcaupP0Rz_veKuwsupffj-CcPiVtNha7oVsm8H9Etx2NGAYobV_RKqz-6E1a49gY3WbFtsJ_vJHBuFeLbh4ieP1GqLNyGanaq_3rHcoVlRAPkanNhhNBFeKYOn8VWf9VqbgllgSUwyWUpwzIFeAgS_q09beJGz9q9fe4xRgKQaXZy8xM72dqUck4d9ajE-lRpR215wtYoxYNh15Cv7MOPlqvLZNtFI"/>
+</div>
+</div>
+</main>
+<!-- Progress Indicator for Onboarding -->
+<div class="fixed bottom-base left-0 w-full flex justify-center gap-xs px-container-margin z-20">
+<div class="h-1.5 w-12 rounded-full bg-primary shadow-sm"></div>
+<div class="h-1.5 w-4 rounded-full bg-surface-container-highest"></div>
+<div class="h-1.5 w-4 rounded-full bg-surface-container-highest"></div>
+</div>
+</body></html>

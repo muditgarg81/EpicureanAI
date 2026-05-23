@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Secure Checkout - Modern Kitchen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#bf0023",
+                        "inverse-primary": "#f0c12c",
+                        "tertiary-container": "#ffb8b4",
+                        "secondary-container": "#83fba5",
+                        "on-surface-variant": "#4e4634",
+                        "secondary": "#006d36",
+                        "surface-bright": "#fff8f1",
+                        "surface-container-low": "#fcf2e3",
+                        "inverse-on-surface": "#f9f0e0",
+                        "surface-container": "#f6eddd",
+                        "inverse-surface": "#353025",
+                        "tertiary-fixed": "#ffdad7",
+                        "surface-variant": "#ebe1d2",
+                        "on-primary-fixed": "#241a00",
+                        "outline": "#807661",
+                        "on-background": "#1f1b12",
+                        "surface-container-high": "#f1e7d7",
+                        "error": "#ba1a1a",
+                        "background": "#fff8f1",
+                        "primary-container": "#f4c430",
+                        "on-tertiary-fixed-variant": "#930018",
+                        "on-secondary-container": "#00743a",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#ebe1d2",
+                        "surface-tint": "#755b00",
+                        "on-primary-fixed-variant": "#584400",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "outline-variant": "#d1c5ad",
+                        "on-secondary-fixed": "#00210c",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#83fba5",
+                        "on-primary-container": "#695200",
+                        "surface-dim": "#e2d9ca",
+                        "primary": "#755b00",
+                        "surface": "#fff8f1",
+                        "on-surface": "#1f1b12",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#ad001e",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#f0c12c",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#66dd8b",
+                        "on-secondary-fixed-variant": "#005227",
+                        "primary-fixed": "#ffdf90",
+                        "on-tertiary-fixed": "#410005"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "md": "24px",
+                        "xl": "80px",
+                        "sm": "12px",
+                        "container-margin": "24px",
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Playfair Display"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #fff8f1;
+            color: #1f1b12;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- Top Navigation (Transactional Style - No Main Nav) -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm">
+<div class="flex items-center justify-between px-container-margin w-full max-w-7xl mx-auto h-16">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined text-on-surface">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">Secure Checkout</h1>
+</div>
+<div class="hidden md:flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-label-md text-label-md text-secondary">Bank-grade security</span>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-xl px-container-margin max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-xl">
+<!-- Left Column: Order Details & Payment -->
+<div class="lg:col-span-7 space-y-md">
+<!-- Plan Summary Card -->
+<section class="bg-surface-container rounded-xl p-md shadow-[0_4px_12px_rgba(26,25,21,0.04)]">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-md">Plan Summary</h2>
+<div class="flex items-center gap-md p-sm bg-surface-container-lowest rounded-lg border border-outline-variant/30">
+<div class="h-16 w-16 rounded-lg overflow-hidden flex-shrink-0">
+<img class="h-full w-full object-cover" data-alt="A warm, inviting professional kitchen scene with high-end copper cookware and fresh organic herbs on a marble countertop. The lighting is soft and golden, reflecting the premium culinary focus of the brand. A chef's knife rests beside a pile of vibrant chopped vegetables, emphasizing fresh, healthy meal preparation in a modern, sophisticated atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASO_dhbWxW4k8Lx7S0XfvwRGa54xI-BfRl-CoK8dkCI9hk_SrdpyWciSwzzquwZXQFlgSnvG8TT0VU5HlZC_5Xry79ZqNFHIJJf3Ob-4bBC6a4OPTxru6oknyr5ADW4v_M1Uvwj9iMjpEPrhIwPMA7ge3J0KGxMXBCobSWvaIrAk_uLtrZkdmGHPDVX-obg1t_OctmU4tFp_8Fj2eujJldYzVxrtcjTPwFfj44s17cD0ol4Fcoq1uwo9f6lcuTMDRGNM2Y3f5zOYM"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-body-lg text-primary">Epicurean Annual</h3>
+<p class="font-body-md text-on-surface-variant">Billed Yearly</p>
+</div>
+<span class="font-headline-md text-body-lg text-on-surface">₹8,999</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Payment Methods Section -->
+<section class="space-y-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface">Payment Method</h2>
+<!-- Saved Cards / New Card -->
+<div class="space-y-sm">
+<label class="flex items-center p-md border-2 border-primary bg-primary-container/10 rounded-xl cursor-pointer transition-all">
+<input checked="" class="w-5 h-5 text-primary border-outline focus:ring-primary" name="payment" type="radio"/>
+<div class="ml-md flex flex-grow items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">credit_card</span>
+<span class="font-label-md text-label-md text-on-primary-container">•••• •••• •••• 4242</span>
+</div>
+<img alt="Visa" class="h-4 opacity-70" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGWC5qo2TMXoZJSmsA7W6pA7fnIGy0ENtXabackIYmMVqxjPzduDdfO38N6TURTh-LpRrVwloNOUN314C3fDfX0XaTPbz29haRcyKQndv-RFCf4uLVtVBVqOrfjcPxUauNSKfVCGWQ30XdXvpL-2ZL2F_3uq7FX8J7cRIEMmgxnTPod2xHZqbEHvBOS-MYLy0TV8M7BqMcojeKz9tuniGHwrm4MQWV8rLS7ORDMAmqJb02G9izxj5zaa1QBFRxD8IE0BSDphIir6w"/>
+</div>
+</label>
+<label class="flex items-center p-md border border-outline-variant bg-surface rounded-xl cursor-pointer hover:bg-surface-container-low transition-all">
+<input class="w-5 h-5 text-primary border-outline focus:ring-primary" name="payment" type="radio"/>
+<div class="ml-md flex flex-grow items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant">account_balance_wallet</span>
+<span class="font-label-md text-label-md text-on-surface-variant">UPI (Google Pay, PhonePe, Paytm)</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline px-2 py-0.5 border border-outline-variant rounded">Popular</span>
+</div>
+</label>
+</div>
+<!-- New Card Input Form (Simplified UI) -->
+<div class="pt-sm space-y-md bg-surface-container-low/50 p-md rounded-xl border border-dashed border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="space-y-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Cardholder Name</label>
+<input class="w-full bg-transparent border-b border-outline-variant focus:border-primary focus:ring-0 py-2 outline-none transition-colors" placeholder="John Doe" type="text"/>
+</div>
+<div class="space-y-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Card Number</label>
+<input class="w-full bg-transparent border-b border-outline-variant focus:border-primary focus:ring-0 py-2 outline-none transition-colors" placeholder="0000 0000 0000 0000" type="text"/>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Order Summary & Trust -->
+<div class="lg:col-span-5">
+<div class="sticky top-24 space-y-md">
+<!-- Glassmorphism Pricing Summary -->
+<div class="glass-panel p-md rounded-xl shadow-lg border border-white/20">
+<h2 class="font-headline-md text-headline-md text-primary mb-md">Order Summary</h2>
+<div class="space-y-sm">
+<div class="flex justify-between font-body-md">
+<span class="text-on-surface-variant">Subtotal</span>
+<span class="text-on-surface">₹8,999.00</span>
+</div>
+<div class="flex justify-between font-body-md">
+<span class="text-on-surface-variant">GST (18%)</span>
+<span class="text-on-surface">₹1,619.82</span>
+</div>
+<div class="flex justify-between font-body-md text-secondary">
+<span>Platform Discount</span>
+<span>-₹1,000.00</span>
+</div>
+<div class="h-px bg-outline-variant/30 my-md"></div>
+<div class="flex justify-between items-baseline">
+<span class="font-headline-md text-headline-md text-on-surface">Total</span>
+<span class="font-display-lg text-display-lg text-primary">₹9,618.82</span>
+</div>
+</div>
+<!-- CTA Button -->
+<button class="w-full mt-lg h-14 bg-primary text-on-primary rounded-full font-label-md text-label-md flex items-center justify-center gap-2 shadow-lg hover:opacity-90 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">lock</span>
+                            Secure Checkout
+                        </button>
+<p class="text-center mt-md font-label-sm text-label-sm text-outline">
+                            By clicking, you agree to our Terms of Service.
+                        </p>
+</div>
+<!-- Trust Badges -->
+<div class="grid grid-cols-2 gap-sm">
+<div class="flex flex-col items-center justify-center p-sm bg-surface-container-high rounded-xl text-center">
+<span class="material-symbols-outlined text-secondary mb-xs">verified</span>
+<span class="font-label-sm text-label-sm text-on-surface">SSL Encrypted</span>
+</div>
+<div class="flex flex-col items-center justify-center p-sm bg-surface-container-high rounded-xl text-center">
+<span class="material-symbols-outlined text-secondary mb-xs">currency_exchange</span>
+<span class="font-label-sm text-label-sm text-on-surface">7-Day Refund</span>
+</div>
+</div>
+<!-- Promo Code -->
+<div class="flex gap-sm">
+<input class="flex-grow bg-surface-container-low border-none rounded-full px-md text-label-sm focus:ring-2 focus:ring-primary" placeholder="Promo Code" type="text"/>
+<button class="px-md py-2 border-2 border-primary text-primary font-label-md text-label-md rounded-full hover:bg-primary/5 transition-colors">Apply</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Security Badge for Mobile -->
+<div class="fixed bottom-6 right-6 md:hidden">
+<div class="bg-secondary text-on-secondary px-4 py-2 rounded-full shadow-xl flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="font-label-sm text-label-sm">Secure Payment</span>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Epicurean AI - Community Kitchen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#353025",
+                      "surface-dim": "#e2d9ca",
+                      "tertiary-container": "#ffb8b4",
+                      "primary-fixed-dim": "#f0c12c",
+                      "on-surface": "#1f1b12",
+                      "on-tertiary-container": "#ad001e",
+                      "on-surface-variant": "#4e4634",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#00210c",
+                      "secondary": "#006d36",
+                      "on-error-container": "#93000a",
+                      "secondary-fixed-dim": "#66dd8b",
+                      "inverse-on-surface": "#f9f0e0",
+                      "surface-container-highest": "#ebe1d2",
+                      "inverse-primary": "#f0c12c",
+                      "surface-variant": "#ebe1d2",
+                      "on-tertiary-fixed": "#410005",
+                      "primary-container": "#f4c430",
+                      "secondary-container": "#83fba5",
+                      "surface-container-high": "#f1e7d7",
+                      "background": "#fff8f1",
+                      "outline": "#807661",
+                      "on-primary-fixed": "#241a00",
+                      "on-background": "#1f1b12",
+                      "on-secondary": "#ffffff",
+                      "primary": "#755b00",
+                      "outline-variant": "#d1c5ad",
+                      "surface-bright": "#fff8f1",
+                      "error-container": "#ffdad6",
+                      "primary-fixed": "#ffdf90",
+                      "surface-container": "#f6eddd",
+                      "on-tertiary-fixed-variant": "#930018",
+                      "tertiary": "#bf0023",
+                      "on-secondary-container": "#00743a",
+                      "surface-container-low": "#fcf2e3",
+                      "surface": "#fff8f1",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#755b00",
+                      "error": "#ba1a1a",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed": "#ffdad7",
+                      "tertiary-fixed-dim": "#ffb3af",
+                      "on-primary-fixed-variant": "#584400",
+                      "secondary-fixed": "#83fba5",
+                      "on-primary-container": "#695200",
+                      "on-secondary-fixed-variant": "#005227",
+                      "on-error": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "80px",
+                      "xs": "4px",
+                      "lg": "48px",
+                      "sm": "12px",
+                      "base": "8px",
+                      "container-margin": "24px",
+                      "gutter": "16px",
+                      "md": "24px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Playfair Display"],
+                      "headline-lg": ["Playfair Display"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "display-lg": ["Playfair Display"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "headline-md": ["Playfair Display"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden">
+<header class="bg-surface/80 backdrop-blur-xl text-primary sticky top-0 z-50 flex justify-between items-center w-full px-container-margin h-16 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center ring-2 ring-primary/20">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Epicurean AI</h1>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary" data-icon="psychology">psychology</span>
+</button>
+</header>
+<main class="pb-32 px-container-margin">
+<section class="mt-8 mb-10">
+<h2 class="font-headline-lg text-headline-lg mb-2">Community Kitchen</h2>
+<p class="font-body-md text-on-surface-variant max-w-md">Discover recipes modified by global intelligence and mastered by the community.</p>
+</section>
+<section class="mb-12">
+<div class="flex justify-between items-end mb-6">
+<h3 class="font-headline-md text-headline-md">Global Cook-Along</h3>
+<span class="font-label-md text-secondary bg-secondary-container px-3 py-1 rounded-full">Live Now</span>
+</div>
+<div class="relative w-full aspect-[16/9] rounded-xl overflow-hidden shadow-lg group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A cinematic, overhead view of a group of diverse chefs and home cooks in a sun-drenched, professional kitchen preparing a vibrant Mediterranean feast together. The scene is bathed in golden afternoon light, emphasizing the textures of fresh herbs, grilled meats, and artisanal breads. The overall atmosphere is warm, collaborative, and sophisticated, reflecting a modern global aesthetic with a clean, high-end digital feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCim_fWvuDQ4LU964w7NTkSTItgS6yEWNMi0lUhAT-aCnMMYPp7lBnoaLWm0kAADTbuKmSv1Oa7-p7QvC_sG5zkVzRWueml48p8h74c6DRa4aKe30skCx6bZGTgnxih3WMLFGWOXlDNq2KiLegzIL8xbBtKVnR77z8kUUfsi_8a6fnXgAfIVUu0aGdQh59dsWC3GLRP7Trq0ImPEvYdT9DF6yLOr53j4-AzrcSQa1yMtt0Tk2briZMDoh4B5BWxahtnuOPInSRnJJ8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-transparent to-transparent flex flex-col justify-end p-6">
+<h4 class="font-headline-md text-white mb-2">The Saffron Route Challenge</h4>
+<p class="font-body-md text-white/90 mb-4">Adapt traditional Persian stews with AI-suggested local ingredients.</p>
+<div class="flex items-center gap-4">
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-label-md hover:opacity-90 transition-opacity active:scale-95">
+                            Join 1,240 Cooks
+                        </button>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-300 overflow-hidden">
+<img data-alt="Portrait of a smiling woman with a warm expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNQjxa7biLuB_Nd9gkjuvuDyOdM6pFnD4byJnwxxImNYS4zftgm_LXsLvRz9x1uESubSYKht1fZmRyhDh8Vtrwcn_Z9hX8XDeME3G3kf8u3Yy5Rs7h5oApURUhuqpeqehKUvK2JYd69WRxLnJYqqFb7eZu_xx-EFc6iQWIm6ClOPVd6bLEY4rXBqpryTyA_tCvZ3-1mtjXmAwxMdJ6q_oj97kh5qSonJiNKs0cv_-STFqspGhc4I4aHGF7l_YrusHTeIbNoWHgEc8"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-400 overflow-hidden">
+<img data-alt="Portrait of a man with a friendly demeanor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCguIws5Qp_uD6b9NfbBcNS7HQpXUbhjI9LTLup7uDBzjuuzevmrTvcDmbf04y4NzhAodeYA7181DjFr1CW6vGYMwkuEvJ35lXnF4uLVEutHIYRfo6FUJZJ3kFFqIeolg-69tMp2KoLyLy2eXEcmyPUZ18gdm8LXUqxKKBKDVLZfezOsQKHsnWeOZ-NUk-XB5sNTr7RwHpJKEmOqJ_-ir7ie2uK-xj1H1SWt7ipQQ2IztBWSTnUaNIlzQzD-gAmJctuN9k_WbSpRns"/>
+</div>
+<div class="flex w-8 h-8 rounded-full border-2 border-white bg-surface-container-highest items-center justify-center font-label-sm text-[10px]">
+                                +2k
+                            </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center gap-2 mb-8 overflow-x-auto pb-2 no-scrollbar">
+<button class="bg-primary text-on-primary px-5 py-2 rounded-full font-label-md whitespace-nowrap">Latest Successes</button>
+<button class="bg-surface-container text-on-surface-variant px-5 py-2 rounded-full font-label-md whitespace-nowrap border border-outline-variant">Trending AI Tweaks</button>
+<button class="bg-surface-container text-on-surface-variant px-5 py-2 rounded-full font-label-md whitespace-nowrap border border-outline-variant">My Kitchen</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<article class="bg-white rounded-xl shadow-[0_4px_12px_rgba(26,25,21,0.04)] overflow-hidden">
+<div class="relative h-64">
+<img class="w-full h-full object-cover" data-alt="A vibrant, close-up shot of a gourmet salad featuring roasted root vegetables, ancient grains, and a glossy, dark glaze. The lighting is bright and airy, highlighting the crisp textures and rich colors of the ingredients. The dish is presented on a handmade ceramic plate against a minimalist cream background, evoking a high-end epicurean lifestyle and modern culinary sophistication." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdhOD--xonyQTqJ8Y72WxNYAn4cK5NkS9eYOu_6xgcG0l97jsPfPoPEKnvYDlak9PYnNvQ7eoEv6IMcxawlbL96aZe-rIgyJmNd8GYGQf-jL2yN0n4O5PSP-Ag-VApmHzOCjmJ2QhBCB19QpzRxNcYeLjUqj0dQ7q_EWCOXeaFmtB_CSfH8LbND_72PcCz7Vd4M2Gchx77rraimlzSYU0mG6ANwUF7vT8BC2ojQQ-DOS2Q7_jTsW4DhdXfkHJX2ajqq3uH1xHD-lk"/>
+<div class="absolute top-4 left-4 glass-card px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-sm text-primary">AI Adjusted: Low-Glycemic</span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full overflow-hidden ring-1 ring-outline-variant">
+<img data-alt="Portrait of a young professional woman." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsLojj8j9nVdl_VFc8sM_lbNWpQpPpnLP4RSlBVXP_67BJBs64DYv5uQCxEpSz3AijQEERzVAEsy7pUYB_-2adSNLdvUBJ32xhUCGBTNNOw1C-WcOhSuxTtfsCBO8fZpd_ygZh3brF2S202lFBjZFRLl_2uBiEN6r7QjVT3ABVQ-IX2j2EPfRtC-QFxS5pAivP8-tbvuFLTzSbhAnphdOwvJ1DU_d23kuCmN5Zt7-801SAwlWwl0Haw4y8EKIRawqEsCidgNr95CA"/>
+</div>
+<div>
+<h5 class="font-label-md">Maya Chen</h5>
+<p class="text-[10px] text-on-surface-variant font-label-sm">Beijing • 2h ago</p>
+</div>
+</div>
+<h4 class="font-headline-md mb-2">Winter Harvest Salad</h4>
+<p class="font-body-md text-on-surface-variant line-clamp-2 mb-4 italic">"The AI suggested swapping honey for pomegranate reduction. The tartness is incredible! 🥘✨"</p>
+<div class="flex items-center justify-between pt-4 border-t border-surface-container-highest">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+<span class="font-label-md">342</span>
+</button>
+<button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+<span class="font-label-md">18</span>
+</button>
+</div>
+<div class="flex gap-2">
+<span class="text-lg">🔥</span>
+<span class="text-lg">👏</span>
+<span class="text-lg">👨‍🍳</span>
+</div>
+</div>
+</div>
+</article>
+<article class="bg-white rounded-xl shadow-[0_4px_12px_rgba(26,25,21,0.04)] overflow-hidden">
+<div class="relative h-64">
+<img class="w-full h-full object-cover" data-alt="A beautifully plated dish of creamy pasta with shaved truffles and fresh herbs, captured in soft, natural light that creates gentle shadows. The presentation is elegant and minimalist, emphasizing the rich, savory textures of the sauce and the delicate garnish. The setting is a bright, high-end kitchen with clean lines and warm tones, embodying a sense of culinary luxury and artisan quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtRNv_YkNU9_r3ESondMyDV917Y5rZrlV4goREKICzcZdmRrrD7kvZbhA3VXY-Ft9q7zIehaprqLDZIKI7tg6s2nDQVhFeEhGJlESjT3Lg2DwIznm1OIUi0JIieh_ecMpcnsOkODOwm5kDpHBjrF2b6nCZ88_nkzVwSJzRG519ARn5JUhXt9Bo_DpMX94A45x53jNREig2iTltfGRib2FE7-_oUTaJFlxhwdW1RfnpMVViDez-LGU3XB74447L7TQwJ5P2tkYcu_o"/>
+<div class="absolute top-4 left-4 glass-card px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-sm text-primary">AI Adjusted: Plant-Based</span>
+</div>
+</div>
+<div class="p-6">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full overflow-hidden ring-1 ring-outline-variant">
+<img data-alt="Portrait of a smiling man." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWCydN2lgRA4a1idcx-_8fkfsIWG2FBVVwsBWBvbfYnbov1fWJi4c3XCW-8lc_bvNSqyn9vM3Gh3D5vJmMZVOQvYG7SkQsjAYM9Cdo3-ULvzI7OFpZxU9Tga3GEmyuwGqqe_vbEfYoeDSrj0JBg8hIXO8ZWFPUJBxcA1JFoyEOaQJKQ94ieAtWYfxUqjIb9fZ5w_too1VtlngfTRNrIj2oI8teJMKOEVbBqz3zdGwaH5NL-PRnBujCzkog44Rfgxi2NfC3ZADANII"/>
+</div>
+<div>
+<h5 class="font-label-md">Julian Rossi</h5>
+<p class="text-[10px] text-on-surface-variant font-label-sm">Rome • 4h ago</p>
+</div>
+</div>
+<h4 class="font-headline-md mb-2">Truffle Carbonara 2.0</h4>
+<p class="font-body-md text-on-surface-variant line-clamp-2 mb-4 italic">"Mushroom-based 'guanciale' was a gamble, but the texture is spot on. AI nailed the smoke factor! 🍄🤌"</p>
+<div class="flex items-center justify-between pt-4 border-t border-surface-container-highest">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-md text-primary">891</span>
+</button>
+<button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+<span class="font-label-md">45</span>
+</button>
+</div>
+<div class="flex gap-2">
+<span class="text-lg">🌿</span>
+<span class="text-lg">💖</span>
+<span class="text-lg">💯</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+</section>
+</main>
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 shadow-[0_-4px_12px_rgba(26,25,21,0.04)] bg-surface">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-sm text-label-sm mt-1">Explore</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-sm text-label-sm mt-1">Genie</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+<span class="font-label-sm text-label-sm mt-1">Coach</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-label-sm text-label-sm mt-1">Pantry</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90 transition-all duration-150">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-sm text-label-sm mt-1">Kitchen</span>
+</button>
+</nav>
+<button class="fixed right-6 bottom-24 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center z-40 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[28px]" data-icon="add">add</span>
+</button>
+</body></html>

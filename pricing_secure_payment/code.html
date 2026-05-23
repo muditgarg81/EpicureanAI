@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
+  const monthlyBtn = document.getElementById('monthly-toggle');
+  const yearlyBtn = document.getElementById('yearly-toggle');
+  const priceGlobal = document.getElementById('price-global');
+  const priceFamily = document.getElementById('price-family');
+  const cycleGlobal = document.getElementById('cycle-global');
+  const cycleFamily = document.getElementById('cycle-family');
+
+  function setYearly() {
+    monthlyBtn.classList.remove('bg-primary-container', 'text-on-primary-container');
+    monthlyBtn.classList.add('text-on-surface-variant');
+    yearlyBtn.classList.add('bg-primary-container', 'text-on-primary-container');
+    yearlyBtn.classList.remove('text-on-surface-variant');
+
+    priceGlobal.textContent = '₹699';
+    priceFamily.textContent = '₹999';
+    cycleGlobal.textContent = '/mo (billed annually)';
+    cycleFamily.textContent = '/mo (billed annually)';
+  }
+
+  function setMonthly() {
+    yearlyBtn.classList.remove('bg-primary-container', 'text-on-primary-container');
+    yearlyBtn.classList.add('text-on-surface-variant');
+    monthlyBtn.classList.add('bg-primary-container', 'text-on-primary-container');
+    monthlyBtn.classList.remove('text-on-surface-variant');
+
+    priceGlobal.textContent = '₹899';
+    priceFamily.textContent = '₹1299';
+    cycleGlobal.textContent = '/mo';
+    cycleFamily.textContent = '/mo';
+  }
+
+  monthlyBtn.addEventListener('click', setMonthly);
+  yearlyBtn.addEventListener('click', setYearly);
+</script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#e2d9ca",
+                    "on-background": "#1f1b12",
+                    "surface-container-low": "#fcf2e3",
+                    "surface-container-high": "#f1e7d7",
+                    "surface-bright": "#fff8f1",
+                    "on-secondary-container": "#00743a",
+                    "surface": "#fff8f1",
+                    "primary-fixed-dim": "#f0c12c",
+                    "on-surface-variant": "#4e4634",
+                    "tertiary-container": "#ffb8b4",
+                    "secondary-fixed-dim": "#66dd8b",
+                    "on-secondary-fixed": "#00210c",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "on-primary": "#ffffff",
+                    "primary": "#755b00",
+                    "on-tertiary-container": "#ad001e",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#ebe1d2",
+                    "surface-tint": "#755b00",
+                    "on-primary-fixed": "#241a00",
+                    "primary-fixed": "#ffdf90",
+                    "on-secondary-fixed-variant": "#005227",
+                    "inverse-surface": "#353025",
+                    "on-tertiary-fixed-variant": "#930018",
+                    "secondary-fixed": "#83fba5",
+                    "on-primary-container": "#695200",
+                    "secondary-container": "#83fba5",
+                    "secondary": "#006d36",
+                    "on-primary-fixed-variant": "#584400",
+                    "tertiary-fixed": "#ffdad7",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#1f1b12",
+                    "on-secondary": "#ffffff",
+                    "surface-variant": "#ebe1d2",
+                    "surface-container": "#f6eddd",
+                    "error": "#ba1a1a",
+                    "primary-container": "#f4c430",
+                    "on-tertiary-fixed": "#410005",
+                    "inverse-primary": "#f0c12c",
+                    "background": "#fff8f1",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#d1c5ad",
+                    "inverse-on-surface": "#f9f0e0",
+                    "tertiary": "#bf0023",
+                    "outline": "#807661",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "sm": "12px",
+                    "xl": "80px",
+                    "container-margin": "24px",
+                    "xs": "4px",
+                    "gutter": "16px",
+                    "md": "24px",
+                    "lg": "48px"
+            },
+            "fontFamily": {
+                    "label-md": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Playfair Display"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "headline-md": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fff8f1;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .comparison-table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .comparison-table th, .comparison-table td {
+            border-bottom: 1px solid rgba(128, 118, 97, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-xl flex justify-between items-center w-full px-container-margin h-16 z-50 docked full-width top-0 sticky shadow-sm dark:shadow-none">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="AI Coach status indicator" class="w-full h-full object-cover" data-alt="A sophisticated close-up portrait of a professional AI assistant avatar with glowing amber highlights. The aesthetic is clean and modern, set against a minimalist cream background. Soft studio lighting emphasizes professional quality and high-end digital design, aligning with a premium epicurean brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnGRXgBuPYqQ7jIGSt1ypNJZ8PpBuMCgD_QAqzO0OocqsgWJEMhSzSwaS5eD_ImE1BmBat6kmEHAphrPi2FAwiaum3-fm0t--JQ8oIcXP2qcT1jcjo8pPqUaj9r22ZVEXZ9CYwX-IyoHp6fPui7CK46ULnMYyOkqg_xjkt4BJRVLEllTcBpsf8_JQdvxHQAiab7xLOlOz4oKuS08grtaBaYgHfWkOYzS__Q6hl0rX4NHZ6bndyPRTAfH1Cag9hD_zZUp0IqNb3E9Y"/>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Epicurean AI</h1>
+</div>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-200">psychology</button>
+</header>
+<main class="pb-32">
+<!-- Hero Section -->
+<section class="px-container-margin pt-10 pb-8 text-center">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-3">Elevate Your Culinary Journey</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs mx-auto">Choose the plan that fits your kitchen's ambitions.</p>
+</section>
+<!-- Pricing Cards Scrollable Container (Mobile optimized) -->
+<div class="flex flex-col items-center gap-4 mb-8">
+<div class="inline-flex items-center p-1 bg-surface-container-high rounded-full border border-outline-variant">
+<button class="px-6 py-2 rounded-full font-label-md transition-all duration-200 bg-primary-container text-on-primary-container" id="monthly-toggle">
+      Monthly
+    </button>
+<button class="px-6 py-2 rounded-full font-label-md transition-all duration-200 text-on-surface-variant" id="yearly-toggle">
+      Yearly
+    </button>
+</div>
+<div class="flex items-center gap-2">
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tighter">Save 20%</span>
+<span class="text-label-sm text-secondary font-semibold">with yearly billing</span>
+</div>
+</div><div class="px-container-margin space-y-6">
+<!-- Plan 1: Home Cook -->
+<div class="rounded-xl overflow-hidden bg-surface-container shadow-[0_4px_12px_rgba(26,25,21,0.04)] border border-outline-variant/30 flex flex-col">
+<div class="h-32 w-full relative">
+<img alt="Simple ingredients" class="w-full h-full object-cover" data-alt="A minimalist and bright overhead shot of basic culinary ingredients like fresh herbs, garlic, and sea salt on a clean white ceramic surface. The lighting is natural and airy, creating a fresh, simple kitchen atmosphere. The image uses a soft, warm color palette that reflects a modern, approachable 'Home Cook' aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCvRhxkGt86k2iHcNN9IbLNPafw6HcFFGPx7g-cKHBEk63IJ-FAmpMmYP-mrD6RxAnFwebzrpE-d5h47CRA7fG3NxF-GwNCQI_aMTJAIsbYA1_28BESFEimFS-PgxivFLlRjitDRfGvRhqd-FNGChonsQrmubIq8YocaoNKT3exC5EzzZl9pvgIvZxA72sGYH0skiPUF-8it5pAHOMcJ90xXAHrudSVzzaonPlTHtdp62V8ZPEGTQCf5CHBnQR_-UeelRYMGnG8bY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container to-transparent"></div>
+</div>
+<div class="p-6 pt-0 -mt-8 relative z-10">
+<h3 class="font-headline-md text-headline-md text-on-surface">Home Cook</h3>
+<div class="mt-1 mb-4 flex items-baseline gap-1">
+<span class="text-3xl font-bold font-display-lg text-on-surface">Free</span>
+</div>
+<ul class="space-y-3 mb-6">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Basic AI recipe generation</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">5-ingredient pantry tracking</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Limited discovery</span>
+</li>
+</ul>
+<button class="w-full h-12 bg-outline-variant/20 border border-outline text-on-surface font-label-md rounded-lg hover:opacity-80 transition-opacity active:scale-95 duration-150">Current Plan</button>
+</div>
+</div>
+<!-- Plan 2: Global Chef (Premium/Popular) -->
+<div class="rounded-xl overflow-hidden bg-surface-container-highest shadow-xl ring-2 ring-primary-container relative flex flex-col transform scale-[1.02] z-20">
+<div class="absolute top-4 right-4 z-30 bg-primary text-on-primary font-label-sm px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</div>
+<div class="h-40 w-full relative">
+<img alt="Gourmet food plating" class="w-full h-full object-cover" data-alt="A premium, close-up shot of a gourmet dish featuring vibrant saffron-infused rice and seared proteins, artistically plated on a dark ceramic dish. The lighting is dramatic and moody, highlighting textures and colors with high contrast. The aesthetic is sophisticated and global, suggesting a professional chef's kitchen quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWtvQTGnyFGM4tBPjRT7WjpstvGVhV2vssGo0ofPXh_YROQabNMGuT-3wDcIfJgWOFEg0zbGAWjolb1UgjytlOoqQ0E2jw9boCh3nMftaw2OQHyaPVO75UuGdHuumtetgmpVeDh0mJdc6O-RTPZ5-Sez0ou2Og8wthaa0C1Y0PRGcaCl3pzP4SqK-hfAwgyHS9zJJBNXwT6XcAtSd6Di8807_jzq4Z7eMBCpKMgwnssuxN1v3XUDNrVa7pFsQNml7mkVUSCLbUMjs"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-highest to-transparent"></div>
+</div>
+<div class="p-6 pt-0 -mt-10 relative z-10">
+<h3 class="font-headline-md text-headline-md text-on-surface">Global Chef</h3>
+<div class="mt-1 mb-4 flex items-baseline gap-1"><span class="text-3xl font-bold font-display-lg text-on-surface" id="price-global">₹899</span>
+<span class="font-label-sm text-on-surface-variant" id="cycle-global">/mo</span></div>
+<ul class="space-y-3 mb-6">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Unlimited AI recipe generation</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Full Flavor Profile mapping</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Hands-free Cooking Coach</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Advanced pantry optimization</span>
+</li>
+</ul>
+<p class="text-center font-label-md text-secondary mb-3 flex items-center justify-center gap-1"><span class="material-symbols-outlined text-sm">timer</span>Start your 7-day free trial</p><button class="w-full h-12 bg-primary-container text-on-primary-container font-label-md rounded-lg shadow-md hover:opacity-90 active:scale-95 transition-all duration-150">Upgrade Now</button>
+</div>
+</div>
+<!-- Plan 3: Family Kitchen -->
+<div class="rounded-xl overflow-hidden bg-surface-container shadow-[0_4px_12px_rgba(26,25,21,0.04)] border border-outline-variant/30 flex flex-col">
+<div class="h-32 w-full relative">
+<img alt="Family meal prep" class="w-full h-full object-cover" data-alt="A warm and inviting scene of multiple hands preparing a large, colorful Mediterranean feast in a sun-drenched kitchen. The image captures a sense of community and family sharing with wooden textures, vibrant vegetables, and soft, golden-hour light. The atmosphere is joyous and inclusive, perfectly representing a collective household cooking experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALo5E91HA6ilSfObdAvdAtvsfdrAxc38onAx8BazDpcyo9Kqvg7GNag22-jNiGI5n8StjYZYv7fDRMyKPrCc21NJthnRUZCMcqF5jAgRzu4g3_jjXTcmZRLxcum764o9ygd2b92INGIlg5ON9OgRBsJXGhKxD8GrMXxncgUUfTp46k2TkjPTcWLuky-Wvjo8NXFoJKRITfsyvmRrwWzUOkC-R9fWdd8dIzTVatiWG2xFNATI7C7giAa85zthKCkSErP0KzXdCMIMw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container to-transparent"></div>
+</div>
+<div class="p-6 pt-0 -mt-8 relative z-10">
+<h3 class="font-headline-md text-headline-md text-on-surface">Family Kitchen</h3>
+<div class="mt-1 mb-4 flex items-baseline gap-1"><span class="text-3xl font-bold font-display-lg text-on-surface" id="price-family">₹1299</span>
+<span class="font-label-sm text-on-surface-variant" id="cycle-family">/mo</span></div>
+<ul class="space-y-3 mb-6">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Everything in Global Chef</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Family Sharing (up to 5)</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Synced grocery lists</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Household meal planning</span>
+</li>
+</ul>
+<p class="text-center font-label-md text-secondary mb-3 flex items-center justify-center gap-1"><span class="material-symbols-outlined text-sm">timer</span>Start your 7-day free trial</p><button class="w-full h-12 bg-secondary text-on-secondary font-label-md rounded-lg hover:opacity-90 active:scale-95 transition-all duration-150">Go Pro Together</button>
+</div>
+</div>
+</div>
+<!-- Comparison Table Section -->
+<section class="mt-16 px-container-margin overflow-x-auto">
+<h3 class="font-headline-lg text-headline-md text-on-surface mb-8 text-center">Compare Features</h3>
+<table class="w-full min-w-[600px] comparison-table">
+<thead>
+<tr class="text-left">
+<th class="py-4 font-headline-md text-primary pr-4 w-1/4">Feature</th>
+<th class="py-4 font-label-md text-on-surface text-center px-4">Home Cook<br/><span class="text-label-sm text-on-surface-variant font-normal">Free</span></th>
+<th class="py-4 font-label-md text-primary text-center px-4 bg-primary-container/10 rounded-t-xl">Global Chef<br/><span class="text-label-sm text-on-surface-variant font-normal">₹899/mo</span></th>
+<th class="py-4 font-label-md text-on-surface text-center px-4">Family Kitchen<br/><span class="text-label-sm text-on-surface-variant font-normal">₹1299/mo</span></th>
+</tr>
+</thead>
+<tbody>
+<!-- AI Recipe Generation -->
+<tr>
+<td class="py-6 pr-4">
+<div class="font-label-md text-on-surface">AI Recipe Generation</div>
+<div class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold mt-1">Culinary Intelligence</div>
+</td>
+<td class="py-6 text-center text-body-md text-on-surface-variant">Basic (5/day)</td>
+<td class="py-6 text-center bg-primary-container/10">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="text-[10px] text-secondary font-bold mt-1">UNLIMITED</div>
+</td>
+<td class="py-6 text-center">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="text-[10px] text-secondary font-bold mt-1">UNLIMITED</div>
+</td>
+</tr>
+<!-- Pantry Tracking -->
+<tr>
+<td class="py-6 pr-4">
+<div class="font-label-md text-on-surface">Pantry Tracking</div>
+<div class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold mt-1">Inventory Management</div>
+</td>
+<td class="py-6 text-center text-body-md text-on-surface-variant">5 Items Max</td>
+<td class="py-6 text-center bg-primary-container/10">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="text-[10px] text-secondary font-bold mt-1">ADVANCED</div>
+</td>
+<td class="py-6 text-center">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="text-[10px] text-secondary font-bold mt-1">FULL HOUSEHOLD</div>
+</td>
+</tr>
+<!-- Cooking Coach -->
+<tr>
+<td class="py-6 pr-4">
+<div class="font-label-md text-on-surface">Cooking Coach</div>
+<div class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold mt-1">Real-time Assistance</div>
+</td>
+<td class="py-6 text-center">
+<span class="material-symbols-outlined text-outline/50">close</span>
+</td>
+<td class="py-6 text-center bg-primary-container/10">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="text-[10px] text-secondary font-bold mt-1">HANDS-FREE</div>
+</td>
+<td class="py-6 text-center">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="text-[10px] text-secondary font-bold mt-1">MULTI-USER</div>
+</td>
+</tr>
+<!-- Discovery -->
+<tr>
+<td class="py-6 pr-4">
+<div class="font-label-md text-on-surface">Discovery</div>
+<div class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold mt-1">Flavor Exploration</div>
+</td>
+<td class="py-6 text-center text-body-md text-on-surface-variant">Limited</td>
+<td class="py-6 text-center bg-primary-container/10">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="text-[10px] text-secondary font-bold mt-1">FULL MAPPING</div>
+</td>
+<td class="py-6 text-center">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="text-[10px] text-secondary font-bold mt-1">FAMILY TRENDS</div>
+</td>
+</tr>
+<!-- Family Features -->
+<tr>
+<td class="py-6 pr-4">
+<div class="font-label-md text-on-surface">Family Features</div>
+<div class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold mt-1">Collaborative Dining</div>
+</td>
+<td class="py-6 text-center">
+<span class="material-symbols-outlined text-outline/50">close</span>
+</td>
+<td class="py-6 text-center bg-primary-container/10">
+<span class="material-symbols-outlined text-outline/50">close</span>
+</td>
+<td class="py-6 text-center">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="text-[10px] text-secondary font-bold mt-1">UP TO 5 USERS</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="mt-4 text-center">
+<p class="text-label-sm text-on-surface-variant italic">Swipe right to see more details</p>
+</div>
+</section>
+<!-- Trust Section -->
+<section class="mt-12 px-container-margin">
+<div class="bg-surface-container-low rounded-2xl p-6 border border-outline-variant/30">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">lock</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Secure Checkout</h3>
+</div>
+<div class="space-y-4 mb-8">
+<div class="flex items-center justify-between p-3 bg-surface-container rounded-lg border border-outline-variant/20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">account_balance_wallet</span>
+<span class="font-label-md text-on-surface">UPI (PhonePe, Google Pay)</span>
+</div>
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container rounded-lg border border-outline-variant/20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">credit_card</span>
+<span class="font-label-md text-on-surface">Credit / Debit Cards</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">radio_button_unchecked</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container rounded-lg border border-outline-variant/20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">account_balance</span>
+<span class="font-label-md text-on-surface">Net Banking</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">radio_button_unchecked</span>
+</div>
+</div>
+<button class="w-full py-3 border-2 border-dashed border-outline text-primary font-label-md rounded-lg flex items-center justify-center gap-2 hover:bg-primary/5 active:scale-95 transition-all mb-6">
+<span class="material-symbols-outlined">add</span>
+      Add New Payment Method
+    </button>
+<div class="flex items-center justify-center gap-2 py-2 border-t border-outline-variant/20">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">PCI-DSS Compliant &amp; Secure</span>
+</div>
+</div>
+</section><section class="mt-12 px-container-margin">
+<div class="glass-card rounded-2xl p-6 flex items-center gap-4 border border-white/40 shadow-sm">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed">verified_user</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Safe &amp; Secure</h4>
+<p class="font-body-md text-label-sm text-on-surface-variant">Cancel any time. No hidden fees.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-surface dark:bg-inverse-surface rounded-t-xl shadow-[0_-4px_12px_rgba(26,25,21,0.04)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-sm text-label-sm">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-sm text-label-sm">Genie</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed rounded-full px-4 py-1 scale-90 transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="mic" data-weight="fill" style="font-variation-settings: 'FILL' 1;">mic</span>
+<span class="font-label-sm text-label-sm">Coach</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-label-sm text-label-sm">Pantry</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-sm text-label-sm">Kitchen</span>
+</a>
+</nav>
+<script>
+  const monthlyBtn = document.getElementById('monthly-toggle');
+  const yearlyBtn = document.getElementById('yearly-toggle');
+  const priceGlobal = document.getElementById('price-global');
+  const priceFamily = document.getElementById('price-family');
+  const cycleGlobal = document.getElementById('cycle-global');
+  const cycleFamily = document.getElementById('cycle-family');
+
+  function setYearly() {
+    monthlyBtn.classList.remove('bg-primary-container', 'text-on-primary-container');
+    monthlyBtn.classList.add('text-on-surface-variant');
+    yearlyBtn.classList.add('bg-primary-container', 'text-on-primary-container');
+    yearlyBtn.classList.remove('text-on-surface-variant');
+
+    priceGlobal.textContent = '₹699';
+    priceFamily.textContent = '₹999';
+    cycleGlobal.textContent = '/mo (billed annually)';
+    cycleFamily.textContent = '/mo (billed annually)';
+  }
+
+  function setMonthly() {
+    yearlyBtn.classList.remove('bg-primary-container', 'text-on-primary-container');
+    yearlyBtn.classList.add('text-on-surface-variant');
+    monthlyBtn.classList.add('bg-primary-container', 'text-on-primary-container');
+    monthlyBtn.classList.remove('text-on-surface-variant');
+
+    priceGlobal.textContent = '₹899';
+    priceFamily.textContent = '₹1299';
+    cycleGlobal.textContent = '/mo';
+    cycleFamily.textContent = '/mo';
+  }
+
+  monthlyBtn.addEventListener('click', setMonthly);
+  yearlyBtn.addEventListener('click', setYearly);
+</script></body></html>
