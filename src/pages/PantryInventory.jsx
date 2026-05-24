@@ -923,65 +923,64 @@ const PantryInventory = () => {
                   <h4 className="font-headline-md text-on-surface">Fresh</h4>
                   <span className="ml-auto text-xs text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full">{fresh.length}</span>
                 </div>
-                <div className="grid grid-cols-2 gap-2">
+                <ul className="space-y-2">
                   {fresh.length === 0 && (
-                    <p className="col-span-2 text-center py-4 text-on-surface-variant text-sm">No fresh items found</p>
+                    <li className="text-center py-4 text-on-surface-variant text-sm">No fresh items found</li>
                   )}
                   {fresh.map((item) => (
-                    <div
+                    <li
                       key={item.id}
                       onClick={() => handleOpenEdit(item)}
-                      className="bg-surface-bright p-3 rounded-xl flex flex-col items-center text-center relative group/item cursor-pointer hover:bg-surface-container transition-colors"
+                      className="flex justify-between items-center bg-surface-bright p-3 rounded-xl group/item cursor-pointer hover:bg-surface-container transition-colors"
                     >
-                      {item.img ? (
-                        <img alt={item.name} className="w-12 h-12 rounded-full object-cover mb-2" src={item.img} />
-                      ) : (
-                        <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center mb-2">
-                          <span className="material-symbols-outlined text-secondary">eco</span>
+                      <div className="flex flex-col min-w-0">
+                        <span className="font-label-md text-on-surface truncate">{item.name}</span>
+                        <span className={`font-label-sm text-[11px] ${statusColor(item.status)}`}>
+                          {item.quantity} • {item.status}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3 flex-shrink-0 ml-2">
+                        <div className="w-12 h-1.5 bg-outline-variant rounded-full overflow-hidden flex-shrink-0">
+                          <div
+                            className={`${levelBarColor(getItemLevel(item), item.color)} h-full transition-all`}
+                            style={{ width: `${Math.min(getItemLevel(item), 100)}%` }}
+                          />
                         </div>
-                      )}
-                      <span className="font-label-sm text-on-surface text-xs">{item.name}</span>
-                      <span className={`text-[10px] font-bold ${statusColor(item.status)}`}>{item.quantity}</span>
-                      <div className="w-16 h-1.5 bg-outline-variant rounded-full overflow-hidden mt-2 flex-shrink-0">
-                        <div
-                          className={`${levelBarColor(getItemLevel(item), item.color)} h-full transition-all`}
-                          style={{ width: `${Math.min(getItemLevel(item), 100)}%` }}
-                        />
+                        <div className="flex gap-1 opacity-100 transition-opacity">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveOrderItem(item);
+                              setIsDeliveryModalOpen(true);
+                            }}
+                            className="p-1 hover:bg-secondary/10 rounded text-secondary"
+                            title={`Order ${item.name}`}
+                          >
+                            <span className="material-symbols-outlined text-[18px]">shopping_cart</span>
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleOpenEdit(item);
+                            }}
+                            className="p-1 hover:bg-surface-container rounded text-outline"
+                          >
+                            <span className="material-symbols-outlined text-[18px]">edit</span>
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deletePantryItem(item.id);
+                            }}
+                            className="p-1 hover:bg-error-container/20 rounded text-error"
+                          >
+                            <span className="material-symbols-outlined text-[18px]">delete</span>
+                          </button>
+                        </div>
                       </div>
-                      <div className="absolute top-1 right-1 flex flex-col gap-1 opacity-100 transition-opacity">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setActiveOrderItem(item);
-                            setIsDeliveryModalOpen(true);
-                          }}
-                          className="p-0.5 hover:bg-secondary/10 rounded text-secondary"
-                          title={`Order ${item.name}`}
-                        >
-                          <span className="material-symbols-outlined text-[14px]">shopping_cart</span>
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleOpenEdit(item);
-                          }}
-                          className="p-0.5 hover:bg-surface-container rounded text-outline"
-                        >
-                          <span className="material-symbols-outlined text-[14px]">edit</span>
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            deletePantryItem(item.id);
-                          }}
-                          className="p-0.5 hover:bg-error-container/20 rounded text-error"
-                        >
-                          <span className="material-symbols-outlined text-[14px]">delete</span>
-                        </button>
-                      </div>
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             )}
           </div>
