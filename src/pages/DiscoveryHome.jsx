@@ -495,7 +495,7 @@ const DiscoveryHome = () => {
           HERO SECTION — full viewport
       ═══════════════════════════════════════════════════════════ */}
       <section
-        className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden"
+        className="relative min-h-screen flex flex-col items-center justify-center px-4 pb-24 overflow-hidden"
         style={{
           background: '#fff8f1',
         }}
