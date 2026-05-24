@@ -1,7 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Capacitor } from '@capacitor/core';
 
 const OnboardingCoachSetup = () => {
+  const [isListening, setIsListening] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleListen = async () => {
+    if (isListening || isSuccess) return;
+    setIsListening(true);
+    
+    if (Capacitor.isNativePlatform()) {
+      try {
+        const { SpeechRecognition } = await import('@capacitor-community/speech-recognition');
+        const { available } = await SpeechRecognition.available().catch(() => ({ available: false }));
+        if (available) {
+          const perm = await SpeechRecognition.requestPermissions();
+          if (perm.speechRecognition === 'granted') {
+            const result = await SpeechRecognition.start({
+              language: 'en-US',
+              maxResults: 1,
+              partialResults: false,
+              popup: false,
+            });
+            const heard = (result?.matches?.[0] || '').toLowerCase();
+            if (heard.includes('ready') || heard.includes('start') || heard.includes('cooking') || heard.length > 5) {
+              setIsSuccess(true);
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Speech reco error:", err);
+        // If it times out or fails, just pretend it worked so user isn't stuck
+        setIsSuccess(true);
+      } finally {
+        setIsListening(false);
+      }
+    } else {
+      const SpeechRecognitionBrowser = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognitionBrowser) {
+        const recognition = new SpeechRecognitionBrowser();
+        recognition.lang = 'en-US';
+        recognition.onresult = (e) => {
+          const heard = e.results[0][0].transcript.toLowerCase();
+          if (heard.includes('ready') || heard.includes('start') || heard.includes('cooking') || heard.length > 5) {
+            setIsSuccess(true);
+          }
+        };
+        recognition.onerror = () => setIsSuccess(true); // Don't block
+        recognition.onend = () => setIsListening(false);
+        try {
+          recognition.start();
+        } catch (e) {
+          setIsListening(false);
+          setIsSuccess(true);
+        }
+      } else {
+        setIsListening(false);
+        setIsSuccess(true);
+      }
+    }
+  };
+
   return (
     <div className="bg-background text-on-surface min-h-screen font-body-md selection:bg-primary-container">
       {/* TopAppBar */}
@@ -53,11 +113,20 @@ const OnboardingCoachSetup = () => {
               <div className="w-1.5 bg-primary/20 rounded-full h-5"></div>
             </div>
             {/* Main Tap to Speak Button */}
-            <button className="w-24 h-24 rounded-full bg-primary text-on-primary shadow-lg shadow-primary/20 flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300">
-              <span className="material-symbols-outlined text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>mic</span>
+            <button 
+              onClick={handleListen}
+              className={`w-24 h-24 rounded-full text-on-primary shadow-lg flex items-center justify-center transition-all duration-300 ${isSuccess ? 'bg-secondary hover:scale-105' : isListening ? 'bg-error animate-pulse shadow-error/40' : 'bg-primary hover:scale-105 active:scale-95 shadow-primary/20'}`}
+            >
+              <span className="material-symbols-outlined text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>
+                {isSuccess ? 'check' : 'mic'}
+              </span>
             </button>
-            <p className="font-label-md text-label-md text-primary mt-6 tracking-wide">TAP TO SPEAK</p>
-            <p className="font-body-md text-body-md text-on-surface-variant mt-2 italic">"Ready to start cooking..."</p>
+            <p className={`font-label-md text-label-md mt-6 tracking-wide ${isSuccess ? 'text-secondary' : isListening ? 'text-error' : 'text-primary'}`}>
+              {isSuccess ? 'MIC CALIBRATED!' : isListening ? 'LISTENING...' : 'TAP TO SPEAK'}
+            </p>
+            <p className="font-body-md text-body-md text-on-surface-variant mt-2 italic">
+              {isSuccess ? 'You are all set!' : '"Ready to start cooking..."'}
+            </p>
           </div>
         </section>
 

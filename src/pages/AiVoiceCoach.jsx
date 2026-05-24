@@ -193,8 +193,10 @@ const AiVoiceCoach = () => {
               break;
             }
           } catch (innerErr) {
-            // start() rejects when stop() is called externally — this is expected cleanup
-            break;
+            if (!active) break;
+            console.log('[VoiceCoach] Speech loop paused or timeout, restarting:', innerErr?.message);
+            await new Promise(r => setTimeout(r, 500));
+            continue;
           }
         }
       } catch (err) {
