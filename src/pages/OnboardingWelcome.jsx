@@ -15,19 +15,33 @@ const OnboardingWelcome = () => {
   const { signInWithEmail, signInWithGoogle, signUpWithEmail, resetPassword, loading, user } = useAuthStore();
 
   useEffect(() => {
-    if (user) {
-      const savedToken = localStorage.getItem('pending_invite_token');
-      if (savedToken) {
-        console.log('Saved token found in OnboardingWelcome, redirecting to join page:', savedToken);
-        localStorage.removeItem('pending_invite_token');
-        navigate(`/join/${savedToken}`);
-      } else if (window.location.pathname === '/') {
-        navigate('/discovery');
-      } else {
-        // Let them stay on the protected route they were trying to access
-        navigate(window.location.pathname + window.location.search);
+    const checkNavigation = async () => {
+      if (user) {
+        // Fetch data to ensure we know if the user is onboarded
+        const fetchInitialData = (await import('../store/useAppStore')).default.getState().fetchInitialData;
+        await fetchInitialData();
+        
+        const profile = (await import('../store/useAppStore')).default.getState().userProfile;
+        const savedToken = localStorage.getItem('pending_invite_token');
+        
+        if (savedToken) {
+          console.log('Saved token found in OnboardingWelcome, redirecting to join page:', savedToken);
+          localStorage.removeItem('pending_invite_token');
+          navigate(`/join/${savedToken}`);
+        } else if (window.location.pathname === '/') {
+          // If they haven't onboarded (using regionsExplored or an onboarded flag as indicator of a new default profile vs a saved one)
+          if (profile && (profile.onboarded === true || profile.regionsExplored > 0 || (profile.cuisines && profile.cuisines.length > 0))) {
+            navigate('/discovery');
+          } else {
+            navigate('/onboarding/intro');
+          }
+        } else {
+          navigate(window.location.pathname + window.location.search);
+        }
       }
-    }
+    };
+    
+    checkNavigation();
   }, [user, navigate]);
 
   const handleAuth = async (e) => {

@@ -62,11 +62,13 @@ const useAppStore = create(
       setFamilyId: (familyId) => set({ familyId }),
 
       userProfile: {
-        name: 'Chef Sarah',
+        name: '',
         role: 'Chef',
         masteryLevel: 'Apprentice Global Chef',
-        regionsExplored: 14,
-        dietaryRestrictions: ['Peanut Allergy', 'Gluten-Free']
+        regionsExplored: 0,
+        dietaryRestrictions: [],
+        cuisines: [],
+        onboarded: false
       },
       updateUserProfile: (updates) => set((state) => {
         const newProfile = { ...state.userProfile, ...updates };
@@ -464,11 +466,13 @@ const useAppStore = create(
         language: 'English',
         familyId: null,
         userProfile: {
-          name: 'Chef Sarah',
+          name: '',
           role: 'Chef',
           masteryLevel: 'Apprentice Global Chef',
-          regionsExplored: 14,
-          dietaryRestrictions: ['Peanut Allergy', 'Gluten-Free']
+          regionsExplored: 0,
+          dietaryRestrictions: [],
+          cuisines: [],
+          onboarded: false
         },
         pantryItems: [
           { id: 'p1', name: 'Smoked Paprika', quantity: '15g left', status: 'Low', category: 'Spices', level: 25, color: 'bg-error' },

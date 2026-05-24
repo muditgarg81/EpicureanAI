@@ -12,6 +12,7 @@ import AiRecipeGenerator from './pages/AiRecipeGenerator';
 import FlavorProfilePantry from './pages/FlavorProfilePantry';
 import PantryInventory from './pages/PantryInventory';
 import DetailedRecipeView from './pages/DetailedRecipeView';
+import OnboardingIntro from './pages/OnboardingIntro';
 import OnboardingPreferences from './pages/OnboardingPreferences';
 import OnboardingCoachSetup from './pages/OnboardingCoachSetup';
 import OnboardingComplete from './pages/OnboardingComplete';
@@ -101,6 +102,7 @@ function AppContent() {
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<PageTransition><OnboardingWelcome /></PageTransition>} />
+          <Route path="/onboarding/intro" element={<PageTransition><OnboardingIntro /></PageTransition>} />
           <Route path="/onboarding/preferences" element={<PageTransition><OnboardingPreferences /></PageTransition>} />
           <Route path="/onboarding/coach" element={<PageTransition><OnboardingCoachSetup /></PageTransition>} />
           <Route path="/onboarding/complete" element={<PageTransition><OnboardingComplete /></PageTransition>} />

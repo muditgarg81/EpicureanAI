@@ -73,12 +73,18 @@ const OnboardingComplete = () => {
 
         {/* Call to Action */}
         <div className="w-full flex flex-col space-y-md">
-          <Link to="/discovery" className="w-full bg-primary-container text-on-primary-container font-label-md text-label-md py-4 rounded-full shadow-lg hover:opacity-90 active:scale-[0.98] transition-all duration-200 flex justify-center">
+          <button onClick={() => {
+            import('../store/useAppStore').then(m => m.default.getState().updateUserProfile({ onboarded: true }));
+            window.location.href = '/discovery';
+          }} className="w-full bg-primary-container text-on-primary-container font-label-md text-label-md py-4 rounded-full shadow-lg hover:opacity-90 active:scale-[0.98] transition-all duration-200 flex justify-center">
             Go to Discovery
-          </Link>
-          <Link to="/pantry" className="w-full bg-transparent text-primary font-label-md text-label-md py-4 rounded-full border border-primary hover:bg-primary/5 active:scale-[0.98] transition-all duration-200 flex justify-center">
+          </button>
+          <button onClick={() => {
+            import('../store/useAppStore').then(m => m.default.getState().updateUserProfile({ onboarded: true }));
+            window.location.href = '/pantry';
+          }} className="w-full bg-transparent text-primary font-label-md text-label-md py-4 rounded-full border border-primary hover:bg-primary/5 active:scale-[0.98] transition-all duration-200 flex justify-center">
             View My Pantry
-          </Link>
+          </button>
         </div>
       </div>
 
