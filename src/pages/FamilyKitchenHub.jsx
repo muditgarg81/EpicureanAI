@@ -422,7 +422,7 @@ const FamilyKitchenHub = () => {
               </button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-md">
-              {familyMembers.map((member) => (
+              {(Array.isArray(familyMembers) ? familyMembers : []).map((member) => (
                 <div key={member.id} className="flex items-center gap-4 p-4 bg-surface rounded-lg shadow-sm border border-outline-variant/30 group relative">
                   <div className="relative">
                     <img
@@ -459,11 +459,11 @@ const FamilyKitchenHub = () => {
               <h3 className="font-headline-md text-headline-md">Shared Health</h3>
             </div>
             <div className="flex-grow space-y-sm">
-              {dietaryRestrictions.map((res) => (
-                <div key={res.id} className={`p-3 ${res.color} rounded-lg flex justify-between items-center group`}>
+              {(Array.isArray(dietaryRestrictions) ? dietaryRestrictions : []).map((res) => (
+                <div key={res?.id} className={`p-3 ${res?.color || 'bg-surface'} rounded-lg flex justify-between items-center group`}>
                   <div>
-                    <p className={`font-label-md text-label-md ${res.color.includes('tertiary') ? 'text-on-tertiary-fixed' : ''}`}>{res.name}</p>
-                    <p className={`text-[10px] uppercase tracking-wider ${res.color.includes('tertiary') ? 'text-on-tertiary-fixed-variant' : 'text-on-surface-variant'}`}>{res.type}</p>
+                    <p className={`font-label-md text-label-md ${res?.color?.includes('tertiary') ? 'text-on-tertiary-fixed' : ''}`}>{res?.name}</p>
+                    <p className={`text-[10px] uppercase tracking-wider ${res?.color?.includes('tertiary') ? 'text-on-tertiary-fixed-variant' : 'text-on-surface-variant'}`}>{res?.type}</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className={`material-symbols-outlined ${res.icon === 'check_circle' ? 'text-secondary' : 'text-error'}`} style={{ fontVariationSettings: "'FILL' 1" }}>{res.icon}</span>
@@ -526,14 +526,14 @@ const FamilyKitchenHub = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-              {combinedGroceryList.map((item) => (
+              {(Array.isArray(combinedGroceryList) ? combinedGroceryList : []).map((item) => (
                 <div 
-                  key={item.id} 
-                  onClick={() => !item.isFromPlan && toggleGroceryItem(item.id)} 
+                  key={item?.id || Math.random()} 
+                  onClick={() => !item?.isFromPlan && item?.id && toggleGroceryItem(item.id)} 
                   className={`bg-surface p-4 rounded-xl flex items-center justify-between shadow-sm border transition-all duration-200 ${
-                    item.isFromPlan 
+                    item?.isFromPlan 
                       ? 'border-secondary/30 bg-secondary/5' 
-                      : item.checked 
+                      : item?.checked 
                         ? 'border-outline-variant/10 bg-surface-container-lowest opacity-60' 
                         : 'border-outline-variant/20'
                   } group hover:border-primary cursor-pointer`}

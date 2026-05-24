@@ -220,7 +220,15 @@ const useAppStore = create(
               // Merge userProfile shallowly so we don't wipe out other properties unexpectedly
               set((state) => ({ userProfile: { ...state.userProfile, ...profile } }));
               if (profile.activePlan) set({ activePlan: profile.activePlan });
-              if (profile.dietaryRestrictions) set({ dietaryRestrictions: profile.dietaryRestrictions });
+              if (Array.isArray(profile.dietaryRestrictions)) {
+                const parsedRestrictions = profile.dietaryRestrictions.map(r => {
+                  if (typeof r === 'string') {
+                    return { id: generateUUID(), name: r, type: 'Preference', color: 'bg-surface-variant', icon: 'check_circle' };
+                  }
+                  return r;
+                });
+                set({ dietaryRestrictions: parsedRestrictions });
+              }
             }
             
             if (groceryList && groceryList.length > 0) set({ groceryList });
@@ -254,7 +262,15 @@ const useAppStore = create(
             if (profile) {
               set((state) => ({ userProfile: { ...state.userProfile, ...profile } }));
               if (profile.activePlan) set({ activePlan: profile.activePlan });
-              if (profile.dietaryRestrictions) set({ dietaryRestrictions: profile.dietaryRestrictions });
+              if (Array.isArray(profile.dietaryRestrictions)) {
+                const parsedRestrictions = profile.dietaryRestrictions.map(r => {
+                  if (typeof r === 'string') {
+                    return { id: generateUUID(), name: r, type: 'Preference', color: 'bg-surface-variant', icon: 'check_circle' };
+                  }
+                  return r;
+                });
+                set({ dietaryRestrictions: parsedRestrictions });
+              }
             }
             
             if (pantry && pantry.length > 0) set({ pantryItems: pantry });
