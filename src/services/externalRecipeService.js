@@ -11,6 +11,7 @@
 
 const THEMEALDB_BASE   = 'https://www.themealdb.com/api/json/v1/1';
 const SPOONACULAR_BASE = 'https://api.spoonacular.com';
+import { culinaryDataBank } from '../data/culinaryData';
 
 // ─── TheMealDB ───────────────────────────────────────────────────────────────
 
@@ -441,6 +442,33 @@ const CUISINE_TO_AREA_MAP = {
  * Uses TheMealDB area filter (always free, enriched in parallel) + Spoonacular if available.
  */
 export const fetchRecipesByCuisine = async (cuisine) => {
+  const cuisineLower = cuisine.toLowerCase();
+  let results = [];
+
+  // 0. Fetch from local culinaryDataBank first
+  Object.entries(culinaryDataBank).forEach(([key, dish]) => {
+    // Check if the dish has the cuisine as a tag, or if the description/title mentions it
+    const hasTag = dish.tags?.some(t => t.toLowerCase() === cuisineLower || t.toLowerCase().includes(cuisineLower));
+    const inTitleOrDesc = dish.title?.toLowerCase().includes(cuisineLower) || dish.description?.toLowerCase().includes(cuisineLower);
+    
+    // Some general mapping (if they select "Indian", match all regional Indian tags too)
+    const indianRegions = ['south indian', 'north indian', 'punjabi', 'tamil nadu', 'kerala', 'karnataka', 'maharashtrian', 'bengali', 'awadhi', 'chettinad', 'goan', 'gujarati', 'hyderabadi', 'rajasthani', 'kashmiri'];
+    const isIndianRegion = cuisineLower === 'indian' && dish.tags?.some(t => indianRegions.includes(t.toLowerCase()));
+
+    if (hasTag || inTitleOrDesc || isIndianRegion) {
+      results.push({
+        id: `local_${key}`,
+        source: 'Epicurean DB',
+        title: dish.title,
+        thumbnail: null, // Will render placeholder
+        externalId: key,
+        time: dish.time,
+        area: cuisine,
+        usedCount: undefined
+      });
+    }
+  });
+
   // 1. Try to map to a known MealDB Area
   const area = CUISINE_TO_AREA_MAP[cuisine] || cuisine;
 
@@ -449,8 +477,6 @@ export const fetchRecipesByCuisine = async (cuisine) => {
     SPOONACULAR_KEY ? searchSpoonacular(`${cuisine} cuisine`, 8) : Promise.resolve([]),
   ]);
 
-  let results = [];
-  
   if (mealdb.status === 'fulfilled') {
     // Enrich MealDB area results in parallel
     const enriched = await Promise.all(
@@ -466,7 +492,7 @@ export const fetchRecipesByCuisine = async (cuisine) => {
     results.push(...spoon.value);
   }
 
-  // 2. Fallback: If still empty, try a general search by dish name for the cuisine
+  // 2. Fallback: If external APIs are empty and no local dishes found, try a general search by dish name for the cuisine
   if (results.length === 0) {
     const fallback = await searchMealDB(cuisine);
     results.push(...fallback);
