@@ -669,6 +669,10 @@ const PantryInventory = () => {
             <p className="font-body-md text-sm text-on-surface-variant">
               Smart pantry management at a glance.
             </p>
+            <div className="bg-gradient-to-r from-primary-container to-tertiary-container text-on-surface px-4 py-2.5 rounded-xl inline-flex items-center gap-3 mt-4 border border-outline-variant shadow-md">
+              <span className="material-symbols-outlined text-primary text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>lightbulb</span>
+              <span className="font-label-lg text-label-lg font-bold">Tip: Press the cart icon to instantly order items on BigBasket, Blinkit, Zepto, or Instamart.</span>
+            </div>
             {/* Health goal chip */}
             {hasCalorieGoal && (
               <button

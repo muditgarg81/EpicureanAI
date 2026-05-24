@@ -791,6 +791,10 @@ const WeeklyMealPlanner = () => {
           <div>
             <h1 className="font-display-lg text-display-lg text-on-surface mb-2">Weekly Plan</h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Manage your culinary schedule for the week.</p>
+            <div className="bg-gradient-to-r from-primary-container to-tertiary-container text-on-surface px-4 py-2.5 rounded-xl inline-flex items-center gap-3 mt-4 border border-outline-variant shadow-md">
+              <span className="material-symbols-outlined text-primary text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>lightbulb</span>
+              <span className="font-label-lg text-label-lg font-bold">Tip: Press the cart icon to instantly order items on BigBasket, Blinkit, Zepto, or Instamart.</span>
+            </div>
           </div>
           <div className="flex flex-wrap gap-sm">
             <button 
