@@ -34,7 +34,7 @@ const AccountSettings = () => {
       if (action === 'delete') {
         setIsDeleteModalOpen(false);
         // Safely sign out via dynamic import or direct lookup
-        import('../store/useAuthStore').then((m) => m.default.getState().signOut());
+        import('../store/useAuthStore').then((m) => m.default.getState().deleteAccount());
       }
       if (action === 'subscription') setIsSubscriptionModalOpen(false);
     }, 2000);

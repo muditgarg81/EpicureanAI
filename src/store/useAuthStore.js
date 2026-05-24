@@ -185,6 +185,32 @@ const useAuthStore = create((set) => ({
     }
   },
 
+  deleteAccount: async () => {
+    set({ loading: true });
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) throw new Error("No active session");
+      
+      const userId = session.user.id;
+
+      // Try RPC function for full account deletion
+      const { error: rpcError } = await supabase.rpc('delete_user');
+      
+      if (rpcError) {
+        console.warn("RPC delete_user failed or not found, falling back to profile deletion", rpcError);
+        // Fallback: Manually delete the profile record
+        const { error: profileError } = await supabase.from('profiles').delete().eq('id', userId);
+        if (profileError) throw profileError;
+      }
+      
+      // Clear session locally
+      await supabase.auth.signOut();
+      useAppStore.getState().resetStore();
+    } finally {
+      set({ loading: false });
+    }
+  },
+
   resetPassword: async (email) => {
     set({ loading: true });
     try {
