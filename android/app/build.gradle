@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 def versionPropsFile = file('version.properties')
 def versionCodeValue = 34
-def versionNameValue = "3.0.4"
+def versionNameValue = "3.0.5"
 
 if (versionPropsFile.canRead()) {
     Properties versionProps = new Properties()
