@@ -224,10 +224,22 @@ const DiscoveryHome = () => {
   const [searchError, setSearchError]     = useState(null);
   const [isFetchingDetails, setIsFetchingDetails] = useState(false);
 
+  const parseRestriction = (r) => {
+    if (typeof r === 'string') {
+      try {
+        const obj = JSON.parse(r);
+        return obj.name || r;
+      } catch (e) {
+        return r;
+      }
+    }
+    return r?.name || String(r);
+  };
+
   const activeRestrictionsRender = [
-    ...(userProfile?.dietaryRestrictions || []),
+    ...(userProfile?.dietaryRestrictions || []).map(parseRestriction),
     ...(Array.isArray(dietaryRestrictions)
-      ? dietaryRestrictions.map((r) => (typeof r === 'string' ? r : r.name))
+      ? dietaryRestrictions.map(parseRestriction)
       : []),
   ];
   const uniqueRestrictions = [...new Set(activeRestrictionsRender)];

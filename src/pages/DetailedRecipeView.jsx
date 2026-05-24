@@ -272,12 +272,12 @@ const DetailedRecipeView = () => {
   const handleGenerateInstructions = async () => {
     setIsGenerating(true);
     try {
-      const prompt = `Provide a very detailed step-by-step recipe for ${recipe.title}. Use these ingredients if possible: ${recipe.ingredients.join(', ')}`;
-      const generated = await generateRecipe(prompt, { restrictions: [] });
-      if (generated) {
+      // Pass the dish title and ingredients as an array so generateRecipe extracts dishName
+      const generated = await generateRecipe([recipe.title, ...recipe.ingredients], 'Global', []);
+      if (generated && generated.instructions) {
         setCurrentRawRecipe({
           ...currentRawRecipe,
-          rawDetailedRecipe: generated.rawDetailedRecipe || generated.instructions,
+          instructions: generated.instructions,
           ingredients: generated.ingredients || currentRawRecipe.ingredients
         });
         triggerToast('AI Recipe Generated!');
