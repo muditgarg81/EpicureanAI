@@ -5,6 +5,8 @@ import useAppStore from '../store/useAppStore';
 import useAuthStore from '../store/useAuthStore';
 import { Capacitor } from '@capacitor/core';
 import { cleanIngredientName } from '../data/culinaryData';
+import { getUnifiedFullSearch } from '../services/unifiedSearchService';
+import { getSpoonacularRecipe, lookupMealDBById } from '../services/externalRecipeService';
 
 const FamilyKitchenHub = () => {
   const activePlan = useAppStore(state => state.activePlan);
@@ -62,6 +64,58 @@ const FamilyKitchenHub = () => {
   const [checkedPlanItems, setCheckedPlanItems] = useState(new Set());
   const [isDeliveryModalOpen, setIsDeliveryModalOpen] = useState(false);
   const [activeOrderItem, setActiveOrderItem] = useState(null);
+
+  const [isOpeningRecipe, setIsOpeningRecipe] = useState(false);
+
+  const handleRecipeClick = async (meal) => {
+    if (isOpeningRecipe) return;
+    setIsOpeningRecipe(true);
+    try {
+      const results = await getUnifiedFullSearch(meal.title, { ingredients: [], dietary: {}, maxTime: null });
+      if (results && results.length > 0) {
+        let bestMatch = results[0];
+        const exact = results.find(r => r.dish_name?.toLowerCase() === meal.title?.toLowerCase());
+        if (exact) bestMatch = exact;
+
+        if (bestMatch.is_web && (!bestMatch.full_ingredients || !bestMatch.detailed_recipe)) {
+          let details = null;
+          if (bestMatch.source === 'Spoonacular') {
+            details = await getSpoonacularRecipe(bestMatch.externalId);
+          } else if (bestMatch.source === 'TheMealDB') {
+            details = await lookupMealDBById(bestMatch.externalId);
+          }
+          if (details) {
+            bestMatch = {
+              ...bestMatch,
+              full_ingredients: details.ingredients?.join('\n') || '',
+              detailed_recipe: details.instructions?.join('\n') || '',
+              description: details.description || bestMatch.description,
+            };
+          }
+        }
+        
+        const mappedRecipe = {
+          title: bestMatch.dish_name || bestMatch.title,
+          description: bestMatch.description || `A delicious recipe for ${bestMatch.dish_name || bestMatch.title}`,
+          ingredients: bestMatch.full_ingredients
+            ? bestMatch.full_ingredients.split('\n').map((s) => s.trim()).filter(Boolean)
+            : [],
+          img: bestMatch.image_url || bestMatch.thumbnail || meal.img,
+          id: bestMatch.id || meal.id,
+          cuisine: bestMatch.cuisine,
+          difficulty: bestMatch.difficulty,
+          rawDetailedRecipe: bestMatch.detailed_recipe
+        };
+        navigate('/recipe', { state: { recipe: mappedRecipe } });
+        setIsOpeningRecipe(false);
+        return;
+      }
+    } catch (err) {
+      console.error('Error fetching recipe details:', err);
+    } 
+    setIsOpeningRecipe(false);
+    navigate('/recipe', { state: { recipe: meal } });
+  };
 
   const handleShareInvite = async (platform) => {
     setIsGeneratingLink(true);
@@ -386,7 +440,7 @@ const FamilyKitchenHub = () => {
                     <motion.div 
                       key={idx}
                       whileHover={{ scale: 1.02 }}
-                      onClick={() => navigate('/recipe', { state: { recipe: meal } })}
+                      onClick={() => handleRecipeClick(meal)}
                       className="bg-surface-container-low rounded-2xl p-4 flex items-center gap-4 border border-outline-variant hover:border-primary transition-all cursor-pointer group"
                     >
                       <div className="w-16 h-16 rounded-xl overflow-hidden relative">
