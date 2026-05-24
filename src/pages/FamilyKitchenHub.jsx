@@ -486,9 +486,13 @@ const FamilyKitchenHub = () => {
           </div>
           <div className="relative z-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-lg gap-md">
-              <div className="space-y-xs">
+              <div className="space-y-xs max-w-2xl">
                 <h3 className="font-headline-lg text-headline-lg">Must-Buy Grocery List</h3>
                 <p className="font-body-md text-body-md text-on-surface-variant">Essential items needed for the upcoming week's meal plan.</p>
+                <div className="bg-secondary/10 text-secondary-dark dark:text-secondary-light px-3 py-1.5 rounded-lg inline-flex items-center gap-2 mt-2 border border-secondary/20">
+                  <span className="material-symbols-outlined text-[16px]">lightbulb</span>
+                  <span className="text-label-sm font-label-sm">Tip: Press the cart icon to instantly order items on BigBasket, Blinkit, Zepto, or Instamart.</span>
+                </div>
               </div>
               <div className="flex flex-wrap gap-2 items-center">
                 {hasCheckedItems && (
