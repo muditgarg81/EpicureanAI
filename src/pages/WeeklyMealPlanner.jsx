@@ -750,6 +750,7 @@ const WeeklyMealPlanner = () => {
       </div>
     </motion.div>
   );
+};
 
   const MealSection = ({ title, type, colorClass }) => (
     <div>
