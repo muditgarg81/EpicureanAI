@@ -681,12 +681,13 @@ const WeeklyMealPlanner = () => {
 
   const currentMeals = mealPlan[selectedDay];
 
-  const MealCard = ({ meal, day, type, index }) => {
+  const renderMealCard = (meal, day, type, index) => {
     let safeImgUrl = isStrictDishImage(meal.img) ? meal.img : null;
     if (!safeImgUrl) safeImgUrl = getDishImage(meal.title);
 
     return (
       <motion.div 
+        key={meal.id}
         layout
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -752,8 +753,8 @@ const WeeklyMealPlanner = () => {
   );
 };
 
-  const MealSection = ({ title, type, colorClass }) => (
-    <div>
+  const renderMealSection = (title, type, colorClass) => (
+    <div key={type}>
       <div className="flex items-center gap-4 mb-gutter">
         <h2 className={`font-headline-md text-headline-md ${colorClass}`}>{title}</h2>
         <div className="h-[1px] flex-grow bg-outline-variant"></div>
@@ -761,7 +762,7 @@ const WeeklyMealPlanner = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
         <AnimatePresence mode="popLayout">
           {currentMeals[type].map((meal, index) => (
-            <MealCard key={meal.id} meal={meal} day={selectedDay} type={type} index={index} />
+            renderMealCard(meal, selectedDay, type, index)
           ))}
         </AnimatePresence>
         
@@ -847,9 +848,9 @@ const WeeklyMealPlanner = () => {
             
             {/* Meal Sections */}
             <div className="space-y-lg">
-              <MealSection title="Breakfast" type="breakfast" colorClass="text-primary" />
-              <MealSection title="Lunch" type="lunch" colorClass="text-secondary" />
-              <MealSection title="Dinner" type="dinner" colorClass="text-tertiary" />
+              {renderMealSection("Breakfast", "breakfast", "text-primary")}
+              {renderMealSection("Lunch", "lunch", "text-secondary")}
+              {renderMealSection("Dinner", "dinner", "text-tertiary")}
             </div>
           </div>
 
