@@ -800,7 +800,7 @@ const DiscoveryHome = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 30 }}
             transition={{ duration: 0.5 }}
-            className="w-full px-4 py-10 max-w-4xl mx-auto scroll-mt-20"
+            className="w-full px-4 pt-10 pb-32 max-w-4xl mx-auto scroll-mt-20"
           >
             {/* Section header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">

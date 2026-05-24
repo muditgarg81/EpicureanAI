@@ -1717,7 +1717,9 @@ export const getDishImage = (dish, index = 0) => {
     { keys: ['dumpling', 'momo', 'dim sum', 'mantou', 'baozi'], id: 'photo-1563245372-f21724e3856d' },
     { keys: ['chicken', 'meat', 'beef', 'pork', 'fish', 'seafood', 'shrimp', 'kebab', 'steak'], id: 'photo-1532550907401-a500c9a57435' },
     { keys: ['egg', 'scramble', 'omelette', 'frittata', 'benedict'], id: 'photo-1525351484163-7529414344d8' },
-    { keys: ['smoothie', 'shake', 'drink', 'juice', 'tea', 'coffee', 'lassi'], id: 'photo-1553530666-ba11a7da3888' },
+    { keys: ['smoothie', 'shake', 'drink', 'juice', 'lassi'], id: 'photo-1553530666-ba11a7da3888' },
+    { keys: ['coffee', 'espresso', 'cappuccino', 'mocha', 'latte'], id: 'photo-1497935586351-b67a49e012bf' },
+    { keys: ['tea', 'chai', 'matcha'], id: 'photo-1544787219-7f47ccb76574' },
     { keys: ['soup', 'stew', 'broth', 'minestrone'], id: 'photo-1547592165-e1d17fed6005' },
     { keys: ['cake', 'cookie', 'pie', 'dessert', 'sweet', 'pudding', 'chocolate', 'muffins', 'halwa', 'jamun', 'rasmalai'], id: 'photo-1551024601-bec78aea704b' },
     { keys: ['avocado'], id: 'photo-1523049673857-eb18f1d7b578' }
