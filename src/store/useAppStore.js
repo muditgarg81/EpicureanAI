@@ -223,6 +223,10 @@ const useAppStore = create(
               if (Array.isArray(profile.dietaryRestrictions)) {
                 const parsedRestrictions = profile.dietaryRestrictions.map(r => {
                   if (typeof r === 'string') {
+                    try {
+                      const parsed = JSON.parse(r);
+                      if (parsed && typeof parsed === 'object' && parsed.name) return parsed;
+                    } catch(e) {}
                     return { id: generateUUID(), name: r, type: 'Preference', color: 'bg-surface-variant', icon: 'check_circle' };
                   }
                   return r;
@@ -265,6 +269,10 @@ const useAppStore = create(
               if (Array.isArray(profile.dietaryRestrictions)) {
                 const parsedRestrictions = profile.dietaryRestrictions.map(r => {
                   if (typeof r === 'string') {
+                    try {
+                      const parsed = JSON.parse(r);
+                      if (parsed && typeof parsed === 'object' && parsed.name) return parsed;
+                    } catch(e) {}
                     return { id: generateUUID(), name: r, type: 'Preference', color: 'bg-surface-variant', icon: 'check_circle' };
                   }
                   return r;
