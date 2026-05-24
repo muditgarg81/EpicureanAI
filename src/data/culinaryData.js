@@ -1693,35 +1693,35 @@ export const getDishImage = (dish, index = 0) => {
     .replace(/\b(authentic|30-minute|heritage|artisanal|perfect|presidential|gourmet|classic|style|traditional|silky|healthy-ish|royal|easy|flaky|spicy|buttery|everyday|rustic|homemade|savory|sweet|delicious|simple|glorious|ultimate|best)\b/g, '')
     .trim();
 
-  // Keyword mapping dictionary
+  // Keyword mapping dictionary - Specific terms first, generic terms last
   const mappings = [
     { keys: ['aloo paratha', 'stuffed aloo paratha'], id: 'photo-1606491956689-2ea866880c84' },
-    { keys: ['paratha', 'roti', 'naan', 'flatbread', 'kulha', 'bhatura', 'arepa', 'casabe', 'lavash', 'pita', 'challah', 'bread'], id: 'photo-1626776822944-e224e78a635e' },
+    { keys: ['masala dosa', 'dosa', 'idli', 'uttapam'], id: 'photo-1668236543090-82eba5ee5976' },
+    { keys: ['tea', 'chai', 'matcha'], id: 'photo-1544787219-7f47ccb76574' },
+    { keys: ['pav bhaji', 'vada pav'], id: 'photo-1626132647523-66f5bf380027' },
     { keys: ['dal makhani', 'makhani'], id: 'photo-1626517806186-ce62929a5913' },
     { keys: ['dal', 'lentil', 'tadka', 'sambar'], id: 'photo-1546833999-b9f581a1996d' },
-    { keys: ['biryani', 'pulao'], id: 'photo-1563379091339-03b21ab4a4f8' },
-    { keys: ['rice'], id: 'photo-1595707755376-78e7343e06a3' },
     { keys: ['paneer'], id: 'photo-1631452180519-c014fe946bc7' },
-    { keys: ['curry', 'masala', 'korma'], id: 'photo-1588166524941-3bf61a9c41db' },
-    { keys: ['dosa', 'idli', 'uttapam'], id: 'photo-1668236543090-82eba5ee5976' },
-    { keys: ['pav bhaji', 'vada pav'], id: 'photo-1626132647523-66f5bf380027' },
+    { keys: ['biryani', 'pulao'], id: 'photo-1563379091339-03b21ab4a4f8' },
     { keys: ['samosa', 'chaat', 'street food'], id: 'photo-1601050690597-df056fb4ce78' },
+    { keys: ['coffee', 'espresso', 'cappuccino', 'mocha', 'latte'], id: 'photo-1497935586351-b67a49e012bf' },
+    { keys: ['paratha', 'roti', 'naan', 'flatbread', 'kulha', 'bhatura', 'arepa', 'casabe', 'lavash', 'pita', 'challah', 'bread'], id: 'photo-1626776822944-e224e78a635e' },
     { keys: ['pasta', 'spaghetti', 'lasagna', 'macaroni', 'ravioli', 'tortellini'], id: 'photo-1546548970-71785318a17b' },
-    { keys: ['salad', 'greens'], id: 'photo-1512621776951-a57141f2eefd' },
     { keys: ['sushi', 'sashimi'], id: 'photo-1579871494447-9811cf80d66c' },
     { keys: ['ramen', 'noodles', 'noodle', 'pho', 'chow mein', 'lo mein'], id: 'photo-1569718212165-3a8278d5f624' },
+    { keys: ['taco', 'quesadilla', 'fajita', 'mexican', 'burrito', 'enchilada'], id: 'photo-1565299585323-38d6b0865b47' },
+    { keys: ['dumpling', 'momo', 'dim sum', 'mantou', 'baozi'], id: 'photo-1563245372-f21724e3856d' },
     { keys: ['burger', 'slider'], id: 'photo-1568901346375-23c9450c58cd' },
     { keys: ['pizza', 'calzone'], id: 'photo-1513104890138-7c749659a591' },
-    { keys: ['taco', 'quesadilla', 'fajita', 'mexican', 'burrito', 'enchilada'], id: 'photo-1565299585323-38d6b0865b47' },
     { keys: ['sandwich', 'toast', 'panini'], id: 'photo-1528735602780-2552fd46c7af' },
-    { keys: ['dumpling', 'momo', 'dim sum', 'mantou', 'baozi'], id: 'photo-1563245372-f21724e3856d' },
+    { keys: ['salad', 'greens'], id: 'photo-1512621776951-a57141f2eefd' },
     { keys: ['chicken', 'meat', 'beef', 'pork', 'fish', 'seafood', 'shrimp', 'kebab', 'steak'], id: 'photo-1532550907401-a500c9a57435' },
     { keys: ['egg', 'scramble', 'omelette', 'frittata', 'benedict'], id: 'photo-1525351484163-7529414344d8' },
     { keys: ['smoothie', 'shake', 'drink', 'juice', 'lassi'], id: 'photo-1553530666-ba11a7da3888' },
-    { keys: ['coffee', 'espresso', 'cappuccino', 'mocha', 'latte'], id: 'photo-1497935586351-b67a49e012bf' },
-    { keys: ['tea', 'chai', 'matcha'], id: 'photo-1544787219-7f47ccb76574' },
     { keys: ['soup', 'stew', 'broth', 'minestrone'], id: 'photo-1547592165-e1d17fed6005' },
     { keys: ['cake', 'cookie', 'pie', 'dessert', 'sweet', 'pudding', 'chocolate', 'muffins', 'halwa', 'jamun', 'rasmalai'], id: 'photo-1551024601-bec78aea704b' },
+    { keys: ['curry', 'masala', 'korma'], id: 'photo-1588166524941-3bf61a9c41db' },
+    { keys: ['rice'], id: 'photo-1595707755376-78e7343e06a3' },
     { keys: ['avocado'], id: 'photo-1523049673857-eb18f1d7b578' }
   ];
 
