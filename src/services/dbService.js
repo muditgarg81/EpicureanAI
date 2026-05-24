@@ -318,9 +318,9 @@ export const generateInviteLink = async (familyId) => {
 
   if (error) throw error;
   
-  // Use the app's deep link scheme — works on any device with the app installed.
-  // window.location.origin returns http://localhost inside a Capacitor WebView, not a real URL.
-  return `epicurean.kitchen.app://join/${token}`;
+  const isNative = Capacitor.isNativePlatform();
+  const baseUrl = isNative ? 'epicurean.kitchen.app://' : `${window.location.origin}/`;
+  return `${baseUrl}join/${token}`;
 };
 
 export const fetchFamilyByInviteToken = async (token) => {
