@@ -293,7 +293,7 @@ const DetailedRecipeView = () => {
   };
 
   return (
-    <div className="bg-background text-on-surface min-h-screen pb-24">
+    <div className="bg-background text-on-surface min-h-screen pb-40">
       {/* Floating Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-28 left-1/2 -translate-x-1/2 z-[100] bg-inverse-surface text-inverse-on-surface px-6 py-3 rounded-full shadow-lg font-label-md text-label-md flex items-center gap-2 transition-all duration-300 print:hidden">
@@ -575,15 +575,17 @@ const DetailedRecipeView = () => {
                   </div>
                 )}
 
-                <div className="mt-8 p-6 bg-secondary-container/20 rounded-xl border border-secondary/10">
-                  <h4 className="font-label-md text-label-md text-secondary mb-2 flex items-center gap-2">
-                    <span className="material-symbols-outlined text-sm">auto_awesome</span>
-                    {t('ai_diet_tip')}
-                  </h4>
-                  <p className="font-body-md text-body-md text-on-surface-variant">
-                    Substitute lamb with chickpeas for a high-protein vegan alternative that pairs perfectly with the saffron marinade.
-                  </p>
-                </div>
+                {recipe.ai_tip && (
+                  <div className="mt-8 p-6 bg-secondary-container/20 rounded-xl border border-secondary/10">
+                    <h4 className="font-label-md text-label-md text-secondary mb-2 flex items-center gap-2">
+                      <span className="material-symbols-outlined text-sm">auto_awesome</span>
+                      {t('ai_diet_tip')}
+                    </h4>
+                    <p className="font-body-md text-body-md text-on-surface-variant">
+                      {recipe.ai_tip}
+                    </p>
+                  </div>
+                )}
               </div>
             </aside>
 
