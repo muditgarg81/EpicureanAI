@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import useAppStore from '../store/useAppStore';
 import useAuthStore from '../store/useAuthStore';
@@ -8,6 +8,7 @@ import { cleanIngredientName } from '../data/culinaryData';
 
 const FamilyKitchenHub = () => {
   const activePlan = useAppStore(state => state.activePlan);
+  const navigate = useNavigate();
   
   if (activePlan !== 'Feast') {
     return (
@@ -385,7 +386,7 @@ const FamilyKitchenHub = () => {
                     <motion.div 
                       key={idx}
                       whileHover={{ scale: 1.02 }}
-                      onClick={() => setViewingRecipe(meal)}
+                      onClick={() => navigate('/recipe', { state: { recipe: meal } })}
                       className="bg-surface-container-low rounded-2xl p-4 flex items-center gap-4 border border-outline-variant hover:border-primary transition-all cursor-pointer group"
                     >
                       <div className="w-16 h-16 rounded-xl overflow-hidden relative">
@@ -489,9 +490,9 @@ const FamilyKitchenHub = () => {
               <div className="space-y-xs max-w-2xl">
                 <h3 className="font-headline-lg text-headline-lg">Must-Buy Grocery List</h3>
                 <p className="font-body-md text-body-md text-on-surface-variant">Essential items needed for the upcoming week's meal plan.</p>
-                <div className="bg-secondary/10 text-secondary-dark dark:text-secondary-light px-3 py-1.5 rounded-lg inline-flex items-center gap-2 mt-2 border border-secondary/20">
-                  <span className="material-symbols-outlined text-[16px]">lightbulb</span>
-                  <span className="text-label-sm font-label-sm">Tip: Press the cart icon to instantly order items on BigBasket, Blinkit, Zepto, or Instamart.</span>
+                <div className="bg-gradient-to-r from-primary-container to-tertiary-container text-on-surface px-4 py-2.5 rounded-xl inline-flex items-center gap-3 mt-3 border border-outline-variant shadow-md">
+                  <span className="material-symbols-outlined text-primary text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>lightbulb</span>
+                  <span className="font-label-lg text-label-lg font-bold">Tip: Press the cart icon to instantly order items on BigBasket, Blinkit, Zepto, or Instamart.</span>
                 </div>
               </div>
               <div className="flex flex-wrap gap-2 items-center">
