@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import useTranslation from '../hooks/useTranslation';
 import useAppStore from '../store/useAppStore';
 import { Capacitor } from '@capacitor/core';
+import { generateRecipe } from '../services/aiService';
 import { getDishImage, isStrictDishImage } from '../data/culinaryData';
 import { fetchDishImageFromUnsplash } from '../services/unsplashService';
 
@@ -193,9 +194,12 @@ const DetailedRecipeView = () => {
   const { t } = useTranslation();
   const rawRecipe = location.state?.recipe || {};
   
+  const [currentRawRecipe, setCurrentRawRecipe] = useState(rawRecipe);
+  const [isGenerating, setIsGenerating] = useState(false);
+  
   // Try to parse rawDetailedRecipe text
-  const rawDetailedText = rawRecipe.rawDetailedRecipe || 
-    (Array.isArray(rawRecipe.instructions) ? rawRecipe.instructions.join('\n') : rawRecipe.instructions) || '';
+  const rawDetailedText = currentRawRecipe.rawDetailedRecipe || 
+    (Array.isArray(currentRawRecipe.instructions) ? currentRawRecipe.instructions.join('\n') : currentRawRecipe.instructions) || '';
   
   const parsedRecipeData = parseDetailedRecipe(rawDetailedText);
 
@@ -207,20 +211,28 @@ const DetailedRecipeView = () => {
 
   // Normalize recipe data structure
   const recipe = {
-    title: rawRecipe.title || "Gourmet Dish",
-    description: rawRecipe.description || (rawRecipe.isAuthentic ? "Authentic Recipe" : "AI Optimized"),
-    prepTime: rawRecipe.prepTime || rawRecipe.time || "35 min",
-    calories: rawRecipe.calories || 450,
+    title: currentRawRecipe.title || "Gourmet Dish",
+    description: currentRawRecipe.description || (currentRawRecipe.isAuthentic ? "Authentic Recipe" : "AI Optimized"),
+    prepTime: currentRawRecipe.prepTime || currentRawRecipe.time || "35 min",
+    calories: currentRawRecipe.calories || 450,
     ingredients: (parsedRecipeData && parsedRecipeData.ingredients.length > 0) 
       ? parsedRecipeData.ingredients 
-      : (rawRecipe.ingredients || []),
+      : (Array.isArray(currentRawRecipe.ingredients) 
+          ? currentRawRecipe.ingredients 
+          : typeof currentRawRecipe.ingredients === 'string' 
+            ? currentRawRecipe.ingredients.split(',').map(i=>i.trim()).filter(Boolean) 
+            : []),
     instructions: (parsedRecipeData && parsedRecipeData.steps.length > 0)
       ? parsedRecipeData.steps.map(step => {
           const titlePrefix = step.title ? `**${step.title}**\n` : '';
           return `${titlePrefix}${step.paragraphs.join('\n')}`;
         })
-      : (rawRecipe.instructions || rawRecipe.steps || []),
-    img: cleanImage(rawRecipe.img) || getDishImage(rawRecipe.title || "recipe") || null
+      : (Array.isArray(currentRawRecipe.instructions) 
+          ? currentRawRecipe.instructions 
+          : typeof currentRawRecipe.instructions === 'string' && currentRawRecipe.instructions.trim().length > 0 
+            ? currentRawRecipe.instructions.split('\n').map(i=>i.trim()).filter(Boolean) 
+            : []),
+    img: cleanImage(currentRawRecipe.img) || getDishImage(currentRawRecipe.title || "recipe") || null
   };
 
   const { savedRecipes, toggleSaveRecipe } = useAppStore();
@@ -256,6 +268,28 @@ const DetailedRecipeView = () => {
 
   const handleShareClick = () => {
     setIsShareModalOpen(true);
+  };
+  const handleGenerateInstructions = async () => {
+    setIsGenerating(true);
+    try {
+      const prompt = `Provide a very detailed step-by-step recipe for ${recipe.title}. Use these ingredients if possible: ${recipe.ingredients.join(', ')}`;
+      const generated = await generateRecipe(prompt, { restrictions: [] });
+      if (generated) {
+        setCurrentRawRecipe({
+          ...currentRawRecipe,
+          rawDetailedRecipe: generated.rawDetailedRecipe || generated.instructions,
+          ingredients: generated.ingredients || currentRawRecipe.ingredients
+        });
+        triggerToast('AI Recipe Generated!');
+      } else {
+        triggerToast('Failed to generate recipe');
+      }
+    } catch (err) {
+      console.error(err);
+      triggerToast('Error generating recipe');
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   return (
@@ -557,7 +591,13 @@ const DetailedRecipeView = () => {
             <section className="md:col-span-8 lg:col-span-9">
               <h3 className="font-headline-md text-headline-md mb-8">{t('instructions')}</h3>
               <div className="space-y-12">
-                {parsedRecipeData && parsedRecipeData.steps.length > 0 ? (
+                {isGenerating ? (
+                  <div className="flex flex-col items-center justify-center p-12 bg-surface-container-low rounded-2xl border border-outline-variant/20">
+                    <div className="w-16 h-16 border-4 border-primary/30 border-t-primary rounded-full animate-spin mb-4"></div>
+                    <p className="font-headline-sm text-headline-sm text-primary">Generating detailed AI recipe...</p>
+                    <p className="font-body-md text-body-md text-on-surface-variant mt-2 text-center">Our culinary AI is writing step-by-step instructions for {recipe.title}.</p>
+                  </div>
+                ) : parsedRecipeData && parsedRecipeData.steps.length > 0 ? (
                   parsedRecipeData.steps.map((step, index) => (
                     <div key={index} className="flex gap-8 group">
                       <span className="font-display-lg text-display-lg text-primary/20 group-hover:text-primary transition-colors leading-none">
@@ -577,7 +617,7 @@ const DetailedRecipeView = () => {
                       </div>
                     </div>
                   ))
-                ) : (
+                ) : recipe.instructions && recipe.instructions.length > 0 ? (
                   recipe.instructions.map((instruction, index) => (
                     <div key={index} className="flex gap-8 group">
                       <span className="font-display-lg text-display-lg text-primary/20 group-hover:text-primary transition-colors leading-none">
@@ -591,6 +631,23 @@ const DetailedRecipeView = () => {
                       </div>
                     </div>
                   ))
+                ) : (
+                  <div className="flex flex-col items-center justify-center p-12 bg-surface-container-low rounded-2xl border border-outline-variant/30 text-center">
+                    <div className="w-20 h-20 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-6">
+                      <span className="material-symbols-outlined text-[40px]" style={{ fontVariationSettings: "'FILL' 1" }}>auto_awesome</span>
+                    </div>
+                    <h4 className="font-headline-md text-headline-md mb-3 text-on-surface">No Detailed Instructions Found</h4>
+                    <p className="font-body-md text-body-md text-on-surface-variant max-w-md mb-8">
+                      This meal was added as a simple dish name. You can use our AI Kitchen Coach to generate a step-by-step master recipe instantly.
+                    </p>
+                    <button 
+                      onClick={handleGenerateInstructions}
+                      className="bg-primary text-on-primary px-8 py-3 rounded-full font-label-lg hover:scale-105 active:scale-95 transition-all shadow-lg flex items-center gap-2"
+                    >
+                      <span className="material-symbols-outlined text-[20px]">psychology</span>
+                      Generate AI Recipe
+                    </button>
+                  </div>
                 )}
               </div>
 
