@@ -158,8 +158,14 @@ const MOCK_WEEKLY_PLAN = () => {
   return mockPlan;
 };
 
-export const generateWeeklyPlan = async (dietaryRestrictions = [], cuisinePreference = 'Global') => {
+export const generateWeeklyPlan = async (dietaryRestrictions = [], cuisinePreference = 'Global', savedRecipes = []) => {
   const restrictionsStr = dietaryRestrictions.length > 0 ? dietaryRestrictions.join(', ') : 'None';
+
+  let learnedPreferences = 'None';
+  if (savedRecipes && savedRecipes.length > 0) {
+    const favoriteTitles = savedRecipes.slice(0, 15).map(r => r.title).join(', ');
+    learnedPreferences = `The user frequently favorites these types of dishes: ${favoriteTitles}. Deeply analyze these favorites to understand their hidden flavor profiles, preferred ingredients, and culinary style. Aggressively skew the new recommendations to match these underlying learned preferences, while still keeping the dishes unique.`;
+  }
 
   const currentDate = new Date();
   const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
@@ -183,12 +189,14 @@ CONTEXT:
 - Dietary Restrictions: ${restrictionsStr}
 - Base Cuisine Style: ${cuisinePreference}
 - Current Month: ${currentMonth} (${currentSeason})
+- Learned User Preferences: ${learnedPreferences}
 
 CRITICAL REQUIREMENTS:
-1. Uniqueness: Do not provide a generic plan. Make it highly creative, culturally diverse, and different from typical automated responses. Ensure every day feels distinct.
-2. Seasonality: Heavily feature fresh, seasonal produce appropriate for ${currentMonth} (${currentSeason}). Adjust the warmth/coolness of dishes to match the season (e.g., stews in winter, fresh salads in summer).
-3. Regional & Social Context: Integrate regional cultural specialties, comfort foods, and techniques inspired by the ${cuisinePreference} cuisine.
-4. Dietary Compliance: STRICTLY ADHERE to the dietary restrictions: ${restrictionsStr}.
+1. Predictive Learning: Heavily base your meal suggestions on the "Learned User Preferences". Extrapolate what they like based on those past favorites and suggest similar, but distinctly new dishes.
+2. Uniqueness: Do not provide a generic plan. Make it highly creative, culturally diverse, and different from typical automated responses. Ensure every day feels distinct.
+3. Seasonality: Heavily feature fresh, seasonal produce appropriate for ${currentMonth} (${currentSeason}). Adjust the warmth/coolness of dishes to match the season (e.g., stews in winter, fresh salads in summer).
+4. Regional & Social Context: Integrate regional cultural specialties, comfort foods, and techniques inspired by the ${cuisinePreference} cuisine.
+5. Dietary Compliance: STRICTLY ADHERE to the dietary restrictions: ${restrictionsStr}.
 
 Provide 3 meals per day: breakfast, lunch, and dinner.
 Each meal MUST include:

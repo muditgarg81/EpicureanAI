@@ -39,7 +39,9 @@ const WeeklyMealPlanner = () => {
     removeGroceryItem,
     pantryItems,
     dietaryRestrictions: storeRestrictions,
-    activePlan
+    activePlan,
+    userProfile,
+    savedRecipes
   } = useAppStore();
   
   const [isAiPlanning, setIsAiPlanning] = useState(false);
@@ -631,7 +633,8 @@ const WeeklyMealPlanner = () => {
     setIsAiPlanning(true);
     try {
       const restrictions = storeRestrictions.map(r => r.name);
-      const newPlan = await generateWeeklyPlan(restrictions);
+      const cuisinePref = userProfile?.cuisinePreferences?.[0] || 'Global';
+      const newPlan = await generateWeeklyPlan(restrictions, cuisinePref, savedRecipes);
       
       // Transform plan data to include unique IDs and default images
       const transformedPlan = {};
