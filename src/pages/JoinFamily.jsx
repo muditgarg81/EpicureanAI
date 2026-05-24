@@ -167,7 +167,14 @@ export default function JoinFamily() {
             >
               Sign In / Create Account
             </button>
-            <p className="text-xs text-on-surface-variant px-4">
+            <a
+              href={`epicurean.kitchen.app://join/${token}`}
+              className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-surface-container border border-primary text-primary font-semibold text-lg hover:bg-primary/10 active:scale-[0.98] transition-all"
+            >
+              <span className="material-symbols-outlined text-primary">smartphone</span>
+              Open in Native App
+            </a>
+            <p className="text-xs text-on-surface-variant px-4 text-center mt-4">
               Your invitation will be remembered. After signing in, you'll be automatically redirected here to complete joining.
             </p>
           </div>

@@ -289,10 +289,12 @@
           titleEl.innerText = "Join " + familyName + "'s Kitchen";
           messageEl.innerHTML = "You have been invited to join the <strong>" + familyName + "</strong> family kitchen hub on Epicurean AI.<br><br>Click below to open the app and join automatically, or download the app if you don't have it installed.";
           
-          // Auto redirect to native app
-          setTimeout(() => {
-            window.location.href = appUrl;
-          }, 1500);
+          // Auto redirect to native app only if on mobile device
+          if (/android|iphone|ipad|ipod/i.test(navigator.userAgent)) {
+            setTimeout(() => {
+              window.location.href = appUrl;
+            }, 1500);
+          }
         } else {
           titleEl.innerText = "Expired Link";
           messageEl.innerText = "This family invitation link is invalid or has expired.";

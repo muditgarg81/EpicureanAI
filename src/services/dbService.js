@@ -318,9 +318,12 @@ export const generateInviteLink = async (familyId) => {
 
   if (error) throw error;
   
-  const isNative = Capacitor.isNativePlatform();
-  const baseUrl = isNative ? 'epicurean.kitchen.app://' : `${window.location.origin}/`;
-  return `${baseUrl}join/${token}`;
+  // Always use a universal HTTPS link so it works on web browsers and messaging apps
+  let baseUrl = window.location.origin;
+  if (baseUrl.includes('localhost') || baseUrl.includes('capacitor://') || Capacitor.isNativePlatform() || baseUrl.includes('10.0.2.2')) {
+    baseUrl = 'https://epicureanlabs.com';
+  }
+  return `${baseUrl}/join/${token}`;
 };
 
 export const fetchFamilyByInviteToken = async (token) => {
