@@ -70,7 +70,7 @@ const useAppStore = create(
       },
       updateUserProfile: (updates) => set((state) => {
         const newProfile = { ...state.userProfile, ...updates };
-        syncProfileToDb(newProfile);
+        syncProfileToDb(newProfile, state.activePlan, state.dietaryRestrictions);
         return { userProfile: newProfile };
       }),
 
@@ -217,47 +217,32 @@ const useAppStore = create(
             ]);
             
             if (profile) {
-              set({ userProfile: profile });
+              // Merge userProfile shallowly so we don't wipe out other properties unexpectedly
+              set((state) => ({ userProfile: { ...state.userProfile, ...profile } }));
               if (profile.activePlan) set({ activePlan: profile.activePlan });
+              if (profile.dietaryRestrictions) set({ dietaryRestrictions: profile.dietaryRestrictions });
             }
-            if (groceryList) set({ groceryList });
-            if (pantry) set({ pantryItems: pantry });
             
-            if (mealPlan) {
+            if (groceryList && groceryList.length > 0) set({ groceryList });
+            else if (get().groceryList.length > 0) syncGroceryListToDb(get().groceryList);
+
+            if (pantry && pantry.length > 0) set({ pantryItems: pantry });
+            else if (get().pantryItems.length > 0) syncPantryToDb(get().pantryItems);
+            
+            if (mealPlan && Object.keys(mealPlan).length > 0) {
               const currentWeek = getWeekCommencingDate();
               if (mealPlan.weekCommencing !== currentWeek) {
-                const emptyPlan = {
-                  weekCommencing: currentWeek,
-                  MON: { breakfast: [], lunch: [], dinner: [] },
-                  TUE: { breakfast: [], lunch: [], dinner: [] },
-                  WED: { breakfast: [], lunch: [], dinner: [] },
-                  THU: { breakfast: [], lunch: [], dinner: [] },
-                  FRI: { breakfast: [], lunch: [], dinner: [] },
-                  SAT: { breakfast: [], lunch: [], dinner: [] },
-                  SUN: { breakfast: [], lunch: [], dinner: [] }
-                };
-                set({ mealPlan: emptyPlan });
-                if (fId) syncMealPlanToDb(emptyPlan, fId);
+                get().resetMealPlan(); // Handles syncing
               } else {
                 set({ mealPlan });
               }
             } else {
-              const currentWeek = getWeekCommencingDate();
-              const emptyPlan = {
-                weekCommencing: currentWeek,
-                MON: { breakfast: [], lunch: [], dinner: [] },
-                TUE: { breakfast: [], lunch: [], dinner: [] },
-                WED: { breakfast: [], lunch: [], dinner: [] },
-                THU: { breakfast: [], lunch: [], dinner: [] },
-                FRI: { breakfast: [], lunch: [], dinner: [] },
-                SAT: { breakfast: [], lunch: [], dinner: [] },
-                SUN: { breakfast: [], lunch: [], dinner: [] }
-              };
-              set({ mealPlan: emptyPlan });
-              if (fId) syncMealPlanToDb(emptyPlan, fId);
+              syncMealPlanToDb(get().mealPlan, fId);
             }
 
-            if (familyMembers !== null) set({ familyMembers });
+            if (familyMembers && familyMembers.length > 0) set({ familyMembers });
+            else if (get().familyMembers.length > 0) syncFamilyMembersToDb(get().familyMembers, fId);
+            
           } else {
             // No family yet, user needs to create one or join
             const [profile, pantry, groceryList] = await Promise.all([
@@ -265,28 +250,24 @@ const useAppStore = create(
               fetchPantryFromDb(),
               fetchGroceryListFromDb()
             ]);
+            
             if (profile) {
-              set({ userProfile: profile });
+              set((state) => ({ userProfile: { ...state.userProfile, ...profile } }));
               if (profile.activePlan) set({ activePlan: profile.activePlan });
+              if (profile.dietaryRestrictions) set({ dietaryRestrictions: profile.dietaryRestrictions });
             }
-            if (pantry) set({ pantryItems: pantry });
-            if (groceryList) set({ groceryList });
+            
+            if (pantry && pantry.length > 0) set({ pantryItems: pantry });
+            else if (get().pantryItems.length > 0) syncPantryToDb(get().pantryItems);
 
-            // Also check and reset local meal plan if week changed
+            if (groceryList && groceryList.length > 0) set({ groceryList });
+            else if (get().groceryList.length > 0) syncGroceryListToDb(get().groceryList);
+
+            // Check and reset local meal plan if week changed
             const localPlan = get().mealPlan;
             const currentWeek = getWeekCommencingDate();
             if (localPlan && localPlan.weekCommencing !== currentWeek) {
-              const emptyPlan = {
-                weekCommencing: currentWeek,
-                MON: { breakfast: [], lunch: [], dinner: [] },
-                TUE: { breakfast: [], lunch: [], dinner: [] },
-                WED: { breakfast: [], lunch: [], dinner: [] },
-                THU: { breakfast: [], lunch: [], dinner: [] },
-                FRI: { breakfast: [], lunch: [], dinner: [] },
-                SAT: { breakfast: [], lunch: [], dinner: [] },
-                SUN: { breakfast: [], lunch: [], dinner: [] }
-              };
-              set({ mealPlan: emptyPlan });
+              get().resetMealPlan();
             }
           }
         } catch (error) {
@@ -296,21 +277,30 @@ const useAppStore = create(
 
       // Family Hub State
       familyMembers: [],
-      addFamilyMember: (member) => set((state) => {
-        const newMembers = [...state.familyMembers, { ...member, id: generateUUID() }];
-        syncFamilyMembersToDb(newMembers, state.familyId);
-        return { familyMembers: newMembers };
-      }),
-      updateFamilyMember: (id, updates) => set((state) => {
-        const newMembers = state.familyMembers.map(m => m.id === id ? { ...m, ...updates } : m);
-        syncFamilyMembersToDb(newMembers, state.familyId);
-        return { familyMembers: newMembers };
-      }),
-      deleteFamilyMember: (id) => set((state) => {
-        const newMembers = state.familyMembers.filter(m => m.id !== id);
-        syncFamilyMembersToDb(newMembers, state.familyId);
-        return { familyMembers: newMembers };
-      }),
+      addFamilyMember: async (member) => {
+        let fId = get().familyId;
+        if (!fId) {
+          try { fId = await get().createFamily('My Family'); } catch(e) {}
+        }
+        const newMembers = [...get().familyMembers, { ...member, id: generateUUID() }];
+        set({ familyMembers: newMembers });
+        syncFamilyMembersToDb(newMembers, fId);
+      },
+      updateFamilyMember: async (id, updates) => {
+        let fId = get().familyId;
+        if (!fId) {
+          try { fId = await get().createFamily('My Family'); } catch(e) {}
+        }
+        const newMembers = get().familyMembers.map(m => m.id === id ? { ...m, ...updates } : m);
+        set({ familyMembers: newMembers });
+        syncFamilyMembersToDb(newMembers, fId);
+      },
+      deleteFamilyMember: async (id) => {
+        let fId = get().familyId;
+        const newMembers = get().familyMembers.filter(m => m.id !== id);
+        set({ familyMembers: newMembers });
+        syncFamilyMembersToDb(newMembers, fId);
+      },
 
       // New Family Management Actions
       createFamily: async (name) => {
@@ -333,10 +323,8 @@ const useAppStore = create(
       activePlan: 'Taste', // 'Taste', 'Savor', or 'Feast'
       setActivePlan: async (activePlan) => {
         set({ activePlan });
-        const { userProfile } = get();
-        const updatedProfile = { ...userProfile, activePlan };
-        set({ userProfile: updatedProfile });
-        await syncProfileToDb(updatedProfile);
+        const { userProfile, dietaryRestrictions } = get();
+        await syncProfileToDb(userProfile, activePlan, dietaryRestrictions);
       },
 
       dailyRecipeCount: 0,
@@ -368,15 +356,21 @@ const useAppStore = create(
         { id: 'd2', name: 'Gluten-Free', type: 'Preference', color: 'bg-secondary-container', icon: 'check_circle' },
         { id: 'd3', name: 'Low Sodium', type: 'Ongoing', color: 'bg-surface', icon: 'check_circle' }
       ],
-      addRestriction: (res) => set((state) => {
+      addRestriction: (res) => {
+        const state = get();
         if (state.activePlan === 'Taste' && state.dietaryRestrictions.length >= 1) {
-          return {};
+          return;
         }
-        return { dietaryRestrictions: [...state.dietaryRestrictions, { ...res, id: generateUUID() }] };
-      }),
-      removeRestriction: (id) => set((state) => ({
-        dietaryRestrictions: state.dietaryRestrictions.filter(r => r.id !== id)
-      })),
+        const newRestrictions = [...state.dietaryRestrictions, { ...res, id: generateUUID() }];
+        set({ dietaryRestrictions: newRestrictions });
+        syncProfileToDb(state.userProfile, state.activePlan, newRestrictions);
+      },
+      removeRestriction: (id) => {
+        const state = get();
+        const newRestrictions = state.dietaryRestrictions.filter(r => r.id !== id);
+        set({ dietaryRestrictions: newRestrictions });
+        syncProfileToDb(state.userProfile, state.activePlan, newRestrictions);
+      },
 
       // AI Context & Recommendations
       searchHistory: [],

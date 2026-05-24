@@ -2,22 +2,31 @@ import { supabase } from './supabaseClient';
 import useAuthStore from '../store/useAuthStore';
 import { Capacitor } from '@capacitor/core';
 
-export const syncProfileToDb = async (profile) => {
+export const syncProfileToDb = async (profile, activePlan = null, dietaryRestrictions = null) => {
   const user = useAuthStore.getState().user;
   if (!user) return;
   
+  const payload = { 
+    id: user.id, 
+    ...profile 
+  };
+  
+  // Use "activePlan" exactly as the column name
+  if (activePlan) payload["activePlan"] = activePlan;
+  if (dietaryRestrictions) payload.dietaryRestrictions = dietaryRestrictions;
+  
   // Save local backup first
-  localStorage.setItem(`epicurean-profile-${user.id}`, JSON.stringify(profile));
+  localStorage.setItem(`epicurean-profile-${user.id}`, JSON.stringify(payload));
   
   const { error } = await supabase
     .from('profiles')
-    .upsert({ id: user.id, ...profile });
+    .upsert(payload);
     
   if (error) {
     console.error("Error syncing profile to DB, trying fallback:", error);
     // If activePlan column is missing in schema, try syncing without it
     if (error.message && (error.message.includes('activePlan') || error.code === 'PGRST204')) {
-      const { activePlan, ...profileWithoutActivePlan } = profile;
+      const { activePlan: _, ...profileWithoutActivePlan } = payload;
       const { error: fallbackError } = await supabase
         .from('profiles')
         .upsert({ id: user.id, ...profileWithoutActivePlan });
