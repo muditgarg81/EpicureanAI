@@ -659,8 +659,10 @@ const WeeklyMealPlanner = () => {
             const convertMealAsync = async (m, index) => {
               if (!m || typeof m !== 'object') return null;
               
-              // 1. Force Unsplash fetch using the AI generated title
-              let img = await fetchDishImageFromUnsplash(m.title);
+              let img = m.img && !m.img.includes('/assets/') ? m.img : null;
+              if (!img) {
+                img = await fetchDishImageFromUnsplash(m.title);
+              }
               
               // 2. Fallback to local only if Unsplash completely fails (no key or rate limited)
               if (!img) {

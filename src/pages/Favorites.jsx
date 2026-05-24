@@ -12,6 +12,7 @@ const FavoriteCard = ({ recipe, index, onClick, onToggleSave }) => {
 
   React.useEffect(() => {
     const fetchImg = async () => {
+      if (recipe.img && !recipe.img.includes('/assets/')) return; // Skip Unsplash if we have Wikipedia/DB image
       const title = recipe.title || recipe.dish_name;
       if (title) {
         const img = await fetchDishImageFromUnsplash(title);
@@ -21,7 +22,7 @@ const FavoriteCard = ({ recipe, index, onClick, onToggleSave }) => {
     fetchImg();
   }, [recipe]);
 
-  const displayImage = unsplashImage || recipe.img;
+  const displayImage = (recipe.img && !recipe.img.includes('/assets/')) ? recipe.img : (unsplashImage || recipe.img);
   
   return (
     <motion.div

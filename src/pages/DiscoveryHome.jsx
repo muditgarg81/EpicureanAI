@@ -959,6 +959,7 @@ const RecipeCard = ({ recipe, index, isSaved, onOpen, onSave }) => {
 
   useEffect(() => {
     const fetchImg = async () => {
+      if (initialImageUrl && !initialImageUrl.includes('/assets/')) return; // Skip Unsplash if we have Wikipedia/DB image
       const title = recipe.dish_name || recipe.title;
       if (title) {
         const img = await fetchDishImageFromUnsplash(title);
@@ -966,10 +967,10 @@ const RecipeCard = ({ recipe, index, isSaved, onOpen, onSave }) => {
       }
     };
     fetchImg();
-  }, [recipe.dish_name, recipe.title]);
+  }, [recipe.dish_name, recipe.title, initialImageUrl]);
 
-  // Use Unsplash first, only fallback if it completely fails
-  const imageUrl = unsplashImage || initialImageUrl;
+  // Use Wikipedia/DB image first, fallback to Unsplash, then local assets
+  const imageUrl = (initialImageUrl && !initialImageUrl.includes('/assets/')) ? initialImageUrl : (unsplashImage || initialImageUrl);
 
   return (
     <motion.div

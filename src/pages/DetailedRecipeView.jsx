@@ -231,13 +231,14 @@ const DetailedRecipeView = () => {
 
   React.useEffect(() => {
     const fetchImg = async () => {
+      if (recipe.img && !recipe.img.includes('/assets/')) return; // Skip Unsplash if we have Wikipedia/DB image
       const img = await fetchDishImageFromUnsplash(recipe.title);
       if (img) setUnsplashImage(img);
     };
     fetchImg();
-  }, [recipe.title]);
+  }, [recipe.title, recipe.img]);
 
-  const displayImage = unsplashImage || recipe.img;
+  const displayImage = (recipe.img && !recipe.img.includes('/assets/')) ? recipe.img : (unsplashImage || recipe.img);
 
   const shareText = `Check out this delicious recipe: ${recipe.title}\nPrep Time: ${recipe.prepTime}\nCalories: ${recipe.calories} cal\nIngredients:\n${recipe.ingredients.map(i => `- ${i}`).join('\n')}\n\nPrepared using Epicurean Global AI Kitchen Coach!`;
 
