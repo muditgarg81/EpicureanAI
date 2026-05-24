@@ -744,7 +744,7 @@ const WeeklyMealPlanner = () => {
       <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
       
       {/* Action Overlays - keeping edit/delete buttons separate but accessible */}
-      <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+      <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity z-10">
         <button 
           onClick={(e) => { e.stopPropagation(); handleEditClick(day, type, index); }}
           className="w-8 h-8 rounded-full bg-white/90 backdrop-blur shadow-sm text-on-surface flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all"
