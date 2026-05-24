@@ -161,14 +161,34 @@ const MOCK_WEEKLY_PLAN = () => {
 export const generateWeeklyPlan = async (dietaryRestrictions = [], cuisinePreference = 'Global') => {
   const restrictionsStr = dietaryRestrictions.length > 0 ? dietaryRestrictions.join(', ') : 'None';
 
+  const currentDate = new Date();
+  const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
+  const currentSeason = (() => {
+    const m = currentDate.getMonth();
+    if (m >= 2 && m <= 4) return 'Spring';
+    if (m >= 5 && m <= 7) return 'Summer';
+    if (m >= 8 && m <= 10) return 'Autumn/Fall';
+    return 'Winter';
+  })();
+
   if (!isValidApiKey) {
     console.warn('[AI] No valid Gemini API Key found (must start with AIzaSy). Returning mock weekly plan.');
     return MOCK_WEEKLY_PLAN();
   }
 
-  const prompt = `Act as a Michelin-star chef and expert nutritionist. 
-Generate a complete 7-day meal plan for a household with these dietary restrictions: ${restrictionsStr}.
-The cuisine style should be: ${cuisinePreference}.
+  const prompt = `Act as a Michelin-star chef, expert nutritionist, and culinary anthropologist. 
+Generate a completely unique and highly varied 7-day meal plan.
+
+CONTEXT:
+- Dietary Restrictions: ${restrictionsStr}
+- Base Cuisine Style: ${cuisinePreference}
+- Current Month: ${currentMonth} (${currentSeason})
+
+CRITICAL REQUIREMENTS:
+1. Uniqueness: Do not provide a generic plan. Make it highly creative, culturally diverse, and different from typical automated responses. Ensure every day feels distinct.
+2. Seasonality: Heavily feature fresh, seasonal produce appropriate for ${currentMonth} (${currentSeason}). Adjust the warmth/coolness of dishes to match the season (e.g., stews in winter, fresh salads in summer).
+3. Regional & Social Context: Integrate regional cultural specialties, comfort foods, and techniques inspired by the ${cuisinePreference} cuisine.
+4. Dietary Compliance: STRICTLY ADHERE to the dietary restrictions: ${restrictionsStr}.
 
 Provide 3 meals per day: breakfast, lunch, and dinner.
 Each meal MUST include:
