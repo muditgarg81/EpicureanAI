@@ -46,7 +46,8 @@ const FamilyKitchenHub = () => {
     deleteFamilyMember,
     dietaryRestrictions, 
     removeRestriction,
-    mealPlan 
+    mealPlan,
+    pantryItems
   } = useAppStore();
   const { user } = useAuthStore();
   const [newItemName, setNewItemName] = useState('');
@@ -226,7 +227,19 @@ const FamilyKitchenHub = () => {
                   const qty = match ? match[1].trim() : 'As needed';
                   const rawName = match ? match[2].trim() : ing;
                   const name = cleanIngredientName(rawName) || rawName;
-                  allIngredients.add(JSON.stringify({ name, qty }));
+                  const lowerName = name.toLowerCase();
+                  const staples = ['salt', 'pepper', 'water', 'oil', 'olive oil', 'vegetable oil', 'sugar', 'ghee', 'butter', 'cardamom', 'garam masala', 'cumin', 'turmeric', 'egg', 'eggs', 'avocado', 'avacado', 'jaggery', 'honey'];
+                  
+                  const isStaple = staples.some(s => lowerName === s || lowerName.split(' ').includes(s));
+                  
+                  const inPantry = pantryItems && pantryItems.some(p => 
+                    p.status !== 'Out of Stock' && 
+                    (lowerName.includes(p.name.toLowerCase()) || p.name.toLowerCase().includes(lowerName))
+                  );
+
+                  if (!isStaple && !inPantry) {
+                    allIngredients.add(JSON.stringify({ name, qty }));
+                  }
                 }
               });
             });
