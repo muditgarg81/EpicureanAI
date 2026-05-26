@@ -1,4 +1,5 @@
 import { GoogleGenAI } from '@google/genai';
+import { supabase } from './supabaseClient';
 
 // Initialize the @google/genai v2 SDK.
 // v2 API: ai.models.generateContent({ model, contents })
@@ -159,84 +160,96 @@ const MOCK_WEEKLY_PLAN = () => {
 };
 
 export const generateWeeklyPlan = async (dietaryRestrictions = [], cuisinePreference = 'Global', savedRecipes = []) => {
-  const restrictionsStr = dietaryRestrictions.length > 0 ? dietaryRestrictions.join(', ') : 'None';
-
-  let learnedPreferences = 'None';
-  if (savedRecipes && savedRecipes.length > 0) {
-    const favoriteTitles = savedRecipes.slice(0, 15).map(r => r.title).join(', ');
-    learnedPreferences = `The user frequently favorites these types of dishes: ${favoriteTitles}. Deeply analyze these favorites to understand their hidden flavor profiles, preferred ingredients, and culinary style. Aggressively skew the new recommendations to match these underlying learned preferences, while still keeping the dishes unique.`;
-  }
-
-  const currentDate = new Date();
-  const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
-  const currentSeason = (() => {
-    const m = currentDate.getMonth();
-    if (m >= 2 && m <= 4) return 'Spring';
-    if (m >= 5 && m <= 7) return 'Summer';
-    if (m >= 8 && m <= 10) return 'Autumn/Fall';
-    return 'Winter';
-  })();
-
-  if (!isValidApiKey) {
-    console.warn('[AI] No valid Gemini API Key found (must start with AIzaSy). Returning mock weekly plan.');
-    return MOCK_WEEKLY_PLAN();
-  }
-
-  const prompt = `Act as a Michelin-star chef, expert nutritionist, and culinary anthropologist. 
-Generate a completely unique and highly varied 7-day meal plan.
-
-CONTEXT:
-- Dietary Restrictions: ${restrictionsStr}
-- Base Cuisine Style: ${cuisinePreference}
-- Current Month: ${currentMonth} (${currentSeason})
-- Learned User Preferences: ${learnedPreferences}
-
-CRITICAL REQUIREMENTS:
-1. Predictive Learning: Heavily base your meal suggestions on the "Learned User Preferences". Extrapolate what they like based on those past favorites and suggest similar, but distinctly new dishes.
-2. Uniqueness: Do not provide a generic plan. Make it highly creative, culturally diverse, and different from typical automated responses. Ensure every day feels distinct.
-3. Seasonality: Heavily feature fresh, seasonal produce appropriate for ${currentMonth} (${currentSeason}). Adjust the warmth/coolness of dishes to match the season (e.g., stews in winter, fresh salads in summer).
-4. Regional & Social Context: Integrate regional cultural specialties, comfort foods, and techniques inspired by the ${cuisinePreference} cuisine.
-5. Dietary Compliance: STRICTLY ADHERE to the dietary restrictions: ${restrictionsStr}.
-
-Provide 3 meals per day: breakfast, lunch, and dinner.
-Each meal MUST include:
-1. A catchy title.
-2. Prep time (e.g., '25 mins').
-3. Calories as a string (e.g., '450').
-4. 2-3 relevant tags as an array.
-5. A list of 5-8 primary ingredients as an array.
-6. A list of 3-4 professional cooking instructions as an array.
-
-Format your response strictly as a JSON object with this structure:
-{
-  "MON": {
-    "breakfast": [{"title": "...", "time": "...", "calories": "...", "tags": [...], "ingredients": [...], "instructions": [...]}],
-    "lunch": [...],
-    "dinner": [...]
-  },
-  "TUE": { ... },
-  "WED": { ... },
-  "THU": { ... },
-  "FRI": { ... },
-  "SAT": { ... },
-  "SUN": { ... }
-}
-Ensure the JSON is valid and contains NO extra text outside the JSON block.`;
-
   try {
-    let responseText = await safeGenerateContent(prompt);
+    let qb = supabase.from('recipes').select('*');
+    
+    const isVegan = dietaryRestrictions.some(r => /vegan/i.test(r));
+    const isVeg = dietaryRestrictions.some(r => /vegetarian/i.test(r));
+    const isGF = dietaryRestrictions.some(r => /gluten/i.test(r));
 
-    // Strip markdown code fences if present
-    if (responseText.includes('```json')) {
-      responseText = responseText.split('```json')[1].split('```')[0];
-    } else if (responseText.includes('```')) {
-      responseText = responseText.split('```')[1].split('```')[0];
+    if (isVegan) qb = qb.eq('is_vegan', true);
+    else if (isVeg) qb = qb.eq('is_vegetarian', true);
+    if (isGF) qb = qb.eq('is_gluten_free', true);
+    
+    // Attempt to match cuisine if not generic
+    if (cuisinePreference && cuisinePreference !== 'Global' && cuisinePreference !== 'Surprise Me') {
+      qb = qb.ilike('cuisine', `%${cuisinePreference}%`);
     }
 
-    return JSON.parse(responseText.trim());
-  } catch (error) {
-    console.error('[AI] Error generating weekly plan, using fallback mock:', error);
-    // Always return something useful so the button never fails silently
+    let { data, error } = await qb.limit(300);
+    
+    if (error || !data || data.length < 21) {
+      // Fallback: relax constraints if not enough data
+      let fallbackQb = supabase.from('recipes').select('*').limit(300);
+      if (isVegan) fallbackQb = fallbackQb.eq('is_vegan', true);
+      else if (isVeg) fallbackQb = fallbackQb.eq('is_vegetarian', true);
+      
+      const fallback = await fallbackQb;
+      data = fallback.data || [];
+      
+      if (data.length < 21) {
+         // Final fallback: fetch anything
+         const final = await supabase.from('recipes').select('*').limit(100);
+         data = final.data || [];
+      }
+    }
+
+    // Shuffle the pool
+    let pool = data.sort(() => 0.5 - Math.random());
+    
+    const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+    const plan = {};
+    let recipeIndex = 0;
+
+    days.forEach(day => {
+      plan[day] = { breakfast: [], lunch: [], dinner: [] };
+      ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
+        const recipe = pool[recipeIndex % pool.length];
+        recipeIndex++;
+        
+        if (!recipe) return; // safety
+
+        const tags = [recipe.cuisine || 'Global', recipe.difficulty || 'Medium'];
+        if (recipe.is_vegan) tags.push('Vegan');
+        else if (recipe.is_vegetarian) tags.push('Vegetarian');
+
+        // Extract ingredients properly
+        let ingredientsArray = [];
+        if (recipe.full_ingredients) {
+          ingredientsArray = recipe.full_ingredients.split('\n').map(s => s.trim()).filter(Boolean);
+        } else if (recipe.key_ingredients) {
+          ingredientsArray = recipe.key_ingredients.split(',').map(s => s.trim()).filter(Boolean);
+        } else {
+          ingredientsArray = ['Main ingredients', 'Spices', 'Herbs'];
+        }
+
+        // Extract instructions properly
+        let instructionsArray = [];
+        if (recipe.detailed_recipe) {
+          instructionsArray = recipe.detailed_recipe.split('\n').filter(s => s.trim().length > 0 && /^(STEP|\d+\.)/i.test(s)).map(s => s.trim());
+          if (instructionsArray.length === 0) {
+             instructionsArray = recipe.detailed_recipe.split('\n').map(s => s.trim()).filter(Boolean).slice(0, 5);
+          }
+        } else {
+          instructionsArray = ['Prepare ingredients.', 'Cook according to traditional methods.', 'Serve warm.'];
+        }
+
+        plan[day][mealType].push({
+          id: recipe.id,
+          title: recipe.dish_name,
+          time: `${recipe.total_time_min || 30} mins`,
+          calories: String(recipe.calories || Math.floor(Math.random() * 300) + 300),
+          tags: tags,
+          ingredients: ingredientsArray,
+          instructions: instructionsArray,
+          img: recipe.image_url || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'
+        });
+      });
+    });
+
+    return plan;
+  } catch (err) {
+    console.error('Error generating DB plan:', err);
     return MOCK_WEEKLY_PLAN();
   }
 };
