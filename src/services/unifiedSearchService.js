@@ -118,6 +118,8 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
       orConditions.push(`description.ilike.%${ing}%`);
     });
     dbQb = dbQb.or(orConditions.join(','));
+  } else if (query) {
+    dbQb = dbQb.or(`description.ilike.%${query}%,cuisine.ilike.%${query}%`);
   }
   dbQb = dbQb.limit(20);
 
