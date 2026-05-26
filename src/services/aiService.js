@@ -167,51 +167,62 @@ export const generateWeeklyPlan = async (dietaryRestrictions = [], cuisinePrefer
     const isVeg = dietaryRestrictions.some(r => /vegetarian/i.test(r));
     const isGF = dietaryRestrictions.some(r => /gluten/i.test(r));
 
-    if (isVegan) qb = qb.eq('is_vegan', true);
-    else if (isVeg) qb = qb.eq('is_vegetarian', true);
-    if (isGF) qb = qb.eq('is_gluten_free', true);
-    
-    // Attempt to match cuisine if not generic
-    if (cuisinePreference && cuisinePreference !== 'Global' && cuisinePreference !== 'Surprise Me') {
-      qb = qb.ilike('cuisine', `%${cuisinePreference}%`);
-    }
-
-    let { data, error } = await qb.limit(300);
-    
-    if (error || !data || data.length < 21) {
-      // Fallback: relax constraints if not enough data
-      let fallbackQb = supabase.from('recipes').select('*').limit(300);
-      if (isVegan) fallbackQb = fallbackQb.eq('is_vegan', true);
-      else if (isVeg) fallbackQb = fallbackQb.eq('is_vegetarian', true);
-      
-      const fallback = await fallbackQb;
-      data = fallback.data || [];
-      
-      if (data.length < 21) {
-         // Final fallback: fetch anything
-         const final = await supabase.from('recipes').select('*').limit(100);
-         data = final.data || [];
+    const applyFilters = (queryBuilder) => {
+      let q = queryBuilder;
+      if (isVegan) q = q.eq('is_vegan', true);
+      else if (isVeg) q = q.eq('is_vegetarian', true);
+      if (isGF) q = q.eq('is_gluten_free', true);
+      if (cuisinePreference && cuisinePreference !== 'Global' && cuisinePreference !== 'Surprise Me') {
+        q = q.ilike('cuisine', `%${cuisinePreference}%`);
       }
+      return q;
+    };
+
+    // 1. Fetch Breakfasts specifically
+    const breakfastKeywords = ['breakfast', 'pancake', 'waffle', 'omelet', 'egg', 'toast', 'porridge', 'upma', 'poha', 'idli', 'dosa', 'chila', 'paratha', 'muffin', 'crepe', 'bagel', 'shakshuka', 'frittata', 'granola'];
+    const bfastOr = breakfastKeywords.map(k => `dish_name.ilike.%${k}%,description.ilike.%${k}%`).join(',');
+    let bfastQb = applyFilters(supabase.from('recipes').select('*').or(bfastOr).limit(100));
+
+    // 2. Fetch general pool for Lunch and Dinner
+    let generalQb = applyFilters(supabase.from('recipes').select('*').limit(400));
+
+    const [bfastRes, generalRes] = await Promise.all([bfastQb, generalQb]);
+
+    let rawBreakfasts = bfastRes.data || [];
+    let rawGeneral = generalRes.data || [];
+
+    // Fallbacks if not enough data
+    if (rawBreakfasts.length < 7) {
+      const fallbackBfast = await supabase.from('recipes').select('*').or(bfastOr).limit(50);
+      rawBreakfasts = [...rawBreakfasts, ...(fallbackBfast.data || [])];
+    }
+    if (rawGeneral.length < 14) {
+      const fallbackGeneral = await supabase.from('recipes').select('*').limit(200);
+      rawGeneral = [...rawGeneral, ...(fallbackGeneral.data || [])];
     }
 
-    // Categorize recipes based on text
+    // Categorize and filter
     const breakfasts = [];
     const lunches = [];
     const dinners = [];
     const generic = [];
     
-    data.forEach(recipe => {
+    // Dessert & Drink blocker (much stricter now)
+    const dessertOrDrinkRegex = /cake|cookie|biscuit|ice cream|dessert|sweet|chocolate|pudding|roshogolla|gulab jamun|laddu|barfi|halwa|kheer|tart|pie|brownie|mousse|truffle|macaron|pastry|candy|fudge|confection|jalebi|rasgulla|lassi|smoothie|shake|juice|drink|beverage|cocktail|mocktail|sherbet|syrup|nectar|compote|jam/i;
+
+    // Process dedicated breakfasts
+    rawBreakfasts.forEach(recipe => {
+      const text = (recipe.dish_name + ' ' + (recipe.description || '')).toLowerCase();
+      if (!dessertOrDrinkRegex.test(text)) breakfasts.push(recipe);
+    });
+
+    // Process general pool
+    rawGeneral.forEach(recipe => {
       const text = (recipe.dish_name + ' ' + (recipe.description || '') + ' ' + (recipe.cuisine || '')).toLowerCase();
+      if (dessertOrDrinkRegex.test(text)) return;
       
-      // Filter out desserts entirely from the main meal plan
-      const isDessert = /cake|cookie|biscuit|ice cream|dessert|sweet|chocolate|pudding|roshogolla|gulab jamun|laddu|barfi|halwa|kheer|tart|pie|brownie|mousse|truffle|macaron|pastry|candy|fudge|confection|jalebi|rasgulla/i.test(text);
-      if (isDessert) return; 
-      
-      const isBreakfast = /breakfast|pancake|waffle|omelet|egg|toast|porridge|upma|poha|idli|dosa|chila|paratha|muffin|crepe|bagel/i.test(text);
       const isLunch = /salad|soup|sandwich|wrap|burger|taco|roll|light|bowl/i.test(text);
-      
-      if (isBreakfast) breakfasts.push(recipe);
-      else if (isLunch) lunches.push(recipe);
+      if (isLunch) lunches.push(recipe);
       else generic.push(recipe);
     });
     
@@ -220,18 +231,17 @@ export const generateWeeklyPlan = async (dietaryRestrictions = [], cuisinePrefer
     lunches.sort(() => 0.5 - Math.random());
     generic.sort(() => 0.5 - Math.random());
     
-    // Fill gaps up to 7 for each category from the generic pool
-    while (breakfasts.length < 7 && generic.length > 0) { breakfasts.push(generic.pop()); }
+    // Fill lunches
     while (lunches.length < 7 && generic.length > 0) { lunches.push(generic.pop()); }
     
-    // Whatever is left in generic can be used for dinners (or lunches if dinners are full)
+    // Dinners get whatever is left in generic
     dinners.push(...generic);
     dinners.sort(() => 0.5 - Math.random());
     
-    // Ensure we have exactly 7 or gracefully handle less
-    const finalBreakfasts = breakfasts.length >= 7 ? breakfasts.slice(0, 7) : [...breakfasts, ...breakfasts, ...breakfasts].slice(0, 7);
-    const finalLunches = lunches.length >= 7 ? lunches.slice(0, 7) : [...lunches, ...lunches, ...lunches].slice(0, 7);
-    const finalDinners = dinners.length >= 7 ? dinners.slice(0, 7) : [...dinners, ...dinners, ...dinners].slice(0, 7);
+    // Final check for 7 items each. If still short, just clone items to avoid crashing.
+    const finalBreakfasts = breakfasts.length >= 7 ? breakfasts.slice(0, 7) : [...breakfasts, ...breakfasts, ...breakfasts, ...rawGeneral].slice(0, 7);
+    const finalLunches = lunches.length >= 7 ? lunches.slice(0, 7) : [...lunches, ...lunches, ...lunches, ...rawGeneral].slice(0, 7);
+    const finalDinners = dinners.length >= 7 ? dinners.slice(0, 7) : [...dinners, ...dinners, ...dinners, ...rawGeneral].slice(0, 7);
 
     const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
     const plan = {};
