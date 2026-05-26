@@ -193,11 +193,11 @@ export const generateWeeklyPlan = async (dietaryRestrictions = [], cuisinePrefer
 
     // Fallbacks if not enough data
     if (rawBreakfasts.length < 7) {
-      const fallbackBfast = await supabase.from('recipes').select('*').or(bfastOr).limit(50);
+      const fallbackBfast = await applyFilters(supabase.from('recipes').select('*').or(bfastOr).limit(50));
       rawBreakfasts = [...rawBreakfasts, ...(fallbackBfast.data || [])];
     }
     if (rawGeneral.length < 14) {
-      const fallbackGeneral = await supabase.from('recipes').select('*').limit(200);
+      const fallbackGeneral = await applyFilters(supabase.from('recipes').select('*').limit(200));
       rawGeneral = [...rawGeneral, ...(fallbackGeneral.data || [])];
     }
 
