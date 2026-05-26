@@ -194,26 +194,58 @@ export const generateWeeklyPlan = async (dietaryRestrictions = [], cuisinePrefer
       }
     }
 
-    // Shuffle the pool
-    let pool = data.sort(() => 0.5 - Math.random());
+    // Categorize recipes based on text
+    const breakfasts = [];
+    const lunches = [];
+    const dinners = [];
+    const generic = [];
     
+    data.forEach(recipe => {
+      const text = (recipe.dish_name + ' ' + (recipe.description || '') + ' ' + (recipe.cuisine || '')).toLowerCase();
+      
+      // Filter out desserts entirely from the main meal plan
+      const isDessert = /cake|cookie|biscuit|ice cream|dessert|sweet|chocolate|pudding|roshogolla|gulab jamun|laddu|barfi|halwa|kheer|tart|pie|brownie|mousse|truffle|macaron|pastry|candy|fudge|confection|jalebi|rasgulla/i.test(text);
+      if (isDessert) return; 
+      
+      const isBreakfast = /breakfast|pancake|waffle|omelet|egg|toast|porridge|upma|poha|idli|dosa|chila|paratha|muffin|crepe|bagel/i.test(text);
+      const isLunch = /salad|soup|sandwich|wrap|burger|taco|roll|light|bowl/i.test(text);
+      
+      if (isBreakfast) breakfasts.push(recipe);
+      else if (isLunch) lunches.push(recipe);
+      else generic.push(recipe);
+    });
+    
+    // Shuffle arrays
+    breakfasts.sort(() => 0.5 - Math.random());
+    lunches.sort(() => 0.5 - Math.random());
+    generic.sort(() => 0.5 - Math.random());
+    
+    // Fill gaps up to 7 for each category from the generic pool
+    while (breakfasts.length < 7 && generic.length > 0) { breakfasts.push(generic.pop()); }
+    while (lunches.length < 7 && generic.length > 0) { lunches.push(generic.pop()); }
+    
+    // Whatever is left in generic can be used for dinners (or lunches if dinners are full)
+    dinners.push(...generic);
+    dinners.sort(() => 0.5 - Math.random());
+    
+    // Ensure we have exactly 7 or gracefully handle less
+    const finalBreakfasts = breakfasts.length >= 7 ? breakfasts.slice(0, 7) : [...breakfasts, ...breakfasts, ...breakfasts].slice(0, 7);
+    const finalLunches = lunches.length >= 7 ? lunches.slice(0, 7) : [...lunches, ...lunches, ...lunches].slice(0, 7);
+    const finalDinners = dinners.length >= 7 ? dinners.slice(0, 7) : [...dinners, ...dinners, ...dinners].slice(0, 7);
+
     const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
     const plan = {};
-    let recipeIndex = 0;
+    let dayIndex = 0;
 
     days.forEach(day => {
       plan[day] = { breakfast: [], lunch: [], dinner: [] };
-      ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
-        const recipe = pool[recipeIndex % pool.length];
-        recipeIndex++;
-        
-        if (!recipe) return; // safety
-
+      
+      const processRecipe = (recipe, mealType) => {
+        if (!recipe) return;
         const tags = [recipe.cuisine || 'Global', recipe.difficulty || 'Medium'];
         if (recipe.is_vegan) tags.push('Vegan');
         else if (recipe.is_vegetarian) tags.push('Vegetarian');
 
-        // Extract ingredients properly
         let ingredientsArray = [];
         if (recipe.full_ingredients) {
           ingredientsArray = recipe.full_ingredients.split('\n').map(s => s.trim()).filter(Boolean);
@@ -223,7 +255,6 @@ export const generateWeeklyPlan = async (dietaryRestrictions = [], cuisinePrefer
           ingredientsArray = ['Main ingredients', 'Spices', 'Herbs'];
         }
 
-        // Extract instructions properly
         let instructionsArray = [];
         if (recipe.detailed_recipe) {
           instructionsArray = recipe.detailed_recipe.split('\n').filter(s => s.trim().length > 0 && /^(STEP|\d+\.)/i.test(s)).map(s => s.trim());
@@ -244,7 +275,12 @@ export const generateWeeklyPlan = async (dietaryRestrictions = [], cuisinePrefer
           instructions: instructionsArray,
           img: recipe.image_url || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'
         });
-      });
+      };
+      
+      processRecipe(finalBreakfasts[dayIndex], 'breakfast');
+      processRecipe(finalLunches[dayIndex], 'lunch');
+      processRecipe(finalDinners[dayIndex], 'dinner');
+      dayIndex++;
     });
 
     return plan;
