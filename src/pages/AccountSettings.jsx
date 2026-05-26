@@ -138,7 +138,7 @@ const AccountSettings = () => {
                         </p>
                         <div className="flex items-baseline gap-2 mb-8">
                           <span className="text-display-lg font-bold">
-                            {activePlan === 'Taste' ? 'Free' : activePlan === 'Savor' ? '₹249' : '₹599'}
+                            {activePlan === 'Taste' ? 'Free' : activePlan === 'Savor' ? '₹199' : '₹249'}
                           </span>
                           {activePlan !== 'Taste' && <span className="opacity-70">/ month</span>}
                         </div>
@@ -155,8 +155,8 @@ const AccountSettings = () => {
                     <div className="space-y-4">
                       <h4 className="font-label-lg text-on-surface-variant">Billing History</h4>
                       {[
-                        { date: 'May 1, 2026', amount: activePlan === 'Feast' ? '₹599.00' : '₹249.00', status: 'Paid' },
-                        { date: 'Apr 1, 2026', amount: activePlan === 'Feast' ? '₹599.00' : '₹249.00', status: 'Paid' }
+                        { date: 'May 1, 2026', amount: activePlan === 'Feast' ? '₹249.00' : '₹199.00', status: 'Paid' },
+                        { date: 'Apr 1, 2026', amount: activePlan === 'Feast' ? '₹249.00' : '₹199.00', status: 'Paid' }
                       ].map((bill, i) => (
                         <div key={i} className="flex items-center justify-between p-4 rounded-xl border border-outline-variant/20 hover:bg-surface/30 transition-colors">
                           <div>
@@ -398,8 +398,8 @@ const AccountSettings = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-12">
                     {[
                       { name: 'Taste', price: 'Free', features: ['3 AI recipe suggestions/day', '1 active dietary preference', '1 saved meal plan slot', 'Generic base recipes'] },
-                      { name: 'Savor', price: '₹249/mo', features: ['Unlimited premium AI recipes', 'Stack multiple preferences', '7-day planning & grocery list', 'Smart Pantry matching', 'Adapted to local cuisine'] },
-                      { name: 'Feast', price: '₹599/mo', features: ['Everything in Savor tier', 'Shared Family Kitchen Hub', 'AI interactive voice coach', 'Priority step-by-step guidance', 'Exclusive culinary masterclasses'] }
+                      { name: 'Savor', price: '₹199/mo', features: ['Unlimited premium AI recipes', 'Stack multiple preferences', '7-day planning & grocery list', 'Smart Pantry matching', 'Adapted to local cuisine'] },
+                      { name: 'Feast', price: '₹249/mo', features: ['Everything in Savor tier', 'Shared Family Kitchen Hub', 'AI interactive voice coach', 'Priority step-by-step guidance', 'Exclusive culinary masterclasses'] }
                     ].map((plan, i) => {
                       const isActive = activePlan === plan.name;
                       let btnLabel = 'Upgrade';

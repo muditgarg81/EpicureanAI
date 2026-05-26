@@ -35,19 +35,19 @@ const SecureCheckout = () => {
     },
     'Savor': {
       title: 'Savor Premium',
-      priceText: '₹249',
-      subtotal: 249,
-      gst: 44.82,
-      total: 293.82,
+      priceText: '₹199',
+      subtotal: 199,
+      gst: 35.82,
+      total: 234.82,
       desc: 'Billed Monthly',
       features: 'Unlimited premium recipes • Multi-Preferences • Smart Pantry Tracking'
     },
     'Feast': {
       title: 'Feast Ultimate',
-      priceText: '₹599',
-      subtotal: 599,
-      gst: 107.82,
-      total: 706.82,
+      priceText: '₹249',
+      subtotal: 249,
+      gst: 44.82,
+      total: 293.82,
       desc: 'Billed Monthly',
       features: 'Everything in Savor • Shared Family Kitchen Hub • AI Voice Coach'
     }

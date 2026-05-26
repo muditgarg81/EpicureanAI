@@ -11,8 +11,8 @@ const REGIONAL_PRICING = {
     currency: 'INR',
     symbol: '₹',
     plans: {
-      pro: 249,
-      family: 599,
+      pro: 199,
+      family: 249,
       yearly_discount: 'Save 33%'
     }
   },
