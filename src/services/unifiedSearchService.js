@@ -90,25 +90,31 @@ const withTimeout = (promise, ms = 8000) => {
 export const getUnifiedFullSearch = async (query, filters = { ingredients: [], dietary: {}, maxTime: null }) => {
   const { ingredients, dietary, maxTime } = filters;
   const lowerQuery = query.toLowerCase();
+  
+  const isGeneric = ['vegetarian', 'vegan', 'gluten', 'spicy', 'cuisine', 'meals', 'recipes', 'dishes', 'world', 'global', 'easy', 'quick'].some(w => lowerQuery.includes(w)) && ingredients.length === 0;
 
   // dietary to supabase columns
   const dbFilters = {};
-  if (dietary.vegan)       dbFilters.is_vegan       = true;
-  if (dietary.vegetarian)  dbFilters.is_vegetarian  = true;
-  if (dietary.glutenFree)  dbFilters.is_gluten_free = true;
+  if (dietary.vegan || lowerQuery.includes('vegan'))       dbFilters.is_vegan       = true;
+  if (dietary.vegetarian || lowerQuery.includes('vegetarian'))  dbFilters.is_vegetarian  = true;
+  if (dietary.glutenFree || lowerQuery.includes('gluten'))  dbFilters.is_gluten_free = true;
 
   // 1. Supabase Exact Match Query
   let dbNameQb = supabase.from('recipes').select('*');
   Object.entries(dbFilters).forEach(([col, val]) => { dbNameQb = dbNameQb.eq(col, val); });
   if (maxTime) dbNameQb = dbNameQb.lte('total_time_min', maxTime);
   if (dietary.spicy) dbNameQb = dbNameQb.gt('spice_level', 0);
-  dbNameQb = dbNameQb.ilike('dish_name', `%${query}%`).limit(10);
+  if (!isGeneric && query) {
+    dbNameQb = dbNameQb.ilike('dish_name', `%${query}%`);
+  }
+  dbNameQb = dbNameQb.limit(10);
 
   // 1b. Supabase Fuzzy Match Query
   let dbQb = supabase.from('recipes').select('*');
   Object.entries(dbFilters).forEach(([col, val]) => { dbQb = dbQb.eq(col, val); });
   if (maxTime) dbQb = dbQb.lte('total_time_min', maxTime);
   if (dietary.spicy) dbQb = dbQb.gt('spice_level', 0);
+  
   if (ingredients.length > 0) {
     const orConditions = [];
     ingredients.forEach((ing) => {
@@ -118,17 +124,19 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
       orConditions.push(`description.ilike.%${ing}%`);
     });
     dbQb = dbQb.or(orConditions.join(','));
-  } else if (query) {
+  } else if (!isGeneric && query) {
     dbQb = dbQb.or(`description.ilike.%${query}%,cuisine.ilike.%${query}%`);
   }
-  dbQb = dbQb.limit(20);
+  
+  // If it's a generic query like "vegetarian recipes" without specific text to search, we just want to shuffle the results so it's not always the same 20 rows.
+  // Actually, Supabase doesn't support random ordering out of the box without a postgres function, so we'll just fetch more and shuffle in memory later.
+  dbQb = dbQb.limit(40);
 
   // 2. Web API Query
   let webPromise = Promise.resolve([]);
   if (ingredients.length > 0) {
     webPromise = fetchRecipesByIngredients(ingredients);
   } else {
-    const isGeneric = ['vegetarian', 'vegan', 'gluten', 'spicy', 'cuisine', 'meals', 'recipes', 'dishes', 'world', 'global', 'easy', 'quick'].some(w => query.toLowerCase().includes(w)) && ingredients.length === 0;
     if (!isGeneric) {
       webPromise = fetchRecipesByDishName(query);
     }
