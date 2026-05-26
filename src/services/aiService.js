@@ -207,19 +207,21 @@ export const generateWeeklyPlan = async (dietaryRestrictions = [], cuisinePrefer
     const dinners = [];
     const generic = [];
     
-    // Dessert & Drink blocker (much stricter now)
-    const dessertOrDrinkRegex = /cake|cookie|biscuit|ice cream|dessert|sweet|chocolate|pudding|roshogolla|gulab jamun|laddu|barfi|halwa|kheer|tart|pie|brownie|mousse|truffle|macaron|pastry|candy|fudge|confection|jalebi|rasgulla|lassi|smoothie|shake|juice|drink|beverage|cocktail|mocktail|sherbet|syrup|nectar|compote|jam/i;
+    // Dessert, Drink & Condiment blocker (much stricter now)
+    const excludeRegex = /cake|cookie|biscuit|ice cream|dessert|sweet|chocolate|pudding|roshogolla|gulab jamun|laddu|barfi|halwa|kheer|tart|pie|brownie|mousse|truffle|macaron|pastry|candy|fudge|confection|jalebi|rasgulla|lassi|smoothie|shake|juice|drink|beverage|cocktail|mocktail|sherbet|syrup|nectar|compote|jam|pickle|achaar|chutney|sauce|dip|salsa|dressing|condiment|spice mix|paste|marinade/i;
 
     // Process dedicated breakfasts
     rawBreakfasts.forEach(recipe => {
+      if (recipe.total_time_min && recipe.total_time_min > 240) return; // Skip things that take > 4 hours to make
       const text = (recipe.dish_name + ' ' + (recipe.description || '')).toLowerCase();
-      if (!dessertOrDrinkRegex.test(text)) breakfasts.push(recipe);
+      if (!excludeRegex.test(text)) breakfasts.push(recipe);
     });
 
     // Process general pool
     rawGeneral.forEach(recipe => {
+      if (recipe.total_time_min && recipe.total_time_min > 300) return; // Skip things that take > 5 hours to make
       const text = (recipe.dish_name + ' ' + (recipe.description || '') + ' ' + (recipe.cuisine || '')).toLowerCase();
-      if (dessertOrDrinkRegex.test(text)) return;
+      if (excludeRegex.test(text)) return;
       
       const isLunch = /salad|soup|sandwich|wrap|burger|taco|roll|light|bowl/i.test(text);
       if (isLunch) lunches.push(recipe);
