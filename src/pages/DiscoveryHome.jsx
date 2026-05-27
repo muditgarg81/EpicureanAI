@@ -1081,7 +1081,7 @@ const RecipeCard = ({ recipe, index, isSaved, onOpen, onSave }) => {
     >
       {/* Card image / gradient */}
       <div className={`relative h-44 bg-gradient-to-br ${gradient} flex items-end overflow-hidden`}>
-        {imageUrl && (
+        {imageUrl ? (
           <img
             src={imageUrl}
             alt={recipe.dish_name || recipe.title}
@@ -1091,8 +1091,14 @@ const RecipeCard = ({ recipe, index, isSaved, onOpen, onSave }) => {
             }}
             className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
+        ) : (
+          <img
+            src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"
+            alt="Placeholder Food"
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80"
+          />
         )}
-        <div className="absolute inset-0 items-center justify-center" style={{ display: imageUrl ? 'none' : 'flex' }}>
+        <div className="absolute inset-0 items-center justify-center" style={{ display: 'none' }}>
           <span className="text-white text-6xl font-bold opacity-40 uppercase tracking-widest">
             {(recipe.dish_name || recipe.title || 'R').charAt(0)}
           </span>
