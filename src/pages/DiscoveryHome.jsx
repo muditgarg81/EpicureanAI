@@ -21,8 +21,9 @@ const cleanImageUrl = (url) => {
 };
 
 // ─── Search Relevance Scoring Helper ──────────────────────────────────────────
-const getSearchRelevanceScore = (recipeName, queryText, queryTokens) => {
-  if (!recipeName || !queryText) return 0;
+const getSearchRelevanceScore = (recipe, queryText, queryTokens) => {
+  if (!recipe || !queryText) return 0;
+  const recipeName = recipe.dish_name || recipe.title || '';
   const nameLower = recipeName.toLowerCase().trim();
   const queryLower = queryText.toLowerCase().trim();
 
@@ -61,9 +62,23 @@ const getSearchRelevanceScore = (recipeName, queryText, queryTokens) => {
         score += 10;
       }
     });
+
+    // Also check ingredients and description so we don't drop valid DB matches
+    const searchCorpus = [
+      Array.isArray(recipe.key_ingredients) ? recipe.key_ingredients.join(' ') : (recipe.key_ingredients || ''),
+      recipe.description || '',
+      recipe.cuisine || ''
+    ].join(' ').toLowerCase();
+
+    queryTokens.forEach(token => {
+      if (searchCorpus.includes(token.toLowerCase())) {
+        score += 150; // Give points for matching ingredients/desc
+      }
+    });
   }
 
-  return score;
+  // Ensure every recipe returned by the DB gets at least 1 point so it isn't filtered out
+  return score > 0 ? score : 1;
 };
 
 // ─── Query Parser ─────────────────────────────────────────────────────────
@@ -354,8 +369,8 @@ const DiscoveryHome = () => {
       // If no specific text ingredients were parsed (e.g., query is only stop words and time limits), bypass text relevance filter
       const scoredRecipes = finalRecipes.map(recipe => ({
         recipe,
-        score: ingredients.length === 0 ? 500 : getSearchRelevanceScore(recipe.dish_name, query, ingredients)
-      })).filter(item => item.score > 100);
+        score: ingredients.length === 0 ? 500 : getSearchRelevanceScore(recipe, query, ingredients)
+      })).filter(item => item.score > 0);
 
       const sortedRecipes = scoredRecipes.sort((a, b) => b.score - a.score).map(item => item.recipe);
 
@@ -406,8 +421,8 @@ const DiscoveryHome = () => {
 
       const scoredRecipes = finalRecipes.map(recipe => ({
         recipe,
-        score: ingredients.length === 0 ? 500 : getSearchRelevanceScore(recipe.dish_name, searchQuery, ingredients)
-      })).filter(item => item.score > 100);
+        score: ingredients.length === 0 ? 500 : getSearchRelevanceScore(recipe, searchQuery, ingredients)
+      })).filter(item => item.score > 0);
 
       const sortedRecipes = scoredRecipes.sort((a, b) => b.score - a.score).map(item => item.recipe);
 
