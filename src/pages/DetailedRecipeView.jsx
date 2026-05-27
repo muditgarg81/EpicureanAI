@@ -242,6 +242,7 @@ const DetailedRecipeView = () => {
   const isSaved = savedRecipes.some(r => r.title === recipe.title);
 
   React.useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchImg = async () => {
       if (recipe.img && !recipe.img.includes('/assets/')) return; // Skip Unsplash if we have Wikipedia/DB image
       const img = await fetchDishImageFromUnsplash(recipe.title);
