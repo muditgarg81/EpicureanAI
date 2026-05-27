@@ -9,7 +9,7 @@ const BottomNavBar = () => {
   const navItems = [
     { name: t('explore'), icon: 'explore', path: '/discovery', alternatePath: '/' },
     { name: t('genie'), icon: 'auto_fix_high', path: '/generator' },
-    { name: t('coach'), icon: 'mic', path: '/voice-coach' },
+    { name: t('family_hub'), icon: 'group', path: '/family-hub' },
     { name: t('pantry'), icon: 'kitchen', path: '/pantry' },
     { name: t('planner'), icon: 'calendar_today', path: '/planner' },
   ];

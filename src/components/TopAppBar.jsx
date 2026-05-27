@@ -63,7 +63,7 @@ const TopAppBar = ({ title = "Modern Kitchen" }) => {
           <nav className="hidden md:flex items-center gap-8">
             <Link to="/discovery" className="text-on-surface-variant dark:text-outline-variant hover:text-primary transition-colors font-label-lg text-label-lg">{t('explore')}</Link>
             <Link to="/generator" className="text-on-surface-variant dark:text-outline-variant hover:text-primary transition-colors font-label-lg text-label-lg">{t('recipes')}</Link>
-            <Link to="/family-hub" className="text-on-surface-variant dark:text-outline-variant hover:text-primary transition-colors font-label-lg text-label-lg">{t('kitchen')}</Link>
+            <Link to="/voice-coach" className="text-on-surface-variant dark:text-outline-variant hover:text-primary transition-colors font-label-lg text-label-lg">{t('coach')}</Link>
           </nav>
 
           {/* Right: Actions */}
@@ -228,9 +228,9 @@ const TopAppBar = ({ title = "Modern Kitchen" }) => {
                   <span className="material-icons text-secondary group-hover:text-on-secondary-container">account_circle</span>
                   <span className="font-label-lg text-label-lg font-medium">{t('mastery_profile')}</span>
                 </Link>
-                <Link to="/family-hub" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-4 p-4 rounded-xl hover:bg-secondary-container text-on-surface group transition-colors">
-                  <span className="material-icons text-secondary group-hover:text-on-secondary-container">group</span>
-                  <span className="font-label-lg text-label-lg font-medium">{t('family_hub')}</span>
+                <Link to="/voice-coach" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-4 p-4 rounded-xl hover:bg-secondary-container text-on-surface group transition-colors">
+                  <span className="material-icons text-secondary group-hover:text-on-secondary-container">mic</span>
+                  <span className="font-label-lg text-label-lg font-medium">{t('coach')}</span>
                 </Link>
                 <Link to="/favorites" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-4 p-4 rounded-xl hover:bg-secondary-container text-on-surface group transition-colors">
                   <span className="material-icons text-secondary group-hover:text-on-secondary-container">favorite</span>
