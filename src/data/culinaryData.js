@@ -1700,9 +1700,9 @@ export const getDishImage = (dish, index = 0) => {
     { keys: ['tea', 'chai', 'matcha'], id: 'photo-1544787219-7f47ccb76574' },
     { keys: ['pav bhaji', 'vada pav'], id: 'photo-1626132647523-66f5bf380027' },
     { keys: ['dal makhani', 'makhani'], id: 'photo-1626517806186-ce62929a5913' },
-    { keys: ['dal', 'lentil', 'tadka', 'sambar'], id: 'photo-1546833999-b9f581a1996d' },
-    { keys: ['paneer'], id: 'photo-1631452180519-c014fe946bc7' },
-    { keys: ['biryani', 'pulao'], id: 'photo-1563379091339-03b21ab4a4f8' },
+    { keys: ['dal', 'lentil', 'tadka', 'sambar'], ids: ['photo-1546833999-b9f581a1996d', 'photo-1645359737110-3498ebceec2f'] },
+    { keys: ['paneer'], ids: ['photo-1631452180519-c014fe946bc7', 'photo-1631452179837-1c60d8fc3bc4'] },
+    { keys: ['biryani', 'pulao'], ids: ['photo-1563379091339-03b21ab4a4f8', 'photo-1631515243349-e0cb75fb8d3a'] },
     { keys: ['samosa', 'chaat', 'street food'], id: 'photo-1601050690597-df056fb4ce78' },
     { keys: ['coffee', 'espresso', 'cappuccino', 'mocha', 'latte'], id: 'photo-1497935586351-b67a49e012bf' },
     { keys: ['paratha', 'roti', 'naan', 'flatbread', 'kulha', 'bhatura', 'arepa', 'casabe', 'lavash', 'pita', 'challah', 'bread'], id: 'photo-1626776822944-e224e78a635e' },
@@ -1715,12 +1715,12 @@ export const getDishImage = (dish, index = 0) => {
     { keys: ['pizza', 'calzone'], id: 'photo-1513104890138-7c749659a591' },
     { keys: ['sandwich', 'toast', 'panini'], id: 'photo-1528735602780-2552fd46c7af' },
     { keys: ['salad', 'greens'], id: 'photo-1512621776951-a57141f2eefd' },
-    { keys: ['chicken', 'meat', 'beef', 'pork', 'fish', 'seafood', 'shrimp', 'kebab', 'steak'], id: 'photo-1532550907401-a500c9a57435' },
+    { keys: ['chicken', 'meat', 'beef', 'pork', 'fish', 'seafood', 'shrimp', 'kebab', 'steak'], ids: ['photo-1532550907401-a500c9a57435', 'photo-1604908176997-125f25cc6f3d', 'photo-1587593810167-a84920ea0781', 'photo-1555939594-58d7cb561ad1'] },
     { keys: ['egg', 'scramble', 'omelette', 'frittata', 'benedict'], id: 'photo-1525351484163-7529414344d8' },
     { keys: ['smoothie', 'shake', 'drink', 'juice', 'lassi'], id: 'photo-1553530666-ba11a7da3888' },
     { keys: ['soup', 'stew', 'broth', 'minestrone'], id: 'photo-1547592165-e1d17fed6005' },
-    { keys: ['cake', 'cookie', 'pie', 'dessert', 'sweet', 'pudding', 'chocolate', 'muffins', 'halwa', 'jamun', 'rasmalai'], id: 'photo-1551024601-bec78aea704b' },
-    { keys: ['curry', 'masala', 'korma'], id: 'photo-1588166524941-3bf61a9c41db' },
+    { keys: ['cake', 'cookie', 'pie', 'dessert', 'sweet', 'pudding', 'chocolate', 'muffins', 'halwa', 'jamun', 'rasmalai'], ids: ['photo-1551024601-bec78aea704b', 'photo-1587314168485-3236d6710814'] },
+    { keys: ['curry', 'masala', 'korma'], ids: ['photo-1588166524941-3bf61a9c41db', 'photo-1565557623262-b51c2513a641'] },
     { keys: ['rice'], id: 'photo-1595707755376-78e7343e06a3' },
     { keys: ['avocado'], id: 'photo-1523049673857-eb18f1d7b578' }
   ];
@@ -1729,6 +1729,10 @@ export const getDishImage = (dish, index = 0) => {
   for (const mapping of mappings) {
     for (const key of mapping.keys) {
       if (clean.includes(key)) {
+        if (mapping.ids) {
+          const selectedId = mapping.ids[index % mapping.ids.length];
+          return `https://images.unsplash.com/${selectedId}?auto=format&fit=crop&w=800&q=80`;
+        }
         return `https://images.unsplash.com/${mapping.id}?auto=format&fit=crop&w=800&q=80`;
       }
     }
@@ -1748,7 +1752,8 @@ export const isStrictDishImage = (url) => {
     'photo-1498837167922-ddd27525d352', 'photo-1493770348161-369560ae357d',
     'photo-1565299624946-b28f40a0ae38', 'photo-1484723091739-30a097e8f929',
     'photo-1482049016688-2d3e1b311543', 'photo-1512621776951-a57141f2eefd',
-    'photo-1473093295043-cdd812d0e601', 'photo-1476224203421-9ac39bcb3327'
+    'photo-1473093295043-cdd812d0e601', 'photo-1476224203421-9ac39bcb3327',
+    '1604908176997-125f25cc6f3d'
   ];
   if (genericIds.some(id => url.includes(id))) return false;
   return true;
