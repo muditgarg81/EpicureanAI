@@ -87,8 +87,9 @@ const withTimeout = (promise, ms = 8000) => {
  * Unifies full search results across all databases and maps them to a single standard schema
  * used by DiscoveryHome.
  */
-export const getUnifiedFullSearch = async (query, filters = { ingredients: [], dietary: {}, maxTime: null }) => {
+export const getUnifiedFullSearch = async (query, filters = { ingredients: [], dietary: {}, maxTime: null }, page = 1) => {
   const { ingredients, dietary, maxTime } = filters;
+  const pageSize = 40;
   const lowerQuery = query.toLowerCase();
   
   const isGeneric = ['vegetarian', 'vegan', 'gluten', 'spicy', 'cuisine', 'meals', 'recipes', 'dishes', 'world', 'global', 'easy', 'quick'].some(w => lowerQuery.includes(w)) && ingredients.length === 0;
@@ -107,6 +108,7 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
   if (!isGeneric && query) {
     dbNameQb = dbNameQb.ilike('dish_name', `%${query}%`);
   }
+  // Hardcoded limit for exact matches, but we only fetch exact matches on page 1
   dbNameQb = dbNameQb.limit(10);
 
   // 1b. Supabase Fuzzy Match Query
@@ -128,9 +130,11 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
     dbQb = dbQb.or(`description.ilike.%${query}%,cuisine.ilike.%${query}%`);
   }
   
-  // If it's a generic query like "vegetarian recipes" without specific text to search, we just want to shuffle the results so it's not always the same 20 rows.
-  // Actually, Supabase doesn't support random ordering out of the box without a postgres function, so we'll just fetch more and shuffle in memory later.
-  dbQb = dbQb.limit(40);
+  // Pagination logic using range
+  const from = (page - 1) * pageSize;
+  const to = (page * pageSize) - 1;
+  // We fetch one extra item to determine if there are more results
+  dbQb = dbQb.range(from, to + 1);
 
   // 2. Web API Query
   let webPromise = Promise.resolve([]);
@@ -182,11 +186,12 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
     resolve(matches);
   });
 
+  // Only run dbNameQb, web APIs, and local search on the first page
   const [dbNameRes, dbRes, webRes, localRes] = await Promise.allSettled([
-    withTimeout(dbNameQb),
+    page === 1 ? withTimeout(dbNameQb) : Promise.resolve({ data: [] }),
     withTimeout(dbQb),
-    withTimeout(webPromise),
-    withTimeout(localSearchPromise)
+    page === 1 ? withTimeout(webPromise) : Promise.resolve([]),
+    page === 1 ? withTimeout(localSearchPromise) : Promise.resolve([])
   ]);
 
   // Prioritize Supabase over Local and Web
@@ -196,9 +201,15 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
   if (dbNameRes.status === 'fulfilled' && !dbNameRes.value.error) {
     allRecipes = [...allRecipes, ...(dbNameRes.value.data || [])];
   }
+  let hasMore = false;
   if (dbRes.status === 'fulfilled' && !dbRes.value.error) {
+    let dbData = dbRes.value.data || [];
+    if (dbData.length > pageSize) {
+      hasMore = true;
+      dbData = dbData.slice(0, pageSize); // Remove the extra item
+    }
     const existingIds = new Set(allRecipes.map(r => r.id));
-    const extra = (dbRes.value.data || []).filter(r => !existingIds.has(r.id));
+    const extra = dbData.filter(r => !existingIds.has(r.id));
     allRecipes = [...allRecipes, ...extra];
   }
 
@@ -248,5 +259,5 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
     return true;
   });
 
-  return unique;
+  return { results: unique, hasMore };
 };

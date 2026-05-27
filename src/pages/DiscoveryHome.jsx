@@ -223,6 +223,9 @@ const DiscoveryHome = () => {
   const [modalOpen, setModalOpen]         = useState(false);
   const [searchError, setSearchError]     = useState(null);
   const [isFetchingDetails, setIsFetchingDetails] = useState(false);
+  const [page, setPage]                   = useState(1);
+  const [hasMore, setHasMore]             = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const parseRestriction = (r) => {
     if (typeof r === 'string') {
@@ -317,13 +320,15 @@ const DiscoveryHome = () => {
     setShowResults(true);
     setSearchError(null);
     setResults([]);
+    setPage(1);
+    setHasMore(false);
     addSearchToHistory(query);
     setHasSearched(true);
     setPredictions([]);
 
     try {
       const { ingredients, maxTime, dietary } = parseQuery(query);
-      const uniqueRecipes = await getUnifiedFullSearch(query, { ingredients, dietary, maxTime });
+      const { results: uniqueRecipes, hasMore: more } = await getUnifiedFullSearch(query, { ingredients, dietary, maxTime }, 1);
 
       // ── Apply strict allergy and dietary filter on merged list ──
       const activeRestrictions = [
@@ -355,6 +360,7 @@ const DiscoveryHome = () => {
       const sortedRecipes = scoredRecipes.sort((a, b) => b.score - a.score).map(item => item.recipe);
 
       setResults(sortedRecipes);
+      setHasMore(more);
 
       if (finalRecipes.length === 0) {
         setSearchError(null); // not error, just empty
@@ -370,6 +376,54 @@ const DiscoveryHome = () => {
       }, 120);
     }
   }, [searchQuery, addSearchToHistory, userProfile, dietaryRestrictions]);
+
+  // ── Load More Pagination ──
+  const loadMore = useCallback(async () => {
+    if (isLoadingMore || !hasMore || !searchQuery) return;
+    setIsLoadingMore(true);
+    try {
+      const nextPage = page + 1;
+      const { ingredients, maxTime, dietary } = parseQuery(searchQuery);
+      const { results: newRecipes, hasMore: more } = await getUnifiedFullSearch(searchQuery, { ingredients, dietary, maxTime }, nextPage);
+      
+      const activeRestrictions = [
+        ...(userProfile?.dietaryRestrictions || []),
+        ...(Array.isArray(dietaryRestrictions)
+          ? dietaryRestrictions.map((r) => (typeof r === 'string' ? r : r.name))
+          : []),
+      ].map(r => r.toLowerCase());
+
+      const allergyFiltered = newRecipes.filter(recipe => 
+        filterRecipeByAllergiesAndRestrictions(recipe, activeRestrictions)
+      );
+
+      const finalRecipes = allergyFiltered.filter(recipe => {
+        if (maxTime && recipe.total_time_min) {
+          return recipe.total_time_min <= maxTime;
+        }
+        return true;
+      });
+
+      const scoredRecipes = finalRecipes.map(recipe => ({
+        recipe,
+        score: ingredients.length === 0 ? 500 : getSearchRelevanceScore(recipe.dish_name, searchQuery, ingredients)
+      })).filter(item => item.score > 100);
+
+      const sortedRecipes = scoredRecipes.sort((a, b) => b.score - a.score).map(item => item.recipe);
+
+      setResults(prev => {
+        const existingIds = new Set(prev.map(r => r.id));
+        const extra = sortedRecipes.filter(r => !existingIds.has(r.id));
+        return [...prev, ...extra];
+      });
+      setPage(nextPage);
+      setHasMore(more);
+    } catch (err) {
+      console.error('[Discovery] Load more failed:', err);
+    } finally {
+      setIsLoadingMore(false);
+    }
+  }, [page, hasMore, isLoadingMore, searchQuery, userProfile, dietaryRestrictions]);
 
   // ── Voice Search ──
   const handleVoiceSearch = async () => {
@@ -900,6 +954,23 @@ const DiscoveryHome = () => {
                   />
                 ))}
               </motion.div>
+            )}
+
+            {/* Load More Button */}
+            {hasMore && !isSearching && (
+              <div className="mt-8 flex justify-center pb-8">
+                <button
+                  onClick={loadMore}
+                  disabled={isLoadingMore}
+                  className="px-6 py-3 bg-primary text-on-primary rounded-full font-medium shadow-md hover:shadow-lg active:scale-95 transition-all flex items-center gap-2"
+                >
+                  {isLoadingMore ? (
+                    <><span className="material-icons animate-spin">refresh</span> Loading...</>
+                  ) : (
+                    <><span className="material-icons">expand_more</span> Load More Recipes</>
+                  )}
+                </button>
+              </div>
             )}
           </motion.section>
         )}
