@@ -26,17 +26,17 @@ export const syncProfileToDb = async (profile, activePlan = null, dietaryRestric
     
   if (error) {
     console.error("Error syncing profile to DB, trying fallback:", error);
-    // If activePlan column is missing in schema, try syncing without it
-    if (error.message && (error.message.includes('activePlan') || error.code === 'PGRST204')) {
-      const { activePlan: _, ...profileWithoutActivePlan } = payload;
-      const { error: fallbackError } = await supabase
-        .from('profiles')
-        .upsert({ id: user.id, ...profileWithoutActivePlan });
-      if (fallbackError) {
-        console.error("Fallback profile sync failed:", fallbackError);
-      } else {
-        console.log("Successfully synced profile without activePlan column");
-      }
+    // Always try fallback using update and stripping problematic columns
+    const { activePlan: _ap, id: _id, created_at: _ca, updated_at: _ua, ...safeProfile } = payload;
+    const { error: fallbackError } = await supabase
+      .from('profiles')
+      .update(safeProfile)
+      .eq('id', user.id);
+      
+    if (fallbackError) {
+      console.error("Fallback profile sync failed:", fallbackError);
+    } else {
+      console.log("Successfully synced profile with fallback");
     }
   }
 };
@@ -71,9 +71,11 @@ export const fetchProfileFromDb = async () => {
 
   const merged = { ...localProfile, ...dbProfile };
   
-  // If dbProfile has null for dietaryRestrictions but local doesn't, keep local
-  if (dbProfile && (!dbProfile.dietaryRestrictions || dbProfile.dietaryRestrictions.length === 0) && localProfile && localProfile.dietaryRestrictions && localProfile.dietaryRestrictions.length > 0) {
-    merged.dietaryRestrictions = localProfile.dietaryRestrictions;
+  // Prefer local restrictions if they exist and are longer (meaning a sync failed previously)
+  if (localProfile && localProfile.dietaryRestrictions && localProfile.dietaryRestrictions.length > 0) {
+    if (!dbProfile || !dbProfile.dietaryRestrictions || localProfile.dietaryRestrictions.length > dbProfile.dietaryRestrictions.length) {
+      merged.dietaryRestrictions = localProfile.dietaryRestrictions;
+    }
   }
 
   if (!merged.activePlan) merged.activePlan = 'Taste';
