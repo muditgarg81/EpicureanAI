@@ -13,7 +13,9 @@ export const syncProfileToDb = async (profile, activePlan = null, dietaryRestric
   
   // Use "activePlan" exactly as the column name
   if (activePlan) payload["activePlan"] = activePlan;
-  if (dietaryRestrictions) payload.dietaryRestrictions = dietaryRestrictions;
+  if (dietaryRestrictions) {
+    payload.dietaryRestrictions = dietaryRestrictions.map(r => typeof r === 'object' ? JSON.stringify(r) : r);
+  }
   
   // Save local backup first
   localStorage.setItem(`epicurean-profile-${user.id}`, JSON.stringify(payload));
@@ -68,6 +70,12 @@ export const fetchProfileFromDb = async () => {
   }
 
   const merged = { ...localProfile, ...dbProfile };
+  
+  // If dbProfile has null for dietaryRestrictions but local doesn't, keep local
+  if (dbProfile && (!dbProfile.dietaryRestrictions || dbProfile.dietaryRestrictions.length === 0) && localProfile && localProfile.dietaryRestrictions && localProfile.dietaryRestrictions.length > 0) {
+    merged.dietaryRestrictions = localProfile.dietaryRestrictions;
+  }
+
   if (!merged.activePlan) merged.activePlan = 'Taste';
   return Object.keys(merged).length > 0 ? merged : null;
 };
@@ -139,7 +147,8 @@ export const createFamily = async (name) => {
   // 2. Update user profile with family_id
   const { error: profileError } = await supabase
     .from('profiles')
-    .upsert({ id: user.id, family_id: family.id }, { onConflict: 'id' });
+    .update({ family_id: family.id })
+    .eq('id', user.id);
 
   if (profileError) throw profileError;
 
@@ -262,7 +271,15 @@ export const syncFamilyMembersToDb = async (members, familyId) => {
     .from('family_members_data')
     .upsert({ family_id: familyId, members: members }, { onConflict: 'family_id' });
     
-  if (error) console.error("Error syncing family members to DB (using local fallback):", error);
+  if (error) {
+    console.error("Error syncing family members to DB (using local fallback):", error);
+    if (error.code === '22P02' || (error.message && error.message.includes('syntax'))) {
+      const stringifiedMembers = members.map(m => typeof m === 'object' ? JSON.stringify(m) : m);
+      await supabase
+        .from('family_members_data')
+        .upsert({ family_id: familyId, members: stringifiedMembers }, { onConflict: 'family_id' });
+    }
+  }
 };
 
 export const fetchFamilyMembersFromDb = async (familyId) => {
@@ -276,7 +293,11 @@ export const fetchFamilyMembersFromDb = async (familyId) => {
     .single();
 
   if (!error) {
-    dbMembers = data?.members;
+    if (data?.members && Array.isArray(data.members)) {
+      dbMembers = data.members.map(m => typeof m === 'string' ? JSON.parse(m) : m);
+    } else {
+      dbMembers = data?.members;
+    }
   } else if (error.code !== 'PGRST116') {
     console.error("Error fetching family members:", error);
   }
@@ -292,7 +313,11 @@ export const fetchFamilyMembersFromDb = async (familyId) => {
     }
   }
 
-  return dbMembers || localMembers || null;
+  if (dbMembers && dbMembers.length === 0 && localMembers && localMembers.length > 0) {
+    return localMembers;
+  }
+
+  return (dbMembers && dbMembers.length > 0 ? dbMembers : null) || localMembers || null;
 };
 
 export const generateInviteLink = async (familyId) => {

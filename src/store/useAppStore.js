@@ -389,13 +389,15 @@ const useAppStore = create(
         }
         const newRestrictions = [...state.dietaryRestrictions, { ...res, id: generateUUID() }];
         set({ dietaryRestrictions: newRestrictions });
-        syncProfileToDb(state.userProfile, state.activePlan, newRestrictions);
+        const { userProfile, activePlan } = get();
+        syncProfileToDb(userProfile, activePlan, newRestrictions);
       },
       removeRestriction: (id) => {
         const state = get();
         const newRestrictions = state.dietaryRestrictions.filter(r => r.id !== id);
         set({ dietaryRestrictions: newRestrictions });
-        syncProfileToDb(state.userProfile, state.activePlan, newRestrictions);
+        const { userProfile, activePlan } = get();
+        syncProfileToDb(userProfile, activePlan, newRestrictions);
       },
 
       // AI Context & Recommendations
