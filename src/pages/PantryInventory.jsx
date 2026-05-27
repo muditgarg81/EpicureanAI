@@ -108,11 +108,31 @@ const CameraModal = ({ onClose, addPantryItem, showToast }) => {
   const [errorMsg, setErrorMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const pickImageFromFilePicker = () =>
+    new Promise((resolve) => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.onchange = (e) => {
+        const file = e.target.files[0];
+        if (!file) { resolve(null); return; }
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const result = ev.target.result;
+          const base64 = result.split(',')[1];
+          resolve({ base64, mimeType: file.type || 'image/jpeg' });
+        };
+        reader.readAsDataURL(file);
+      };
+      input.click();
+    });
+
   const takePhotoAndScan = useCallback(async () => {
     setIsLoading(true);
     setErrorMsg('');
     try {
       let base64ImageData = '';
+      let mimeType = 'image/jpeg';
 
       if (isNative()) {
         const { Camera, CameraResultType, CameraSource } = await import('@capacitor/camera');
@@ -122,9 +142,12 @@ const CameraModal = ({ onClose, addPantryItem, showToast }) => {
           source: CameraSource.Camera,
         });
         base64ImageData = photo.base64String;
+        if (photo.format) mimeType = `image/${photo.format}`;
       } else {
         // Web fallback: use file input to pick an image
-        base64ImageData = await pickImageFromFilePicker();
+        const imgObj = await pickImageFromFilePicker();
+        base64ImageData = imgObj?.base64 || '';
+        if (imgObj?.mimeType) mimeType = imgObj.mimeType;
       }
 
       if (!base64ImageData) {
@@ -147,7 +170,7 @@ const CameraModal = ({ onClose, addPantryItem, showToast }) => {
                   {
                     text: 'List all food ingredients and pantry items you can see in this image. Return ONLY a comma-separated list of item names, nothing else. Example: chicken breast, tomatoes, olive oil, garlic',
                   },
-                  { inline_data: { mime_type: 'image/jpeg', data: base64ImageData } },
+                  { inlineData: { mimeType, data: base64ImageData } },
                 ],
               },
             ],
@@ -192,25 +215,7 @@ const CameraModal = ({ onClose, addPantryItem, showToast }) => {
     takePhotoAndScan();
   }, [takePhotoAndScan]);
 
-  const pickImageFromFilePicker = () =>
-    new Promise((resolve) => {
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'image/*';
-      input.onchange = (e) => {
-        const file = e.target.files[0];
-        if (!file) { resolve(''); return; }
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-          // Strip data URL prefix to get raw base64
-          const result = ev.target.result;
-          const base64 = result.split(',')[1];
-          resolve(base64);
-        };
-        reader.readAsDataURL(file);
-      };
-      input.click();
-    });
+  // Old pickImageFromFilePicker was moved above
 
   const handleConfirmAdd = () => {
     const toAdd = detectedItems.filter((_, i) => checkedItems[i]);
