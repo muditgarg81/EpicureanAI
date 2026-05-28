@@ -30,14 +30,22 @@ const saveToCache = (dishName, url) => {
 
 const fetchWikipediaImage = async (dishName) => {
   try {
-    const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${encodeURIComponent(dishName)}&origin=*`);
-    const data = await res.json();
-    if (data.query && data.query.pages) {
-      const pages = Object.values(data.query.pages);
-      if (pages.length > 0 && pages[0].original && pages[0].original.source) {
-        const url = pages[0].original.source;
-        if (url.toLowerCase().endsWith('.jpg') || url.toLowerCase().endsWith('.jpeg') || url.toLowerCase().endsWith('.png')) {
-          return url;
+    let cleanName = dishName.replace(/\([^)]*\)/g, '').trim();
+    const searchRes = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(cleanName)}&utf8=&format=json&origin=*`);
+    const searchData = await searchRes.json();
+    
+    if (searchData.query && searchData.query.search && searchData.query.search.length > 0) {
+      const bestTitle = searchData.query.search[0].title;
+      const imgRes = await fetch(`https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${encodeURIComponent(bestTitle)}&origin=*`);
+      const imgData = await imgRes.json();
+      
+      if (imgData.query && imgData.query.pages) {
+        const pages = Object.values(imgData.query.pages);
+        if (pages.length > 0 && pages[0].original && pages[0].original.source) {
+          const url = pages[0].original.source;
+          if (url.toLowerCase().match(/\.(jpg|jpeg|png|gif)$/i)) {
+            return url;
+          }
         }
       }
     }
@@ -90,6 +98,9 @@ export const getDishImageWaterfall = async (dishName) => {
   // 3. Waterfall: Wikipedia -> Unsplash -> MealDB -> Spoonacular
   let finalUrl = null;
   let source = null;
+  
+  // Clean name for better searching in fallbacks (e.g. "Tortilla (Corn)" -> "Tortilla")
+  const searchName = dishName.replace(/\([^)]*\)/g, '').trim();
 
   // Try Wikipedia
   finalUrl = await fetchWikipediaImage(dishName);
@@ -97,13 +108,13 @@ export const getDishImageWaterfall = async (dishName) => {
 
   // Try Unsplash
   if (!finalUrl) {
-    finalUrl = await fetchUnsplashImage(dishName);
+    finalUrl = await fetchUnsplashImage(searchName);
     source = 'unsplash';
   }
 
   // Try MealDB
   if (!finalUrl) {
-    const meals = await searchMealDB(dishName);
+    const meals = await searchMealDB(searchName);
     if (meals && meals.length > 0 && meals[0].thumbnail) {
       finalUrl = meals[0].thumbnail;
       source = 'mealdb';
@@ -112,7 +123,7 @@ export const getDishImageWaterfall = async (dishName) => {
 
   // Try Spoonacular
   if (!finalUrl) {
-    const spoons = await searchSpoonacular(dishName, 1);
+    const spoons = await searchSpoonacular(searchName, 1);
     if (spoons && spoons.length > 0 && spoons[0].thumbnail) {
       finalUrl = spoons[0].thumbnail;
       source = 'spoonacular';
