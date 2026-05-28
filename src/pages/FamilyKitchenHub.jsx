@@ -40,6 +40,8 @@ const FamilyKitchenHub = () => {
     toggleGroceryItem, 
     addGroceryItem, 
     removeGroceryItem,
+    checkedPlanItems,
+    toggleCheckedPlanItem,
     familyMembers, 
     updateFamilyMember, 
     addFamilyMember, 
@@ -62,7 +64,6 @@ const FamilyKitchenHub = () => {
   const [familyNameInput, setFamilyNameInput] = useState('');
   const [isDietaryModalOpen, setIsDietaryModalOpen] = useState(false);
   const [newRestrictionInput, setNewRestrictionInput] = useState('');
-  const [checkedPlanItems, setCheckedPlanItems] = useState(new Set());
   const [isDeliveryModalOpen, setIsDeliveryModalOpen] = useState(false);
   const [activeOrderItem, setActiveOrderItem] = useState(null);
 
@@ -250,12 +251,12 @@ const FamilyKitchenHub = () => {
 
     return Array.from(allIngredients).map((json, i) => {
       const item = JSON.parse(json);
-      const id = `ai-ing-${item.name}-${i}`;
+      const id = `ai-ing-${item.name}-${item.qty}`;
       return {
         id,
         name: item.name,
         quantity: item.qty,
-        checked: checkedPlanItems.has(id),
+        checked: checkedPlanItems.includes(id),
         isFromPlan: true
       };
     });
@@ -617,12 +618,7 @@ const FamilyKitchenHub = () => {
                       onChange={(e) => {
                         e.stopPropagation();
                         if (item.isFromPlan) {
-                          setCheckedPlanItems(prev => {
-                            const newSet = new Set(prev);
-                            if (newSet.has(item.id)) newSet.delete(item.id);
-                            else newSet.add(item.id);
-                            return newSet;
-                          });
+                          toggleCheckedPlanItem(item.id);
                         } else {
                           toggleGroceryItem(item.id);
                         }

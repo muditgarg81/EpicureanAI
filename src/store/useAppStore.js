@@ -195,6 +195,14 @@ const useAppStore = create(
         }
       },
 
+      checkedPlanItems: [],
+      toggleCheckedPlanItem: (id) => set((state) => {
+        const set = new Set(state.checkedPlanItems);
+        if (set.has(id)) set.delete(id);
+        else set.add(id);
+        return { checkedPlanItems: Array.from(set) };
+      }),
+
       // Saved/Favorited Recipes
       savedRecipes: [],
       toggleSaveRecipe: (recipe) => set((state) => {
@@ -487,6 +495,7 @@ const useAppStore = create(
           { id: 'p8', name: 'Fresh Basil', quantity: 'Grown Locally', status: 'Fresh', category: 'Fresh', level: 100, color: 'bg-secondary', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD-1Lcb4RqSqFXPv-eKiLr_Gy8aCxdZyr-BVO7jpBjpm1VeTYlMrKxDToIEuFaQNlvzsp7QV9kjODrFCjArz_vUt5zWSvkBaFpbWpneksQqbGng7-C-l6xPUHyDKJh9Ihp4tx4SHQkkfRyJLmz_olTKU-C4mFo-Vo1xo56ziRYLdUb48ivZoSUOlsoh0gYh9L4X5TMfZ8P8ztLW0tZBmFQTYp01DLEVo-JE7hWtCC4RbvSbuPQf4b72s2jpWUa69A48hy9XKty28Fs8' }
         ],
         groceryList: [],
+        checkedPlanItems: [],
         savedRecipes: [],
         familyMembers: [],
         activePlan: 'Taste',
