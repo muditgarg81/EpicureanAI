@@ -8,7 +8,7 @@ import {
   lookupMealDBById
 } from '../services/externalRecipeService';
 import { culinaryDataBank, getDishImage, isStrictDishImage } from '../data/culinaryData';
-import { fetchDishImageFromUnsplash } from '../services/unsplashService';
+import { getDishImageWaterfall } from '../services/imageWaterfallService';
 import { getUnifiedSuggestions, getUnifiedFullSearch } from '../services/unifiedSearchService';
 
 // Speech Recognition is imported dynamically inside handleVoiceSearch to support all web/native platforms
@@ -1060,7 +1060,7 @@ const RecipeCard = ({ recipe, index, isSaved, onOpen, onSave }) => {
       if (initialImageUrl && !initialImageUrl.includes('/assets/')) return; // Skip Unsplash if we have Wikipedia/DB image
       const title = recipe.dish_name || recipe.title;
       if (title) {
-        const img = await fetchDishImageFromUnsplash(title);
+        const img = await getDishImageWaterfall(title);
         if (img) setUnsplashImage(img);
       }
     };

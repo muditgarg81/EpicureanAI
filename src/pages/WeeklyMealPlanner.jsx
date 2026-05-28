@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Capacitor } from '@capacitor/core';
 import { culinaryDataBank, getDishImage, isStrictDishImage, cleanIngredientName } from '../data/culinaryData';
-import { fetchDishImageFromUnsplash } from '../services/unsplashService';
+import { getDishImageWaterfall } from '../services/imageWaterfallService';
 import { globalDishNames } from '../data/globalDishNames';
 import { generateRecipe, generateWeeklyPlan } from '../services/aiService';
 import useAppStore from '../store/useAppStore';
@@ -37,7 +37,7 @@ const MealCard = ({ meal, day, type, index, setViewingRecipe, handleEditClick, h
     const fetchImg = async () => {
       if (initialImageUrl && !initialImageUrl.includes('/assets/')) return;
       if (meal.title) {
-        const img = await fetchDishImageFromUnsplash(meal.title);
+        const img = await getDishImageWaterfall(meal.title);
         if (img) setUnsplashImage(img);
       }
     };
@@ -63,7 +63,7 @@ const MealCard = ({ meal, day, type, index, setViewingRecipe, handleEditClick, h
     }
 
     try {
-      const img = await fetchDishImageFromUnsplash(meal.title);
+      const img = await getDishImageWaterfall(meal.title);
       if (img) setUnsplashImage(img);
       else {
         e.target.style.display = 'none';
@@ -751,7 +751,7 @@ const WeeklyMealPlanner = () => {
               
               let img = m.img && !m.img.includes('/assets/') ? m.img : null;
               if (!img) {
-                img = await fetchDishImageFromUnsplash(m.title);
+                img = await getDishImageWaterfall(m.title);
               }
               
               // 2. Fallback to local only if Unsplash completely fails (no key or rate limited)

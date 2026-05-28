@@ -5,7 +5,7 @@ import useAppStore from '../store/useAppStore';
 import useTranslation from '../hooks/useTranslation';
 import TopAppBar from '../components/TopAppBar';
 import { getDishImage } from '../data/culinaryData';
-import { fetchDishImageFromUnsplash } from '../services/unsplashService';
+import { getDishImageWaterfall } from '../services/imageWaterfallService';
 
 const FavoriteCard = ({ recipe, index, onClick, onToggleSave }) => {
   const [unsplashImage, setUnsplashImage] = React.useState(null);
@@ -15,7 +15,7 @@ const FavoriteCard = ({ recipe, index, onClick, onToggleSave }) => {
       if (recipe.img && !recipe.img.includes('/assets/')) return; // Skip Unsplash if we have Wikipedia/DB image
       const title = recipe.title || recipe.dish_name;
       if (title) {
-        const img = await fetchDishImageFromUnsplash(title);
+        const img = await getDishImageWaterfall(title);
         if (img) setUnsplashImage(img);
       }
     };

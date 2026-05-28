@@ -6,7 +6,7 @@ import useAppStore from '../store/useAppStore';
 import { Capacitor } from '@capacitor/core';
 import { generateRecipe } from '../services/aiService';
 import { getDishImage, isStrictDishImage } from '../data/culinaryData';
-import { fetchDishImageFromUnsplash } from '../services/unsplashService';
+import { getDishImageWaterfall } from '../services/imageWaterfallService';
 
 const parseDetailedRecipe = (rawText) => {
   if (!rawText || typeof rawText !== 'string') return null;
@@ -245,7 +245,7 @@ const DetailedRecipeView = () => {
     window.scrollTo(0, 0);
     const fetchImg = async () => {
       if (recipe.img && !recipe.img.includes('/assets/')) return; // Skip Unsplash if we have Wikipedia/DB image
-      const img = await fetchDishImageFromUnsplash(recipe.title);
+      const img = await getDishImageWaterfall(recipe.title);
       if (img) setUnsplashImage(img);
     };
     fetchImg();
