@@ -29,49 +29,36 @@ const SourceBadge = ({ source }) => {
 };
 // ─── MealCard Component ───────────────────────────────────────────────────────
 const MealCard = ({ meal, day, type, index, setViewingRecipe, handleEditClick, handleDeleteMeal }) => {
-  const [unsplashImage, setUnsplashImage] = useState(null);
+  const [fetchedImage, setFetchedImage] = useState(null);
   const [imgError, setImgError] = useState(false);
+  
   const initialImageUrl = isStrictDishImage(meal.img) ? meal.img : null;
 
   useEffect(() => {
+    let mounted = true;
     const fetchImg = async () => {
-      if (initialImageUrl && !initialImageUrl.includes('/assets/')) return;
+      if (initialImageUrl) return;
       if (meal.title) {
         const img = await getDishImageWaterfall(meal.title);
-        if (img) setUnsplashImage(img);
+        if (mounted && img) setFetchedImage(img);
       }
     };
     fetchImg();
+    return () => { mounted = false; };
   }, [meal.title, initialImageUrl]);
 
-  const imageUrl = (initialImageUrl && !initialImageUrl.includes('/assets/') && !imgError)
+  const activeImageUrl = (!imgError && initialImageUrl)
     ? initialImageUrl
-    : (unsplashImage || getDishImage(meal.title));
+    : (!imgError && fetchedImage)
+      ? fetchedImage
+      : getDishImage(meal.title);
 
-  const handleError = async (e) => {
-    if (imgError) {
+  const handleError = (e) => {
+    if (activeImageUrl === getDishImage(meal.title)) {
       e.target.style.display = 'none';
       if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
-      return;
-    }
-    setImgError(true);
-    
-    if (imageUrl && imageUrl.includes('unsplash.com')) {
-      e.target.style.display = 'none';
-      if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
-      return;
-    }
-
-    try {
-      const img = await getDishImageWaterfall(meal.title);
-      if (img) setUnsplashImage(img);
-      else {
-        e.target.style.display = 'none';
-        if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
-      }
-    } catch (err) {
-      e.target.style.display = 'none';
-      if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
+    } else {
+      setImgError(true);
     }
   };
 
@@ -86,7 +73,7 @@ const MealCard = ({ meal, day, type, index, setViewingRecipe, handleEditClick, h
     >
       <div className="flex h-32">
         <div className="w-1/3 relative overflow-hidden bg-gradient-to-br from-primary/30 to-tertiary/30 flex items-center justify-center">
-          {(!imageUrl || imageUrl.includes('loremflickr.com')) ? (
+          {(!activeImageUrl || activeImageUrl.includes('loremflickr.com')) ? (
             <span className="text-on-surface text-4xl font-bold opacity-30 uppercase tracking-widest absolute flex items-center justify-center inset-0">
               {meal.title.charAt(0)}
             </span>
@@ -95,7 +82,7 @@ const MealCard = ({ meal, day, type, index, setViewingRecipe, handleEditClick, h
               <img 
                 alt={meal.title} 
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 absolute inset-0 z-10" 
-                src={imageUrl} 
+                src={activeImageUrl} 
                 onError={handleError}
               />
               <span className="text-on-surface text-4xl font-bold opacity-30 uppercase tracking-widest absolute inset-0 hidden items-center justify-center z-0">
