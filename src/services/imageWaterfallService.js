@@ -58,12 +58,20 @@ const fetchWikipediaImage = async (dishName) => {
 const fetchUnsplashImage = async (dishName) => {
   if (!UNSPLASH_ACCESS_KEY) return null;
   try {
-    const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(dishName + ' food dish')}&per_page=1&orientation=landscape`;
-    const response = await fetch(url, { headers: { 'Authorization': `Client-ID ${UNSPLASH_ACCESS_KEY}` } });
-    if (!response.ok) return null;
-    const data = await response.json();
-    if (data.results && data.results.length > 0) {
-      return data.results[0].urls.regular;
+    // Try query with "food" first for context
+    let url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(dishName + ' food')}&per_page=1&orientation=landscape`;
+    let response = await fetch(url, { headers: { 'Authorization': `Client-ID ${UNSPLASH_ACCESS_KEY}` } });
+    if (response.ok) {
+      let data = await response.json();
+      if (data.results && data.results.length > 0) return data.results[0].urls.regular;
+    }
+
+    // Fallback: try exact dish name if "food" yielded no results
+    url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(dishName)}&per_page=1&orientation=landscape`;
+    response = await fetch(url, { headers: { 'Authorization': `Client-ID ${UNSPLASH_ACCESS_KEY}` } });
+    if (response.ok) {
+      let data = await response.json();
+      if (data.results && data.results.length > 0) return data.results[0].urls.regular;
     }
   } catch (err) {
     console.warn('[Unsplash] Fetch failed:', err);
