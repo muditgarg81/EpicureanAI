@@ -3,7 +3,7 @@ import { supabase } from './supabaseClient';
 import { searchMealDB, searchSpoonacular } from './externalRecipeService';
 
 const UNSPLASH_ACCESS_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
-const CACHE_KEY = 'epicurean_waterfall_cache_v1';
+const CACHE_KEY = 'epicurean_waterfall_cache_v2';
 
 const getCachedImage = (dishName) => {
   try {

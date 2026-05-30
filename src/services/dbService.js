@@ -203,6 +203,7 @@ export const acceptInvite = async (inviteId, familyId) => {
 // Updated sync functions to use family_id context
 export const syncMealPlanToDb = async (plan, familyId) => {
   if (!familyId) return;
+  const user = useAuthStore.getState().user;
 
   // Save local backup first
   localStorage.setItem(`epicurean-meal-plan-${familyId}`, JSON.stringify(plan));
@@ -227,7 +228,7 @@ export const syncMealPlanToDb = async (plan, familyId) => {
   } else {
     result = await supabase
       .from('meal_plans')
-      .insert({ family_id: familyId, plan_data: plan });
+      .insert({ family_id: familyId, plan_data: plan, user_id: user?.id });
   }
     
   if (result.error) console.error("Error syncing meal plan to DB (using local fallback):", result.error);
