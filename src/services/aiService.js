@@ -11,39 +11,54 @@ const ai = new GoogleGenAI({
   apiKey: isValidApiKey ? rawApiKey.trim() : 'PLACEHOLDER_KEY',
 });
 
-/**
- * safeGenerateContent
- * Calls the correct @google/genai v2 method and tries a fallback chain of models.
- * @param {string} prompt
- * @param {string} primaryModel
- * @returns {Promise<string>} raw text response
- */
 const safeGenerateContent = async (prompt, primaryModel = 'gemini-2.5-flash') => {
-  // Ordered list of models to try: primary first, then fallbacks
   const modelsToTry = [
     primaryModel,
     'gemini-2.5-flash',
     'gemini-2.0-flash',
     'gemini-1.5-flash',
-    'gemini-1.5-flash-latest',
   ];
-  // Deduplicate while preserving order
   const uniqueModels = [...new Set(modelsToTry)];
 
   let lastError;
   for (const model of uniqueModels) {
     try {
       console.log(`[AI] Trying model: ${model}`);
-      const result = await ai.models.generateContent({
-        model,
-        contents: prompt,
-      });
-      // @google/genai v2 returns result.text directly
-      return result.text;
+      
+      // Try SDK first
+      try {
+        const result = await ai.models.generateContent({
+          model,
+          contents: prompt,
+        });
+        if (result && result.text) return result.text;
+      } catch (sdkError) {
+        console.warn(`[AI] SDK failed for model "${model}", falling back to REST API:`, sdkError.message);
+        
+        // Fallback to pure REST API (fixes Capacitor/Android WebView issues)
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${rawApiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }]
+          })
+        });
+        
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.error?.message || `HTTP error ${response.status}`);
+        }
+        
+        const data = await response.json();
+        if (data.candidates && data.candidates.length > 0 && data.candidates[0].content.parts.length > 0) {
+          return data.candidates[0].content.parts[0].text;
+        } else {
+          throw new Error("Invalid response format from REST API");
+        }
+      }
     } catch (error) {
-      console.warn(`[AI] Model "${model}" failed:`, error.message);
+      console.warn(`[AI] Model "${model}" failed completely:`, error.message);
       lastError = error;
-      // Don't retry on auth errors
       if (
         error.message?.includes('API key not valid') ||
         error.message?.includes('API_KEY_INVALID') ||
