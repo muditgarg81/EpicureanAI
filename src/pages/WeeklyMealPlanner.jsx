@@ -785,76 +785,19 @@ const WeeklyMealPlanner = () => {
   const currentMeals = mealPlan[selectedDay];
 
   const renderMealCard = (meal, day, type, index) => {
-    let safeImgUrl = isStrictDishImage(meal.img) ? meal.img : null;
-    if (!safeImgUrl) safeImgUrl = getDishImage(meal.title);
-
     return (
-      <motion.div 
-        key={meal.id}
-        layout
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        whileHover={{ y: -4, scale: 1.01 }}
-        onClick={() => setViewingRecipe(meal)}
-        className="group relative bg-surface-container-high rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all border-l-4 border-primary cursor-pointer"
-      >
-        <div className="flex h-32">
-          <div className="w-1/3 relative overflow-hidden bg-gradient-to-br from-primary/30 to-tertiary/30 flex items-center justify-center">
-            {(!safeImgUrl || safeImgUrl.includes('loremflickr.com')) ? (
-              <span className="text-on-surface text-4xl font-bold opacity-30 uppercase tracking-widest absolute flex items-center justify-center inset-0">
-                {meal.title.charAt(0)}
-              </span>
-            ) : (
-              <>
-                <img 
-                  alt={meal.title} 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 absolute inset-0 z-10" 
-                  src={safeImgUrl} 
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
-                  }}
-                />
-                <span className="text-on-surface text-4xl font-bold opacity-30 uppercase tracking-widest absolute inset-0 hidden items-center justify-center z-0">
-                  {meal.title.charAt(0)}
-                </span>
-              </>
-            )}
-          </div>
-        <div className="w-2/3 p-4 flex flex-col justify-between">
-          <div>
-            <h3 className="font-headline-md text-body-lg text-on-surface line-clamp-2 leading-tight mb-1 group-hover:text-primary transition-colors">{meal.title}</h3>
-            <p className="text-label-sm font-label-sm text-on-surface-variant">{meal.time} • {meal.calories} kcal</p>
-          </div>
-          <div className="flex gap-2">
-            {meal.tags.map((tag, i) => (
-              <span key={i} className="px-2 py-0.5 bg-primary/10 text-primary rounded text-label-sm font-label-sm">{tag}</span>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-      
-      {/* Action Overlays - keeping edit/delete buttons separate but accessible */}
-      <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity z-10">
-        <button 
-          onClick={(e) => { e.stopPropagation(); handleEditClick(day, type, index); }}
-          className="w-8 h-8 rounded-full bg-white/90 backdrop-blur shadow-sm text-on-surface flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all"
-          title="Edit Meal"
-        >
-          <span className="material-symbols-outlined text-[18px]">edit</span>
-        </button>
-        <button 
-          onClick={(e) => { e.stopPropagation(); handleDeleteMeal(day, type, index); }}
-          className="w-8 h-8 rounded-full bg-white/90 backdrop-blur shadow-sm text-error flex items-center justify-center hover:bg-error hover:text-on-error transition-all"
-          title="Delete Meal"
-        >
-          <span className="material-symbols-outlined text-[18px]">delete</span>
-        </button>
-      </div>
-    </motion.div>
-  );
-};
+      <MealCard 
+        key={meal.id || `${day}-${type}-${index}`}
+        meal={meal}
+        day={day}
+        type={type}
+        index={index}
+        setViewingRecipe={setViewingRecipe}
+        handleEditClick={handleEditClick}
+        handleDeleteMeal={handleDeleteMeal}
+      />
+    );
+  };
 
   const renderMealSection = (title, type, colorClass) => (
     <div key={type}>
