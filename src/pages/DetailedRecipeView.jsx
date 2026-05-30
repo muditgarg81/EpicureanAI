@@ -241,17 +241,19 @@ const DetailedRecipeView = () => {
   const [unsplashImage, setUnsplashImage] = useState(null);
   const isSaved = savedRecipes.some(r => r.title === recipe.title);
 
+  const isRealImage = recipe.img && isStrictDishImage(recipe.img) && !recipe.img.includes('/assets/');
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
     const fetchImg = async () => {
-      if (recipe.img && !recipe.img.includes('/assets/')) return; // Skip Unsplash if we have Wikipedia/DB image
+      if (isRealImage) return; // Skip if we have Wikipedia/DB image
       const img = await getDishImageWaterfall(recipe.title);
       if (img) setUnsplashImage(img);
     };
     fetchImg();
-  }, [recipe.title, recipe.img]);
+  }, [recipe.title, isRealImage]);
 
-  const displayImage = (recipe.img && !recipe.img.includes('/assets/')) ? recipe.img : (unsplashImage || recipe.img);
+  const displayImage = isRealImage ? recipe.img : (unsplashImage || recipe.img);
 
   const shareText = `Check out this delicious recipe: ${recipe.title}\nPrep Time: ${recipe.prepTime}\nCalories: ${recipe.calories} cal\nIngredients:\n${recipe.ingredients.map(i => `- ${i}`).join('\n')}\n\nPrepared using Epicurean Global AI Kitchen Coach!`;
 

@@ -4,15 +4,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import useAppStore from '../store/useAppStore';
 import useTranslation from '../hooks/useTranslation';
 import TopAppBar from '../components/TopAppBar';
-import { getDishImage } from '../data/culinaryData';
+import { getDishImage, isStrictDishImage } from '../data/culinaryData';
 import { getDishImageWaterfall } from '../services/imageWaterfallService';
 
 const FavoriteCard = ({ recipe, index, onClick, onToggleSave }) => {
   const [unsplashImage, setUnsplashImage] = React.useState(null);
 
+  const isRealImage = recipe.img && isStrictDishImage(recipe.img) && !recipe.img.includes('/assets/');
+
   React.useEffect(() => {
     const fetchImg = async () => {
-      if (recipe.img && !recipe.img.includes('/assets/')) return; // Skip Unsplash if we have Wikipedia/DB image
+      if (isRealImage) return; // Skip if we have Wikipedia/DB image
       const title = recipe.title || recipe.dish_name;
       if (title) {
         const img = await getDishImageWaterfall(title);
@@ -20,9 +22,9 @@ const FavoriteCard = ({ recipe, index, onClick, onToggleSave }) => {
       }
     };
     fetchImg();
-  }, [recipe]);
+  }, [recipe.title, recipe.dish_name, isRealImage]);
 
-  const displayImage = (recipe.img && !recipe.img.includes('/assets/')) ? recipe.img : (unsplashImage || recipe.img);
+  const displayImage = isRealImage ? recipe.img : (unsplashImage || recipe.img);
   
   return (
     <motion.div

@@ -1053,11 +1053,13 @@ const RecipeCard = ({ recipe, index, isSaved, onOpen, onSave }) => {
   const [unsplashImage, setUnsplashImage] = useState(null);
   const gradient = CARD_GRADIENTS[index % CARD_GRADIENTS.length];
   const flag     = getCuisineFlag(recipe.cuisine);
-  const initialImageUrl = cleanImageUrl(recipe.image_url) || cleanImageUrl(recipe.thumbnail) || getDishImage(recipe.dish_name || recipe.title || 'recipe', index);
+  const fallbackImg = getDishImage(recipe.dish_name || recipe.title || 'recipe', index);
+  const initialImageUrl = cleanImageUrl(recipe.image_url) || cleanImageUrl(recipe.thumbnail) || cleanImageUrl(fallbackImg);
 
   useEffect(() => {
     const fetchImg = async () => {
-      if (initialImageUrl && !initialImageUrl.includes('/assets/')) return; // Skip Unsplash if we have Wikipedia/DB image
+      // initialImageUrl is guaranteed to be a real image if it exists because of cleanImageUrl.
+      if (initialImageUrl) return; 
       const title = recipe.dish_name || recipe.title;
       if (title) {
         const img = await getDishImageWaterfall(title);
@@ -1067,8 +1069,8 @@ const RecipeCard = ({ recipe, index, isSaved, onOpen, onSave }) => {
     fetchImg();
   }, [recipe.dish_name, recipe.title, initialImageUrl]);
 
-  // Use Wikipedia/DB image first, fallback to Unsplash, then local assets
-  const imageUrl = (initialImageUrl && !initialImageUrl.includes('/assets/')) ? initialImageUrl : (unsplashImage || initialImageUrl);
+  // Use Wikipedia/DB image first, fallback to Unsplash, then generic fallback
+  const imageUrl = initialImageUrl || unsplashImage || fallbackImg;
 
   return (
     <motion.div
@@ -1076,7 +1078,7 @@ const RecipeCard = ({ recipe, index, isSaved, onOpen, onSave }) => {
         hidden:  { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
       }}
-      onClick={() => onOpen(recipe)}
+      onClick={() => onOpen({ ...recipe, resolved_image: imageUrl })}
       className="rounded-2xl overflow-hidden cursor-pointer group shadow-sm hover:shadow-xl transition-shadow duration-300 bg-[#fcf2e3] border border-[#d1c5ad]/40"
     >
       {/* Card image / gradient */}
@@ -1209,9 +1211,9 @@ const RecipeModal = ({ recipe, isSaved, onClose, onSave, onStartCooking }) => {
       >
         {/* Modal image header */}
         <div className="relative h-52 flex-shrink-0 bg-gradient-to-br from-amber-500 to-orange-700">
-          {recipe.image_url && (
+          {(recipe.resolved_image || recipe.image_url) && (
             <img
-              src={recipe.image_url}
+              src={recipe.resolved_image || recipe.image_url}
               alt={recipe.dish_name}
               className="absolute inset-0 w-full h-full object-cover"
             />
