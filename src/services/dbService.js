@@ -27,7 +27,7 @@ export const syncProfileToDb = async (profile, activePlan = null, dietaryRestric
   if (error) {
     console.error("Error syncing profile to DB, trying fallback:", error);
     // Always try fallback using update and stripping problematic columns
-    const { activePlan: _ap, id: _id, created_at: _ca, updated_at: _ua, ...safeProfile } = payload;
+    const { activePlan: _ap, cuisines: _c, onboarded: _o, id: _id, created_at: _ca, updated_at: _ua, ...safeProfile } = payload;
     const { error: fallbackError } = await supabase
       .from('profiles')
       .update(safeProfile)
@@ -286,12 +286,19 @@ export const syncFamilyMembersToDb = async (members, familyId) => {
     .upsert({ family_id: familyId, members: members }, { onConflict: 'family_id' });
     
   if (error) {
-    console.error("Error syncing family members to DB (using local fallback):", error);
-    if (error.code === '22P02' || (error.message && error.message.includes('syntax'))) {
-      const stringifiedMembers = members.map(m => typeof m === 'object' ? JSON.stringify(m) : m);
+    console.error("Error syncing family members to DB (trying fallback):", error);
+    // Unconditionally try stringified fallback
+    const stringifiedMembers = members.map(m => typeof m === 'object' ? JSON.stringify(m) : m);
+    const { error: fallbackErr } = await supabase
+      .from('family_members_data')
+      .upsert({ family_id: familyId, members: stringifiedMembers }, { onConflict: 'family_id' });
+      
+    if (fallbackErr) {
+      console.error("Stringified upsert also failed, trying raw update fallback:", fallbackErr);
       await supabase
         .from('family_members_data')
-        .upsert({ family_id: familyId, members: stringifiedMembers }, { onConflict: 'family_id' });
+        .update({ members: stringifiedMembers })
+        .eq('family_id', familyId);
     }
   }
 };
