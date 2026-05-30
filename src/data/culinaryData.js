@@ -1753,7 +1753,8 @@ export const isStrictDishImage = (url) => {
     'photo-1565299624946-b28f40a0ae38', 'photo-1484723091739-30a097e8f929',
     'photo-1482049016688-2d3e1b311543', 'photo-1512621776951-a57141f2eefd',
     'photo-1473093295043-cdd812d0e601', 'photo-1476224203421-9ac39bcb3327',
-    '1604908176997-125f25cc6f3d'
+    '1604908176997-125f25cc6f3d', 'photo-1546069901-ba9599a7e63c',
+    'photo-1517673132405-a56a62b18caf'
   ];
   if (genericIds.some(id => url.includes(id))) return false;
   

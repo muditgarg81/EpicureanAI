@@ -285,7 +285,7 @@ export const generateWeeklyPlan = async (dietaryRestrictions = [], cuisinePrefer
           tags: tags,
           ingredients: ingredientsArray,
           instructions: instructionsArray,
-          img: recipe.image_url || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'
+          img: recipe.image_url || null
         });
       };
       
