@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { initiateCheckout } from '../services/razorpayService';
 import useAppStore from '../store/useAppStore';
+import useAuthStore from '../store/useAuthStore';
+import { supabase } from '../services/supabaseClient';
 
 const SecureCheckout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const setActivePlan = useAppStore(state => state.setActivePlan);
+  const user = useAuthStore(state => state.user);
   const [promoCode, setPromoCode] = useState('');
   const [promoApplied, setPromoApplied] = useState(false);
+  const [isEligibleForTrial, setIsEligibleForTrial] = useState(false);
+  const [checkingTrial, setCheckingTrial] = useState(true);
 
   const targetPlanName = location.state?.planName || 'Savor';
 
@@ -53,9 +58,47 @@ const SecureCheckout = () => {
     }
   }[activePlanKey];
 
-  const handlePayment = () => {
+  useEffect(() => {
+    const checkTrial = async () => {
+      if (!user?.email || activePlanKey === 'Taste') {
+        setCheckingTrial(false);
+        return;
+      }
+      
+      try {
+        const { data, error } = await supabase
+          .from('free_trials')
+          .select('email')
+          .eq('email', user.email)
+          .maybeSingle();
+          
+        if (!error && !data) {
+          setIsEligibleForTrial(true);
+        }
+      } catch (e) {
+        console.error("Error checking trial", e);
+      }
+      setCheckingTrial(false);
+    };
+    checkTrial();
+  }, [user, activePlanKey]);
+
+  const handlePayment = async () => {
     if (planInfo.total === 0 || promoApplied) {
       setActivePlan(activePlanKey);
+      navigate('/success', { state: { planName: activePlanKey } });
+      return;
+    }
+
+    if (isEligibleForTrial && !promoApplied) {
+      // Record trial usage
+      await supabase.from('free_trials').insert({ email: user.email });
+      
+      // Calculate 30 days from now
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + 30);
+      
+      setActivePlan(activePlanKey, expiresAt.toISOString());
       navigate('/success', { state: { planName: activePlanKey } });
       return;
     }
@@ -202,9 +245,13 @@ const SecureCheckout = () => {
                 </div>
 
                 {/* CTA Button */}
-                <button onClick={handlePayment} className="w-full mt-lg h-14 bg-primary text-on-primary rounded-full font-label-md text-label-md flex items-center justify-center gap-2 shadow-lg hover:opacity-90 active:scale-[0.98] transition-all">
-                  <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>
-                  {promoApplied ? 'Get Access Now' : 'Secure Checkout'}
+                <button disabled={checkingTrial} onClick={handlePayment} className="w-full mt-lg h-14 bg-primary text-on-primary rounded-full font-label-md text-label-md flex items-center justify-center gap-2 shadow-lg hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                  {checkingTrial ? (
+                    <span className="material-symbols-outlined animate-spin">refresh</span>
+                  ) : (
+                    <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>
+                  )}
+                  {checkingTrial ? 'Checking...' : promoApplied ? 'Get Access Now' : isEligibleForTrial ? 'Start 30-Day Free Trial' : 'Secure Checkout'}
                 </button>
                 <p className="text-center mt-md font-label-sm text-label-sm text-outline">
                   By clicking, you agree to our <Link to="/terms" className="text-primary hover:underline font-bold">Terms of Service</Link>.

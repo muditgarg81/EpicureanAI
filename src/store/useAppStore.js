@@ -355,8 +355,11 @@ const useAppStore = create(
       },
 
       activePlan: 'Taste', // 'Taste', 'Savor', or 'Feast'
-      setActivePlan: async (activePlan) => {
+      setActivePlan: async (activePlan, expiresAt = null) => {
         set({ activePlan });
+        if (expiresAt) {
+          set(state => ({ userProfile: { ...state.userProfile, plan_expires_at: expiresAt } }));
+        }
         const { userProfile, dietaryRestrictions } = get();
         await syncProfileToDb(userProfile, activePlan, dietaryRestrictions);
       },

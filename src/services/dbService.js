@@ -79,6 +79,17 @@ export const fetchProfileFromDb = async () => {
   }
 
   if (!merged.activePlan) merged.activePlan = 'Taste';
+  
+  if (merged.plan_expires_at && new Date(merged.plan_expires_at) < new Date()) {
+    merged.activePlan = 'Taste';
+    merged.plan_expires_at = null;
+    try {
+      await supabase.from('profiles').update({ activePlan: 'Taste', plan_expires_at: null }).eq('id', user.id);
+    } catch(e) {
+      console.error("Failed to downgrade expired plan", e);
+    }
+  }
+
   return Object.keys(merged).length > 0 ? merged : null;
 };
 

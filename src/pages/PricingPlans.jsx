@@ -149,7 +149,7 @@ const PricingPlans = () => {
               </div>
               <p className="text-secondary font-label-sm text-label-sm mt-1 flex items-center gap-1">
                 <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
-                Includes 7-day free trial
+                Includes 30-day free trial
               </p>
             </div>
             <ul className="space-y-4 mb-10 flex-grow">
@@ -175,7 +175,7 @@ const PricingPlans = () => {
               </li>
             </ul>
             <Link to="/checkout" state={{ planName: 'Savor' }} className="w-full h-12 flex items-center justify-center bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-md hover:opacity-90 transition-opacity active:scale-95">
-              Start 7-Day Free Trial
+              Start 30-Day Free Trial
             </Link>
           </div>
 
@@ -192,7 +192,7 @@ const PricingPlans = () => {
               </div>
               <p className="text-secondary font-label-sm text-label-sm mt-1 flex items-center gap-1">
                 <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
-                Includes 7-day free trial
+                Includes 30-day free trial
               </p>
             </div>
             <ul className="space-y-4 mb-10 flex-grow">
