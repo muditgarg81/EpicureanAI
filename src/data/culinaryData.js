@@ -1756,6 +1756,10 @@ export const isStrictDishImage = (url) => {
     '1604908176997-125f25cc6f3d'
   ];
   if (genericIds.some(id => url.includes(id))) return false;
+  
+  // Reject local fallback images
+  if (url.includes('/assets/dishes/')) return false;
+
   return true;
 };
 
