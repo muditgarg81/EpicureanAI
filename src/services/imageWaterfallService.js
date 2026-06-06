@@ -146,15 +146,24 @@ export const getDishImageWaterfall = async (dishName) => {
   finalUrl = await fetchWikipediaImage(dishName);
   source = 'wikipedia';
 
+  // Format search query: last word is the basic dish, preceding words are variations
+  const words = searchName.split(/\s+/);
+  let optimizedSearchName = searchName;
+  if (words.length > 1) {
+    const baseDish = words.pop(); // Remove and get the last word
+    const variations = words.join(' ');
+    optimizedSearchName = `${baseDish} ${variations}`;
+  }
+
   // Try Unsplash
   if (!finalUrl) {
-    finalUrl = await fetchUnsplashImage(searchName);
+    finalUrl = await fetchUnsplashImage(optimizedSearchName);
     source = 'unsplash';
   }
 
   // Try MealDB
   if (!finalUrl) {
-    const meals = await searchMealDB(searchName);
+    const meals = await searchMealDB(optimizedSearchName);
     if (meals && meals.length > 0 && meals[0].thumbnail) {
       finalUrl = meals[0].thumbnail;
       source = 'mealdb';
@@ -163,7 +172,7 @@ export const getDishImageWaterfall = async (dishName) => {
 
   // Try Spoonacular
   if (!finalUrl) {
-    const spoons = await searchSpoonacular(searchName, 1);
+    const spoons = await searchSpoonacular(optimizedSearchName, 1);
     if (spoons && spoons.length > 0 && spoons[0].thumbnail) {
       finalUrl = spoons[0].thumbnail;
       source = 'spoonacular';
@@ -172,13 +181,13 @@ export const getDishImageWaterfall = async (dishName) => {
 
   // Try Pexels
   if (!finalUrl) {
-    finalUrl = await fetchPexelsImage(searchName);
+    finalUrl = await fetchPexelsImage(optimizedSearchName);
     if (finalUrl) source = 'pexels';
   }
 
   // Try Pixabay
   if (!finalUrl) {
-    finalUrl = await fetchPixabayImage(searchName);
+    finalUrl = await fetchPixabayImage(optimizedSearchName);
     if (finalUrl) source = 'pixabay';
   }
 
