@@ -3,6 +3,8 @@ import { supabase } from './supabaseClient';
 import { searchMealDB, searchSpoonacular } from './externalRecipeService';
 
 const UNSPLASH_ACCESS_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
+const PEXELS_API_KEY = import.meta.env.VITE_PEXELS_API_KEY;
+const PIXABAY_API_KEY = import.meta.env.VITE_PIXABAY_API_KEY;
 const CACHE_KEY = 'epicurean_waterfall_cache_v2';
 
 const getCachedImage = (dishName) => {
@@ -79,6 +81,36 @@ const fetchUnsplashImage = async (dishName) => {
   return null;
 };
 
+const fetchPexelsImage = async (dishName) => {
+  if (!PEXELS_API_KEY) return null;
+  try {
+    const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(dishName + ' food')}&per_page=1&orientation=landscape`;
+    const response = await fetch(url, { headers: { 'Authorization': PEXELS_API_KEY } });
+    if (response.ok) {
+      const data = await response.json();
+      if (data.photos && data.photos.length > 0) return data.photos[0].src.large || data.photos[0].src.original;
+    }
+  } catch (err) {
+    console.warn('[Pexels] Fetch failed:', err);
+  }
+  return null;
+};
+
+const fetchPixabayImage = async (dishName) => {
+  if (!PIXABAY_API_KEY) return null;
+  try {
+    const url = `https://pixabay.com/api/?key=${encodeURIComponent(PIXABAY_API_KEY)}&q=${encodeURIComponent(dishName + ' food')}&image_type=photo&per_page=3&orientation=horizontal`;
+    const response = await fetch(url);
+    if (response.ok) {
+      const data = await response.json();
+      if (data.hits && data.hits.length > 0) return data.hits[0].largeImageURL || data.hits[0].webformatURL;
+    }
+  } catch (err) {
+    console.warn('[Pixabay] Fetch failed:', err);
+  }
+  return null;
+};
+
 export const getDishImageWaterfall = async (dishName) => {
   if (!dishName) return null;
   const cleanName = dishName.toLowerCase().trim();
@@ -136,6 +168,18 @@ export const getDishImageWaterfall = async (dishName) => {
       finalUrl = spoons[0].thumbnail;
       source = 'spoonacular';
     }
+  }
+
+  // Try Pexels
+  if (!finalUrl) {
+    finalUrl = await fetchPexelsImage(searchName);
+    if (finalUrl) source = 'pexels';
+  }
+
+  // Try Pixabay
+  if (!finalUrl) {
+    finalUrl = await fetchPixabayImage(searchName);
+    if (finalUrl) source = 'pixabay';
   }
 
   // 4. Save successful result to DB and Cache
