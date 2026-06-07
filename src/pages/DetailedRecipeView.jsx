@@ -255,7 +255,11 @@ const DetailedRecipeView = () => {
 
   const displayImage = isRealImage ? recipe.img : (unsplashImage || recipe.img);
 
-  const shareText = `Check out this delicious recipe: ${recipe.title}\nPrep Time: ${recipe.prepTime}\nCalories: ${recipe.calories} cal\nIngredients:\n${recipe.ingredients.map(i => `- ${i}`).join('\n')}\n\nPrepared using Epicurean Global AI Kitchen Coach!`;
+  const stepsText = recipe.instructions && recipe.instructions.length > 0 
+    ? `\n\nInstructions:\n${recipe.instructions.map((step, idx) => `${idx + 1}. ${step.replace(/\*\*/g, '')}`).join('\n\n')}`
+    : '';
+
+  const shareText = `Check out this delicious recipe: ${recipe.title}\nPrep Time: ${recipe.prepTime}\nCalories: ${recipe.calories} cal\n\nIngredients:\n${recipe.ingredients.map(i => `- ${i}`).join('\n')}${stepsText}\n\nPrepared using Epicurean Global AI Kitchen Coach!`;
 
   const triggerToast = (msg) => {
     setToastMessage(msg);
