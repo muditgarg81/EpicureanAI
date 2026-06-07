@@ -92,7 +92,8 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
   const pageSize = 40;
   const lowerQuery = query.toLowerCase();
   
-  const isGeneric = ['vegetarian', 'vegan', 'gluten', 'spicy', 'cuisine', 'meals', 'recipes', 'dishes', 'world', 'global', 'easy', 'quick'].some(w => lowerQuery.includes(w)) && ingredients.length === 0;
+  const genericKeywords = ['vegetarian', 'vegan', 'gluten', 'spicy', 'cuisine', 'meals', 'recipes', 'dishes', 'world', 'global', 'easy', 'quick', 'anything', 'surprise me', 'you decide', 'dont know', "don't know", 'whatever', 'random', 'decide for me'];
+  const isGeneric = genericKeywords.some(w => lowerQuery.includes(w)) && ingredients.length === 0;
 
   // dietary to supabase columns
   const dbFilters = {};

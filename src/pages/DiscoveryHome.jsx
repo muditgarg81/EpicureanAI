@@ -212,6 +212,7 @@ const HINT_QUERIES = [
 ];
 
 const HINT_CHIPS = [
+  { label: '🎲 Surprise me', query: 'surprise me' },
   { label: '🥗 Vegetarian', query: 'vegetarian recipes' },
   { label: '⚡ Quick meals', query: 'quick meals under 20 mins' },
   { label: '🌶 Spicy',       query: 'spicy dishes' },
@@ -331,19 +332,28 @@ const DiscoveryHome = () => {
     const query = (rawQuery || searchQuery).trim();
     if (!query) return;
 
+    const isRandomIntent = /anything|surprise me|you decide|dont know|don't know|whatever|random|decide for me/i.test(query);
+
     setIsSearching(true);
     setShowResults(true);
     setSearchError(null);
     setResults([]);
-    setPage(1);
+    
+    // Pick a random starting page between 1 and 50 if the user doesn't know what they want
+    const startPage = isRandomIntent ? Math.floor(Math.random() * 50) + 1 : 1;
+    setPage(startPage);
+    
     setHasMore(false);
     addSearchToHistory(query);
     setHasSearched(true);
     setPredictions([]);
 
     try {
-      const { ingredients, maxTime, dietary } = parseQuery(query);
-      const { results: uniqueRecipes, hasMore: more } = await getUnifiedFullSearch(query, { ingredients, dietary, maxTime }, 1);
+      const { ingredients: rawIngredients, maxTime, dietary } = parseQuery(query);
+      // If it's a random intent, clear ingredients so we don't accidentally text-search for "surprise"
+      const ingredients = isRandomIntent ? [] : rawIngredients;
+
+      const { results: uniqueRecipes, hasMore: more } = await getUnifiedFullSearch(query, { ingredients, dietary, maxTime }, startPage);
 
       // ── Apply strict allergy and dietary filter on merged list ──
       const activeRestrictions = [
@@ -372,7 +382,11 @@ const DiscoveryHome = () => {
         score: ingredients.length === 0 ? 500 : getSearchRelevanceScore(recipe, query, ingredients)
       })).filter(item => item.score > 0);
 
-      const sortedRecipes = scoredRecipes.sort((a, b) => b.score - a.score).map(item => item.recipe);
+      let sortedRecipes = scoredRecipes.sort((a, b) => b.score - a.score).map(item => item.recipe);
+
+      if (isRandomIntent) {
+        sortedRecipes = sortedRecipes.sort(() => Math.random() - 0.5);
+      }
 
       setResults(sortedRecipes);
       setHasMore(more);
@@ -398,7 +412,10 @@ const DiscoveryHome = () => {
     setIsLoadingMore(true);
     try {
       const nextPage = page + 1;
-      const { ingredients, maxTime, dietary } = parseQuery(searchQuery);
+      const { ingredients: rawIngredients, maxTime, dietary } = parseQuery(searchQuery);
+      const isRandomIntent = /anything|surprise me|you decide|dont know|don't know|whatever|random|decide for me/i.test(searchQuery);
+      const ingredients = isRandomIntent ? [] : rawIngredients;
+      
       const { results: newRecipes, hasMore: more } = await getUnifiedFullSearch(searchQuery, { ingredients, dietary, maxTime }, nextPage);
       
       const activeRestrictions = [
@@ -424,7 +441,11 @@ const DiscoveryHome = () => {
         score: ingredients.length === 0 ? 500 : getSearchRelevanceScore(recipe, searchQuery, ingredients)
       })).filter(item => item.score > 0);
 
-      const sortedRecipes = scoredRecipes.sort((a, b) => b.score - a.score).map(item => item.recipe);
+      let sortedRecipes = scoredRecipes.sort((a, b) => b.score - a.score).map(item => item.recipe);
+
+      if (isRandomIntent) {
+        sortedRecipes = sortedRecipes.sort(() => Math.random() - 0.5);
+      }
 
       setResults(prev => {
         const existingIds = new Set(prev.map(r => r.id));
