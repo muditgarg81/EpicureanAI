@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 import TopAppBar from './components/TopAppBar';
 import BottomNavBar from './components/BottomNavBar';
 import PageTransition from './components/PageTransition';
+import HealthModal from './components/HealthModal';
 
 import DiscoveryHome from './pages/DiscoveryHome';
 import OnboardingWelcome from './pages/OnboardingWelcome';
@@ -133,6 +134,7 @@ function AppContent() {
         </Routes>
       </AnimatePresence>
       {showNav && <BottomNavBar />}
+      <HealthModal />
     </div>
   );
 }

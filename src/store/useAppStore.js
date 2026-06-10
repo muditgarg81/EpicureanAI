@@ -411,6 +411,12 @@ const useAppStore = create(
         syncProfileToDb(userProfile, activePlan, newRestrictions);
       },
 
+      // Health Goals & Modal
+      healthGoals: { calories: '', fitnessGoal: 'General Health', glucoseTarget: '' },
+      setHealthGoals: (goals) => set({ healthGoals: goals }),
+      isHealthModalOpen: false,
+      setHealthModalOpen: (isOpen) => set({ isHealthModalOpen: isOpen }),
+
       // AI Context & Recommendations
       searchHistory: [],
       addSearchToHistory: (query) => set((state) => {
@@ -504,6 +510,8 @@ const useAppStore = create(
         activePlan: 'Taste',
         dailyRecipeCount: 0,
         lastRecipeResetDate: '',
+        healthGoals: { calories: '', fitnessGoal: 'General Health', glucoseTarget: '' },
+        isHealthModalOpen: false,
         mealPlan: {
           weekCommencing: getWeekCommencingDate(),
           MON: { breakfast: [], lunch: [], dinner: [] },

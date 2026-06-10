@@ -228,6 +228,16 @@ const TopAppBar = ({ title = "Modern Kitchen" }) => {
                   <span className="material-icons text-secondary group-hover:text-on-secondary-container">account_circle</span>
                   <span className="font-label-lg text-label-lg font-medium">{t('mastery_profile')}</span>
                 </Link>
+                <button 
+                  onClick={() => { 
+                    setIsMenuOpen(false); 
+                    useAppStore.getState().setHealthModalOpen(true); 
+                  }} 
+                  className="flex items-center gap-4 p-4 rounded-xl hover:bg-secondary-container text-on-surface group transition-colors text-left w-full"
+                >
+                  <span className="material-icons text-secondary group-hover:text-on-secondary-container">monitor_heart</span>
+                  <span className="font-label-lg text-label-lg font-medium">{t('health_nutrition') || 'Health & Nutrition'}</span>
+                </button>
                 <Link to="/voice-coach" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-4 p-4 rounded-xl hover:bg-secondary-container text-on-surface group transition-colors">
                   <span className="material-icons text-secondary group-hover:text-on-secondary-container">mic</span>
                   <span className="font-label-lg text-label-lg font-medium">{t('coach')}</span>
