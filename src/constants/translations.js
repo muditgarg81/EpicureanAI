@@ -73,7 +73,10 @@ export const translations = {
     pause_ai: "Pause AI",
     resume_ai: "Resume AI",
     completion_msg: "You have completed all steps. Enjoy your meal!",
-    visual_ref: "Visual Reference"
+    visual_ref: "Visual Reference",
+    favorites: "Favorites",
+    health_nutrition: "Health & Nutrition",
+    legal_policies: "Legal Policies"
   },
   Spanish: {
     explore: "Explorar",
