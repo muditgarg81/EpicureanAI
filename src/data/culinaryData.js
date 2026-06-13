@@ -1685,7 +1685,7 @@ export const culinaryDataBank = {
 
 export const getDishImage = (dish, index = 0) => {
   if (!dish || typeof dish !== 'string') {
-    return 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80';
+    return null;
   }
 
   // Clean of descriptive prefixes/suffixes to avoid pollution
