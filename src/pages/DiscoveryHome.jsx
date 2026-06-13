@@ -367,8 +367,17 @@ const DiscoveryHome = () => {
         filterRecipeByAllergiesAndRestrictions(recipe, activeRestrictions)
       );
 
+      // Apply Health Goals Filter
+      const { healthGoals } = useAppStore.getState();
+      const healthFiltered = allergyFiltered.filter(recipe => {
+        if (healthGoals?.calories && recipe.calories && recipe.calories > Number(healthGoals.calories)) return false;
+        const textToSearch = (recipe.dish_name + ' ' + (recipe.description || '') + ' ' + (recipe.full_ingredients || '')).toLowerCase();
+        if (healthGoals?.glucoseTarget && /pasta|rice|bread|potato|sugar|honey/i.test(textToSearch)) return false;
+        return true;
+      });
+
       // Filter by time limit client-side for web recipes if needed
-      const finalRecipes = allergyFiltered.filter(recipe => {
+      const finalRecipes = healthFiltered.filter(recipe => {
         if (maxTime && recipe.total_time_min) {
           return recipe.total_time_min <= maxTime;
         }
@@ -386,6 +395,30 @@ const DiscoveryHome = () => {
 
       if (isRandomIntent) {
         sortedRecipes = sortedRecipes.sort(() => Math.random() - 0.5);
+      }
+
+      // --- Batch Fetch Missing Images from Supabase ---
+      const missingImages = sortedRecipes.filter(r => !cleanImageUrl(r.image_url) && !cleanImageUrl(r.thumbnail)).map(r => r.dish_name);
+      if (missingImages.length > 0) {
+        try {
+          const { data: imgData } = await supabase
+            .from('dish_images')
+            .select('dish_name, image_url')
+            .in('dish_name', missingImages);
+          
+          if (imgData && imgData.length > 0) {
+            const imgMap = {};
+            imgData.forEach(img => { imgMap[img.dish_name] = img.image_url; });
+            sortedRecipes = sortedRecipes.map(r => {
+              if (imgMap[r.dish_name]) {
+                return { ...r, image_url: imgMap[r.dish_name] };
+              }
+              return r;
+            });
+          }
+        } catch (e) {
+          console.warn("Failed to batch fetch images:", e);
+        }
       }
 
       setResults(sortedRecipes);
@@ -429,7 +462,16 @@ const DiscoveryHome = () => {
         filterRecipeByAllergiesAndRestrictions(recipe, activeRestrictions)
       );
 
-      const finalRecipes = allergyFiltered.filter(recipe => {
+      // Apply Health Goals Filter
+      const { healthGoals } = useAppStore.getState();
+      const healthFiltered = allergyFiltered.filter(recipe => {
+        if (healthGoals?.calories && recipe.calories && recipe.calories > Number(healthGoals.calories)) return false;
+        const textToSearch = (recipe.dish_name + ' ' + (recipe.description || '') + ' ' + (recipe.full_ingredients || '')).toLowerCase();
+        if (healthGoals?.glucoseTarget && /pasta|rice|bread|potato|sugar|honey/i.test(textToSearch)) return false;
+        return true;
+      });
+
+      const finalRecipes = healthFiltered.filter(recipe => {
         if (maxTime && recipe.total_time_min) {
           return recipe.total_time_min <= maxTime;
         }
@@ -445,6 +487,30 @@ const DiscoveryHome = () => {
 
       if (isRandomIntent) {
         sortedRecipes = sortedRecipes.sort(() => Math.random() - 0.5);
+      }
+
+      // --- Batch Fetch Missing Images from Supabase ---
+      const missingImages = sortedRecipes.filter(r => !cleanImageUrl(r.image_url) && !cleanImageUrl(r.thumbnail)).map(r => r.dish_name);
+      if (missingImages.length > 0) {
+        try {
+          const { data: imgData } = await supabase
+            .from('dish_images')
+            .select('dish_name, image_url')
+            .in('dish_name', missingImages);
+          
+          if (imgData && imgData.length > 0) {
+            const imgMap = {};
+            imgData.forEach(img => { imgMap[img.dish_name] = img.image_url; });
+            sortedRecipes = sortedRecipes.map(r => {
+              if (imgMap[r.dish_name]) {
+                return { ...r, image_url: imgMap[r.dish_name] };
+              }
+              return r;
+            });
+          }
+        } catch (e) {
+          console.warn("Failed to batch fetch images:", e);
+        }
       }
 
       setResults(prev => {
@@ -902,7 +968,7 @@ const DiscoveryHome = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 30 }}
             transition={{ duration: 0.5 }}
-            className="w-full px-4 pt-10 pb-32 max-w-4xl mx-auto scroll-mt-20"
+            className="w-full px-4 pt-10 pb-32 max-w-7xl mx-auto scroll-mt-20"
           >
             {/* Section header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
@@ -938,7 +1004,7 @@ const DiscoveryHome = () => {
 
             {/* Loading skeleton */}
             {isSearching && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                 {[1, 2, 3, 4].map((i) => (
                   <div key={i} className="rounded-2xl overflow-hidden animate-pulse bg-surface-container-low h-64" />
                 ))}
@@ -970,7 +1036,7 @@ const DiscoveryHome = () => {
                 initial="hidden"
                 animate="visible"
                 variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
               >
                 {results.map((recipe, idx) => (
                   <RecipeCard

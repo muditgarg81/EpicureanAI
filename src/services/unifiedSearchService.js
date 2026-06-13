@@ -93,7 +93,7 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
   const lowerQuery = query.toLowerCase();
   
   const genericKeywords = ['vegetarian', 'vegan', 'gluten', 'spicy', 'cuisine', 'meals', 'recipes', 'dishes', 'world', 'global', 'easy', 'quick', 'anything', 'surprise me', 'you decide', 'dont know', "don't know", 'whatever', 'random', 'decide for me'];
-  const isGeneric = genericKeywords.some(w => lowerQuery.includes(w)) && ingredients.length === 0;
+  const isGeneric = (!query || query.trim() === '' || genericKeywords.some(w => lowerQuery.includes(w))) && ingredients.length === 0;
 
   // dietary to supabase columns
   const dbFilters = {};
@@ -253,12 +253,19 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
 
   // Deduplicate by title
   const seen = new Set();
-  const unique = allRecipes.filter(r => {
+  let unique = allRecipes.filter(r => {
     const key = r.dish_name.toLowerCase();
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
   });
+
+  if (isGeneric) {
+    for (let i = unique.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [unique[i], unique[j]] = [unique[j], unique[i]];
+    }
+  }
 
   return { results: unique, hasMore };
 };
