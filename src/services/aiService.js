@@ -1,5 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 import { supabase } from './supabaseClient';
+import useAppStore from '../store/useAppStore';
 
 // Initialize the @google/genai v2 SDK.
 // v2 API: ai.models.generateContent({ model, contents })
@@ -23,38 +24,26 @@ const safeGenerateContent = async (prompt, primaryModel = 'gemini-2.5-flash') =>
   let lastError;
   for (const model of uniqueModels) {
     try {
-      console.log(`[AI] Trying model: ${model}`);
+      console.log(`[AI] Trying model: ${model} via REST API`);
       
-      // Try SDK first
-      try {
-        const result = await ai.models.generateContent({
-          model,
-          contents: prompt,
-        });
-        if (result && result.text) return result.text;
-      } catch (sdkError) {
-        console.warn(`[AI] SDK failed for model "${model}", falling back to REST API:`, sdkError.message);
-        
-        // Fallback to pure REST API (fixes Capacitor/Android WebView issues)
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${rawApiKey}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }]
-          })
-        });
-        
-        if (!response.ok) {
-          const errData = await response.json().catch(() => ({}));
-          throw new Error(errData.error?.message || `HTTP error ${response.status}`);
-        }
-        
-        const data = await response.json();
-        if (data.candidates && data.candidates.length > 0 && data.candidates[0].content.parts.length > 0) {
-          return data.candidates[0].content.parts[0].text;
-        } else {
-          throw new Error("Invalid response format from REST API");
-        }
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${rawApiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }]
+        })
+      });
+      
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error?.message || `HTTP error ${response.status}`);
+      }
+      
+      const data = await response.json();
+      if (data.candidates && data.candidates.length > 0 && data.candidates[0].content.parts.length > 0) {
+        return data.candidates[0].content.parts[0].text;
+      } else {
+        throw new Error("Invalid response format from REST API");
       }
     } catch (error) {
       console.warn(`[AI] Model "${model}" failed completely:`, error.message);
@@ -80,6 +69,11 @@ export const generateRecipe = async (ingredients, cuisine = 'Global', dietaryRes
   const dishName = isArray ? ingredients[0] : ingredients;
   const ingredientString = isArray ? ingredients.join(', ') : ingredients;
   const restrictionsStr = dietaryRestrictions.length > 0 ? dietaryRestrictions.join(', ') : 'None';
+  
+  // Inject Health Goals
+  const { healthGoals } = useAppStore.getState();
+  const calTarget = healthGoals?.calories ? `MAX CALORIES PER SERVING: ${healthGoals.calories}` : '';
+  const glucoseTarget = healthGoals?.glucoseTarget ? `GLUCOSE TARGET: ${healthGoals.glucoseTarget} mg/dL (Avoid high glycemic index ingredients, sugars, and simple carbs strictly)` : '';
 
   if (!isValidApiKey) {
     console.warn('[AI] No valid Gemini API Key found (must start with AIzaSy). Returning mock recipe.');
@@ -87,7 +81,7 @@ export const generateRecipe = async (ingredients, cuisine = 'Global', dietaryRes
       title: `Homemade ${cuisine} ${dishName || 'Special'}`,
       description: `A delicious, easy-to-follow recipe for cooking a flavorful ${dishName} at home.`,
       time: '35 mins',
-      calories: 520,
+      calories: healthGoals?.calories || 520,
       tags: ['Easy Home Recipe', 'Chef Choice', ...dietaryRestrictions],
       ingredients: isArray ? ingredients : [dishName, 'Fresh vegetables', 'Cooking oil', 'Pinch of salt'],
       instructions: [
@@ -104,9 +98,11 @@ export const generateRecipe = async (ingredients, cuisine = 'Global', dietaryRes
 Generate a hyper-detailed, professional ${cuisine} recipe based on this: ${ingredientString}. 
 
 DIETARY RESTRICTIONS TO ADHERE TO: ${restrictionsStr}.
+${calTarget}
+${glucoseTarget}
 
 CRITICAL REQUIREMENTS:
-1. The recipe MUST strictly follow the dietary restrictions mentioned.
+1. The recipe MUST strictly follow the dietary restrictions and health targets mentioned.
 2. Every component mentioned MUST be explicitly mentioned in the instructions at the exact stage they are added.
 3. Instructions must be granular and technical (e.g., mention specific heat levels, internal temperatures, and textures like 'until translucent' or 'until a deep golden brown').
 4. Include specific times for each step and sensory cues (smell, color changes).
@@ -178,9 +174,9 @@ export const generateWeeklyPlan = async (dietaryRestrictions = [], cuisinePrefer
   try {
     let qb = supabase.from('recipes').select('*');
     
-    const isVegan = dietaryRestrictions.some(r => /vegan/i.test(r));
-    const isVeg = dietaryRestrictions.some(r => /vegetarian/i.test(r));
     const isGF = dietaryRestrictions.some(r => /gluten/i.test(r));
+    const isVeg = dietaryRestrictions.some(r => /veget/i.test(r));
+    const isVegan = dietaryRestrictions.some(r => /vegan/i.test(r));
 
     const applyFilters = (queryBuilder) => {
       let q = queryBuilder;
@@ -237,6 +233,11 @@ export const generateWeeklyPlan = async (dietaryRestrictions = [], cuisinePrefer
       if (recipe.total_time_min && recipe.total_time_min > 300) return; // Skip things that take > 5 hours to make
       const text = (recipe.dish_name + ' ' + (recipe.description || '') + ' ' + (recipe.cuisine || '')).toLowerCase();
       if (excludeRegex.test(text)) return;
+      
+      // Strict Health Filtering
+      const { healthGoals } = useAppStore.getState();
+      if (healthGoals?.calories && recipe.calories > Number(healthGoals.calories)) return; // Exclude meals that exceed total daily alone
+      if (healthGoals?.glucoseTarget && /pasta|rice|bread|potato|sugar|honey/i.test(text)) return; // Very aggressive filter for glucose monitoring demo
       
       const isLunch = /salad|soup|sandwich|wrap|burger|taco|roll|light|bowl/i.test(text);
       if (isLunch) lunches.push(recipe);

@@ -132,7 +132,7 @@ const filterRecipeByAllergiesAndRestrictions = (recipe, restrictions) => {
   const hasPeanutAllergy = restrictions.some(r => /peanut|nut/i.test(r));
   const isGlutenFreePref = restrictions.some(r => /gluten/i.test(r));
   const isVeganPref = restrictions.some(r => /vegan/i.test(r));
-  const isVegetarianPref = restrictions.some(r => /vegetarian/i.test(r));
+  const isVegetarianPref = restrictions.some(r => /veget/i.test(r));
   const isDairyFreePref = restrictions.some(r => /dairy|milk|lactose/i.test(r));
 
   // 1. Check local flags (if they are present)
@@ -291,9 +291,9 @@ const DiscoveryHome = () => {
 
     const filters = {};
     if (restrictions.some((r) => /peanut|nut/i.test(r)))      filters.contains_nuts   = false;
+    if (restrictions.some((r) => /vegan/i.test(r)))        filters.is_vegan        = true;
+    if (restrictions.some((r) => /veget/i.test(r)))        filters.is_vegetarian   = true;
     if (restrictions.some((r) => /gluten/i.test(r)))       filters.is_gluten_free  = true;
-    if (restrictions.some((r) => /\bvegan\b/i.test(r)))    filters.is_vegan        = true;
-    if (restrictions.some((r) => /vegetarian/i.test(r)))   filters.is_vegetarian   = true;
     return filters;
   }, [userProfile, dietaryRestrictions]);
   
