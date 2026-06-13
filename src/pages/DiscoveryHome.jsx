@@ -380,8 +380,8 @@ const DiscoveryHome = () => {
       // Apply Health Goals Filter
       const { healthGoals } = useAppStore.getState();
       const healthFiltered = allergyFiltered.filter(recipe => {
-        const queryLower = query.toLowerCase().trim();
-        const nameLower = (recipe.dish_name || recipe.title || '').toLowerCase().trim();
+        const queryLower = query.toLowerCase().replace(/\s+/g, '');
+        const nameLower = (recipe.dish_name || recipe.title || '').toLowerCase().replace(/\s+/g, '');
         if (queryLower && (nameLower === queryLower || nameLower.startsWith(queryLower))) return true;
 
         if (healthGoals?.calories && recipe.calories && recipe.calories > Number(healthGoals.calories)) return false;
@@ -479,8 +479,8 @@ const DiscoveryHome = () => {
       // Apply Health Goals Filter
       const { healthGoals } = useAppStore.getState();
       const healthFiltered = allergyFiltered.filter(recipe => {
-        const queryLower = searchQuery.toLowerCase().trim();
-        const nameLower = (recipe.dish_name || recipe.title || '').toLowerCase().trim();
+        const queryLower = searchQuery.toLowerCase().replace(/\s+/g, '');
+        const nameLower = (recipe.dish_name || recipe.title || '').toLowerCase().replace(/\s+/g, '');
         if (queryLower && (nameLower === queryLower || nameLower.startsWith(queryLower))) return true;
 
         if (healthGoals?.calories && recipe.calories && recipe.calories > Number(healthGoals.calories)) return false;
