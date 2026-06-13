@@ -153,6 +153,14 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
     const matches = bankKeys
       .filter(key => {
         const r = culinaryDataBank[key];
+        const isVeg = r.tags?.some(t => /veg/i.test(t));
+        const isVegan = r.tags?.some(t => /vegan/i.test(t));
+        const isGF = r.tags?.some(t => /gluten/i.test(t));
+        
+        if (dietary.vegetarian && !isVeg) return false;
+        if (dietary.vegan && !isVegan) return false;
+        if (dietary.glutenFree && !isGF) return false;
+
         const textToSearch = `${r.title} ${key} ${r.description || ''} ${(r.tags || []).join(' ')}`.toLowerCase();
         const textMatch = textToSearch.includes(lowerQuery);
         
@@ -160,7 +168,7 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
           (r.ingredients || []).some(i => i.toLowerCase().includes(ing)) ||
           (r.tags || []).some(t => t.toLowerCase().includes(ing))
         );
-        return textMatch || ingredientMatch;
+        return (lowerQuery === '' && ingredients.length === 0) ? true : (textMatch || ingredientMatch);
       })
       .map((key, idx) => {
         const r = culinaryDataBank[key];

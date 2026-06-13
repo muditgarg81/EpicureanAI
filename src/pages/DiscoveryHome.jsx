@@ -363,9 +363,16 @@ const DiscoveryHome = () => {
           : []),
       ].map(r => r.toLowerCase());
 
-      const allergyFiltered = uniqueRecipes.filter(recipe => 
-        filterRecipeByAllergiesAndRestrictions(recipe, activeRestrictions)
-      );
+      const allergyFiltered = uniqueRecipes.filter(recipe => {
+        if (!filterRecipeByAllergiesAndRestrictions(recipe, activeRestrictions)) return false;
+
+        // Ensure dietary restrictions are respected even if Supabase/Local missed them
+        if (dietary.vegan && recipe.is_vegan === false) return false;
+        if (dietary.vegetarian && recipe.is_vegetarian === false) return false;
+        if (dietary.glutenFree && recipe.is_gluten_free === false) return false;
+
+        return true;
+      });
 
       // Apply Health Goals Filter
       const { healthGoals } = useAppStore.getState();
