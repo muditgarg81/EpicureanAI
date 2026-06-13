@@ -309,12 +309,15 @@ const DiscoveryHome = () => {
       try {
         const suggestions = await getUnifiedSuggestions(trimmed);
         
-        // Map to standard prediction format
+        // Map to standard prediction format while preserving navigation data
         const formatted = suggestions.map(s => ({
           id: s.id,
           dish_name: s.title,
           image_url: s.thumbnail,
-          source: s.source
+          source: s.source,
+          cuisine: s.recipeData?.cuisine || 'Global',
+          type: s.type,
+          recipeData: s.recipeData
         }));
         
         setPredictions(formatted);
@@ -377,6 +380,10 @@ const DiscoveryHome = () => {
       // Apply Health Goals Filter
       const { healthGoals } = useAppStore.getState();
       const healthFiltered = allergyFiltered.filter(recipe => {
+        const queryLower = query.toLowerCase().trim();
+        const nameLower = (recipe.dish_name || recipe.title || '').toLowerCase().trim();
+        if (queryLower && (nameLower === queryLower || nameLower.startsWith(queryLower))) return true;
+
         if (healthGoals?.calories && recipe.calories && recipe.calories > Number(healthGoals.calories)) return false;
         const textToSearch = (recipe.dish_name + ' ' + (recipe.description || '') + ' ' + (recipe.full_ingredients || '')).toLowerCase();
         if (healthGoals?.glucoseTarget && /pasta|rice|bread|potato|sugar|honey/i.test(textToSearch)) return false;
@@ -472,6 +479,10 @@ const DiscoveryHome = () => {
       // Apply Health Goals Filter
       const { healthGoals } = useAppStore.getState();
       const healthFiltered = allergyFiltered.filter(recipe => {
+        const queryLower = searchQuery.toLowerCase().trim();
+        const nameLower = (recipe.dish_name || recipe.title || '').toLowerCase().trim();
+        if (queryLower && (nameLower === queryLower || nameLower.startsWith(queryLower))) return true;
+
         if (healthGoals?.calories && recipe.calories && recipe.calories > Number(healthGoals.calories)) return false;
         const textToSearch = (recipe.dish_name + ' ' + (recipe.description || '') + ' ' + (recipe.full_ingredients || '')).toLowerCase();
         if (healthGoals?.glucoseTarget && /pasta|rice|bread|potato|sugar|honey/i.test(textToSearch)) return false;

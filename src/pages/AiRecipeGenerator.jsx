@@ -206,14 +206,24 @@ const AiRecipeGenerator = () => {
 
   const allSuggestions = [...suggestions, ...extSuggestions];
 
-  // ── Fetch external recipes by selected ingredients ───────────────────────────
+  // ── Fetch unified recipes by selected ingredients ───────────────────────────
   const refreshExternalByIngredients = useCallback(async () => {
     const active = pantryItems.filter(i => i.checked).map(i => i.name);
     if (active.length === 0) { setExternalRecipes([]); return; }
     setExternalLoading(true);
     try {
-      const results = await fetchRecipesByIngredients(active);
-      setExternalRecipes(results);
+      const { results } = await getUnifiedFullSearch('', { ingredients: active, dietary: {}, maxTime: null }, 1);
+      
+      // Map unified schema (dish_name, image_url) to what ExternalRecipeCard expects (title, thumbnail)
+      const mapped = results.slice(0, 8).map(r => ({
+        id: r.id,
+        title: r.dish_name,
+        thumbnail: r.image_url || r.thumbnail,
+        source: r.is_web ? r.source : 'Supabase',
+        type: 'recipe',
+        recipeData: r
+      }));
+      setExternalRecipes(mapped);
     } finally {
       setExternalLoading(false);
     }
