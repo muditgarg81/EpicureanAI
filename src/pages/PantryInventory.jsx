@@ -549,16 +549,6 @@ const PantryInventory = () => {
               <span className="material-symbols-outlined text-primary text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>lightbulb</span>
               <span className="font-label-lg text-label-lg font-bold">Tip: Press the cart icon to instantly order items on BigBasket, Blinkit, Zepto, or Instamart.</span>
             </div>
-            {/* Health goal chip */}
-            {hasCalorieGoal && (
-              <button
-                onClick={() => setHealthModalOpen(true)}
-                className="inline-flex items-center gap-1.5 mt-2 bg-red-50 border border-red-200 text-red-700 text-xs font-semibold px-3 py-1 rounded-full hover:bg-red-100 transition-colors"
-              >
-                <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
-                Goal: {healthGoals.calories} kcal
-              </button>
-            )}
           </div>
 
           {/* Action Icons */}
@@ -572,14 +562,6 @@ const PantryInventory = () => {
               <span className="material-symbols-outlined text-[20px] text-on-surface-variant group-hover:text-on-primary">photo_camera</span>
             </button>
 
-            {/* Health */}
-            <button
-              onClick={() => setHealthModalOpen(true)}
-              title="Health & Nutrition goals"
-              className="w-10 h-10 bg-surface-container rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm group"
-            >
-              <span className="material-symbols-outlined text-[20px] text-on-surface-variant group-hover:text-white" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
-            </button>
 
             {/* Desktop add */}
             <button

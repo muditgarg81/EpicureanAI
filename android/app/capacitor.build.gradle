@@ -16,6 +16,7 @@ dependencies {
     implementation project(':capacitor-camera')
     implementation project(':capacitor-clipboard')
     implementation project(':capacitor-share')
+    implementation project(':capgo-capacitor-health')
 
 }
 

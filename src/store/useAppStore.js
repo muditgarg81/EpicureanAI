@@ -19,6 +19,7 @@ import {
   fetchPantryFromDb,
   deletePantryItemFromDb
 } from '../services/dbService';
+import { connectHealthPlatform, fetchHealthData } from '../services/healthService';
 
 const generateUUID = () => {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
@@ -416,6 +417,51 @@ const useAppStore = create(
       setHealthGoals: (goals) => set({ healthGoals: goals }),
       isHealthModalOpen: false,
       setHealthModalOpen: (isOpen) => set({ isHealthModalOpen: isOpen }),
+      
+      // Native Health Integrations
+      healthIntegrations: { appleHealth: false, googleFit: false, glucoseMonitor: false },
+      syncedHealthData: { steps: 0, activeCalories: 0, currentGlucose: 0 },
+      toggleHealthIntegration: async (integrationName, isEnabled) => {
+        if (isEnabled) {
+          try {
+            // Attempt to request native OS permissions
+            await connectHealthPlatform();
+            // Fetch real health data
+            const data = await fetchHealthData();
+            
+            set(state => ({
+              healthIntegrations: { ...state.healthIntegrations, [integrationName]: true },
+              syncedHealthData: {
+                steps: data.steps || state.syncedHealthData.steps,
+                activeCalories: data.calories || state.syncedHealthData.activeCalories,
+                currentGlucose: data.glucose || state.syncedHealthData.currentGlucose,
+              }
+            }));
+
+            // Automatically update health goals based on synced data (for demo/convenience)
+            if (data.calories && integrationName !== 'glucoseMonitor') {
+               set(state => ({
+                 healthGoals: { ...state.healthGoals, calories: String(Math.max(1200, 2500 - data.calories)) }
+               }));
+            }
+            if (data.glucose && integrationName === 'glucoseMonitor') {
+               set(state => ({
+                 healthGoals: { ...state.healthGoals, glucoseTarget: String(data.glucose) }
+               }));
+            }
+          } catch (err) {
+            console.error('Failed to enable health integration:', err);
+            // Revert toggle if failed
+            set(state => ({ healthIntegrations: { ...state.healthIntegrations, [integrationName]: false } }));
+            throw err;
+          }
+        } else {
+          // Disable integration
+          set(state => ({
+            healthIntegrations: { ...state.healthIntegrations, [integrationName]: false }
+          }));
+        }
+      },
 
       // AI Context & Recommendations
       searchHistory: [],
@@ -511,6 +557,8 @@ const useAppStore = create(
         dailyRecipeCount: 0,
         lastRecipeResetDate: '',
         healthGoals: { calories: '', fitnessGoal: 'General Health', glucoseTarget: '' },
+        healthIntegrations: { appleHealth: false, googleFit: false, glucoseMonitor: false },
+        syncedHealthData: { steps: 0, activeCalories: 0, currentGlucose: 0 },
         isHealthModalOpen: false,
         mealPlan: {
           weekCommencing: getWeekCommencingDate(),

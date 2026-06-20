@@ -50,11 +50,11 @@ export const fetchProfileFromDb = async () => {
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (!error) {
     dbProfile = data;
-  } else if (error.code !== 'PGRST116') { // PGRST116 is "Row not found"
+  } else {
     console.error("Error fetching profile:", error);
   }
 
@@ -138,7 +138,7 @@ export const fetchFamilyId = async () => {
     .from('profiles')
     .select('family_id')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (error) return null;
   return data?.family_id;
@@ -253,11 +253,11 @@ export const fetchMealPlanFromDb = async (familyId) => {
     .from('meal_plans')
     .select('plan_data')
     .eq('family_id', familyId)
-    .single();
+    .maybeSingle();
 
   if (!error) {
     dbPlan = data?.plan_data;
-  } else if (error.code !== 'PGRST116') {
+  } else {
     console.error("Error fetching meal plan:", error);
   }
 
@@ -311,7 +311,7 @@ export const fetchFamilyMembersFromDb = async (familyId) => {
     .from('family_members_data')
     .select('members')
     .eq('family_id', familyId)
-    .single();
+    .maybeSingle();
 
   if (!error) {
     if (data?.members && Array.isArray(data.members)) {
@@ -319,7 +319,7 @@ export const fetchFamilyMembersFromDb = async (familyId) => {
     } else {
       dbMembers = data?.members;
     }
-  } else if (error.code !== 'PGRST116') {
+  } else {
     console.error("Error fetching family members:", error);
   }
 
@@ -377,7 +377,7 @@ export const fetchFamilyByInviteToken = async (token) => {
     .from('family_invitations')
     .select('*, families(name)')
     .eq('token', token)
-    .single();
+    .maybeSingle();
 
   if (error) return null;
   return data;

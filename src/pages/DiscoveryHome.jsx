@@ -17,7 +17,7 @@ import { getUnifiedSuggestions, getUnifiedFullSearch } from '../services/unified
 const cleanImageUrl = (url) => {
   if (!url || typeof url !== 'string' || url.includes('google.com') || url.includes('loremflickr.com')) return null;
   if (!isStrictDishImage(url)) return null;
-  return url;
+  return url.replace(/^http:\/\//i, 'https://');
 };
 
 // ─── Search Relevance Scoring Helper ──────────────────────────────────────────
@@ -283,7 +283,7 @@ const DiscoveryHome = () => {
   // ── Build Supabase dietary filters from store ──
   const buildDietaryFilters = useCallback(() => {
     const restrictions = [
-      ...(userProfile?.dietaryRestrictions || []),
+      ...(Array.isArray(userProfile?.dietaryRestrictions) ? userProfile.dietaryRestrictions.map((r) => (typeof r === 'string' ? r : r.name)) : []),
       ...(Array.isArray(dietaryRestrictions)
         ? dietaryRestrictions.map((r) => (typeof r === 'string' ? r : r.name))
         : []),
@@ -360,11 +360,11 @@ const DiscoveryHome = () => {
 
       // ── Apply strict allergy and dietary filter on merged list ──
       const activeRestrictions = [
-        ...(userProfile?.dietaryRestrictions || []),
+        ...(Array.isArray(userProfile?.dietaryRestrictions) ? userProfile.dietaryRestrictions.map((r) => (typeof r === 'string' ? r : r.name)) : []),
         ...(Array.isArray(dietaryRestrictions)
           ? dietaryRestrictions.map((r) => (typeof r === 'string' ? r : r.name))
           : []),
-      ].map(r => r.toLowerCase());
+      ].filter(Boolean).map(r => r.toLowerCase());
 
       const allergyFiltered = uniqueRecipes.filter(recipe => {
         if (!filterRecipeByAllergiesAndRestrictions(recipe, activeRestrictions)) return false;
@@ -466,11 +466,11 @@ const DiscoveryHome = () => {
       const { results: newRecipes, hasMore: more } = await getUnifiedFullSearch(searchQuery, { ingredients, dietary, maxTime }, nextPage);
       
       const activeRestrictions = [
-        ...(userProfile?.dietaryRestrictions || []),
+        ...(Array.isArray(userProfile?.dietaryRestrictions) ? userProfile.dietaryRestrictions.map((r) => (typeof r === 'string' ? r : r.name)) : []),
         ...(Array.isArray(dietaryRestrictions)
-          ? dietaryRestrictions.map((r) => (typeof r === 'string' ? r : r.name))
-          : []),
-      ].map(r => r.toLowerCase());
+        ? dietaryRestrictions.map((r) => (typeof r === 'string' ? r : r.name))
+        : []),
+    ].filter(Boolean).map(r => r.toLowerCase());
 
       const allergyFiltered = newRecipes.filter(recipe => 
         filterRecipeByAllergiesAndRestrictions(recipe, activeRestrictions)

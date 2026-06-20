@@ -135,16 +135,12 @@ export const getDishImageWaterfall = async (dishName) => {
     // Ignore error, continue waterfall
   }
 
-  // 3. Waterfall: Wikipedia -> Unsplash -> MealDB -> Spoonacular
+  // 3. Parallelized Fallback Fetching
   let finalUrl = null;
   let source = null;
   
   // Clean name for better searching in fallbacks (e.g. "Tortilla (Corn)" -> "Tortilla")
   const searchName = dishName.replace(/\([^)]*\)/g, '').trim();
-
-  // Try Wikipedia
-  finalUrl = await fetchWikipediaImage(dishName);
-  source = 'wikipedia';
 
   // Format search query: last word is the basic dish, preceding words are variations
   const words = searchName.split(/\s+/);
@@ -155,40 +151,33 @@ export const getDishImageWaterfall = async (dishName) => {
     optimizedSearchName = `${baseDish} ${variations}`;
   }
 
-  // Try Unsplash
-  if (!finalUrl) {
-    finalUrl = await fetchUnsplashImage(optimizedSearchName);
-    source = 'unsplash';
-  }
+  const fetchWithSource = async (fetcher, name, srcName) => {
+    const url = await fetcher(name);
+    if (!url) throw new Error(`No image from ${srcName}`);
+    return { url, source: srcName };
+  };
 
-  // Try MealDB
-  if (!finalUrl) {
-    const meals = await searchMealDB(optimizedSearchName);
-    if (meals && meals.length > 0 && meals[0].thumbnail) {
-      finalUrl = meals[0].thumbnail;
-      source = 'mealdb';
-    }
-  }
-
-  // Try Spoonacular
-  if (!finalUrl) {
-    const spoons = await searchSpoonacular(optimizedSearchName, 1);
-    if (spoons && spoons.length > 0 && spoons[0].thumbnail) {
-      finalUrl = spoons[0].thumbnail;
-      source = 'spoonacular';
-    }
-  }
-
-  // Try Pexels
-  if (!finalUrl) {
-    finalUrl = await fetchPexelsImage(optimizedSearchName);
-    if (finalUrl) source = 'pexels';
-  }
-
-  // Try Pixabay
-  if (!finalUrl) {
-    finalUrl = await fetchPixabayImage(optimizedSearchName);
-    if (finalUrl) source = 'pixabay';
+  try {
+    const result = await Promise.any([
+      fetchWithSource(fetchWikipediaImage, dishName, 'wikipedia'),
+      fetchWithSource(fetchUnsplashImage, optimizedSearchName, 'unsplash'),
+      fetchWithSource(async (name) => {
+        const meals = await searchMealDB(name);
+        return meals && meals.length > 0 ? meals[0].thumbnail : null;
+      }, optimizedSearchName, 'mealdb'),
+      fetchWithSource(async (name) => {
+        const spoons = await searchSpoonacular(name, 1);
+        return spoons && spoons.length > 0 ? spoons[0].thumbnail : null;
+      }, optimizedSearchName, 'spoonacular'),
+      fetchWithSource(fetchPexelsImage, optimizedSearchName, 'pexels'),
+      fetchWithSource(fetchPixabayImage, optimizedSearchName, 'pixabay')
+    ]);
+    finalUrl = result.url;
+    source = result.source;
+  } catch (aggregateError) {
+    // All promises rejected (no image found from any source)
+    finalUrl = null;
+    source = null;
   }
 
   // 4. Save successful result to DB and Cache

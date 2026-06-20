@@ -13,9 +13,13 @@ const AccountSettings = () => {
   const [isTwoFactorModalOpen, setIsTwoFactorModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
+  const [isRateModalOpen, setIsRateModalOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [successType, setSuccessType] = useState(''); // 'password', '2fa', 'delete', 'subscription'
+  const [successType, setSuccessType] = useState('');
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const activePlan = useAppStore(state => state.activePlan);
   const setActivePlan = useAppStore(state => state.setActivePlan);
@@ -203,7 +207,20 @@ const AccountSettings = () => {
                         </div>
                         <span className="material-symbols-outlined text-outline">chevron_right</span>
                       </button>
-                      <button 
+                      <button
+                        onClick={() => setIsRateModalOpen(true)}
+                        className="w-full flex items-center justify-between p-4 rounded-xl border border-outline-variant/20 hover:bg-surface/30 transition-colors"
+                      >
+                        <div className="flex items-center gap-4">
+                          <span className="material-symbols-outlined text-on-surface-variant">star</span>
+                          <div className="text-left">
+                            <span className="font-label-lg block">Rate Epicurean AI</span>
+                            <span className="text-label-sm text-on-surface-variant">Love the app? Leave us a review!</span>
+                          </div>
+                        </div>
+                        <span className="material-symbols-outlined text-outline">chevron_right</span>
+                      </button>
+                      <button
                         onClick={() => setIsDeleteModalOpen(true)}
                         className="w-full flex items-center justify-between p-4 rounded-xl border border-red-500/20 hover:bg-red-500/5 transition-colors text-red-500"
                       >
@@ -289,15 +306,30 @@ const AccountSettings = () => {
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <label className="text-label-md font-label-md pl-1">Current Password</label>
-                      <input type="password" placeholder="••••••••" className="w-full p-4 rounded-xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary outline-none transition-all" />
+                      <div className="relative">
+                        <input type={showCurrentPassword ? 'text' : 'password'} placeholder="••••••••" className="w-full p-4 pr-12 rounded-xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary outline-none transition-all" />
+                        <button type="button" onClick={() => setShowCurrentPassword(!showCurrentPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">
+                          <span className="material-symbols-outlined text-xl">{showCurrentPassword ? 'visibility_off' : 'visibility'}</span>
+                        </button>
+                      </div>
                     </div>
                     <div className="space-y-2">
                       <label className="text-label-md font-label-md pl-1">New Password</label>
-                      <input type="password" placeholder="••••••••" className="w-full p-4 rounded-xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary outline-none transition-all" />
+                      <div className="relative">
+                        <input type={showNewPassword ? 'text' : 'password'} placeholder="••••••••" className="w-full p-4 pr-12 rounded-xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary outline-none transition-all" />
+                        <button type="button" onClick={() => setShowNewPassword(!showNewPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">
+                          <span className="material-symbols-outlined text-xl">{showNewPassword ? 'visibility_off' : 'visibility'}</span>
+                        </button>
+                      </div>
                     </div>
                     <div className="space-y-2">
                       <label className="text-label-md font-label-md pl-1">Confirm New Password</label>
-                      <input type="password" placeholder="••••••••" className="w-full p-4 rounded-xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary outline-none transition-all" />
+                      <div className="relative">
+                        <input type={showConfirmPassword ? 'text' : 'password'} placeholder="••••••••" className="w-full p-4 pr-12 rounded-xl bg-surface border border-outline-variant focus:ring-2 focus:ring-primary outline-none transition-all" />
+                        <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">
+                          <span className="material-symbols-outlined text-xl">{showConfirmPassword ? 'visibility_off' : 'visibility'}</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                   <button onClick={() => handleSecurityAction('password')} className="w-full py-4 bg-primary text-on-primary rounded-2xl font-label-lg mt-8 hover:shadow-xl active:scale-95 transition-all">Update Password</button>
@@ -365,6 +397,36 @@ const AccountSettings = () => {
                   </div>
                 </div>
               )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isRateModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsRateModalOpen(false)} className="absolute inset-0 bg-black/60 backdrop-blur-md" />
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="relative w-full max-w-sm bg-surface-container p-8 rounded-[3rem] shadow-2xl text-center">
+              <div className="w-20 h-20 bg-amber-400/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="material-symbols-outlined text-amber-400 !text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+              </div>
+              <h3 className="font-headline-lg mb-2">Enjoying Epicurean AI?</h3>
+              <p className="text-on-surface-variant font-body-md mb-6">Your review helps other food lovers discover the app and helps us keep improving.</p>
+              <div className="flex justify-center gap-2 mb-8">
+                {[1,2,3,4,5].map(star => (
+                  <span key={star} className="material-symbols-outlined text-amber-400 !text-4xl cursor-pointer hover:scale-110 transition-transform" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                ))}
+              </div>
+              <a
+                href="https://play.google.com/store/apps/details?id=epicurean.kitchen.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsRateModalOpen(false)}
+                className="w-full py-4 bg-primary text-on-primary rounded-2xl font-label-lg block text-center hover:shadow-xl active:scale-95 transition-all mb-3"
+              >
+                Rate on Google Play
+              </a>
+              <button onClick={() => setIsRateModalOpen(false)} className="w-full py-3 text-on-surface-variant font-label-md hover:underline">Maybe Later</button>
             </motion.div>
           </div>
         )}

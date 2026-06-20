@@ -138,8 +138,12 @@ const WeeklyMealPlanner = () => {
     dietaryRestrictions: storeRestrictions,
     activePlan,
     userProfile,
-    savedRecipes
+    savedRecipes,
+    healthGoals,
+    setHealthModalOpen
   } = useAppStore();
+
+  const hasCalorieGoal = healthGoals?.calories && String(healthGoals.calories).trim() !== '';
   
   const [isAiPlanning, setIsAiPlanning] = useState(false);
   const [showPlannerUpgradeLock, setShowPlannerUpgradeLock] = useState(false);
@@ -834,8 +838,28 @@ const WeeklyMealPlanner = () => {
               <span className="material-symbols-outlined text-primary text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>lightbulb</span>
               <span className="font-label-lg text-label-lg font-bold">Tip: Press the cart icon to instantly order items on BigBasket, Blinkit, Zepto, or Instamart.</span>
             </div>
+            {/* Health goal chip */}
+            {hasCalorieGoal && (
+              <div className="block mt-2">
+                <button
+                  onClick={() => setHealthModalOpen(true)}
+                  className="inline-flex items-center gap-1.5 bg-red-50 border border-red-200 text-red-700 text-xs font-semibold px-3 py-1 rounded-full hover:bg-red-100 transition-colors"
+                >
+                  <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
+                  Goal: {healthGoals.calories} kcal
+                </button>
+              </div>
+            )}
           </div>
           <div className="flex flex-wrap gap-sm">
+            {/* Health Button */}
+            <button
+              onClick={() => setHealthModalOpen(true)}
+              title="Health & Nutrition goals"
+              className="h-[48px] w-[48px] bg-surface-container-high rounded-xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm border border-outline-variant group"
+            >
+              <span className="material-symbols-outlined text-[20px] text-red-500 group-hover:text-white" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
+            </button>
             <button 
               onClick={handleExportMealPlan}
               className="h-[48px] px-6 bg-surface-container-high text-on-surface font-label-md text-label-md rounded-xl flex items-center gap-2 hover:bg-surface-container-highest transition-all active:scale-95 border border-outline-variant"

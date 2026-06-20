@@ -7,7 +7,12 @@ const HealthModal = () => {
   const healthGoals = useAppStore((state) => state.healthGoals);
   const setHealthGoals = useAppStore((state) => state.setHealthGoals);
 
+  const healthIntegrations = useAppStore((state) => state.healthIntegrations);
+  const syncedHealthData = useAppStore((state) => state.syncedHealthData);
+  const toggleHealthIntegration = useAppStore((state) => state.toggleHealthIntegration);
+
   const [localGoals, setLocalGoals] = useState(healthGoals);
+  const [loadingApp, setLoadingApp] = useState(null);
 
   useEffect(() => {
     if (isHealthModalOpen) {
@@ -25,10 +30,21 @@ const HealthModal = () => {
   };
 
   const integrations = [
-    { name: 'Apple Health', icon: 'favorite', color: 'text-red-500' },
-    { name: 'Google Fit', icon: 'directions_run', color: 'text-blue-500' },
-    { name: 'Glucose Monitor', icon: 'monitor_heart', color: 'text-purple-500' },
+    { id: 'appleHealth', name: 'Apple Health', icon: 'favorite', color: 'text-red-500' },
+    { id: 'googleFit', name: 'Google Health Connect', icon: 'directions_run', color: 'text-blue-500' },
+    { id: 'glucoseMonitor', name: 'Glucose Monitor', icon: 'monitor_heart', color: 'text-purple-500' },
   ];
+
+  const handleToggle = async (id, currentVal) => {
+    setLoadingApp(id);
+    try {
+      await toggleHealthIntegration(id, !currentVal);
+    } catch (e) {
+      alert("Error syncing health data. Make sure you are on a real mobile device or grant permissions.");
+    } finally {
+      setLoadingApp(null);
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-[150] flex items-end sm:items-center justify-center p-4">
@@ -51,20 +67,61 @@ const HealthModal = () => {
         <div className="mb-6">
           <h4 className="font-label-lg text-on-surface-variant uppercase tracking-widest text-xs mb-3">Connect Health App</h4>
           <div className="space-y-2">
-            {integrations.map(({ name, icon, color }) => (
-              <div
-                key={name}
-                className="flex items-center justify-between p-3.5 bg-surface-container rounded-2xl"
-              >
-                <div className="flex items-center gap-3">
-                  <span className={`material-symbols-outlined ${color}`} style={{ fontVariationSettings: "'FILL' 1" }}>{icon}</span>
-                  <span className="font-label-md text-on-surface">{name}</span>
+            {integrations.map(({ id, name, icon, color }) => {
+              const isEnabled = healthIntegrations[id];
+              const isLoading = loadingApp === id;
+
+              return (
+                <div
+                  key={id}
+                  className="flex items-center justify-between p-3.5 bg-surface-container rounded-2xl"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className={`material-symbols-outlined ${color}`} style={{ fontVariationSettings: "'FILL' 1" }}>{icon}</span>
+                    <span className="font-label-md text-on-surface">{name}</span>
+                  </div>
+                  
+                  <button 
+                    onClick={() => handleToggle(id, isEnabled)}
+                    disabled={isLoading}
+                    className={`relative w-12 h-6 rounded-full transition-colors flex items-center px-1 ${
+                      isEnabled ? 'bg-primary' : 'bg-surface-variant'
+                    } ${isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                  >
+                    <div className={`w-4 h-4 rounded-full bg-white transition-transform ${isEnabled ? 'translate-x-6' : 'translate-x-0'}`} />
+                  </button>
                 </div>
-                <span className="bg-amber-100 text-amber-700 text-xs font-semibold px-2.5 py-1 rounded-full">Coming Soon</span>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
+
+        {/* Synced Data Display */}
+        {(healthIntegrations.appleHealth || healthIntegrations.googleFit || healthIntegrations.glucoseMonitor) && (
+          <div className="mb-6 p-4 rounded-2xl bg-secondary-container border border-secondary/20">
+            <h4 className="font-label-lg text-secondary-dark uppercase tracking-widest text-xs mb-3 flex items-center gap-2">
+              <span className="material-symbols-outlined text-[16px]">sync</span>
+              Synced Real-Time Data
+            </h4>
+            <div className="grid grid-cols-3 gap-2">
+              <div className="bg-surface p-2 rounded-xl text-center">
+                <span className="block text-xs text-on-surface-variant">Steps</span>
+                <span className="font-headline-sm text-primary">{syncedHealthData.steps || 0}</span>
+              </div>
+              <div className="bg-surface p-2 rounded-xl text-center">
+                <span className="block text-xs text-on-surface-variant">Cal Burned</span>
+                <span className="font-headline-sm text-amber-600">{syncedHealthData.activeCalories || 0}</span>
+              </div>
+              <div className="bg-surface p-2 rounded-xl text-center">
+                <span className="block text-xs text-on-surface-variant">Glucose</span>
+                <span className="font-headline-sm text-purple-600">{syncedHealthData.currentGlucose || '--'}</span>
+              </div>
+            </div>
+            <p className="text-[10px] text-on-surface-variant text-center mt-2 opacity-80">
+              * Goals below automatically sync based on this real-time data.
+            </p>
+          </div>
+        )}
 
         {/* Manual Goals Form */}
         <div>

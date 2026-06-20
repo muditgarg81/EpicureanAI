@@ -47,5 +47,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Epicurean AI needs to read your health data to automatically tailor recipe suggestions and track your nutritional goals.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Epicurean AI needs to update your health data to automatically sync nutritional information of meals you consume.</string>
 </dict>
 </plist>

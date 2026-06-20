@@ -6,6 +6,7 @@ import brandLogo from '../assets/epicurean_logo.png';
 const OnboardingWelcome = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [message, setMessage] = useState('');
@@ -145,15 +146,25 @@ const OnboardingWelcome = () => {
             />
             {!isForgotPassword && (
               <div className="flex flex-col gap-1">
-                <input 
-                  type="password" 
-                  placeholder="Enter your password" 
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-full px-6 py-3 bg-surface-container border-none ring-1 ring-outline-variant focus:ring-2 focus:ring-primary outline-none transition-all"
-                  required={!isForgotPassword}
-                  minLength={6}
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full rounded-full px-6 py-3 pr-14 bg-surface-container border-none ring-1 ring-outline-variant focus:ring-2 focus:ring-primary outline-none transition-all"
+                    required={!isForgotPassword}
+                    minLength={6}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors"
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  >
+                    <span className="material-symbols-outlined text-xl">{showPassword ? 'visibility_off' : 'visibility'}</span>
+                  </button>
+                </div>
                 {!isSignUp && (
                   <button 
                     type="button"
