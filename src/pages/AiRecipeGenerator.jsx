@@ -4,13 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { generateRecipe } from '../services/aiService';
 import { culinaryDataBank } from '../data/culinaryData';
 import {
-  fetchRecipesByIngredients,
-  fetchRecipesByCuisine,
   lookupMealDBById,
   getApiStatus,
 } from '../services/externalRecipeService';
-import { getUnifiedSuggestions } from '../services/unifiedSearchService';
-import { SUPPORTED_CUISINES, CUISINE_ICONS } from '../constants/cuisines';
+import { getUnifiedSuggestions, getUnifiedFullSearch, fetchCuisineTags, fetchDishesByCuisineTags } from '../services/unifiedSearchService';
+import { CUISINE_ICONS } from '../constants/cuisines';
 import useAppStore from '../store/useAppStore';
 import useTranslation from '../hooks/useTranslation';
 
@@ -127,7 +125,22 @@ const AiRecipeGenerator = () => {
 
   const [isGenerating, setIsGenerating]   = useState(false);
   const [showRecipeLimitLock, setShowRecipeLimitLock] = useState(false);
-  const [selectedCuisine, setSelectedCuisine] = useState(location.state?.cuisine || 'Italian');
+  const [selectedCuisines, setSelectedCuisines] = useState(
+    location.state?.cuisine ? [location.state.cuisine] : []
+  );
+
+  // ── Cuisine tags (dynamic, from recipes.cuisine_tags) ───────────────────────
+  const [cuisineTags, setCuisineTags] = useState([]);
+
+  useEffect(() => {
+    fetchCuisineTags().then(setCuisineTags);
+  }, []);
+
+  const toggleCuisine = (tag) => {
+    setSelectedCuisines(prev =>
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+    );
+  };
 
   const [pantryItems, setPantryItems] = useState(() => {
     if (location.state?.pantryItems?.length > 0) return location.state.pantryItems;
@@ -229,16 +242,24 @@ const AiRecipeGenerator = () => {
     }
   }, [pantryItems]);
 
-  // ── Fetch external recipes by cuisine ───────────────────────────────────────
-  const refreshExternalByCuisine = useCallback(async () => {
+  // ── Fetch dishes matching the selected cuisine tags (recipes.cuisine_tags) ──
+  const refreshDishesByCuisine = useCallback(async () => {
     setCuisineLoading(true);
     try {
-      const results = await fetchRecipesByCuisine(selectedCuisine);
-      setCuisineRecipes(results);
+      const results = await fetchDishesByCuisineTags(selectedCuisines);
+      const mapped = results.map(r => ({
+        id: r.id,
+        title: r.dish_name,
+        thumbnail: r.image_url,
+        source: 'Supabase',
+        type: 'recipe',
+        recipeData: r
+      }));
+      setCuisineRecipes(mapped);
     } finally {
       setCuisineLoading(false);
     }
-  }, [selectedCuisine]);
+  }, [selectedCuisines]);
 
   // Auto-fetch when active tab or dependencies change
   useEffect(() => {
@@ -248,9 +269,9 @@ const AiRecipeGenerator = () => {
   useEffect(() => {
     if (activeTab === 'cuisine') {
       setCuisineRecipes([]); // Clear old results to avoid stale data
-      refreshExternalByCuisine();
+      refreshDishesByCuisine();
     }
-  }, [activeTab, selectedCuisine, refreshExternalByCuisine]);
+  }, [activeTab, selectedCuisines, refreshDishesByCuisine]);
 
   // ── Pantry actions ──────────────────────────────────────────────────────────
   const toggleIngredient = (index) => {
@@ -311,7 +332,7 @@ const AiRecipeGenerator = () => {
       const activeIngredients = overrideName
         ? [overrideName]
         : pantryItems.filter(item => item.checked).map(item => item.name);
-      const recipeJson = await generateRecipe(activeIngredients, selectedCuisine, userRestrictions);
+      const recipeJson = await generateRecipe(activeIngredients, selectedCuisines, userRestrictions);
       navigate('/recipe', { state: { recipe: recipeJson } });
     } catch (error) {
       console.error(error);
@@ -334,11 +355,11 @@ const AiRecipeGenerator = () => {
     handleGenerate(dishName);
   };
 
-  const cuisines = SUPPORTED_CUISINES;
   const cuisineIcons = CUISINE_ICONS;
 
   const displayRecipes = activeTab === 'ingredients' ? externalRecipes : cuisineRecipes;
   const isLoading      = activeTab === 'ingredients' ? externalLoading : cuisineLoading;
+  const cuisineLabel   = selectedCuisines.length > 0 ? selectedCuisines.join(' + ') : 'Global';
 
   return (
     <main className="min-h-screen pb-32 mt-16 max-w-7xl mx-auto">
@@ -357,12 +378,12 @@ const AiRecipeGenerator = () => {
         <div className="col-span-4 bg-surface-container rounded-xl p-md shadow-[0_-4px_12px_rgba(26,25,21,0.04)] overflow-hidden">
           <h3 className="font-label-md text-label-md uppercase mb-sm text-outline">{t('select_cuisine')}</h3>
           <div className="flex gap-sm overflow-x-auto pb-4 pt-2 custom-scrollbar snap-x">
-            {cuisines.map((cuisine) => (
+            {cuisineTags.map((cuisine) => (
               <button
                 key={cuisine}
-                onClick={() => setSelectedCuisine(cuisine)}
+                onClick={() => toggleCuisine(cuisine)}
                 className={`px-4 py-2 rounded-full font-label-md flex-shrink-0 flex items-center gap-2 transition-all duration-200 snap-center ${
-                  selectedCuisine === cuisine
+                  selectedCuisines.includes(cuisine)
                     ? 'bg-primary-container text-on-primary-container shadow-md scale-105 ring-2 ring-primary'
                     : 'bg-surface-container-high text-on-surface-variant hover:bg-outline-variant hover:scale-105'
                 }`}
@@ -517,7 +538,7 @@ const AiRecipeGenerator = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-on-surface/60 to-transparent" />
             <div className="absolute bottom-4 left-4 text-white">
               <p className="font-label-sm text-surface-bright/80">Current Inspiration</p>
-              <h4 className="font-headline-md">{selectedCuisine} Night Market</h4>
+              <h4 className="font-headline-md">{cuisineLabel} Night Market</h4>
             </div>
           </div>
 
@@ -540,7 +561,7 @@ const AiRecipeGenerator = () => {
           <div className="flex items-center gap-1 mb-4 bg-surface-container rounded-xl p-1">
             {[
               { key: 'ingredients', label: t('by_ingredients'), icon: 'kitchen' },
-              { key: 'cuisine',     label: `${selectedCuisine} Dishes`,    icon: 'globe_asia' },
+              { key: 'cuisine',     label: `${cuisineLabel} Dishes`,    icon: 'globe_asia' },
             ].map(tab => (
               <button
                 key={tab.key}
@@ -561,14 +582,14 @@ const AiRecipeGenerator = () => {
           <div className="flex items-center justify-between mb-3">
             <div>
               <h3 className="font-headline-sm text-on-surface text-base font-semibold">
-                {activeTab === 'ingredients' ? t('make_now') : `Popular ${selectedCuisine} Dishes`}
+                {activeTab === 'ingredients' ? t('make_now') : `Popular ${cuisineLabel} Dishes`}
               </h3>
               <p className="text-[12px] text-outline mt-0.5">
                 {t('tap_card_desc')}
               </p>
             </div>
             <button
-              onClick={activeTab === 'ingredients' ? refreshExternalByIngredients : refreshExternalByCuisine}
+              onClick={activeTab === 'ingredients' ? refreshExternalByIngredients : refreshDishesByCuisine}
               disabled={isLoading}
               className="p-2 rounded-full hover:bg-surface-container transition-colors disabled:opacity-50"
               title="Refresh"
@@ -608,7 +629,7 @@ const AiRecipeGenerator = () => {
               <p className="text-on-surface-variant font-body-md">
                 {activeTab === 'ingredients'
                   ? 'Check some ingredients above and hit refresh'
-                  : `No ${selectedCuisine} dishes found. Try another cuisine.`}
+                  : `No ${cuisineLabel} dishes found. Try another cuisine.`}
               </p>
             </div>
           )}

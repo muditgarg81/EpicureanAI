@@ -69,7 +69,12 @@ export const generateRecipe = async (ingredients, cuisine = 'Global', dietaryRes
   const dishName = isArray ? ingredients[0] : ingredients;
   const ingredientString = isArray ? ingredients.join(', ') : ingredients;
   const restrictionsStr = dietaryRestrictions.length > 0 ? dietaryRestrictions.join(', ') : 'None';
-  
+
+  // `cuisine` may be a single cuisine name or an array of selected cuisine_tags
+  // (e.g. ['Awadhi', 'Mughlai']) from the cuisine filter chips.
+  const cuisineTags = (Array.isArray(cuisine) ? cuisine : [cuisine]).filter(Boolean);
+  const cuisineLabel = cuisineTags.length > 0 ? cuisineTags.join(' / ') : 'Global';
+
   // Inject Health Goals
   const { healthGoals } = useAppStore.getState();
   const calTarget = healthGoals?.calories ? `MAX CALORIES PER SERVING: ${healthGoals.calories}` : '';
@@ -78,7 +83,7 @@ export const generateRecipe = async (ingredients, cuisine = 'Global', dietaryRes
   if (!isValidApiKey) {
     console.warn('[AI] No valid Gemini API Key found (must start with AIzaSy). Returning mock recipe.');
     return {
-      title: `Homemade ${cuisine} ${dishName || 'Special'}`,
+      title: `Homemade ${cuisineLabel} ${dishName || 'Special'}`,
       description: `A delicious, easy-to-follow recipe for cooking a flavorful ${dishName} at home.`,
       time: '35 mins',
       calories: healthGoals?.calories || 520,
@@ -94,9 +99,10 @@ export const generateRecipe = async (ingredients, cuisine = 'Global', dietaryRes
     };
   }
 
-  const prompt = `Act as an expert world-class Michelin-star chef. 
-Generate a hyper-detailed, professional ${cuisine} recipe based on this: ${ingredientString}. 
+  const prompt = `Act as an expert world-class Michelin-star chef.
+Generate a hyper-detailed, professional recipe based on this: ${ingredientString}.
 
+CUISINE STYLE: ${cuisineLabel}${cuisineTags.length > 1 ? ' (blend authentic techniques and flavors from all of these cuisine traditions)' : ''}.
 DIETARY RESTRICTIONS TO ADHERE TO: ${restrictionsStr}.
 ${calTarget}
 ${glucoseTarget}

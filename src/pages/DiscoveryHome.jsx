@@ -875,6 +875,7 @@ const DiscoveryHome = () => {
                                 <img
                                   src={imageUrl}
                                   alt={recipe.dish_name}
+                                  loading="lazy"
                                   onError={(e) => {
                                     e.target.style.display = 'none';
                                     if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
@@ -1192,6 +1193,7 @@ const RecipeCard = ({ recipe, index, isSaved, onOpen, onSave }) => {
           <img
             src={imageUrl}
             alt={recipe.dish_name || recipe.title}
+            loading="lazy"
             onError={(e) => {
               e.target.style.display = 'none';
               if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
@@ -1280,7 +1282,28 @@ const RecipeCard = ({ recipe, index, isSaved, onOpen, onSave }) => {
 // ─────────────────────────────────────────────────────────────────────────────
 const parseSteps = (raw) => {
   if (!raw) return [];
-  return raw.split(/\n+/).map((s) => s.trim()).filter(Boolean);
+
+  // New machine-generated format: a "STEPS:" section terminated by a
+  // "CULTURAL NOTE:" / "THIS IS ..." / "THE ...:" trailer. The numbered steps
+  // themselves may each be on their own line, or all run together on one line
+  // (e.g. "STEPS: 1) Marinate... 2) Sauce:... 3) ..."), so split on the "N)"
+  // markers directly rather than assuming one step per line.
+  const stepsMatch = raw.match(/STEPS:\s*([\s\S]*?)(?:\n\s*CULTURAL NOTE:|\n\s*THIS IS |\n\s*THE [A-Z][A-Z\s]*:|$)/i);
+  if (stepsMatch) {
+    const numberedSteps = stepsMatch[1]
+      .split(/(?=(?:^|\s)\d+[\.\)]\s)/)
+      .map((s) => s.trim())
+      .filter((s) => /^\d+[\.\)]/.test(s))
+      .map((s) => s.replace(/^\d+[\.\)]\s*/, ''));
+    if (numberedSteps.length > 0) return numberedSteps;
+  }
+
+  // Legacy plain-text recipes without a STEPS: section
+  return raw
+    .split(/\n+/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .filter((s) => !/^(?:ingredients|steps|equipment)\s*:?\s*$/i.test(s));
 };
 
 const RecipeModal = ({ recipe, isSaved, onClose, onSave, onStartCooking }) => {

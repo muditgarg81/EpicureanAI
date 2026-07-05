@@ -3,6 +3,52 @@ import { fetchRecipesByDishName, fetchRecipesByIngredients } from './externalRec
 import { culinaryDataBank, getDishImage } from '../data/culinaryData';
 
 /**
+ * Fetches every distinct cuisine tag used across the `recipes` table.
+ * `cuisine_tags` is a pipe-separated string per dish (e.g. "Awadhi|Indian|Mughlai");
+ * this flattens and deduplicates them into a single sorted list for filter chips.
+ */
+export const fetchCuisineTags = async () => {
+  const { data, error } = await supabase
+    .from('recipes')
+    .select('cuisine_tags')
+    .not('cuisine_tags', 'is', null);
+
+  if (error || !data) {
+    console.error('Failed to fetch cuisine tags:', error);
+    return [];
+  }
+
+  const tagSet = new Set();
+  data.forEach(row => {
+    (row.cuisine_tags || '').split('|').forEach(tag => {
+      const clean = tag.trim();
+      if (clean) tagSet.add(clean);
+    });
+  });
+
+  return Array.from(tagSet).sort((a, b) => a.localeCompare(b));
+};
+
+/**
+ * Fetches dishes matching any of the selected cuisine tags (OR logic) via
+ * cuisine_tags ILIKE. With no tags selected, returns an unfiltered page.
+ */
+export const fetchDishesByCuisineTags = async (selectedTags = [], limit = 40) => {
+  let qb = supabase.from('recipes').select('*').limit(limit);
+
+  if (selectedTags.length > 0) {
+    qb = qb.or(selectedTags.map(t => `cuisine_tags.ilike.%${t}%`).join(','));
+  }
+
+  const { data, error } = await qb;
+  if (error) {
+    console.error('Failed to fetch dishes by cuisine tags:', error);
+    return [];
+  }
+  return data || [];
+};
+
+/**
  * Unifies search suggestions across Local Mock Data, Supabase, and Web APIs (MealDB/Spoonacular).
  * Returns lightweight objects for dropdowns.
  */

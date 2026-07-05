@@ -20,8 +20,27 @@ const parseDetailedRecipe = (rawText) => {
   
   let currentSection = 'intro'; // 'intro', 'equipment', 'ingredients', 'steps-body', 'tips'
   let currentStep = null;
-  
+
   const isDivider = (str) => /^[=\-\s*_#\+]+$/.test(str);
+
+  // Splits an ingredient/equipment line list, preferring ';' when present
+  // (new machine-generated recipe format), falling back to ',' otherwise.
+  const splitList = (str) => {
+    const bySeparator = str.includes(';')
+      ? str.split(/;\s*/)
+      : str.split(/,\s*(?![^()]*\))/);
+
+    // A '. ' followed by a capital letter often glues a trailing item onto the
+    // next inline sub-header, e.g. "...ginger-garlic). MAKHANI SAUCE: butter...".
+    const parts = [];
+    bySeparator.forEach(chunk => {
+      chunk.split(/\.\s+(?=[A-Z])/).forEach(piece => {
+        const clean = piece.trim();
+        if (clean) parts.push(clean);
+      });
+    });
+    return parts;
+  };
 
   for (let i = 0; i < lines.length; i++) {
     let trimmed = lines[i].trim();
@@ -37,27 +56,24 @@ const parseDetailedRecipe = (rawText) => {
       
       const rest = equipMatch[1].trim();
       if (rest) {
-        const items = rest.split(/,\s*(?![^()]*\))/);
-        items.forEach(item => {
-          const clean = item.trim().replace(/^[\-\*\s•]+\s*/, '');
+        splitList(rest).forEach(item => {
+          const clean = item.replace(/^[\-\*\s•]+\s*/, '');
           if (clean) equipment.push(clean);
         });
       }
       continue;
     }
-    
+
     // Check if line is ingredients header
     const ingredientsMatch = trimmed.match(/^ingredients(?:\s+you\s+(?:will\s+)?need)?:?\s*(.*)$/i);
     if (ingredientsMatch) {
       currentSection = 'ingredients';
       if (currentStep) { parsedSteps.push(currentStep); currentStep = null; }
-      
+
       const rest = ingredientsMatch[1].trim();
       if (rest) {
-        const items = rest.split(/,\s*(?![^()]*\))/);
-        items.forEach(item => {
-          const clean = item.trim();
-          if (clean) parsedIngredients.push(clean);
+        splitList(rest).forEach(item => {
+          if (item) parsedIngredients.push(item);
         });
       }
       continue;
@@ -83,44 +99,74 @@ const parseDetailedRecipe = (rawText) => {
       tips.push(trimmed);
       continue;
     }
-    
-    // Check for STEP header or numbered step (e.g. "STEP 1 — MARINATE", "1. SOAK NOODLES: Soak dry...")
-    const stepMatch = trimmed.match(/^(?:step\s+)?(\d+)\s*[\.\)\]—\-:]\s*(.*)$/i);
-    if (stepMatch) {
+
+    // Trailing trivia/closer lines (e.g. "CULTURAL NOTE: ...", "THIS IS BUTTER CHICKEN...",
+    // "THE ORIGIN STORY: ...") close out the steps section instead of being appended
+    // to the last step.
+    const isTrailingNote = /^cultural\s+note:?/i.test(trimmed)
+      || /^this\s+is\s/i.test(trimmed)
+      || /^THE\s+[A-Z][A-Z\s]*:/.test(trimmed);
+    if (isTrailingNote) {
+      currentSection = 'tips';
+      if (currentStep) { parsedSteps.push(currentStep); currentStep = null; }
+      tips.push(trimmed);
+      continue;
+    }
+
+    // Check for STEP header or numbered step(s). Handles both "one step per line"
+    // (e.g. "STEP 1 — MARINATE" / "1. Soak dry...") and the machine-generated format
+    // where all steps run together on a single line (e.g. "1) Marinate...2) Sauce:...").
+    const stepStartMatch = /^(?:step\s+)?\d+\s*[\.\)\]—\-:]\s*\S/i.test(trimmed);
+    if (stepStartMatch) {
       currentSection = 'steps-body';
-      if (currentStep) {
-        parsedSteps.push(currentStep);
-      }
-      
-      let rawRest = stepMatch[2] ? stepMatch[2].trim() : '';
-      let title = '';
-      let firstParagraph = '';
-      
-      const titleSeparator = rawRest.match(/^(.*?[a-zA-Z0-9])\s*(?::|—|-)\s+(.+)$/);
-      if (titleSeparator) {
-        const potentialTitle = titleSeparator[1].trim();
-        const potentialPara = titleSeparator[2].trim();
-        if (potentialTitle.split(/\s+/).length <= 6) {
-          title = potentialTitle;
-          firstParagraph = potentialPara;
-        } else {
-          firstParagraph = rawRest;
+
+      const chunks = trimmed
+        .split(/(?=(?:^|\s)(?:step\s+)?\d+\s*[\.\)\]—\-:]\s)/i)
+        .map(c => c.trim())
+        .filter(Boolean);
+
+      chunks.forEach(chunk => {
+        const stepMatch = chunk.match(/^(?:step\s+)?(\d+)\s*[\.\)\]—\-:]\s*(.*)$/i);
+        if (!stepMatch) {
+          // Continuation text with no leading step number - keep it with the current step.
+          if (currentStep) currentStep.paragraphs.push(chunk);
+          return;
         }
-      } else {
-        const wordCount = rawRest.split(/\s+/).length;
-        const isSentence = rawRest.endsWith('.') || rawRest.endsWith('!') || rawRest.endsWith('?');
-        if (wordCount <= 6 && !isSentence) {
-          title = rawRest;
-        } else {
-          firstParagraph = rawRest;
+
+        if (currentStep) {
+          parsedSteps.push(currentStep);
         }
-      }
-      
-      currentStep = {
-        number: parseInt(stepMatch[1], 10),
-        title: title,
-        paragraphs: firstParagraph ? [firstParagraph] : []
-      };
+
+        let rawRest = stepMatch[2] ? stepMatch[2].trim() : '';
+        let title = '';
+        let firstParagraph = '';
+
+        const titleSeparator = rawRest.match(/^(.*?[a-zA-Z0-9])\s*(?::|—|-)\s+(.+)$/);
+        if (titleSeparator) {
+          const potentialTitle = titleSeparator[1].trim();
+          const potentialPara = titleSeparator[2].trim();
+          if (potentialTitle.split(/\s+/).length <= 6) {
+            title = potentialTitle;
+            firstParagraph = potentialPara;
+          } else {
+            firstParagraph = rawRest;
+          }
+        } else {
+          const wordCount = rawRest.split(/\s+/).length;
+          const isSentence = rawRest.endsWith('.') || rawRest.endsWith('!') || rawRest.endsWith('?');
+          if (wordCount <= 6 && !isSentence) {
+            title = rawRest;
+          } else {
+            firstParagraph = rawRest;
+          }
+        }
+
+        currentStep = {
+          number: parseInt(stepMatch[1], 10),
+          title: title,
+          paragraphs: firstParagraph ? [firstParagraph] : []
+        };
+      });
       continue;
     }
     
