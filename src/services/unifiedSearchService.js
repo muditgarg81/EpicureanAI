@@ -1,6 +1,16 @@
 import { supabase } from './supabaseClient';
 import { fetchRecipesByDishName, fetchRecipesByIngredients } from './externalRecipeService';
 import { culinaryDataBank, getDishImage } from '../data/culinaryData';
+import { getDetectedCountry } from './currencyService';
+
+const COUNTRY_CUISINE_MAP = {
+  'IN': ['indian', 'rajasthani', 'marwari', 'kumaoni', 'mappila', 'bengali', 'punjabi', 'gujarati', 'maharashtrian', 'keralite', 'tamil', 'andhra', 'awadhi', 'hyderabadi', 'goan', 'kashmiri', 'chettinad', 'sindhi', 'bihari', 'assamese', 'odia', 'parsi', 'konkani', 'manglorean', 'udupi', 'malvani', 'mughlai', 'pahari', 'haryanvi'],
+  'US': ['american', 'southern', 'tex-mex', 'cajun', 'creole', 'soul food', 'new england', 'hawaiian'],
+  'GB': ['british', 'english', 'scottish', 'welsh', 'irish'],
+  'EU': ['french', 'german', 'italian', 'spanish', 'dutch', 'belgian', 'austrian', 'portuguese', 'irish', 'finnish'],
+  'AU': ['australian'],
+  'CA': ['canadian']
+};
 
 /**
  * Fetches every distinct cuisine tag used across the `recipes` table.
@@ -140,6 +150,10 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
   
   const genericKeywords = ['vegetarian', 'vegan', 'gluten', 'spicy', 'cuisine', 'meals', 'recipes', 'dishes', 'world', 'global', 'easy', 'quick', 'anything', 'surprise me', 'you decide', 'dont know', "don't know", 'whatever', 'random', 'decide for me'];
   const isGeneric = (!query || query.trim() === '' || genericKeywords.some(w => lowerQuery.includes(w))) && ingredients.length === 0;
+  
+  const isGlobalQuery = lowerQuery.includes('global') || lowerQuery.includes('world') || (!query || query.trim() === '');
+  const userCountry = getDetectedCountry();
+  const excludedCuisines = isGlobalQuery ? (COUNTRY_CUISINE_MAP[userCountry] || []) : [];
 
   // dietary to supabase columns
   const dbFilters = {};
@@ -155,6 +169,9 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
   if (!isGeneric && query) {
     dbNameQb = dbNameQb.ilike('dish_name', `%${query}%`);
   }
+  excludedCuisines.forEach(c => {
+    dbNameQb = dbNameQb.not('cuisine', 'ilike', `%${c}%`);
+  });
   // Hardcoded limit for exact matches, but we only fetch exact matches on page 1
   dbNameQb = dbNameQb.limit(10);
 
@@ -176,6 +193,10 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
   } else if (!isGeneric && query) {
     dbQb = dbQb.or(`description.ilike.%${query}%,cuisine.ilike.%${query}%`);
   }
+  
+  excludedCuisines.forEach(c => {
+    dbQb = dbQb.not('cuisine', 'ilike', `%${c}%`);
+  });
   
   // Pagination logic using range
   const from = (page - 1) * pageSize;
@@ -206,6 +227,11 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
         if (dietary.vegetarian && !isVeg) return false;
         if (dietary.vegan && !isVegan) return false;
         if (dietary.glutenFree && !isGF) return false;
+
+        const cuisineStr = (r.cuisine || '').toLowerCase();
+        if (excludedCuisines.some(c => cuisineStr.includes(c))) {
+          return false;
+        }
 
         const textToSearch = `${r.title} ${key} ${r.description || ''} ${(r.tags || []).join(' ')}`.toLowerCase();
         const textMatch = textToSearch.includes(lowerQuery);

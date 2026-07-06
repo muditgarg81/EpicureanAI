@@ -2,6 +2,7 @@ require('dotenv').config({ path: '.env.local' });
 const { createClient } = require('@supabase/supabase-js');
 const { v4: uuidv4 } = require('uuid');
 const OpenAI = require('openai');
+const sharp = require('sharp');
 
 const GEMINI_API_KEY = process.env.VITE_GEMINI_API_KEY;
 const FLUX_API_KEY = process.env.VITE_FLUX_API_KEY;
@@ -79,10 +80,10 @@ async function generateFluxImage(prompt) {
 
 async function generateOpenAIImage(prompt) {
   const response = await openai.images.generate({
-    model: "dall-e-2",
+    model: "dall-e-3",
     prompt: prompt,
     n: 1,
-    size: "512x512"
+    size: "1024x1024"
   });
   
   const imageUrl = response.data[0].url;
@@ -159,7 +160,10 @@ async function run() {
         if (e.message === "429_RATE_LIMIT" && activeProvider === 'gemini') {
           console.log("⚠️ Gemini quota exhausted! Failing over to Flux API...");
           activeProvider = 'flux';
-        } 
+        } else if (activeProvider === 'gemini') {
+          console.error(`Gemini generation failed: ${e.message}. Failing over to Flux...`);
+          activeProvider = 'flux';
+        }
         
         if (activeProvider === 'flux') {
            try {
@@ -190,10 +194,21 @@ async function run() {
       if (!buffer) continue;
 
       try {
-        const safeFilename = `${dish.dish_name.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${uuidv4()}.jpg`;
+        console.log(`Compressing image for ${dish.dish_name}...`);
+        buffer = await sharp(buffer)
+          .resize({ width: 512, height: 512, fit: 'inside' })
+          .webp({ quality: 80 })
+          .toBuffer();
+      } catch (err) {
+        console.error("Compression failed:", err.message);
+        continue;
+      }
+
+      try {
+        const safeFilename = `${dish.dish_name.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${uuidv4()}.webp`;
         const { error: uploadError } = await supabase.storage
           .from('dish-images')
-          .upload(safeFilename, buffer, { contentType: 'image/jpeg', upsert: true });
+          .upload(safeFilename, buffer, { contentType: 'image/webp', upsert: true });
 
         if (uploadError) continue;
 

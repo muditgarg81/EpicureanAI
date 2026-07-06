@@ -21,6 +21,16 @@ import {
 } from '../services/dbService';
 import { connectHealthPlatform, fetchHealthData } from '../services/healthService';
 
+// Debounce helper — batches rapid successive calls into one after `delay` ms
+const debounceMap = {};
+const debounced = (key, fn, delay = 2000) => {
+  if (debounceMap[key]) clearTimeout(debounceMap[key]);
+  debounceMap[key] = setTimeout(() => {
+    delete debounceMap[key];
+    fn();
+  }, delay);
+};
+
 const generateUUID = () => {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
     return crypto.randomUUID();
@@ -91,52 +101,49 @@ const useAppStore = create(
       addPantryItem: async (item) => {
         const newItem = { ...item, id: `p-${Date.now()}-${Math.random().toString(36).substr(2, 9)}` };
         set((state) => ({ pantryItems: [...state.pantryItems, newItem] }));
-        
         const user = useAuthStore.getState().user;
         if (user) {
-          const { error } = await supabase.from('pantry_items').insert({
-            id: newItem.id,
-            user_id: user.id,
-            name: newItem.name,
-            category: newItem.category,
-            quantity: newItem.quantity,
-            status: newItem.status,
-            level: newItem.level,
-            color: newItem.color || null,
-            img: newItem.img || null,
-            checked: newItem.checked || false,
+          debounced(`pantry-add-${newItem.id}`, async () => {
+            const { error } = await supabase.from('pantry_items').insert({
+              id: newItem.id, user_id: user.id, name: newItem.name,
+              category: newItem.category, quantity: newItem.quantity,
+              status: newItem.status, level: newItem.level,
+              color: newItem.color || null, img: newItem.img || null,
+              checked: newItem.checked || false,
+            });
+            if (error) console.error("Error adding pantry item:", error);
           });
-          if (error) console.error("Error adding pantry item:", error);
         }
       },
       updatePantryItem: async (id, updates) => {
         set((state) => ({
           pantryItems: state.pantryItems.map(item => item.id === id ? { ...item, ...updates } : item)
         }));
-        
         const user = useAuthStore.getState().user;
         if (user) {
-          const validUpdates = {};
-          if (updates.name !== undefined) validUpdates.name = updates.name;
-          if (updates.category !== undefined) validUpdates.category = updates.category;
-          if (updates.quantity !== undefined) validUpdates.quantity = updates.quantity;
-          if (updates.status !== undefined) validUpdates.status = updates.status;
-          if (updates.level !== undefined) validUpdates.level = updates.level;
-          if (updates.color !== undefined) validUpdates.color = updates.color;
-          if (updates.img !== undefined) validUpdates.img = updates.img;
-          if (updates.checked !== undefined) validUpdates.checked = updates.checked;
-
-          const { error } = await supabase.from('pantry_items').update(validUpdates).eq('id', id).eq('user_id', user.id);
-          if (error) console.error("Error updating pantry item:", error);
+          debounced(`pantry-update-${id}`, async () => {
+            const validUpdates = {};
+            if (updates.name !== undefined) validUpdates.name = updates.name;
+            if (updates.category !== undefined) validUpdates.category = updates.category;
+            if (updates.quantity !== undefined) validUpdates.quantity = updates.quantity;
+            if (updates.status !== undefined) validUpdates.status = updates.status;
+            if (updates.level !== undefined) validUpdates.level = updates.level;
+            if (updates.color !== undefined) validUpdates.color = updates.color;
+            if (updates.img !== undefined) validUpdates.img = updates.img;
+            if (updates.checked !== undefined) validUpdates.checked = updates.checked;
+            const { error } = await supabase.from('pantry_items').update(validUpdates).eq('id', id).eq('user_id', user.id);
+            if (error) console.error("Error updating pantry item:", error);
+          });
         }
       },
       deletePantryItem: async (id) => {
         set((state) => ({ pantryItems: state.pantryItems.filter(item => item.id !== id) }));
-        
         const user = useAuthStore.getState().user;
         if (user) {
-          const { error } = await supabase.from('pantry_items').delete().eq('id', id).eq('user_id', user.id);
-          if (error) console.error("Error deleting pantry item:", error);
+          debounced(`pantry-delete-${id}`, async () => {
+            const { error } = await supabase.from('pantry_items').delete().eq('id', id).eq('user_id', user.id);
+            if (error) console.error("Error deleting pantry item:", error);
+          });
         }
       },
 
@@ -145,54 +152,46 @@ const useAppStore = create(
       addGroceryItem: async (item) => {
         const state = get();
         const existing = state.groceryList.find(i => i.name.toLowerCase() === item.name.toLowerCase());
-        if (existing) {
-          return; // Avoid duplicate
-        }
-
+        if (existing) return;
         const newItem = { ...item, id: Date.now().toString(), checked: false };
         set((state) => ({ groceryList: [...state.groceryList, newItem] }));
-        
         const user = useAuthStore.getState().user;
         if (user) {
-          const { error } = await supabase.from('grocery_items').insert({
-            id: newItem.id,
-            user_id: user.id,
-            name: newItem.name,
-            category: newItem.category,
-            quantity: newItem.quantity,
-            checked: newItem.checked || false,
+          debounced(`grocery-add-${newItem.id}`, async () => {
+            const { error } = await supabase.from('grocery_items').insert({
+              id: newItem.id, user_id: user.id, name: newItem.name,
+              category: newItem.category, quantity: newItem.quantity,
+              checked: newItem.checked || false,
+            });
+            if (error) console.error("Error adding grocery item:", error);
           });
-          if (error) console.error("Error adding grocery item:", error);
         }
       },
       toggleGroceryItem: async (id) => {
         let isChecked = false;
         set((state) => {
           const newList = state.groceryList.map(item => {
-            if (item.id === id) {
-              isChecked = !item.checked;
-              return { ...item, checked: isChecked };
-            }
+            if (item.id === id) { isChecked = !item.checked; return { ...item, checked: isChecked }; }
             return item;
           });
           return { groceryList: newList };
         });
-        
         const user = useAuthStore.getState().user;
         if (user) {
-          const { error } = await supabase.from('grocery_items').update({ checked: isChecked }).eq('id', id).eq('user_id', user.id);
-          if (error) console.error("Error toggling grocery item:", error);
+          debounced(`grocery-toggle-${id}`, async () => {
+            const { error } = await supabase.from('grocery_items').update({ checked: isChecked }).eq('id', id).eq('user_id', user.id);
+            if (error) console.error("Error toggling grocery item:", error);
+          });
         }
       },
       removeGroceryItem: async (id) => {
-        set((state) => ({
-          groceryList: state.groceryList.filter(item => item.id !== id)
-        }));
-        
+        set((state) => ({ groceryList: state.groceryList.filter(item => item.id !== id) }));
         const user = useAuthStore.getState().user;
         if (user) {
-          const { error } = await supabase.from('grocery_items').delete().eq('id', id).eq('user_id', user.id);
-          if (error) console.error("Error deleting grocery item:", error);
+          debounced(`grocery-remove-${id}`, async () => {
+            const { error } = await supabase.from('grocery_items').delete().eq('id', id).eq('user_id', user.id);
+            if (error) console.error("Error deleting grocery item:", error);
+          });
         }
       },
 
@@ -518,12 +517,12 @@ const useAppStore = create(
         const newPlan = {
           ...state.mealPlan,
           weekCommencing: state.mealPlan.weekCommencing || currentWeek,
-          [day]: {
-            ...state.mealPlan[day],
-            [type]: meals
-          }
+          [day]: { ...state.mealPlan[day], [type]: meals }
         };
-        if (state.familyId) syncMealPlanToDb(newPlan, state.familyId);
+        if (state.familyId) {
+          const fId = state.familyId;
+          debounced('meal-plan-sync', () => syncMealPlanToDb(newPlan, fId));
+        }
         return { mealPlan: newPlan };
       }),
       resetStore: () => set({
