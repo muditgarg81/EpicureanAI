@@ -7,8 +7,19 @@ import {
   lookupMealDBById,
   getApiStatus,
 } from '../services/externalRecipeService';
-import { getUnifiedSuggestions, getUnifiedFullSearch, fetchCuisineTags, fetchDishesByCuisineTags } from '../services/unifiedSearchService';
+import { getUnifiedSuggestions, getUnifiedFullSearch, fetchCuisineTags, fetchDishesByCuisineTags, fetchTasteTags } from '../services/unifiedSearchService';
 import { CUISINE_ICONS } from '../constants/cuisines';
+
+const TASTE_ICONS = {
+  Sweet: 'cake',
+  Spicy: 'local_fire_department',
+  Tangy: 'water_drop',
+  Sour: 'grain',
+  Salty: 'grain',
+  Savory: 'restaurant',
+  Cold: 'ac_unit',
+  Hot: 'whatshot',
+};
 import useAppStore from '../store/useAppStore';
 import useTranslation from '../hooks/useTranslation';
 
@@ -142,6 +153,20 @@ const AiRecipeGenerator = () => {
     );
   };
 
+  // ── Taste tags (dynamic, from recipes.taste_tags) ────────────────────────────
+  const [tasteTags, setTasteTags] = useState([]);
+  const [selectedTastes, setSelectedTastes] = useState([]);
+
+  useEffect(() => {
+    fetchTasteTags().then(setTasteTags);
+  }, []);
+
+  const toggleTaste = (tag) => {
+    setSelectedTastes(prev =>
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+    );
+  };
+
   const [pantryItems, setPantryItems] = useState(() => {
     if (location.state?.pantryItems?.length > 0) return location.state.pantryItems;
     return [
@@ -242,11 +267,11 @@ const AiRecipeGenerator = () => {
     }
   }, [pantryItems]);
 
-  // ── Fetch dishes matching the selected cuisine tags (recipes.cuisine_tags) ──
+  // ── Fetch dishes matching the selected cuisine + taste tags ─────────────────
   const refreshDishesByCuisine = useCallback(async () => {
     setCuisineLoading(true);
     try {
-      const results = await fetchDishesByCuisineTags(selectedCuisines);
+      const results = await fetchDishesByCuisineTags(selectedCuisines, 40, selectedTastes);
       const mapped = results.map(r => ({
         id: r.id,
         title: r.dish_name,
@@ -259,7 +284,7 @@ const AiRecipeGenerator = () => {
     } finally {
       setCuisineLoading(false);
     }
-  }, [selectedCuisines]);
+  }, [selectedCuisines, selectedTastes]);
 
   // Auto-fetch when active tab or dependencies change
   useEffect(() => {
@@ -271,7 +296,7 @@ const AiRecipeGenerator = () => {
       setCuisineRecipes([]); // Clear old results to avoid stale data
       refreshDishesByCuisine();
     }
-  }, [activeTab, selectedCuisines, refreshDishesByCuisine]);
+  }, [activeTab, selectedCuisines, selectedTastes, refreshDishesByCuisine]);
 
   // ── Pantry actions ──────────────────────────────────────────────────────────
   const toggleIngredient = (index) => {
@@ -332,7 +357,7 @@ const AiRecipeGenerator = () => {
       const activeIngredients = overrideName
         ? [overrideName]
         : pantryItems.filter(item => item.checked).map(item => item.name);
-      const recipeJson = await generateRecipe(activeIngredients, selectedCuisines, userRestrictions);
+      const recipeJson = await generateRecipe(activeIngredients, selectedCuisines, userRestrictions, selectedTastes);
       navigate('/recipe', { state: { recipe: recipeJson } });
     } catch (error) {
       console.error(error);
@@ -392,6 +417,29 @@ const AiRecipeGenerator = () => {
                   {cuisineIcons[cuisine] || 'restaurant'}
                 </span>
                 {cuisine}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Taste Selector ────────────────────────────────────────────────── */}
+        <div className="col-span-4 bg-surface-container rounded-xl p-md shadow-[0_-4px_12px_rgba(26,25,21,0.04)] overflow-hidden">
+          <h3 className="font-label-md text-label-md uppercase mb-sm text-outline">Taste & Temperature</h3>
+          <div className="flex gap-sm overflow-x-auto pb-4 pt-2 custom-scrollbar snap-x">
+            {tasteTags.map((taste) => (
+              <button
+                key={taste}
+                onClick={() => toggleTaste(taste)}
+                className={`px-4 py-2 rounded-full font-label-md flex-shrink-0 flex items-center gap-2 transition-all duration-200 snap-center ${
+                  selectedTastes.includes(taste)
+                    ? 'bg-primary-container text-on-primary-container shadow-md scale-105 ring-2 ring-primary'
+                    : 'bg-surface-container-high text-on-surface-variant hover:bg-outline-variant hover:scale-105'
+                }`}
+              >
+                <span className="material-symbols-outlined text-[18px]">
+                  {TASTE_ICONS[taste] || 'restaurant'}
+                </span>
+                {taste}
               </button>
             ))}
           </div>

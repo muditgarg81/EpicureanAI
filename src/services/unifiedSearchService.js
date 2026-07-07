@@ -40,19 +40,50 @@ export const fetchCuisineTags = async () => {
 };
 
 /**
- * Fetches dishes matching any of the selected cuisine tags (OR logic) via
- * cuisine_tags ILIKE. With no tags selected, returns an unfiltered page.
+ * Fetches every distinct taste tag used across the `recipes` table.
+ * `taste_tags` is a pipe-separated string per dish (e.g. "Spicy|Savory|Hot");
+ * this flattens and deduplicates them into a single sorted list for filter chips.
  */
-export const fetchDishesByCuisineTags = async (selectedTags = [], limit = 40) => {
+export const fetchTasteTags = async () => {
+  const { data, error } = await supabase
+    .from('recipes')
+    .select('taste_tags')
+    .not('taste_tags', 'is', null);
+
+  if (error || !data) {
+    console.error('Failed to fetch taste tags:', error);
+    return [];
+  }
+
+  const tagSet = new Set();
+  data.forEach(row => {
+    (row.taste_tags || '').split('|').forEach(tag => {
+      const clean = tag.trim();
+      if (clean) tagSet.add(clean);
+    });
+  });
+
+  return Array.from(tagSet).sort((a, b) => a.localeCompare(b));
+};
+
+/**
+ * Fetches dishes matching any of the selected cuisine tags (OR logic) AND
+ * any of the selected taste tags (OR logic), via ILIKE. With no tags
+ * selected in a category, that category is left unfiltered.
+ */
+export const fetchDishesByCuisineTags = async (selectedTags = [], limit = 40, selectedTasteTags = []) => {
   let qb = supabase.from('recipes').select('*').limit(limit);
 
   if (selectedTags.length > 0) {
     qb = qb.or(selectedTags.map(t => `cuisine_tags.ilike.%${t}%`).join(','));
   }
+  if (selectedTasteTags.length > 0) {
+    qb = qb.or(selectedTasteTags.map(t => `taste_tags.ilike.%${t}%`).join(','));
+  }
 
   const { data, error } = await qb;
   if (error) {
-    console.error('Failed to fetch dishes by cuisine tags:', error);
+    console.error('Failed to fetch dishes by cuisine/taste tags:', error);
     return [];
   }
   return data || [];
@@ -191,7 +222,7 @@ export const getUnifiedFullSearch = async (query, filters = { ingredients: [], d
     });
     dbQb = dbQb.or(orConditions.join(','));
   } else if (!isGeneric && query) {
-    dbQb = dbQb.or(`description.ilike.%${query}%,cuisine.ilike.%${query}%`);
+    dbQb = dbQb.or(`dish_name.ilike.%${query}%,description.ilike.%${query}%,cuisine.ilike.%${query}%`);
   }
   
   excludedCuisines.forEach(c => {

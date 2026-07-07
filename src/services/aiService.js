@@ -64,7 +64,7 @@ const safeGenerateContent = async (prompt, primaryModel = 'gemini-2.5-flash') =>
 
 // ─── generateRecipe ───────────────────────────────────────────────────────────
 
-export const generateRecipe = async (ingredients, cuisine = 'Global', dietaryRestrictions = []) => {
+export const generateRecipe = async (ingredients, cuisine = 'Global', dietaryRestrictions = [], tasteTags = []) => {
   const isArray = Array.isArray(ingredients);
   const dishName = isArray ? ingredients[0] : ingredients;
   const ingredientString = isArray ? ingredients.join(', ') : ingredients;
@@ -74,6 +74,9 @@ export const generateRecipe = async (ingredients, cuisine = 'Global', dietaryRes
   // (e.g. ['Awadhi', 'Mughlai']) from the cuisine filter chips.
   const cuisineTags = (Array.isArray(cuisine) ? cuisine : [cuisine]).filter(Boolean);
   const cuisineLabel = cuisineTags.length > 0 ? cuisineTags.join(' / ') : 'Global';
+
+  // Selected taste/temperature chips (e.g. ['Spicy', 'Cold']) from the taste filter.
+  const tasteLabel = (tasteTags || []).filter(Boolean).join(' / ');
 
   // Inject Health Goals
   const { healthGoals } = useAppStore.getState();
@@ -103,6 +106,7 @@ export const generateRecipe = async (ingredients, cuisine = 'Global', dietaryRes
 Generate a hyper-detailed, professional recipe based on this: ${ingredientString}.
 
 CUISINE STYLE: ${cuisineLabel}${cuisineTags.length > 1 ? ' (blend authentic techniques and flavors from all of these cuisine traditions)' : ''}.
+${tasteLabel ? `TASTE PROFILE: The dish MUST prominently deliver these taste/temperature qualities: ${tasteLabel}.` : ''}
 DIETARY RESTRICTIONS TO ADHERE TO: ${restrictionsStr}.
 ${calTarget}
 ${glucoseTarget}
